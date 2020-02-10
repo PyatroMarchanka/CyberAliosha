@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/CyberAliosha-Parter-React/static/css/main.689e4427.chunk.css",
+    "main.js": "/CyberAliosha-Parter-React/static/js/main.d306f14d.chunk.js",
+    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.d306f14d.chunk.js.map",
+    "runtime-main.js": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js",
+    "runtime-main.js.map": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js.map",
+    "static/js/2.63bc8f40.chunk.js": "/CyberAliosha-Parter-React/static/js/2.63bc8f40.chunk.js",
+    "static/js/2.63bc8f40.chunk.js.map": "/CyberAliosha-Parter-React/static/js/2.63bc8f40.chunk.js.map",
+    "index.html": "/CyberAliosha-Parter-React/index.html",
+    "precache-manifest.b5e3f77007e0ec844c34a21a6fd3d262.js": "/CyberAliosha-Parter-React/precache-manifest.b5e3f77007e0ec844c34a21a6fd3d262.js",
+    "service-worker.js": "/CyberAliosha-Parter-React/service-worker.js",
+    "static/css/main.689e4427.chunk.css.map": "/CyberAliosha-Parter-React/static/css/main.689e4427.chunk.css.map",
+    "static/js/2.63bc8f40.chunk.js.LICENSE.txt": "/CyberAliosha-Parter-React/static/js/2.63bc8f40.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.65ac1b0c.js",
+    "static/js/2.63bc8f40.chunk.js",
+    "static/css/main.689e4427.chunk.css",
+    "static/js/main.d306f14d.chunk.js"
+  ]
+}
