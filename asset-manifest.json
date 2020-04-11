@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/CyberAliosha-Parter-React/static/css/main.689e4427.chunk.css",
-    "main.js": "/CyberAliosha-Parter-React/static/js/main.5d38c11d.chunk.js",
-    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.5d38c11d.chunk.js.map",
+    "main.css": "/CyberAliosha-Parter-React/static/css/main.c7b0561c.chunk.css",
+    "main.js": "/CyberAliosha-Parter-React/static/js/main.0d4030b8.chunk.js",
+    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.0d4030b8.chunk.js.map",
     "runtime-main.js": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js",
     "runtime-main.js.map": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js.map",
     "static/js/2.63bc8f40.chunk.js": "/CyberAliosha-Parter-React/static/js/2.63bc8f40.chunk.js",
     "static/js/2.63bc8f40.chunk.js.map": "/CyberAliosha-Parter-React/static/js/2.63bc8f40.chunk.js.map",
     "index.html": "/CyberAliosha-Parter-React/index.html",
-    "precache-manifest.0ccb531bb2a33473fef2463f164d6008.js": "/CyberAliosha-Parter-React/precache-manifest.0ccb531bb2a33473fef2463f164d6008.js",
+    "precache-manifest.b17e79d2f7a5d6cd49d15d4bbcad8ee3.js": "/CyberAliosha-Parter-React/precache-manifest.b17e79d2f7a5d6cd49d15d4bbcad8ee3.js",
     "service-worker.js": "/CyberAliosha-Parter-React/service-worker.js",
-    "static/css/main.689e4427.chunk.css.map": "/CyberAliosha-Parter-React/static/css/main.689e4427.chunk.css.map",
+    "static/css/main.c7b0561c.chunk.css.map": "/CyberAliosha-Parter-React/static/css/main.c7b0561c.chunk.css.map",
     "static/js/2.63bc8f40.chunk.js.LICENSE.txt": "/CyberAliosha-Parter-React/static/js/2.63bc8f40.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.65ac1b0c.js",
     "static/js/2.63bc8f40.chunk.js",
-    "static/css/main.689e4427.chunk.css",
-    "static/js/main.5d38c11d.chunk.js"
+    "static/css/main.c7b0561c.chunk.css",
+    "static/js/main.0d4030b8.chunk.js"
   ]
 }
