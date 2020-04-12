@@ -35,9 +35,21 @@
 .mb-20{
   margin-bottom: 20px;
 }
+.mt-5 {
+  margin-top: 5px;
+}
 
 .mt-20{
   margin-top: 20px;
+}
+
+.input {
+  width: 150px;
+}
+
+.label {
+  font-size: 20px;
+  padding: 0 5px;
 }
 
 .part-editor__added-parts{
@@ -96,7 +108,8 @@ a {
 }
 
 @media screen and (max-width: 600px){
-  .selector{
+  .selector, .input{
     width: 100%;
   }
+ 
 }

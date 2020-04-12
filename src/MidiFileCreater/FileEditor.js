@@ -6,7 +6,8 @@ export default class FileEditor {
     this.partOptions = {
         type: "soprano",
         notesLength: 'often',
-        function: 'solo'
+        function: 'solo',
+        restProbability: 0.2
     };
   }
 

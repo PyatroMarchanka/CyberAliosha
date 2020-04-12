@@ -9,8 +9,8 @@ export default class PartsFabric {
     }
 
     addPart(partOptions){
-        console.log(partOptions);
-        const part = new PartCreator(this.chords, this.squaresCount, partOptions.notes, partOptions.type, partOptions.pattern ).notes;
+        console.log('partOptions',partOptions);
+        const part = new PartCreator(this.chords, this.squaresCount,partOptions  ).notes;
         this.parts.push(part);
         console.log(this.parts);
     }

@@ -44,7 +44,8 @@ function convertChordStringToArr(chord) {
   return [tone, chordFunction];
 }
 
-function createDurMeasure(notesLengthType, type) {
+function createDurMeasure(notesLengthType, count) {
+  console.log('notesLengthType',notesLengthType)
   const typeLengthMap = {
     often: [2, 4, 8, 8, 8, 16, 16, 16],
     middle: [2, 4, 4, 4, 4, 8, 8, 8],

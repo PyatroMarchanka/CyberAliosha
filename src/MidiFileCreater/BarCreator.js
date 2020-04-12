@@ -8,22 +8,22 @@ export default class BarCreator {
     this.toneJsArr = [];
   }
 
-  getRandomBar(chord, idx, pattern) {
-    this.toneJsArr = this.createRandomBar(chord, pattern);
+  getRandomBar(chord, idx, pattern, restProbability) {
+    this.toneJsArr = this.createRandomBar(chord, pattern, restProbability);
     this.createOctave(idx);
     return this.toneJsArr;
   }
 
-  createRandomBar(chord, pattern) {
+  createRandomBar(chord, pattern, restProbability) {
     let resultBar = [];
-    if (pattern){
-        pattern.map(patternNote => {
-          resultBar.push({
-            note: chord[2][patternNote.chordPitch],
-            dur: patternNote.dur
-          })
-        })
-        return resultBar;
+    if (pattern) {
+      pattern.map(patternNote => {
+        resultBar.push({
+          note: Math.random() > restProbability ? chord[2][patternNote.chordPitch] : '',
+          dur: patternNote.dur
+        });
+      });
+      return resultBar;
     }
     const durs = createDurMeasure(this.notesLengthMode);
     for (let index = 0; index < durs.length; index++) {
@@ -35,7 +35,8 @@ export default class BarCreator {
       //   durs[index] <= 0.125
       //     ? chordModeNotes
       //     : chordNotes;
-      const newNote = this.createRandomNote(chord[2], durs[index]);
+
+      const newNote = this.createRandomNote(chord[2], durs[index], null, restProbability);
 
       // if (
       //   this.type === "no chomatic!" &&
@@ -62,7 +63,10 @@ export default class BarCreator {
 
   createOctave(idx) {
     if (this.type === "soprano") {
-      this.toneJsArr = this.toneJsArr.map((note) => {
+      this.toneJsArr = this.toneJsArr.map(note => {
+        if (!note.note) {
+          return note;
+        }
         note.note =
           note.note + (idx % 5 === 0 ? "4" : idx % 9 === 0 ? "6" : "5");
         return note;
@@ -70,25 +74,31 @@ export default class BarCreator {
     }
     if (this.type === "bass") {
       this.toneJsArr = this.toneJsArr.map(note => {
-          note.note = note.note + (idx % 6 === 0 ? "1" : "2");
+        if (!note.note) {
           return note;
-        })
-      
+        }
+        note.note = note.note + (idx % 6 === 0 ? "2" : "3");
+        return note;
+      });
     }
     if (this.type === "tenor") {
       this.toneJsArr = this.toneJsArr.map(note => {
-          note.note = note.note + (idx % 6 === 0 ? "3" : "4");
+        if (!note.note) {
           return note;
-        })
+        }
+        note.note = note.note + (idx % 6 === 0 ? "3" : "4");
+        return note;
+      });
     }
   }
 
-  createRandomNote(notes, dur, note) {
+  createRandomNote(notes, dur, note, restProbability) {
     const randNoteIndex = randomIntegerRange(0, notes.length);
     const randNote = {
-      note: note ? note : notes[randNoteIndex],
+      note: Math.random() > restProbability ? (note ? note : notes[randNoteIndex]) : '',
       dur: dur || 1 / +DURATIONS[randomIntegerRange(1, DURATIONS.length)]
     };
+    console.log(randNote);
     return randNote;
   }
 }
