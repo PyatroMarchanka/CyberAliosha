@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import Selector from "./components/Selector";
-import Button from "../ChordEditor/components/Button";
-import FileEditor from "../../MidiFileCreater/FileEditor";
-import partOptions from "../../dataset/partOptions";
-import { chordNamesToFullArr } from "../../MidiFileCreater/utils";
-import AddedParts from "./components/AddedParts";
+import React, { Component } from 'react';
+import Selector from './components/Selector';
+import Button from '../ChordEditor/components/Button';
+import FileEditor from '../../MidiFileCreater/FileEditor';
+import partOptions from '../../dataset/partOptions';
+import { chordNamesToFullArr } from '../../MidiFileCreater/utils';
+import AddedParts from './components/AddedParts';
 
 export default class PartEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       partOptions: {
-        type: "soprano",
-        function: "solo",
-        notes: "often",
-        restProbability: 20
+        type: 'soprano',
+        function: 'solo',
+        notes: 'often',
+        restProbability: 20,
       },
       fileLink: null,
-      addedPartsHeaders: []
+      addedPartsHeaders: [],
     };
     this.fileEditor = new FileEditor();
     this.isFile = false;
@@ -37,13 +37,12 @@ export default class PartEditor extends Component {
     partOptions[e.target.name] = e.target.value;
     console.log(e.target.value);
     this.setState({
-      partOptions
+      partOptions,
     });
   }
 
   createNewFile() {
     const fullChords = chordNamesToFullArr(this.props.chords);
-    console.log(fullChords);
     this.fileEditor.createNewFile(fullChords);
   }
 
@@ -55,11 +54,10 @@ export default class PartEditor extends Component {
       this.createNewFile();
     }
     this.fileEditor.partOptions = this.state.partOptions;
-    console.log(this.fileEditor.partOptions);
     this.fileEditor.addNewPart();
     const newPartHeader = this.state.partOptions;
     this.setState({
-      addedPartsHeaders: [...this.state.addedPartsHeaders, newPartHeader]
+      addedPartsHeaders: [...this.state.addedPartsHeaders, newPartHeader],
     });
   }
 
@@ -67,30 +65,26 @@ export default class PartEditor extends Component {
     this.props.setChords(null, false);
     this.setState({
       fileLink: null,
-      addedPartsHeaders: []
+      addedPartsHeaders: [],
     });
   }
 
   generateMidi() {
     if (this.fileEditor.midiCreator === null) {
-      console.log("add a part !");
+      console.log('add a part !');
       return;
     }
     if (this.state.fileLink !== null) {
-      console.log("file already generated!");
+      console.log('file already generated!');
       return;
     }
     this.fileEditor.generateMidi();
     this.setState({
       fileLink: (
         <a href={this.fileEditor.getURI()}>
-          <Button
-            class="btn btn-big"
-            handleClick={this.fileDidDownloaded}
-            text="Download file"
-          />
+          <Button class="btn btn-big" handleClick={this.fileDidDownloaded} text="Download file" />
         </a>
-      )
+      ),
     });
     this.createNewFile();
   }
@@ -120,7 +114,14 @@ export default class PartEditor extends Component {
           options={this.notes}
           handleChange={this.handleSelectorsChange}
         />
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px 0'}}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '10px 0',
+          }}
+        >
           <label className="label text-white" htmlFor="restProbability">
             Rest probability: {this.state.partOptions.restProbability}%
           </label>
@@ -129,24 +130,15 @@ export default class PartEditor extends Component {
             className="input"
             value={this.state.partOptions.restProbability}
             type="range"
-            min='0'
-            max='100'
+            min="0"
+            max="100"
             onChange={this.handleSelectorsChange}
             name="restProbability"
           />
-          
         </div>
-        <Button
-          class="btn btn-big"
-          handleClick={this.addPart}
-          text="Add a part in file"
-        />
+        <Button class="btn btn-big" handleClick={this.addPart} text="Add a part in file" />
         <AddedParts partOptionsArr={this.state.addedPartsHeaders} />
-        <Button
-          class="btn btn-big mb-20"
-          handleClick={this.generateMidi}
-          text="Generate file"
-        />
+        <Button class="btn btn-big mb-20" handleClick={this.generateMidi} text="Generate file" />
         {this.state.fileLink}
       </div>
     );

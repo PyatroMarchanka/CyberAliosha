@@ -1,5 +1,5 @@
-import { DURATIONS } from "../dataset/dataset";
-import { randomIntegerRange, createDurMeasure } from "./utils";
+import { DURATIONS } from '../dataset/dataset';
+import { randomIntegerRange, createDurMeasure } from './utils';
 
 export default class BarCreator {
   constructor(notesLengthMode, type) {
@@ -17,10 +17,10 @@ export default class BarCreator {
   createRandomBar(chord, pattern, restProbability) {
     let resultBar = [];
     if (pattern) {
-      pattern.map(patternNote => {
+      pattern.map((patternNote) => {
         resultBar.push({
           note: Math.random() > restProbability ? chord[2][patternNote.chordPitch] : '',
-          dur: patternNote.dur
+          dur: patternNote.dur,
         });
       });
       return resultBar;
@@ -62,31 +62,30 @@ export default class BarCreator {
   }
 
   createOctave(idx) {
-    if (this.type === "soprano") {
-      this.toneJsArr = this.toneJsArr.map(note => {
+    if (this.type === 'soprano') {
+      this.toneJsArr = this.toneJsArr.map((note) => {
         if (!note.note) {
           return note;
         }
-        note.note =
-          note.note + (idx % 5 === 0 ? "4" : idx % 9 === 0 ? "6" : "5");
+        note.note = note.note + (idx % 5 === 0 ? '4' : idx % 9 === 0 ? '6' : '5');
         return note;
       });
     }
-    if (this.type === "bass") {
-      this.toneJsArr = this.toneJsArr.map(note => {
+    if (this.type === 'bass') {
+      this.toneJsArr = this.toneJsArr.map((note) => {
         if (!note.note) {
           return note;
         }
-        note.note = note.note + (idx % 6 === 0 ? "2" : "3");
+        note.note = note.note + (idx % 6 === 0 ? '2' : '3');
         return note;
       });
     }
-    if (this.type === "tenor") {
-      this.toneJsArr = this.toneJsArr.map(note => {
+    if (this.type === 'tenor') {
+      this.toneJsArr = this.toneJsArr.map((note) => {
         if (!note.note) {
           return note;
         }
-        note.note = note.note + (idx % 6 === 0 ? "3" : "4");
+        note.note = note.note + (idx % 6 === 0 ? '3' : '4');
         return note;
       });
     }
@@ -96,9 +95,8 @@ export default class BarCreator {
     const randNoteIndex = randomIntegerRange(0, notes.length);
     const randNote = {
       note: Math.random() > restProbability ? (note ? note : notes[randNoteIndex]) : '',
-      dur: dur || 1 / +DURATIONS[randomIntegerRange(1, DURATIONS.length)]
+      dur: dur || 1 / +DURATIONS[randomIntegerRange(1, DURATIONS.length)],
     };
-    console.log(randNote);
     return randNote;
   }
 }
