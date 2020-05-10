@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/CyberAliosha-Parter-React/precache-manifest.b17e79d2f7a5d6cd49d15d4bbcad8ee3.js"
+  "/CyberAliosha-Parter-React/precache-manifest.21a984fa32a40d8c85a483aae55ba0d9.js"
 );
 
 self.addEventListener('message', (event) => {
