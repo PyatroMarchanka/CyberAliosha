@@ -4,6 +4,13 @@
   text-align: center;
   font-size: 15px;
   background-color: rgb(0, 0, 0);
+  min-height: 100vh;
+}
+
+.App-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .App-header {
@@ -20,11 +27,11 @@
   color: #61dafb;
 }
 
-.App-chord-editor{
+.App-chord-editor {
   margin-bottom: 20px;
 }
 
-.selector{
+.selector {
   height: 40px;
   font-size: 20px;
   border-radius: 10px;
@@ -32,14 +39,14 @@
 .text-white {
   color: white;
 }
-.mb-20{
+.mb-20 {
   margin-bottom: 20px;
 }
 .mt-5 {
   margin-top: 5px;
 }
 
-.mt-20{
+.mt-20 {
   margin-top: 20px;
 }
 
@@ -52,9 +59,8 @@
   padding: 0 5px;
 }
 
-.part-editor__added-parts{
+.part-editor__added-parts {
   padding: 10px;
-  
 }
 
 .added-parts__part {
@@ -63,13 +69,12 @@
   margin-bottom: 5px;
 }
 
-.btn{
+.btn {
   transition: all 0.5s;
   min-width: 60px;
   height: 40px;
   border-radius: 5px;
   border: 2px solid rgb(0, 0, 0);
-
 }
 
 .btn-big {
@@ -84,22 +89,21 @@
   border: 2px solid rgb(190, 190, 190);
 }
 
-.btn-outline-dark:hover{
+.btn-outline-dark:hover {
   color: rgb(255, 255, 255);
   border: 2px solid rgb(26, 25, 25);
   background-color: rgb(119, 119, 119);
 }
-.chord-menu{
+.chord-menu {
   margin-bottom: 10px;
 }
 
-
-.grid-col-4{
+.grid-col-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
 
-.main-window{
+.main-window {
   max-width: 700px;
 }
 
@@ -107,9 +111,18 @@ a {
   color: white;
 }
 
-@media screen and (max-width: 600px){
-  .selector, .input{
+@media screen and (min-width: 600px) {
+  .btn {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .selector,
+  .input {
     width: 100%;
   }
- 
+  .btn {
+    font-size: 15px;
+  }
 }
