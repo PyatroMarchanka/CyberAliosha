@@ -1,17 +1,17 @@
-import CreateMidiFile from "./CreateMidiFile";
+import CreateMidiFile from './CreateMidiFile';
 export default class FileEditor {
   constructor() {
     this.userChords = null;
     this.midiCreator = null;
     this.partOptions = {
-        type: "soprano",
-        notesLength: 'often',
-        function: 'solo',
-        restProbability: 0.2
+      type: 'soprano',
+      notesLength: 'often',
+      function: 'solo',
+      restProbability: 0.2,
     };
   }
 
-  createNewFile(chords){
+  createNewFile(chords) {
     this.midiCreator = new CreateMidiFile(chords);
   }
 
@@ -22,12 +22,11 @@ export default class FileEditor {
   }
 
   addNewPart() {
-    this.midiCreator.addPart(this.partOptions);
+    return this.midiCreator.addPart(this.partOptions);
     // const newPart = document.createElement("div");
     // newPart.innerText = this.addedPartText();
   }
-  getURI(){
+  getURI() {
     return this.midiCreator.getURI();
   }
-  
 }

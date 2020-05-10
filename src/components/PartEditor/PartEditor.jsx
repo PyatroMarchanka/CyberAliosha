@@ -54,8 +54,10 @@ export default class PartEditor extends Component {
       this.createNewFile();
     }
     this.fileEditor.partOptions = this.state.partOptions;
-    this.fileEditor.addNewPart();
+    const newPart = this.fileEditor.addNewPart();
+    console.log(newPart);
     const newPartHeader = this.state.partOptions;
+    newPartHeader.part = newPart;
     this.setState({
       addedPartsHeaders: [...this.state.addedPartsHeaders, newPartHeader],
     });
