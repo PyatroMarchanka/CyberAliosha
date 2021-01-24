@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export interface MenuProps {
+  title: string;
   items: {
     title: string;
     onClick?: () => void;
@@ -13,7 +14,7 @@ export interface MenuProps {
   }[];
 }
 
-export function SimpleMenu({ items }: MenuProps) {
+export function SimpleMenu({ items, title }: MenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,7 +28,7 @@ export function SimpleMenu({ items }: MenuProps) {
   return (
     <Container>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Open Menu
+        {title}
       </Button>
       <Menu
         id="simple-menu"

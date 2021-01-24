@@ -56,8 +56,8 @@ export default function Header() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <SimpleMenu items={chordsMenu} />
-          <SimpleMenu items={melodyMenu} />
+          <SimpleMenu title="Chords" items={chordsMenu} />
+          <SimpleMenu title="Melody" items={melodyMenu} />
         </Toolbar>
       </AppBar>
     </Container>
