@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Chord from './Chord';
 import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
 
 export default class ChordAdder extends Component {
   componentDidMount() {}
@@ -9,7 +10,7 @@ export default class ChordAdder extends Component {
 
   render() {
     return (
-      <div className="App-chord-editor ">
+      <Container className="App-chord-editor ">
         <Typography variant="h4">Chord Adder</Typography>
         <div className="grid-col-4">
           {this.props.chords
@@ -23,7 +24,11 @@ export default class ChordAdder extends Component {
               ))
             : null}
         </div>
-      </div>
+      </Container>
     );
   }
 }
+
+const Container = styled.div`
+  text-align: center;
+`;

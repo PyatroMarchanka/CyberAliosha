@@ -3,7 +3,9 @@ import AddedChords from './components/AddedChords';
 import ChordAdder from './components/ChordAdder';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
 import ItemsSearcher from '../../MidiFileCreater/ItemsSearcher';
-import Button from './components/Button';
+import { Button } from '../global/Button';
+import styled from 'styled-components';
+import { theme } from '../../utils/theme';
 
 export default class ChordEditor extends Component {
   constructor(props) {
@@ -135,20 +137,25 @@ export default class ChordEditor extends Component {
           chords={this.state.chordsToAdd}
           handleClick={this.state.isForReplace ? this.replaceChord : this.addChord}
         />
-        <Button
-          handleClick={this.getRandomChords}
-          text="Set random chords"
-          class="btn btn-big mb-20"
-        />
-        <div>
-          <Button
-            handleClick={this.liftUpChords}
-            text="Set these chords"
-            class="btn btn-big mb-20"
-          />
-        </div>
+        <Buttons>
+          <Button className="button" onClick={this.getRandomChords}>
+            Set random chords
+          </Button>
+          <Button className="button" onClick={this.liftUpChords}>
+            Set these chords
+          </Button>
+        </Buttons>
         {this.state.addedChordsLabel}
       </div>
     );
   }
 }
+
+const Buttons = styled.div`
+  display: flex;
+  justify-content: center;
+
+  .button {
+    background-color: ${theme.colors.deeppurple[700]};
+  }
+`;
