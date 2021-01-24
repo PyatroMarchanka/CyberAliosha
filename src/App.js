@@ -1,18 +1,20 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
-import MainWindow from './components/MainWindow/MainWindow';
-import Footer from './components/Footer/Footer';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core';
+import MainRouter from './pages/rootRouter';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <div>
-        <Header />
-        <MainWindow />
-        <Footer />
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <MainRouter />
+    </ThemeProvider>
   );
 }
 
