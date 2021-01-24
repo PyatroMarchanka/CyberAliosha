@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginLeft: theme.spacing(2),
     },
     title: {
       flexGrow: 1,
@@ -53,15 +53,36 @@ export default function Header() {
     <Container>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <SimpleMenu title="Chords" items={chordsMenu} />
-          <SimpleMenu title="Melody" items={melodyMenu} />
+          <Left>
+            <Typography variant="h3">Cyber Aliosha</Typography>
+          </Left>
+          <Right>
+            <SimpleMenu title="Chords" items={chordsMenu} />
+            <SimpleMenu title="Melody" items={melodyMenu} />
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+          </Right>
         </Toolbar>
       </AppBar>
     </Container>
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  .MuiToolbar-root {
+    justify-content: space-between;
+  }
+`;
+
+const Left = styled.div``;
+
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+`;

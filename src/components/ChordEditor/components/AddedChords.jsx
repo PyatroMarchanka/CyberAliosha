@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import Chord from "./Chord";
-import ChordMenuEdit from "./ChordMenuEdit";
+import React, { Component } from 'react';
+import Chord from './Chord';
+import ChordMenuEdit from './ChordMenuEdit';
+import Typography from '@material-ui/core/Typography';
 
 export default class AddedChords extends Component {
   constructor(props) {
@@ -22,22 +23,23 @@ export default class AddedChords extends Component {
 
   render() {
     return (
-      <div className="added-chords text-white">
-        <h3 className="App-chord-editor text-white">Added Chords</h3>
+      <div className="added-chords">
+        <h3 className="App-chord-editor"></h3>
+        <Typography variant="h4">Added Chords</Typography>
         {this.showMenu()}
         {this.props.chords.length > 0 ? (
           <div className="grid-col-4">
             {this.props.chords.map((chord, idx) => (
               <Chord
-                id={idx + "-added-chord"}
-                key={idx + "-added-chord"}
+                id={idx + '-added-chord'}
+                key={idx + '-added-chord'}
                 chordName={chord}
                 handleClick={this.props.selectChord}
               />
             ))}
           </div>
         ) : (
-          "Chords have not been added!"
+          'Chords have not been added!'
         )}
       </div>
     );

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../components/Header/Header';
-import { ChordsCreator } from './ChordsCreator';
-import { ChordsEditor } from './ChordsEditor';
+import { ChordsCreatorPage } from './ChordsCreatorPage';
+import { ChordsEditorPage } from './ChordsEditorPage';
 import { MainPage } from './MainPage';
 import { routes } from './routes';
 
@@ -12,10 +12,10 @@ export default function MainRouter() {
       <Header />
       <Switch>
         <Route path={routes.chordsEditor}>
-          <ChordsEditor />
+          <ChordsEditorPage />
         </Route>
         <Route path={routes.chordsCreator}>
-          <ChordsCreator />
+          <ChordsCreatorPage />
         </Route>
         <Route path="/">
           <MainPage />

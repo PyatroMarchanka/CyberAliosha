@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import AddedChords from "./components/AddedChords";
-import ChordAdder from "./components/ChordAdder";
-import MidiChordsCreator from "../../MidiFileCreater/MidiChordsCreator";
-import ItemsSearcher from "../../MidiFileCreater/ItemsSearcher";
-import Button from "./components/Button";
+import React, { Component } from 'react';
+import AddedChords from './components/AddedChords';
+import ChordAdder from './components/ChordAdder';
+import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
+import ItemsSearcher from '../../MidiFileCreater/ItemsSearcher';
+import Button from './components/Button';
 
 export default class ChordEditor extends Component {
   constructor(props) {
@@ -19,42 +19,42 @@ export default class ChordEditor extends Component {
     this.liftUpChords = this.liftUpChords.bind(this);
     this.proposeChordsForLast = this.proposeChordsForLast.bind(this);
     this.getRandomChords = this.getRandomChords.bind(this);
-    this.toggleAddedChordsLabel =  this.toggleAddedChordsLabel.bind(this)
+    this.toggleAddedChordsLabel = this.toggleAddedChordsLabel.bind(this);
 
     this.state = {
-      chordsToAdd: this.chordSearcher.searchItems("C"),
+      chordsToAdd: this.chordSearcher.searchItems('C'),
       addedChords: [],
       isForReplace: false,
       isSelection: false,
       selectedChord: null,
-      addedChordsLabel: "Click 'Set these chords' to set"
+      addedChordsLabel: "Click 'Set these chords' to set",
     };
   }
 
   liftUpChords() {
-    if(this.state.addedChords.length < 1){
-      this.toggleAddedChordsLabel(2)
+    if (this.state.addedChords.length < 1) {
+      this.toggleAddedChordsLabel(2);
       return;
     }
-    this.props.setChords(this.state.addedChords, true)
-    this.toggleAddedChordsLabel(1)
+    this.props.setChords(this.state.addedChords, true);
+    this.toggleAddedChordsLabel(1);
   }
 
   toggleAddedChordsLabel(state) {
     const map = {
       0: "Click 'Set these chords' to set",
-      1: "Chords have been added!",
-      2: "Chords have not been added!"
-    }
+      1: 'Chords have been added!',
+      2: 'Chords have not been added!',
+    };
     this.setState({
-      addedChordsLabel: map[state]
+      addedChordsLabel: map[state],
     });
   }
 
   selectChord(e) {
     this.setState({
       isSelection: true,
-      selectedChord: e.target
+      selectedChord: e.target,
     });
   }
 
@@ -62,7 +62,7 @@ export default class ChordEditor extends Component {
     this.setState({
       isSelection: false,
       isForReplace: false,
-      selectedChord: null
+      selectedChord: null,
     });
     this.proposeChordsForLast();
   }
@@ -71,7 +71,7 @@ export default class ChordEditor extends Component {
     const oldState = [...this.state.addedChords];
     this.setState({
       chordsToAdd: this.chordSearcher.searchItems(e.target.innerText),
-      addedChords: [...oldState, e.target.innerText]
+      addedChords: [...oldState, e.target.innerText],
     });
   }
 
@@ -80,7 +80,7 @@ export default class ChordEditor extends Component {
     const newChords = [...this.state.addedChords];
     newChords.splice(deleteIdx, 1);
     this.setState({
-      addedChords: newChords
+      addedChords: newChords,
     });
   }
 
@@ -88,7 +88,7 @@ export default class ChordEditor extends Component {
     const last = this.state.addedChords[this.state.addedChords.length - 1];
     console.log(last);
     this.setState({
-      chordsToAdd: this.chordSearcher.searchItems(last)
+      chordsToAdd: this.chordSearcher.searchItems(last),
     });
   }
 
@@ -96,10 +96,8 @@ export default class ChordEditor extends Component {
     const selectedIdx = +this.state.selectedChord.id[0];
     const searchIdx = selectedIdx === 0 ? 0 : selectedIdx - 1;
     this.setState({
-      chordsToAdd: this.chordSearcher.searchItems(
-        this.state.addedChords[searchIdx]
-      ),
-      isForReplace: true
+      chordsToAdd: this.chordSearcher.searchItems(this.state.addedChords[searchIdx]),
+      isForReplace: true,
     });
   }
 
@@ -109,7 +107,7 @@ export default class ChordEditor extends Component {
     newChords.splice(replaceIdx, 1, e.target.innerText);
     this.setState({
       addedChords: newChords,
-      isForReplace: false
+      isForReplace: false,
     });
   }
 
@@ -117,13 +115,13 @@ export default class ChordEditor extends Component {
     const chords = this.chordsCreator.getNewChords(8);
     console.log(chords);
     this.setState({
-      addedChords: chords.map(chord => chord[0] + chord[1])
+      addedChords: chords.map((chord) => chord[0] + chord[1]),
     });
   }
 
   render() {
     return (
-      <div className="text-white">
+      <div>
         <AddedChords
           chords={this.state.addedChords}
           selectedChord={this.state.selectedChord}
@@ -135,13 +133,19 @@ export default class ChordEditor extends Component {
         />
         <ChordAdder
           chords={this.state.chordsToAdd}
-          handleClick={
-            this.state.isForReplace ? this.replaceChord : this.addChord
-          }
+          handleClick={this.state.isForReplace ? this.replaceChord : this.addChord}
         />
-        <Button handleClick={this.getRandomChords} text="Set random chords" class="btn btn-big mb-20"/>
+        <Button
+          handleClick={this.getRandomChords}
+          text="Set random chords"
+          class="btn btn-big mb-20"
+        />
         <div>
-        <Button handleClick={this.liftUpChords} text="Set these chords" class="btn btn-big mb-20"/>
+          <Button
+            handleClick={this.liftUpChords}
+            text="Set these chords"
+            class="btn btn-big mb-20"
+          />
         </div>
         {this.state.addedChordsLabel}
       </div>
