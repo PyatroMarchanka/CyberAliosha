@@ -138,10 +138,10 @@ export default class ChordEditor extends Component {
           handleClick={this.state.isForReplace ? this.replaceChord : this.addChord}
         />
         <Buttons>
-          <Button className="button" onClick={this.getRandomChords}>
+          <Button color={theme.colors.deeppurple} onClick={this.getRandomChords}>
             Set random chords
           </Button>
-          <Button className="button" onClick={this.liftUpChords}>
+          <Button color={theme.colors.deeppurple} onClick={this.liftUpChords}>
             Set these chords
           </Button>
         </Buttons>
@@ -154,8 +154,4 @@ export default class ChordEditor extends Component {
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
-
-  .button {
-    background-color: ${theme.colors.deeppurple[700]};
-  }
 `;

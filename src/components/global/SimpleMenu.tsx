@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { AlioshaLink } from './AlioshaLink';
 
 export interface MenuProps {
   title: string;
@@ -39,9 +40,9 @@ export function SimpleMenu({ items, title }: MenuProps) {
       >
         {items.map((item) =>
           item.link ? (
-            <Link to={item.link}>
+            <AlioshaLink to={item.link}>
               <MenuItem className="menu">{item.title}</MenuItem>
-            </Link>
+            </AlioshaLink>
           ) : (
             <MenuItem className="menu" onClick={item.onClick}>
               {item.title}

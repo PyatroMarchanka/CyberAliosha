@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import styled from 'styled-components';
 import { MenuProps, SimpleMenu } from '../global/SimpleMenu';
 import { routes } from '../../pages/routes';
+import { Link } from 'react-router-dom';
+import { AlioshaLink } from '../global/AlioshaLink';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +38,10 @@ export default function Header() {
       title: 'Suggest',
       link: routes.chordsCreator,
     },
+    {
+      title: 'Saved progresions',
+      link: routes.chordsCreator,
+    },
   ];
 
   const melodyMenu: MenuProps['items'] = [
@@ -54,11 +60,14 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar>
           <Left>
-            <Typography variant="h3">Cyber Aliosha</Typography>
+            <Typography variant="h3">CyberAliosha</Typography>
           </Left>
           <Right>
             <SimpleMenu title="Chords" items={chordsMenu} />
             <SimpleMenu title="Melody" items={melodyMenu} />
+            <AlioshaLink to={routes.about}>
+              <Button>About</Button>
+            </AlioshaLink>
             <IconButton
               edge="start"
               className={classes.menuButton}
