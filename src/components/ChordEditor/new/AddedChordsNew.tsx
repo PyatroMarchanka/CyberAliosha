@@ -1,8 +1,15 @@
+import { IconButton, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
 import { convertChordToString } from '../../../MidiFileCreater/utils';
+import { theme } from '../../../utils/theme';
 import { ChordWithEditModal } from './ChordWithEditModal';
+import SaveIcon from '@material-ui/icons/Save';
+import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
+import { StyledProgression, StyledProgressionContainer } from '../../../styled/Chords';
+import { ChordsProgression } from '../../global/ChordsProgression';
 
 interface Props {}
 
@@ -38,19 +45,25 @@ export const AddedChordsNew = ({}: Props) => {
     });
   };
 
+  if (!addedChords.length) {
+    return null;
+  }
+
   return (
-    <div>
-      {addedChords.map((chord: ChordModel, idx) => (
-        <ChordWithEditModal
-          isSelected={idx === replacingChord?.idx}
-          key={`chord-${chord[0]}-${idx}`}
-          onClose={() => onClose()}
-          onDelete={() => onDelete(chord, idx)}
-          onReplace={() => onReplace(chord, idx)}
+    <ChordsProgression
+      title="Added chords:"
+      action={
+        <IconButton
+          onClick={() => saveSavedChords(addedChords)}
+          className="icon"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
         >
-          {convertChordToString(chord)}
-        </ChordWithEditModal>
-      ))}
-    </div>
+          <SaveIcon fontSize="large" />
+        </IconButton>
+      }
+      chords={addedChords}
+    />
   );
 };

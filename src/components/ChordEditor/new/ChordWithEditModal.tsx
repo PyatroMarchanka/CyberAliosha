@@ -9,9 +9,16 @@ interface Props {
   onDelete: () => void;
   onClose: () => void;
   isSelected: boolean;
+  className?: string;
 }
 
-export const ChordWithEditModal = ({ children, isSelected, onReplace, onDelete }: Props) => {
+export const ChordWithEditModal = ({
+  children,
+  isSelected,
+  onReplace,
+  onDelete,
+  className,
+}: Props) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,6 +35,7 @@ export const ChordWithEditModal = ({ children, isSelected, onReplace, onDelete }
   return (
     <>
       <Button
+        className={className}
         color={anchorEl || isSelected ? theme.colors.blue : undefined}
         aria-describedby={id}
         onClick={handleClick}

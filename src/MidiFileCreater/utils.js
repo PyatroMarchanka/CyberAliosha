@@ -13,6 +13,7 @@ function chordNamesToFullArr(chordNames) {
 }
 
 function findNotes(tone, step, type) {
+  console.log(tone, step, type);
   return chordsForImpro
     .find((tonica) => tonica[0][0] === transposeNote(tone, step, NOTES_MAP_SOLO))
     .find((chord) => chord[1] === type);

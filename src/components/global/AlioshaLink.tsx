@@ -6,11 +6,12 @@ interface Props {
   className?: string;
   to: string;
   children: any;
+  onClick?: () => void;
 }
 
-export const AlioshaLink = styled(({ className, to, children }: Props) => {
+export const AlioshaLink = styled(({ className, to, children, onClick }: Props) => {
   return (
-    <Link className={className} to={to}>
+    <Link onClick={!!onClick ? onClick : undefined} className={className} to={to}>
       {children}
     </Link>
   );

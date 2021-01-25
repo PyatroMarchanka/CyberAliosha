@@ -4,7 +4,7 @@ import { Color, theme } from '../../utils/theme';
 
 interface Props {
   color?: Color;
-  onClick: (e: any) => void;
+  onClick?: (e: any) => void;
   children: any;
   type?: 'primary';
   id?: string;

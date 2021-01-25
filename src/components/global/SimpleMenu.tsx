@@ -40,7 +40,7 @@ export function SimpleMenu({ items, title }: MenuProps) {
       >
         {items.map((item, idx) =>
           item.link ? (
-            <AlioshaLink key={`link-${idx}`} to={item.link}>
+            <AlioshaLink onClick={handleClose} key={`link-${idx}`} to={item.link}>
               <MenuItem className="menu">{item.title}</MenuItem>
             </AlioshaLink>
           ) : (
