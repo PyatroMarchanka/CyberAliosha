@@ -1,86 +1,69 @@
-import { convertChordStringToArr, findNotes } from "./utils";
+import { convertChordStringToArr, findNotes } from './utils';
 
 export default class ItemsSearcher {
   searchItems(chord) {
     if (!chord) return;
 
-    chord = convertChordStringToArr(chord);
-
     let result;
-    if (chord[1] === "dim7") {
-      return findAllChords(
-        chord,
-        [0, "dim7"],
-        [1, "maj"],
-        [4, "m7"],
-        [7, "maj"],
-        [10, "m"]
-      );
+    if (chord[1] === 'dim7') {
+      return findAllChords(chord, [0, 'dim7'], [1, 'maj'], [4, 'm7'], [7, 'maj'], [10, 'm']);
     }
-    if (chord[1] === "7") {
+    if (chord[1] === '7') {
       return findAllChords(
         chord,
-        [0, "7"],
-        [5, "m7"],
-        [5, "m"],
-        [5, ""],
-        [5, "maj"],
-        [2, "m"],
-        [2, "m7"]
+        [0, '7'],
+        [5, 'm7'],
+        [5, 'm'],
+        [5, ''],
+        [5, 'maj'],
+        [2, 'm'],
+        [2, 'm7'],
       );
     }
 
-    if (chord[1] === "m7b5") {
+    if (chord[1] === 'm7b5') {
+      return findAllChords(chord, [0, 'm7b5'], [10, 'm'], [10, 'm7'], [5, '7'], [9, 'dim7']);
+    }
+
+    if (chord[1] === 'm' || chord[1] === 'm7' || chord[1] === 'mAdd9') {
       return findAllChords(
         chord,
-        [0, "m7b5"],
-        [10, "m"],
-        [10, "m7"],
-        [5, "7"],
-        [9, "dim7"]
+        [0, 'm'],
+        [0, 'm7'],
+        [2, '7'],
+        [3, 'maj'],
+        [5, 'm7'],
+        [7, '7'],
+        [7, 'm7'],
+        [8, 'maj'],
+        [10, 'maj'],
       );
     }
 
-    if (chord[1] === "m" || chord[1] === "m7" || chord[1] === "mAdd9") {
+    if (chord[1] === '' || chord[1] === 'maj') {
       return findAllChords(
         chord,
-        [0, "m"],
-        [0, "m7"],
-        [2, "7"],
-        [3, "maj"],
-        [5, "m7"],
-        [7, "7"],
-        [7, "m7"],
-        [8, "maj"],
-        [10, "maj"]
-      );
-    }
-
-    if (chord[1] === "" || chord[1] === "maj") {
-      return findAllChords(
-        chord,
-        [0, ""],
-        [0, "maj"],
-        [2, "m"],
-        [4, ""],
-        [4, "7"],
-        [4, "m7"],
-        [5, "maj"],
-        [7, "7"],
-        [9, "m7"],
-        [11, "m7b5"],
-        [2, "7"],
-        [11, "m7"],
-        [7, "maj"]
+        [0, ''],
+        [0, 'maj'],
+        [2, 'm'],
+        [4, ''],
+        [4, '7'],
+        [4, 'm7'],
+        [5, 'maj'],
+        [7, '7'],
+        [9, 'm7'],
+        [11, 'm7b5'],
+        [2, '7'],
+        [11, 'm7'],
+        [7, 'maj'],
       );
     }
     if (!result.length) {
-      throw new Error(`Unknown chord ${chord[0] + chord[1]}`);
+      throw new Error(`Unknown chord ${chord[0]}${chord[1]}`);
     }
     return result;
   }
 }
-
 
 // export function chordNamesToFullArr(chordNames) {
 //   const chordsArrs = chordNames.map(chordString =>
@@ -104,10 +87,9 @@ export default class ItemsSearcher {
 //   return [tone, chordFunction];
 // }
 
-
 function findAllChords(chord, ...rest) {
   const result = [];
-  rest.forEach(toFind => {
+  rest.forEach((toFind) => {
     result.push(findNotes(chord[0], toFind[0], toFind[1]));
   });
   return result;

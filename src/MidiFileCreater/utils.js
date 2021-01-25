@@ -1,6 +1,6 @@
 import { NOTES_MAP_SOLO } from '../dataset/dataset';
 import { PolySynth, AMSynth } from 'tone';
-import chordsForImpro from '../dataset/all_chords_for_impro';
+import chordsForImpro, { ChordModel } from '../dataset/all_chords_for_impro';
 
 function randomIntegerRange(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -41,6 +41,10 @@ function convertChordStringToArr(chord) {
 
   return [tone, chordFunction];
 }
+
+const convertChordToString = (chord) => {
+  return `${chord[0]}${chord[1]}`;
+};
 
 function createDurMeasure(notesLengthType, count) {
   console.log('notesLengthType', notesLengthType);
@@ -165,4 +169,5 @@ export {
   convertChordStringToArr,
   findNotes,
   chordNamesToFullArr,
+  convertChordToString,
 };

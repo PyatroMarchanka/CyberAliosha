@@ -31,6 +31,7 @@ export default class ChordEditor extends Component {
       selectedChord: null,
       addedChordsLabel: "Click 'Set these chords' to set",
     };
+    console.log('chordsToAdd', this.state.chordsToAdd);
   }
 
   liftUpChords() {

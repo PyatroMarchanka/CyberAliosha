@@ -1,6 +1,6 @@
-import ALL_CHORDS_FOR_IMPROVISE from "../dataset/all_chords_for_impro";
-import { randomIntegerRange } from "./utils";
-import releases from "./Releaser";
+import ALL_CHORDS_FOR_IMPROVISE from '../dataset/all_chords_for_impro';
+import { randomIntegerRange } from './utils';
+import releases from './Releaser';
 
 export default class MidiChordsCreator {
   constructor() {
@@ -22,13 +22,12 @@ export default class MidiChordsCreator {
     return result.slice(0, count);
   }
 
-  getNewChords(count){
-   const chords = this.generateChords(ALL_CHORDS_FOR_IMPROVISE, count);
-      return chords;
+  getNewChords(count) {
+    const chords = this.generateChords(ALL_CHORDS_FOR_IMPROVISE, count);
+    return chords;
   }
 
-
-  getChords(){
-      return this.chords;
+  getChords() {
+    return this.chords;
   }
 }

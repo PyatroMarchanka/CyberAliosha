@@ -1,15 +1,15 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import styled from 'styled-components';
+
 import { MenuProps, SimpleMenu } from '../global/SimpleMenu';
 import { routes } from '../../pages/routes';
-import { Link } from 'react-router-dom';
 import { AlioshaLink } from '../global/AlioshaLink';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,7 +40,7 @@ export default function Header() {
     },
     {
       title: 'Saved progresions',
-      link: routes.chordsCreator,
+      link: routes.chordsSaved,
     },
   ];
 

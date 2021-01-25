@@ -38,13 +38,13 @@ export function SimpleMenu({ items, title }: MenuProps) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {items.map((item) =>
+        {items.map((item, idx) =>
           item.link ? (
-            <AlioshaLink to={item.link}>
+            <AlioshaLink key={`link-${idx}`} to={item.link}>
               <MenuItem className="menu">{item.title}</MenuItem>
             </AlioshaLink>
           ) : (
-            <MenuItem className="menu" onClick={item.onClick}>
+            <MenuItem key={`link-${idx}`} className="menu" onClick={item.onClick}>
               {item.title}
             </MenuItem>
           ),

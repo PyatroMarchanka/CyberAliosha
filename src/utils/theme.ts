@@ -9,10 +9,10 @@ export interface Color {
   '700': string;
   '800': string;
   '900': string;
-  a100: string;
-  a200: string;
-  a400: string;
-  a700: string;
+  a100?: string;
+  a200?: string;
+  a400?: string;
+  a700?: string;
 }
 
 export const theme = {
