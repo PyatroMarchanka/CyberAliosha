@@ -91,14 +91,9 @@ function transposeTonality(tonality, step) {
 const CHORDS_MAP = [
   ['A', 'm', ['A', 'C', 'E']],
   ['A', 'm7', ['A', 'C', 'E', 'G']],
-  ['A', 'm9', ['A', 'C', 'E', 'G', 'B']],
   ['A', 'm7b5', ['A', 'C', 'D#Eb', 'G']],
   ['A', 'mAdd9', ['A', 'C', 'E', 'G', 'B']],
 
-  ['A', 'sus2', ['A', 'B', 'E']],
-  ['A', 'sus4', ['A', 'C', 'D']],
-  ['A', '7sus2', ['A', 'B', 'E', 'G']],
-  ['A', '7sus4', ['A', 'C', 'D', 'G']],
   ['A', '', ['A', 'C#Db', 'E']],
   ['A', '7', ['A', 'C#Db', 'E', 'G']],
   ['A', 'maj', ['A', 'C#Db', 'E', 'G#Ab']],
@@ -110,18 +105,15 @@ const CHORDS_MAP = [
 const CHORD_BIG = [
   ['A', 'm', ['A', 'C'], ['B', 'D', 'E', 'F', 'G']],
   ['A', 'm7', ['A', 'C', 'G'], ['B', 'D', 'E', 'F', 'G']],
-  ['A', 'm7', ['A', 'C', 'G'], ['B', 'D', 'E', 'F', 'G']],
-  ['A', 'm9', ['A', 'C', 'G', 'B'], ['B', 'D', 'E', 'F', 'G']],
   ['A', 'm9', ['A', 'C', 'G', 'B'], ['B', 'D', 'E', 'F', 'G']],
   ['A', 'm7b5', ['A', 'C', 'G'], ['B', 'D#', 'D', 'F', 'G']],
   ['A', 'mAdd9', ['A', 'C', 'G', 'B'], ['B', 'E', 'D', 'F', 'G']],
   ['A', '', ['A', 'C#'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', '7', ['A', 'C#', 'G'], ['B', 'E', 'D', 'F#', 'G']],
-  ['A', '7', ['A', 'C#', 'G'], ['B', 'E', 'D', 'F#', 'G']],
-  ['A', 'maj', ['A', 'C#', 'G#'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', 'maj', ['A', 'C#', 'G#'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', 'majAdd9', ['A', 'C#', 'G#', 'B'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', 'dim7', ['A', 'C', 'D#', 'F#'], ['A#', 'C', 'D#', 'D', 'F#', 'G']],
+  ['A', 'aug', ['A', 'C#', 'F'], ['A', 'C#', 'F']],
 ];
 function transposeNote(note, step, notesMap) {
   let indexOfNote = notesMap.indexOf(note);
@@ -132,6 +124,7 @@ function transposeNote(note, step, notesMap) {
 }
 
 function transposeChord(chord, step, notes) {
+  console.log('transposeChord', chord);
   let newChord = JSON.parse(JSON.stringify(chord));
   newChord[0] = transposeNote(newChord[0], step, notes);
   newChord[2] = newChord[2].map((note) => {

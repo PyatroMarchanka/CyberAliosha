@@ -22,7 +22,30 @@ export default class ItemsSearcher {
     }
 
     if (chord[1] === 'm7b5') {
-      return findAllChords(chord, [0, 'm7b5'], [10, 'm'], [10, 'm7'], [5, '7'], [9, 'dim7']);
+      return findAllChords(
+        chord,
+        [0, 'm7b5'],
+        [10, 'm'],
+        [10, 'm7'],
+        [2, '7'],
+        [5, '7'],
+        [9, 'dim7'],
+      );
+    }
+
+    if (chord[1] === 'aug') {
+      return findAllChords(
+        chord,
+        [0, ''],
+        [0, 'm'],
+        [0, '7'],
+        [1, 'm'],
+        [8, ''],
+        [8, '7'],
+        [5, 'm'],
+        [5, ''],
+        [9, 'm'],
+      );
     }
 
     if (chord[1] === 'm' || chord[1] === 'm7' || chord[1] === 'mAdd9') {
@@ -37,12 +60,14 @@ export default class ItemsSearcher {
         [7, 'm7'],
         [8, 'maj'],
         [10, 'maj'],
+        [11, 'aug'],
       );
     }
 
     if (chord[1] === '' || chord[1] === 'maj') {
       return findAllChords(
         chord,
+        [0, 'aug'],
         [0, ''],
         [0, 'maj'],
         [2, 'm'],
