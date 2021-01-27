@@ -9,6 +9,7 @@ interface Props {
   type?: 'primary';
   id?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export function Button({
@@ -18,11 +19,18 @@ export function Button({
   type = 'primary',
   id,
   className,
+  disabled = false,
 }: Props) {
   const Component = getButtonByType(type);
 
   return (
-    <Component className={className} id={id} onClick={onClick} fontColor={color}>
+    <Component
+      disabled={disabled}
+      className={className}
+      id={id}
+      onClick={onClick}
+      fontColor={color}
+    >
       {children}
     </Component>
   );
@@ -51,6 +59,13 @@ const PrimaryButton = styled.button`
 
   &:active {
     background-color: ${({ fontColor }: StyledProps) => fontColor[700]};
+  }
+
+  &:disabled {
+    background-color: ${({ fontColor }: StyledProps) => fontColor[200]};
+    &:hover {
+      cursor: unset;
+    }
   }
 `;
 

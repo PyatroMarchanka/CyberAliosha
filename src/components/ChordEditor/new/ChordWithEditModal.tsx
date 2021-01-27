@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import { Button } from '../../global/Button';
 import { theme } from '../../../utils/theme';
+import { chordsAdderStore } from '../../../context/ChordsAdderContext';
+import { playChord } from '../../../MidiFileCreater/utils';
 
 interface Props {
   children: any;
   onReplace: () => void;
   onDelete: () => void;
   onClose: () => void;
+  playChord: () => void;
   isSelected: boolean;
   className?: string;
 }
@@ -18,11 +21,21 @@ export const ChordWithEditModal = ({
   onReplace,
   onDelete,
   className,
+  playChord,
 }: Props) => {
+  const {
+    state: { addedChordsMode },
+    dispatch,
+  } = useContext(chordsAdderStore);
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+    if (addedChordsMode === 'edit') {
+      setAnchorEl(event.currentTarget);
+    } else {
+      playChord();
+    }
   };
 
   const handleClose = () => {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
-import { convertChordToString } from '../../../MidiFileCreater/utils';
+import { convertChordToString, playChord } from '../../../MidiFileCreater/utils';
 import { Button } from '../../global/Button';
 
 interface Props {}
@@ -26,6 +26,8 @@ export const ChordsAdderNew = ({}: Props) => {
   }, [state.addedChords]);
 
   const onChordClick = (chord: ChordModel) => {
+    playChord(convertChordToString(chord));
+
     if (state.replacingChord) {
       dispatch({
         type: 'REPLACE_CHORD',

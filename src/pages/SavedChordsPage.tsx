@@ -16,15 +16,16 @@ interface Props {}
 
 export const SavedChordsPage = ({}: Props) => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
+
   const fetchChords = () => {
     const savedChords = getSavedChords();
     if (savedChords) {
       setSavedChords(savedChords);
     }
   };
+
   useEffect(() => {
     fetchChords();
-    // clearSavedChords();
   }, []);
 
   return (

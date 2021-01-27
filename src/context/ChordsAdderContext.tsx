@@ -2,12 +2,12 @@ import React, { createContext, useReducer } from 'react';
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import ItemsSearcher from '../MidiFileCreater/ItemsSearcher';
 import MidiChordsCreator from '../MidiFileCreater/MidiChordsCreator';
-import { convertChordToString } from '../MidiFileCreater/utils';
 
 interface State {
   addedChords: ChordModel[];
   chordsToAdd: ChordModel[];
   replacingChord: { chord: ChordModel; idx: number } | null;
+  addedChordsMode: 'edit' | 'play';
 }
 
 interface Action {
@@ -15,16 +15,19 @@ interface Action {
     | 'ADD_CHORD'
     | 'ADD_CHORDS_TO_ADD'
     | 'DELETE_CHORD'
+    | 'DELETE_ALL_CHORDS'
     | 'REPLACE_CHORD'
     | 'ADD_RANDOM_CHORDS_TO_ADD'
-    | 'SET_REPLACING_CHORD';
+    | 'SET_REPLACING_CHORD'
+    | 'SET_ADDED_CHORDS_MODE';
   payload?: any;
 }
 
-const initialState = {
+const initialState: State = {
   addedChords: [],
   chordsToAdd: [],
   replacingChord: null,
+  addedChordsMode: 'edit',
 };
 
 interface Context {
@@ -76,6 +79,12 @@ const ChordsAdderProvider = ({ children }: any) => {
           replacingChord: action.payload,
         };
 
+      case 'DELETE_ALL_CHORDS':
+        return {
+          ...state,
+          addedChords: [],
+        };
+
       case 'REPLACE_CHORD':
         const newReplacedChords = [...state.addedChords];
         if (state.replacingChord) {
@@ -90,6 +99,12 @@ const ChordsAdderProvider = ({ children }: any) => {
         } else {
           return state;
         }
+
+      case 'SET_ADDED_CHORDS_MODE':
+        return {
+          ...state,
+          addedChordsMode: action.payload,
+        };
 
       default:
         return state;
