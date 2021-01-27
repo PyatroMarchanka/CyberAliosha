@@ -16,6 +16,7 @@ interface Action {
     | 'ADD_CHORDS_TO_ADD'
     | 'DELETE_CHORD'
     | 'DELETE_ALL_CHORDS'
+    | 'DELETE_LAST_CHORD'
     | 'REPLACE_CHORD'
     | 'ADD_RANDOM_CHORDS_TO_ADD'
     | 'SET_REPLACING_CHORD'
@@ -52,6 +53,7 @@ const ChordsAdderProvider = ({ children }: any) => {
         };
 
       case 'ADD_CHORDS_TO_ADD':
+        console.log('ADD_CHORDS_TO_ADD');
         return {
           ...state,
           chordsToAdd: chordSearcher.searchItems(action.payload) || [],
@@ -73,16 +75,22 @@ const ChordsAdderProvider = ({ children }: any) => {
             chordSearcher.searchItems(newFilteredChords[newFilteredChords.length - 1]) || [],
         };
 
-      case 'SET_REPLACING_CHORD':
-        return {
-          ...state,
-          replacingChord: action.payload,
-        };
-
       case 'DELETE_ALL_CHORDS':
         return {
           ...state,
           addedChords: [],
+        };
+
+      case 'DELETE_LAST_CHORD':
+        return {
+          ...state,
+          addedChords: state.addedChords.slice(0, -1),
+        };
+
+      case 'SET_REPLACING_CHORD':
+        return {
+          ...state,
+          replacingChord: action.payload,
         };
 
       case 'REPLACE_CHORD':

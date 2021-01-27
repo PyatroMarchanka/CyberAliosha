@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { theme } from '../utils/theme';
 
 export const StyledProgressionContainer = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   padding: 20px;
   border-radius: 5px;
   max-width: 500px;

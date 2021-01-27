@@ -7,6 +7,9 @@ import { convertChordToString, playChord } from '../../../MidiFileCreater/utils'
 import { theme } from '../../../utils/theme';
 import { ChordWithEditModal } from './ChordWithEditModal';
 import SaveIcon from '@material-ui/icons/Save';
+import UndoIcon from '@material-ui/icons/Undo';
+import BackspaceIcon from '@material-ui/icons/Backspace';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
 import { StyledProgression, StyledProgressionContainer } from '../../../styled/Chords';
 import { RadioButtonsGroup } from '../../global/RadioButtonsGroup';
@@ -42,6 +45,12 @@ export const AddedChordsNew = ({}: Props) => {
   const deleteAll = () => {
     dispatch({
       type: 'DELETE_ALL_CHORDS',
+    });
+  };
+
+  const deleteLast = () => {
+    dispatch({
+      type: 'DELETE_LAST_CHORD',
     });
   };
 
@@ -103,9 +112,18 @@ export const AddedChordsNew = ({}: Props) => {
         </StyledProgression>
       )}
       <AlignedRight>
+        <IconButton disabled={!addedChords.length} onClick={deleteLast} color="secondary">
+          <BackspaceIcon fontSize="large" />
+        </IconButton>
+        <IconButton disabled={!addedChords.length} onClick={deleteAll} color="secondary">
+          <DeleteForeverIcon fontSize="large" />
+        </IconButton>
+        {/* <Button disabled={!addedChords.length} onClick={deleteLast} color={theme.colors.purple}>
+          Delete last
+        </Button>
         <Button disabled={!addedChords.length} onClick={deleteAll} color={theme.colors.pink}>
           Delete all
-        </Button>
+        </Button> */}
       </AlignedRight>
     </StyledProgressionContainer>
   );

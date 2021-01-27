@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
-import { ChordsAdderProvider, chordsAdderStore } from '../../context/ChordsAdderContext';
+import React, { useContext, useEffect } from 'react';
+import { ChordsAdderProvider } from '../../context/ChordsAdderContext';
+
 import { AddedChordsNew } from './new/AddedChordsNew';
-import { ChordsAdderNew } from './new/ChordsAdderNew';
+import { ChordsToAdd } from './new/ChordsToAdd';
 
 interface Props {}
 
 export const ChordEditorNew = ({}: Props) => {
-  const { state, dispatch } = useContext(chordsAdderStore);
-
   return (
     <ChordsAdderProvider>
       <AddedChordsNew />
-      <ChordsAdderNew />
+      <ChordsToAdd />
       <div>ChordEditor</div>
     </ChordsAdderProvider>
   );
