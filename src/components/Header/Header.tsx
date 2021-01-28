@@ -60,7 +60,9 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar>
           <Left>
-            <Typography variant="h3">CyberAliosha</Typography>
+            <AlioshaLink to={routes.root}>
+              <Typography variant="h3">CyberAliosha</Typography>
+            </AlioshaLink>
           </Left>
           <Right>
             <SimpleMenu title="Chords" items={chordsMenu} />

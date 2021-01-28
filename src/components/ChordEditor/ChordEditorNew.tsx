@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { ChordsAdderProvider } from '../../context/ChordsAdderContext';
 
-import { AddedChordsNew } from './new/AddedChordsNew';
-import { ChordsToAdd } from './new/ChordsToAdd';
+import { AddedChordsNew } from './layout/AddedChordsNew';
+import { ChordsToAdd } from './layout/ChordsToAdd';
 
 interface Props {}
 
