@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/Header/Header';
 import { AboutPage } from './AboutPage';
-import { ChordsCreatorPage } from './ChordsCreatorPage';
-import { ChordsEditorPage } from './ChordsEditorPage';
+import { ChordsCreatorPage } from './Chords/ChordsCreatorPage';
+import { ChordsEditorPage } from './Chords/ChordsEditorPage';
 import { MainPage } from './MainPage';
 import { routes } from './routes';
-import { SavedChordsPage } from './SavedChordsPage';
+import { SavedChordsPage } from './Chords/SavedChordsPage';
 
 export default function MainRouter() {
   return (
@@ -37,5 +37,5 @@ export default function MainRouter() {
 }
 
 const Body = styled.div`
-  padding: 20px;
+  padding: 20px 50px;
 `;

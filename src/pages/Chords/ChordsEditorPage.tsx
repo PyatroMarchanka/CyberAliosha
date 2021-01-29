@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import ChordEditor from '../components/ChordEditor/ChordEditor';
-import { ChordEditorNew } from '../components/ChordEditor/ChordEditorNew';
+import ChordEditor from '../../components/ChordEditor/ChordEditor';
+import { ChordEditorNew } from '../../components/ChordEditor/ChordEditorNew';
 
 interface Props {}
 

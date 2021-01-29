@@ -1,15 +1,15 @@
 import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { ChordsProgression } from '../components/global/ChordsProgression';
-import { ChordModel } from '../dataset/all_chords_for_impro';
+import { ChordsProgression } from '../../components/global/ChordsProgression';
+import { ChordModel } from '../../dataset/all_chords_for_impro';
 import {
   clearSavedChords,
   getSavedChords,
   removeSavedChordsById,
   SavedChords,
   storages,
-} from '../localStorageUtils/addedChordsStorage';
+} from '../../localStorageUtils/addedChordsStorage';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 interface Props {}

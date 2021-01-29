@@ -20,6 +20,7 @@ export const theme = {
     primary: 'Gill Sans, sans-serif',
   },
   colors: {
+    white: '#ffffff',
     primary: '#3f51b5',
     red: {
       '50': '#ffebee',

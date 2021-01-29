@@ -6,7 +6,7 @@ interface Props {
   color?: Color;
   onClick?: (e: any) => void;
   children: any;
-  type?: 'primary';
+  type?: 'primary' | 'big';
   id?: string;
   className?: string;
   disabled?: boolean;
@@ -69,10 +69,20 @@ const PrimaryButton = styled.button`
   }
 `;
 
+const BigButton = styled(PrimaryButton)`
+  padding: 20px;
+  margin: 0;
+  font-size: 25px;
+  font-weight: 500;
+`;
+
 function getButtonByType(type: Props['type']) {
   switch (type) {
     case 'primary':
       return PrimaryButton;
+
+    case 'big':
+      return BigButton;
 
     default:
       return PrimaryButton;
