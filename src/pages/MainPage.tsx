@@ -22,7 +22,7 @@ export function MainPage() {
         }
         title="Chords"
         rightImage="https://picsum.photos/500/300"
-        actionComponent={<Link to={routes.chordsCreator} />}
+        actionComponent={<Link to={routes.chordsEditor} />}
       />
       <HeroSection
         backgroundImage="/images/hero2.jpg"

@@ -8,6 +8,7 @@ import { ChordsEditorPage } from './Chords/ChordsEditorPage';
 import { MainPage } from './MainPage';
 import { routes } from './routes';
 import { SavedChordsPage } from './Chords/SavedChordsPage';
+import { MelodiesPage } from './Melodies/MelodiesPage';
 
 export default function MainRouter() {
   return (
@@ -23,6 +24,9 @@ export default function MainRouter() {
           </Route>
           <Route path={routes.chordsSaved}>
             <SavedChordsPage />
+          </Route>
+          <Route path={routes.melodyEditor}>
+            <MelodiesPage />
           </Route>
           <Route path={routes.about}>
             <AboutPage />

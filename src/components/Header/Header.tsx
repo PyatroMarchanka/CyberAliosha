@@ -47,7 +47,7 @@ export default function Header() {
   const melodyMenu: MenuProps['items'] = [
     {
       title: 'Melody',
-      onClick: () => console.log('Melody'),
+      link: routes.melodyEditor,
     },
     {
       title: 'MIDI',
