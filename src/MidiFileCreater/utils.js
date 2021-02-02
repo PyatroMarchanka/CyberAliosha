@@ -46,6 +46,26 @@ const convertChordToString = (chord) => {
   return `${chord[0]}${chord[1]}`;
 };
 
+const getTermsFromArrToSum = (array, target, partial) => {
+  array = array.sort((a, b) => a - b);
+  const sum = partial.reduce((acc, cur) => acc + cur, 0);
+  const rand = array[Math.floor(Math.random() * array.length)];
+  const result = [...partial, rand];
+
+  if (sum + rand === target) {
+    return result;
+  }
+
+  if (sum + rand > target) {
+    return getTermsFromArrToSum(array.slice(0, array.indexOf(rand)), target, partial);
+  }
+
+  if (sum + rand < target) {
+    return getTermsFromArrToSum(array, target, result);
+  }
+};
+
+// TODO: create arr of objects {measure: number, durs: [0.5, 0.5]}
 function createDurMeasure(notesLengthType, count) {
   console.log('notesLengthType', notesLengthType);
   const typeLengthMap = {
@@ -60,17 +80,25 @@ function createDurMeasure(notesLengthType, count) {
     eight: [8],
     sixteen: [16],
   };
-  let result = [];
-  let currentAllNotesLength = 0;
-  while (currentAllNotesLength < 1) {
-    let dur =
-      1 /
-      typeLengthMap[notesLengthType][randomIntegerRange(0, typeLengthMap[notesLengthType].length)];
-    result.push(dur);
-    currentAllNotesLength += dur;
-  }
+  // let result = [];
+  let result = getTermsFromArrToSum(
+    typeLengthMap[notesLengthType].map((num) => 2 / num),
+    1,
+    [],
+  );
+
+  // let currentAllNotesLength = 0;
+  // while (currentAllNotesLength < 1) {
+  //   let dur =
+  //     1 /
+  //     typeLengthMap[notesLengthType][randomIntegerRange(0, typeLengthMap[notesLengthType].length)];
+  //   result.push(dur);
+  //   currentAllNotesLength += dur;
+  // }
+
   const space = 1;
-  result[result.length - 1] = result[result.length - 1] - (currentAllNotesLength - space);
+  console.log('result', result);
+  // result[result.length - 1] = result[result.length - 1] - (currentAllNotesLength - space);
   return result;
 }
 
