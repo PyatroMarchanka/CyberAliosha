@@ -5,6 +5,11 @@ export interface ChordModel {
   3: string[];
 }
 
+export interface PartNote {
+  note: string;
+  dur: 0.0625 | 0.125 | 0.25 | 0.5 | 1 | 2;
+}
+
 export default [
   [
     ['A', 'm', ['A', 'C'], ['B', 'D', 'E', 'F', 'G']],
