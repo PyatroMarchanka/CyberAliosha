@@ -1,5 +1,10 @@
+import { ChordModel } from './../dataset/all_chords_for_impro';
 import CreateMidiFile from './CreateMidiFile';
 export default class FileEditor {
+  userChords: any;
+  midiCreator: any;
+  partOptions: any;
+
   constructor() {
     this.userChords = null;
     this.midiCreator = null;
@@ -11,7 +16,7 @@ export default class FileEditor {
     };
   }
 
-  createNewFile(chords) {
+  createNewFile(chords: ChordModel[]) {
     this.midiCreator = new CreateMidiFile(chords);
   }
 

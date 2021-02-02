@@ -1,21 +1,18 @@
-import PatternCreator from "./PatternCreator";
-import BarCreator from "./BarCreator";
+import PatternCreator from './PatternCreator';
+import BarCreator from './BarCreator';
 
 export default class PartCreator {
   constructor(chords, squaresCount, partOptions) {
-    console.log("partOptions", partOptions);
+    console.log('partOptions', partOptions);
     this.pattern =
-      partOptions.pattern === "accompaniment" &&
-      new PatternCreator().getPattern(
-        partOptions.notes,
-        partOptions.type
-      );
-    console.log("this pattern", this.pattern);
+      partOptions.pattern === 'accompaniment' &&
+      new PatternCreator().getPattern(partOptions.notes, partOptions.type);
+    console.log('this pattern', this.pattern);
     this.chords = chords;
-    this.barCreator = new BarCreator(partOptions.notes, partOptions.type);
+    this.barCreator = new BarCreator(partOptions.notesLength, partOptions.type);
     this.squaresCountToAdd = squaresCount;
     this.notes = [];
-    console.log('partOptions.restProbability',partOptions.restProbability)
+    console.log('partOptions.restProbability', partOptions.restProbability);
     this.onInit(partOptions.restProbability / 100);
   }
 
@@ -30,7 +27,7 @@ export default class PartCreator {
           this.chords[idx],
           idx,
           this.pattern,
-          restProbability
+          restProbability,
         );
         this.notes = [...this.notes, ...newBar];
       }
