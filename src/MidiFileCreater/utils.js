@@ -37,18 +37,18 @@ function playChord(chord) {
   chordNotes.forEach((note, index) => {
     switch (index) {
       case 0:
-        guitar.triggerAttackRelease(note + '1', 1);
+        guitar.triggerAttackRelease(note + '1', 2);
         break;
 
       case 1:
       case 2:
-        guitar.triggerAttackRelease(note + '2', 1);
+        guitar.triggerAttackRelease(note + '2', 2);
         break;
 
       case 3:
       case 4:
       case 5:
-        guitar.triggerAttackRelease(note + '3', 1);
+        guitar.triggerAttackRelease(note + '3', 2);
         break;
 
       default:
@@ -150,7 +150,7 @@ const CHORD_BIG = [
   ['A', 'm', ['A', 'C', 'E'], ['B', 'D', 'E', 'F', 'G']],
   ['A', 'm7', ['A', 'C', 'E', 'G'], ['B', 'D', 'E', 'F', 'G']],
   ['A', 'm9', ['A', 'C', 'E', 'G', 'B'], ['B', 'D', 'E', 'F', 'G']],
-  ['A', 'm7b5', ['A', 'C', 'E', 'G'], ['B', 'D#', 'D', 'F', 'G']],
+  ['A', 'm7b5', ['A', 'C', 'D#', 'G'], ['B', 'D#', 'D', 'F', 'G']],
   ['A', 'mAdd9', ['A', 'C', 'E', 'G', 'B'], ['B', 'E', 'D', 'F', 'G']],
   ['A', '', ['A', 'C#', 'E'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', '7', ['A', 'C#', 'E', 'G'], ['B', 'E', 'D', 'F#', 'G']],
