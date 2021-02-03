@@ -1,6 +1,7 @@
 import { NOTES_MAP_SOLO } from '../dataset/dataset';
-import { PolySynth, AMSynth } from 'tone';
+import { PolySynth, AMSynth, Sampler, Buffer } from 'tone';
 import chordsForImpro, { ChordModel } from '../dataset/all_chords_for_impro';
+import { SampleLibrary } from './ToneInstruments';
 
 function randomIntegerRange(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -18,14 +19,42 @@ function findNotes(tone, step, type) {
     .find((chord) => chord[1] === type);
 }
 
-const synth = new PolySynth(5, AMSynth).toMaster();
+// old synth
+// const synth = new PolySynth(5, AMSynth).toMaster();
+
+var guitar = SampleLibrary.load({
+  instruments: 'guitar-acoustic',
+});
+
+Buffer.on('load', function () {
+  guitar.toMaster();
+});
 
 function playChord(chord) {
   const chordNameArr = convertChordStringToArr(chord);
   const chordNotes = findNotes(chordNameArr[0], 0, chordNameArr[1])[2];
-  for (let chordNote of chordNotes) {
-    synth.triggerAttackRelease(chordNote + '4', 1);
-  }
+
+  chordNotes.forEach((note, index) => {
+    switch (index) {
+      case 0:
+        guitar.triggerAttackRelease(note + '1', 1);
+        break;
+
+      case 1:
+      case 2:
+        guitar.triggerAttackRelease(note + '2', 1);
+        break;
+
+      case 3:
+      case 4:
+      case 5:
+        guitar.triggerAttackRelease(note + '3', 1);
+        break;
+
+      default:
+        break;
+    }
+  });
 }
 
 function convertChordStringToArr(chord) {
@@ -118,15 +147,15 @@ const CHORDS_MAP = [
 ];
 
 const CHORD_BIG = [
-  ['A', 'm', ['A', 'C'], ['B', 'D', 'E', 'F', 'G']],
-  ['A', 'm7', ['A', 'C', 'G'], ['B', 'D', 'E', 'F', 'G']],
-  ['A', 'm9', ['A', 'C', 'G', 'B'], ['B', 'D', 'E', 'F', 'G']],
-  ['A', 'm7b5', ['A', 'C', 'G'], ['B', 'D#', 'D', 'F', 'G']],
-  ['A', 'mAdd9', ['A', 'C', 'G', 'B'], ['B', 'E', 'D', 'F', 'G']],
-  ['A', '', ['A', 'C#'], ['B', 'E', 'D', 'F#', 'G#']],
-  ['A', '7', ['A', 'C#', 'G'], ['B', 'E', 'D', 'F#', 'G']],
-  ['A', 'maj', ['A', 'C#', 'G#'], ['B', 'E', 'D', 'F#', 'G#']],
-  ['A', 'majAdd9', ['A', 'C#', 'G#', 'B'], ['B', 'E', 'D', 'F#', 'G#']],
+  ['A', 'm', ['A', 'C', 'E'], ['B', 'D', 'E', 'F', 'G']],
+  ['A', 'm7', ['A', 'C', 'E', 'G'], ['B', 'D', 'E', 'F', 'G']],
+  ['A', 'm9', ['A', 'C', 'E', 'G', 'B'], ['B', 'D', 'E', 'F', 'G']],
+  ['A', 'm7b5', ['A', 'C', 'E', 'G'], ['B', 'D#', 'D', 'F', 'G']],
+  ['A', 'mAdd9', ['A', 'C', 'E', 'G', 'B'], ['B', 'E', 'D', 'F', 'G']],
+  ['A', '', ['A', 'C#', 'E'], ['B', 'E', 'D', 'F#', 'G#']],
+  ['A', '7', ['A', 'C#', 'E', 'G'], ['B', 'E', 'D', 'F#', 'G']],
+  ['A', 'maj', ['A', 'C#', 'E', 'G#'], ['B', 'E', 'D', 'F#', 'G#']],
+  ['A', 'majAdd9', ['A', 'C#', 'E', 'G#', 'B'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', 'dim7', ['A', 'C', 'D#', 'F#'], ['A#', 'C', 'D#', 'D', 'F#', 'G']],
   ['A', 'aug', ['A', 'C#', 'F'], ['A', 'C#', 'F']],
 ];
