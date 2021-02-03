@@ -49,7 +49,7 @@ export const ChordsToAdd = () => {
     <div>
       <ChordsTitledLine
         onChordClick={onChordClick}
-        chords={sortChordsByType(['m', 'm7', 'm7b5'], state.chordsToAdd)}
+        chords={sortChordsByType(['m', 'm7'], state.chordsToAdd)}
         title="Minor chords:"
       />
       <ChordsTitledLine
@@ -59,7 +59,7 @@ export const ChordsToAdd = () => {
       />
       <ChordsTitledLine
         onChordClick={onChordClick}
-        chords={sortChordsByType(['7', 'dim7', 'aug', 'dim7'], state.chordsToAdd)}
+        chords={sortChordsByType(['7', 'dim7', 'aug', 'dim7', 'm7b5'], state.chordsToAdd)}
         title="Unstable chords:"
       />
     </div>
