@@ -23,41 +23,16 @@ export default class BarCreator {
           dur: patternNote.dur,
         });
       });
+
       return resultBar;
     }
+
     const durs = createDurMeasure(this.notesLengthMode);
     for (let index = 0; index < durs.length; index++) {
-      // const chordNotes = 2;
-      // const chordModeNotes = 3;
-
-      // let notesMapIndex =
-      //   (this.type === "soprano" || this.type === "tenor") &&
-      //   durs[index] <= 0.125
-      //     ? chordModeNotes
-      //     : chordNotes;
-
       const newNote = this.createRandomNote(chord[2], durs[index], null, restProbability);
-
-      // if (
-      //   this.type === "no chomatic!" &&
-      //   Math.random() > 0.75 &&
-      //   index % 2 === 1 &&
-      //   (chord[1] === "7" || chord[1] === "dim7" || chord[1] === "m7b5")
-      // ) {
-      //   const possibleChromatismNote = transposeNote(
-      //     newNote.note,
-      //     Math.random() > 0.5 ? -1 : 1,
-      //     NOTES_MAP
-      //   );
-      //   const possibleCrom = this.createRandomNote(
-      //     chord[2],
-      //     durs[++index] || 0.5,
-      //     possibleChromatismNote
-      //   );
-      //   resultBar.push(possibleCrom);
-      // }
       resultBar.push(newNote);
     }
+
     return resultBar;
   }
 
@@ -67,6 +42,7 @@ export default class BarCreator {
         if (!note.note) {
           return note;
         }
+
         note.note = note.note + (idx % 5 === 0 ? '4' : idx % 9 === 0 ? '6' : '5');
         return note;
       });
@@ -85,6 +61,7 @@ export default class BarCreator {
         if (!note.note) {
           return note;
         }
+
         note.note = note.note + (idx % 6 === 0 ? '3' : '4');
         return note;
       });

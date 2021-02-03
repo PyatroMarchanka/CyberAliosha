@@ -40,6 +40,4 @@ export default function MainRouter() {
   );
 }
 
-const Body = styled.div`
-  padding: 20px 50px;
-`;
+const Body = styled.div``;

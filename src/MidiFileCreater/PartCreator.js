@@ -12,12 +12,11 @@ export default class PartCreator {
     this.barCreator = new BarCreator(partOptions.notesLength, partOptions.type);
     this.squaresCountToAdd = squaresCount;
     this.notes = [];
-    console.log('partOptions.restProbability', partOptions.restProbability);
     this.onInit(partOptions.restProbability / 100);
   }
 
   onInit(restProbability) {
-    this.createRandomPart(restProbability);
+    this.createRandomPartBars(restProbability);
   }
 
   createRandomPart(restProbability) {
@@ -29,7 +28,23 @@ export default class PartCreator {
           this.pattern,
           restProbability,
         );
-        this.notes = [...this.notes, ...newBar];
+
+        this.notes = [...this.notes, newBar];
+      }
+    }
+  }
+
+  createRandomPartBars(restProbability) {
+    for (let index = 0; index < this.squaresCountToAdd; index++) {
+      for (let idx in this.chords) {
+        const newBar = this.barCreator.getRandomBar(
+          this.chords[idx],
+          idx,
+          this.pattern,
+          restProbability,
+        );
+
+        this.notes = [...this.notes, newBar];
       }
     }
   }

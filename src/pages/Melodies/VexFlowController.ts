@@ -1,19 +1,61 @@
 import { PartNote } from './../../dataset/all_chords_for_impro';
 import Vex from 'vexflow';
-import { duration } from '@material-ui/core';
+const VF = Vex.Flow;
 
 export class VexFlowController {
-  notes: PartNote[];
+  ref: any;
+  renderer: Vex.Flow.Renderer;
+  barsPerLine = 4;
+  lineHeight = 150;
+  lineWidth = 300;
+  context: Vex.IRenderContext;
 
-  constructor(notes: PartNote[]) {
-    this.notes = notes;
-    console.log('notes', notes);
+  constructor(ref: any) {
+    this.ref = ref;
+    this.renderer = new VF.Renderer(this.ref?.current!, VF.Renderer.Backends.SVG);
+    this.context = this.renderer.getContext();
+    this.context.setFont('Arial', 10).setBackgroundFillStyle('#eed');
   }
 
+  drawAll = (notes: PartNote[][]) => {
+    this.drawStaveLines(notes);
+  };
+
+  drawStaveLines = (bars: PartNote[][]) => {
+    this.context.clear();
+    const barsVexflow = bars.map((bar) => this.convertToVexflow(bar));
+    console.log('bars', barsVexflow);
+    const staveLines = Math.ceil(barsVexflow.length / 5);
+    this.renderer.resize(1500, staveLines * this.lineHeight);
+
+    for (let staveLineNumber = 0; staveLineNumber < staveLines; staveLineNumber++) {
+      barsVexflow
+        .slice(
+          staveLineNumber * this.barsPerLine,
+          staveLineNumber * this.barsPerLine + this.barsPerLine,
+        )
+        .forEach((bar, barNumber) => this.drawStaveLineBar(bar, barNumber, staveLineNumber));
+    }
+  };
+
+  drawStaveLineBar = (bar: Vex.Flow.StaveNote[], barNumber: number, staveLineNumber: number) => {
+    const stave = new Vex.Flow.Stave(
+      barNumber * this.lineWidth,
+      staveLineNumber * this.lineHeight,
+      this.lineWidth,
+    );
+
+    if (barNumber === 0) {
+      stave.addClef('treble').setContext(this.context).draw();
+      Vex.Flow.Formatter.FormatAndDraw(this.context, stave, bar, true);
+    } else {
+      Vex.Flow.Formatter.FormatAndDraw(this.context, stave, bar, true);
+      stave.setContext(this.context).draw();
+    }
+  };
+
   convertToVexflow = (notes: PartNote[]) => {
-    // new Vex.Flow.StaveNote({ keys: ['c/4'], duration: 'q' })
     return notes.map((partNote) => {
-      console.log((1 / partNote.dur).toString(), partNote.dur);
       const octave = partNote.note[partNote.note.length - 1];
 
       const accidental = partNote.note.slice(0, -1).length > 1;

@@ -67,7 +67,6 @@ const getTermsFromArrToSum = (array, target, partial) => {
 
 // TODO: create arr of objects {measure: number, durs: [0.5, 0.5]}
 function createDurMeasure(notesLengthType, count) {
-  console.log('notesLengthType', notesLengthType);
   const typeLengthMap = {
     often: [2, 4, 8, 8, 8, 16],
     middle: [2, 4, 4, 4, 4, 8, 8, 8],
@@ -80,25 +79,13 @@ function createDurMeasure(notesLengthType, count) {
     eight: [8],
     sixteen: [16],
   };
-  // let result = [];
+
   let result = getTermsFromArrToSum(
-    typeLengthMap[notesLengthType].map((num) => 2 / num),
+    typeLengthMap[notesLengthType].map((num) => 1 / num),
     1,
     [],
   );
 
-  // let currentAllNotesLength = 0;
-  // while (currentAllNotesLength < 1) {
-  //   let dur =
-  //     1 /
-  //     typeLengthMap[notesLengthType][randomIntegerRange(0, typeLengthMap[notesLengthType].length)];
-  //   result.push(dur);
-  //   currentAllNotesLength += dur;
-  // }
-
-  const space = 1;
-  console.log('result', result);
-  // result[result.length - 1] = result[result.length - 1] - (currentAllNotesLength - space);
   return result;
 }
 

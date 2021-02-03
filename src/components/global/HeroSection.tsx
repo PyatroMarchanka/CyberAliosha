@@ -10,14 +10,23 @@ interface Props {
   actionComponent: JSX.Element;
   className?: string;
   rightImage: string;
+  reversed?: boolean;
 }
 
 export const HeroSection = styled(
-  ({ className, backgroundImage, summary, title, actionComponent, rightImage }: Props) => {
+  ({
+    className,
+    backgroundImage,
+    summary,
+    title,
+    actionComponent,
+    rightImage,
+    reversed,
+  }: Props) => {
     return (
       <Container className={className}>
         <ImageBackground backgroundImage={backgroundImage} />
-        <Content>
+        <Content reversed={reversed}>
           <Left>
             <Title>
               <Typography align="center" style={{ fontWeight: 600 }} variant="h4">
@@ -53,10 +62,10 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Content = styled.div`
+const Content = styled.div<{ reversed?: boolean }>`
   padding: 40px 40px;
-  margin: 20px 0;
   display: flex;
+  flex-direction: ${({ reversed }) => (reversed ? 'row-reverse' : 'row')};
 `;
 
 const Left = styled.div`

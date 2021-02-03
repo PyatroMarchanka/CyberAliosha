@@ -16,7 +16,8 @@ export function MainPage() {
   return (
     <Container>
       <HeroSection
-        backgroundImage="/images/hero1.jpg"
+        reversed
+        backgroundImage="/images/hero2.jpg"
         summary={
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam facilis sapiente quibusdam eum magnam ab voluptatum officiis nemo obcaecati, quos sunt odio nisi maiores cumque, reprehenderit voluptatibus repellat aperiam. Laboriosam.'
         }
@@ -25,7 +26,7 @@ export function MainPage() {
         actionComponent={<Link to={routes.chordsEditor} />}
       />
       <HeroSection
-        backgroundImage="/images/hero2.jpg"
+        backgroundImage="/images/hero1.jpg"
         summary={
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam facilis sapiente quibusdam eum magnam ab voluptatum officiis nemo obcaecati, quos sunt odio nisi maiores cumque, reprehenderit voluptatibus repellat aperiam. Laboriosam.'
         }
@@ -34,6 +35,7 @@ export function MainPage() {
         actionComponent={<Link to={routes.melodyEditor} />}
       />
       <HeroSection
+        reversed
         backgroundImage="/images/hero3.jpg"
         summary={
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam facilis sapiente quibusdam eum magnam ab voluptatum officiis nemo obcaecati, quos sunt odio nisi maiores cumque, reprehenderit voluptatibus repellat aperiam. Laboriosam.'

@@ -25,6 +25,7 @@
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.2.1",
     "tone": "^13.8.25",
+    "vexchords": "^1.2.0",
     "vexflow": "^3.0.9"
   },
   "devDependencies": {
