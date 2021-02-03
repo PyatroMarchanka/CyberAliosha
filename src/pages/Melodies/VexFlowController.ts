@@ -15,6 +15,7 @@ export class VexFlowController {
     this.renderer = new VF.Renderer(this.ref?.current!, VF.Renderer.Backends.SVG);
     this.context = this.renderer.getContext();
     this.context.setFont('Arial', 10).setBackgroundFillStyle('#eed');
+    this.renderer.resize(1500, 10);
   }
 
   drawAll = (notes: PartNote[][]) => {
@@ -22,10 +23,13 @@ export class VexFlowController {
   };
 
   drawStaveLines = (bars: PartNote[][]) => {
-    this.context.clear();
+    if (bars.length) {
+      this.context.clear();
+    }
     const barsVexflow = bars.map((bar) => this.convertToVexflow(bar));
     console.log('bars', barsVexflow);
     const staveLines = Math.ceil(barsVexflow.length / 5);
+
     this.renderer.resize(1500, staveLines * this.lineHeight);
 
     for (let staveLineNumber = 0; staveLineNumber < staveLines; staveLineNumber++) {

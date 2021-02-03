@@ -18,9 +18,14 @@ export const SheetStave = ({ generateMelody, bars }: Props) => {
   const generateMelodyInternal = () => {
     if (staves) {
       generateMelody();
-      staves.drawAll(bars);
     }
   };
+
+  useEffect(() => {
+    if (staves) {
+      staves.drawAll(bars);
+    }
+  }, [bars]);
 
   useEffect(() => {
     if (ref.current) {
