@@ -2,12 +2,16 @@ import React, { createContext, useReducer } from 'react';
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import ItemsSearcher from '../MidiFileCreater/ItemsSearcher';
 import MidiChordsCreator from '../MidiFileCreater/MidiChordsCreator';
+import { chordStringToFullChord } from '../MidiFileCreater/utils';
 
 interface State {
   addedChords: ChordModel[];
   chordsToAdd: ChordModel[];
   replacingChord: { chord: ChordModel; idx: number } | null;
   addedChordsMode: 'edit' | 'play';
+  key: string;
+  mood: '' | 'min';
+  chordsLenght: 1 | 2 | 4;
 }
 
 interface Action {
@@ -20,7 +24,10 @@ interface Action {
     | 'REPLACE_CHORD'
     | 'ADD_RANDOM_CHORDS_TO_ADD'
     | 'SET_REPLACING_CHORD'
-    | 'SET_ADDED_CHORDS_MODE';
+    | 'SET_ADDED_CHORDS_MODE'
+    | 'SET_START_KEY'
+    | 'SET_START_MOOD'
+    | 'SET_CHORDS_LENGHT';
   payload?: any;
 }
 
@@ -28,7 +35,10 @@ const initialState: State = {
   addedChords: [],
   chordsToAdd: [],
   replacingChord: null,
-  addedChordsMode: 'edit',
+  addedChordsMode: 'play',
+  key: 'C',
+  mood: '',
+  chordsLenght: 1,
 };
 
 interface Context {
@@ -45,6 +55,24 @@ const ChordsAdderProvider = ({ children }: any) => {
 
   const [state, dispatch] = useReducer((state: State, action: Action) => {
     switch (action.type) {
+      case 'SET_CHORDS_LENGHT':
+        return {
+          ...state,
+          key: action.payload,
+        };
+
+      case 'SET_START_KEY':
+        return {
+          ...state,
+          key: action.payload,
+        };
+
+      case 'SET_START_MOOD':
+        return {
+          ...state,
+          mood: action.payload,
+        };
+
       case 'ADD_CHORD':
         return {
           ...state,
@@ -53,16 +81,16 @@ const ChordsAdderProvider = ({ children }: any) => {
         };
 
       case 'ADD_CHORDS_TO_ADD':
-        console.log('ADD_CHORDS_TO_ADD');
         return {
           ...state,
           chordsToAdd: chordSearcher.searchItems(action.payload) || [],
         };
 
       case 'ADD_RANDOM_CHORDS_TO_ADD':
+        const current = chordStringToFullChord(state.key + state.mood);
         return {
           ...state,
-          chordsToAdd: chordsCreator.generateChords(8) || [],
+          addedChords: chordsCreator.getNewChords(action.payload, current) || [],
         };
 
       case 'DELETE_CHORD':

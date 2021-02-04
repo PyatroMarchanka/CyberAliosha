@@ -7,23 +7,28 @@ export default class MidiChordsCreator {
     this.chords = [];
   }
 
-  generateChords(all_chords, count) {
+  generateChords(all_chords, count, startChord) {
     const result = [];
     for (let i = 0; i < count; i++) {
       const releaseChord = releases(result[i - 1]);
       if (releaseChord) {
         result.push(releaseChord);
-        continue;
+      } else {
+        let randChord;
+        if (startChord) {
+          randChord = startChord;
+        } else {
+          const randTone = all_chords[randomIntegerRange(0, all_chords.length)];
+          randChord = randTone[randomIntegerRange(0, randTone.length)];
+        }
+        result.push(randChord);
       }
-      const randTone = all_chords[randomIntegerRange(0, all_chords.length)];
-      let randChord = randTone[randomIntegerRange(0, randTone.length)];
-      result.push(randChord);
     }
     return result.slice(0, count);
   }
 
-  getNewChords(count) {
-    const chords = this.generateChords(ALL_CHORDS_FOR_IMPROVISE, count);
+  getNewChords(count, startChord) {
+    const chords = this.generateChords(ALL_CHORDS_FOR_IMPROVISE, count, startChord);
     return chords;
   }
 

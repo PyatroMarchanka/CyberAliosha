@@ -1,4 +1,4 @@
-import { IconButton, Typography } from '@material-ui/core';
+import { Button, IconButton, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
@@ -13,7 +13,8 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
 import { StyledProgression, StyledProgressionContainer } from '../../../styled/Chords';
 import { RadioButtonsGroup } from '../../global/RadioButtonsGroup';
-import { Button } from '../../global/Button';
+import { KeyMoodSelector } from './KeySelector';
+import MidiChordsCreator from '../../../MidiFileCreater/MidiChordsCreator';
 
 interface Props {}
 
@@ -68,6 +69,13 @@ export const AddedChordsNew = ({}: Props) => {
     });
   };
 
+  const onRandomClick = () => {
+    dispatch({
+      type: 'ADD_RANDOM_CHORDS_TO_ADD',
+      payload: 8,
+    });
+  };
+
   return (
     <StyledProgressionContainer>
       <Header>
@@ -81,6 +89,16 @@ export const AddedChordsNew = ({}: Props) => {
             { label: 'Play', value: 'play' },
           ]}
         />
+        <Actions>
+          <KeyMoodSelector />
+          <Button onClick={onRandomClick} color="inherit" variant="outlined">
+            Random
+          </Button>
+          <Button color="inherit" variant="outlined">
+            Play
+          </Button>
+        </Actions>
+
         <IconButton
           disabled={!addedChords.length}
           onClick={() => saveSavedChords(addedChords)}
@@ -118,12 +136,6 @@ export const AddedChordsNew = ({}: Props) => {
         <IconButton disabled={!addedChords.length} onClick={deleteAll} color="secondary">
           <DeleteForeverIcon fontSize="large" />
         </IconButton>
-        {/* <Button disabled={!addedChords.length} onClick={deleteLast} color={theme.colors.purple}>
-          Delete last
-        </Button>
-        <Button disabled={!addedChords.length} onClick={deleteAll} color={theme.colors.pink}>
-          Delete all
-        </Button> */}
       </AlignedRight>
     </StyledProgressionContainer>
   );
@@ -137,4 +149,11 @@ const Header = styled.div`
 const AlignedRight = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const Actions = styled.div`
+  > * {
+    margin: 10px 0;
+    display: block;
+  }
 `;

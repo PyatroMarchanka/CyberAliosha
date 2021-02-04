@@ -33,7 +33,7 @@ export const ChordsToAdd = () => {
     if (!state.addedChords.length) {
       dispatch({
         type: 'ADD_CHORDS_TO_ADD',
-        payload: ['C', ''],
+        payload: [state.key, state.mood],
       });
     } else {
       const lastChord = state.addedChords[state.addedChords.length - 1];
@@ -43,7 +43,7 @@ export const ChordsToAdd = () => {
         payload: lastChord,
       });
     }
-  }, [state.addedChords]);
+  }, [state.addedChords, state.key, state.mood]);
 
   return (
     <div>

@@ -5,7 +5,7 @@ export const StyledProgressionContainer = styled.div`
   margin: 20px 0;
   padding: 20px;
   border-radius: 5px;
-  max-width: 500px;
+  max-width: 700px;
   background-color: ${theme.colors.grey[200]};
 `;
 

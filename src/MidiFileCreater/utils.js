@@ -7,6 +7,11 @@ function randomIntegerRange(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+const chordStringToFullChord = (chordName) => {
+  const chordKeyMood = convertChordStringToArr(chordName);
+  return findNotes(chordKeyMood[0], 0, chordKeyMood[1]);
+};
+
 function chordNamesToFullArr(chordNames) {
   const chordsArrs = chordNames.map((chordString) => convertChordStringToArr(chordString));
   const fullChordsArr = chordsArrs.map((chordsArr) => findNotes(chordsArr[0], 0, chordsArr[1]));
@@ -207,4 +212,5 @@ export {
   findNotes,
   chordNamesToFullArr,
   convertChordToString,
+  chordStringToFullChord,
 };

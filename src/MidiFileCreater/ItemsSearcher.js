@@ -4,7 +4,6 @@ export default class ItemsSearcher {
   searchItems(chord) {
     if (!chord) return;
 
-    let result;
     if (chord[1] === 'dim7') {
       return findAllChords(chord, [0, 'dim7'], [1, 'maj'], [4, 'm7'], [7, 'maj'], [10, 'm']);
     }
@@ -83,10 +82,7 @@ export default class ItemsSearcher {
         [7, 'maj'],
       );
     }
-    if (!result.length) {
-      throw new Error(`Unknown chord ${chord[0]}${chord[1]}`);
-    }
-    return result;
+    throw new Error(`Unknown chord ${chord[0]}${chord[1]}`);
   }
 }
 

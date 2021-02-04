@@ -11,7 +11,6 @@ export const ChordEditorNew = ({}: Props) => {
     <ChordsAdderProvider>
       <AddedChordsNew />
       <ChordsToAdd />
-      <div>ChordEditor</div>
     </ChordsAdderProvider>
   );
 };
