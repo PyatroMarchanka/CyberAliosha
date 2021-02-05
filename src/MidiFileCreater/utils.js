@@ -1,5 +1,5 @@
 import { NOTES_MAP_SOLO } from '../dataset/dataset';
-import { PolySynth, AMSynth, Sampler, Buffer } from 'tone';
+import Tone, { PolySynth, AMSynth, Sampler, Buffer } from 'tone';
 import chordsForImpro, { ChordModel } from '../dataset/all_chords_for_impro';
 import { SampleLibrary } from './ToneInstruments';
 
@@ -35,25 +35,26 @@ Buffer.on('load', function () {
   guitar.toMaster();
 });
 
-function playChord(chord) {
+function playChord(chord, time = 0) {
+  const now = Tone.now();
   const chordNameArr = convertChordStringToArr(chord);
   const chordNotes = findNotes(chordNameArr[0], 0, chordNameArr[1])[2];
 
   chordNotes.forEach((note, index) => {
     switch (index) {
       case 0:
-        guitar.triggerAttackRelease(note + '1', 2);
+        guitar.triggerAttackRelease(note + '1', 2, now + time);
         break;
 
       case 1:
       case 2:
-        guitar.triggerAttackRelease(note + '2', 2);
+        guitar.triggerAttackRelease(note + '2', 2, now + time);
         break;
 
       case 3:
       case 4:
       case 5:
-        guitar.triggerAttackRelease(note + '3', 2);
+        guitar.triggerAttackRelease(note + '3', 2, now + time);
         break;
 
       default:
@@ -61,6 +62,33 @@ function playChord(chord) {
     }
   });
 }
+
+const playAllChords = (chords) => {
+  const now = Tone.now();
+  chords.forEach((chord, idx) => {
+    chord[2].forEach((note, index) => {
+      switch (index) {
+        case 0:
+          guitar.triggerAttackRelease(note + '1', 2, now + idx);
+          break;
+
+        case 1:
+        case 2:
+          guitar.triggerAttackRelease(note + '2', 2, now + idx);
+          break;
+
+        case 3:
+        case 4:
+        case 5:
+          guitar.triggerAttackRelease(note + '3', 2, now + idx);
+          break;
+
+        default:
+          break;
+      }
+    });
+  });
+};
 
 function convertChordStringToArr(chord) {
   let tone;
@@ -207,6 +235,7 @@ export {
   getDataSet,
   createDurMeasure,
   playChord,
+  playAllChords,
   transposeTonality,
   convertChordStringToArr,
   findNotes,

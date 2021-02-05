@@ -9,6 +9,8 @@ interface Props {}
 export const MelodiesPage = ({}: Props) => {
   const chordsCreator = new MidiChordsCreator();
   const chords = chordsCreator.getNewChords(4);
+  console.log('chords', chords);
+
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
 

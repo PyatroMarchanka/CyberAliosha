@@ -1,24 +1,23 @@
 import { Button, IconButton, Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
-import { convertChordToString, playChord } from '../../../MidiFileCreater/utils';
-import { theme } from '../../../utils/theme';
+import { convertChordToString, playAllChords, playChord } from '../../../MidiFileCreater/utils';
 import { ChordWithEditModal } from './ChordWithEditModal';
 import SaveIcon from '@material-ui/icons/Save';
-import UndoIcon from '@material-ui/icons/Undo';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
 import { StyledProgression, StyledProgressionContainer } from '../../../styled/Chords';
 import { RadioButtonsGroup } from '../../global/RadioButtonsGroup';
 import { KeyMoodSelector } from './KeySelector';
-import MidiChordsCreator from '../../../MidiFileCreater/MidiChordsCreator';
 
 interface Props {}
 
 export const AddedChordsNew = ({}: Props) => {
+  const [playingChord, setPlayingChord] = useState<number | null>(null);
+
   const {
     state: { addedChords, replacingChord, addedChordsMode },
     dispatch,
@@ -94,7 +93,7 @@ export const AddedChordsNew = ({}: Props) => {
           <Button onClick={onRandomClick} color="inherit" variant="outlined">
             Random
           </Button>
-          <Button color="inherit" variant="outlined">
+          <Button onClick={() => playAllChords(addedChords)} color="inherit" variant="outlined">
             Play
           </Button>
         </Actions>
@@ -117,7 +116,7 @@ export const AddedChordsNew = ({}: Props) => {
           {addedChords.map((chord: ChordModel, idx) => (
             <ChordWithEditModal
               className={`chord ${true && 'half'}`}
-              isSelected={idx === replacingChord?.idx}
+              isSelected={idx === replacingChord?.idx || idx === playingChord}
               key={`chord-${chord[0]}-${idx}`}
               onClose={() => onClose()}
               onDelete={() => onDelete(chord, idx)}
