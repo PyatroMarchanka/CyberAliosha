@@ -4,7 +4,7 @@ import { randomIntegerRange } from '../utils';
 import Midi from 'jsmidgen';
 
 export default class CreateMidiFile {
-  constructor(chords, chordsCount = 8, loopCounts = 2, tempo = 120) {
+  constructor(chords, chordsCount = 8, loopCounts = 1, tempo = 120) {
     this.chords = chords || new MidiChordsCreator(chordsCount);
     this.partsFabric = new PartsFabric(chords || this.chords.getChords(), loopCounts);
     this.file = new Midi.File();

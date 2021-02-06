@@ -1,6 +1,6 @@
 // @ts-ignore
 import Tone, { Buffer } from 'tone';
-import { ChordModel } from '../dataset/all_chords_for_impro';
+import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
 import { SampleLibrary } from '../MidiFileCreater/ToneInstruments';
 import { convertChordStringToArr, findNotes } from './chordsUtils';
 
@@ -12,6 +12,7 @@ var guitar = SampleLibrary.load({
 });
 
 Buffer.on('load', function () {
+  console.log('instruments: guitar-acoustic,');
   guitar.toMaster();
 });
 
@@ -51,23 +52,33 @@ export const playAllChords = (chords: ChordModel[]) => {
     chord[2].forEach((note, index) => {
       switch (index) {
         case 0:
-          guitar.triggerAttackRelease(note + '1', 2, now + idx);
+          guitar.triggerAttackRelease(note + '1', 1, now + idx);
           break;
 
         case 1:
         case 2:
-          guitar.triggerAttackRelease(note + '2', 2, now + idx);
+          guitar.triggerAttackRelease(note + '2', 1, now + idx);
           break;
 
         case 3:
         case 4:
         case 5:
-          guitar.triggerAttackRelease(note + '3', 2, now + idx);
+          guitar.triggerAttackRelease(note + '3', 1, now + idx);
           break;
 
         default:
           break;
       }
     });
+  });
+};
+
+export const playMelody = (notes: PartNote[]) => {
+  console.log('playMelody', notes);
+  let now = Tone.now();
+
+  notes.forEach((note) => {
+    guitar.triggerAttackRelease(note.note, note.dur, now + note.dur);
+    now = now + note.dur;
   });
 };

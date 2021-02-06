@@ -9,9 +9,10 @@ import { VexFlowController } from './VexFlowController';
 interface Props {
   bars: PartNote[][];
   generateMelody: () => void;
+  playMelody: () => void;
 }
 
-export const SheetStave = ({ generateMelody, bars }: Props) => {
+export const SheetStave = ({ generateMelody, bars, playMelody }: Props) => {
   const ref = useRef(null);
   const [staves, setStaves] = useState<VexFlowController | null>(null);
 
@@ -36,6 +37,7 @@ export const SheetStave = ({ generateMelody, bars }: Props) => {
   return (
     <Container>
       <Button onClick={generateMelodyInternal}>Generate Melody!</Button>
+      <Button onClick={playMelody}>Play</Button>
       <div ref={ref} id="vf"></div>
       <PartEditor />
     </Container>
