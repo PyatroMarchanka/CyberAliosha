@@ -13,7 +13,6 @@ export default class PartsFabric {
       this.chords.map((c) => `${c[0]}${c[1]}`),
     );
     const part = new PartCreator(this.chords, this.squaresCount, partOptions).notes;
-    console.log(JSON.stringify(part));
     this.parts.push(part);
     return part;
   }

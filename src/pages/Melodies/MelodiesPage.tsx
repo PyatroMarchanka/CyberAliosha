@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
+import React, { useEffect, useState } from 'react';
+import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
 import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
 import { playAllChords, playMelody } from '../../utils';
@@ -9,7 +9,7 @@ interface Props {}
 
 export const MelodiesPage = ({}: Props) => {
   const chordsCreator = new MidiChordsCreator();
-  const chords: ChordModel[] = chordsCreator.getNewChords(4);
+  const [chords, setChords] = useState<ChordModel[]>([]);
   console.log('chords', chords);
 
   const fileEditor = new CreateMidiFile(chords);
@@ -23,13 +23,18 @@ export const MelodiesPage = ({}: Props) => {
   const generateMelody = () => {
     const newPart = fileEditor.addPart({
       type: 'soprano',
-      notesLength: 'middle',
+      notesLength: NotesLengthType.Seldom,
       function: 'solo',
       restProbability: 0,
     });
 
     setPart(newPart);
   };
+
+  useEffect(() => {
+    const chords: ChordModel[] = chordsCreator.getNewChords(16);
+    setChords(chords);
+  }, []);
 
   return (
     <div>

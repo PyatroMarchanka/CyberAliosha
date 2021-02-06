@@ -38,12 +38,13 @@ export default class BarCreator {
 
   createOctave(idx) {
     if (this.type === 'soprano') {
+      console.log('soprano');
       this.toneJsArr = this.toneJsArr.map((note) => {
         if (!note.note) {
           return note;
         }
 
-        note.note = note.note + (idx % 5 === 0 ? '4' : idx % 9 === 0 ? '6' : '5');
+        note.note = note.note + (idx % 5 === 0 ? '3' : idx % 9 === 0 ? '5' : '4');
         return note;
       });
     }
@@ -52,7 +53,7 @@ export default class BarCreator {
         if (!note.note) {
           return note;
         }
-        note.note = note.note + (idx % 6 === 0 ? '2' : '3');
+        note.note = note.note + (idx % 6 === 0 ? '1' : '2');
         return note;
       });
     }
@@ -62,7 +63,7 @@ export default class BarCreator {
           return note;
         }
 
-        note.note = note.note + (idx % 6 === 0 ? '3' : '4');
+        note.note = note.note + (idx % 6 === 0 ? '2' : '3');
         return note;
       });
     }
