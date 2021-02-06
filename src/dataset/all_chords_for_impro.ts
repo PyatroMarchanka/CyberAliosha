@@ -10,6 +10,19 @@ export interface PartNote {
   dur: 0.0625 | 0.125 | 0.25 | 0.5 | 1 | 2;
 }
 
+export enum NotesLengthType {
+  Often = 'often',
+  Middle = 'middle',
+  Seldom = 'seldom',
+  VeryOften = 'very_often',
+  VerySeldom = 'very_seldom',
+  Whole = 'whole',
+  Half = 'half',
+  Quarter = 'quarter',
+  Eight = 'eight',
+  Sixteen = 'sixteen',
+}
+
 export default [
   [
     ['A', 'm', ['A', 'C', 'E'], ['B', 'D', 'E', 'F', 'G']],
@@ -167,4 +180,4 @@ export default [
     ['G#', 'dim7', ['G#', 'B', 'D', 'F'], ['A', 'B', 'D', 'C#', 'F', 'F#']],
     ['G#', 'aug', ['G#', 'C', 'E'], ['G#', 'C', 'E']],
   ],
-];
+] as ChordModel[][];
