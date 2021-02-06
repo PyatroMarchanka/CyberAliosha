@@ -1,5 +1,5 @@
 import ALL_CHORDS_FOR_IMPROVISE from '../dataset/all_chords_for_impro';
-import { randomIntegerRange } from './utils';
+import { randomIntegerRange } from '../utils';
 import releases from './Releaser';
 
 export default class MidiChordsCreator {

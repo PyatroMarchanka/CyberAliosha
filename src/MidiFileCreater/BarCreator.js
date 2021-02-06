@@ -1,5 +1,5 @@
 import { DURATIONS } from '../dataset/dataset';
-import { randomIntegerRange, createDurMeasure } from './utils';
+import { randomIntegerRange, createDurMeasure } from '../utils';
 
 export default class BarCreator {
   constructor(notesLengthMode, type) {

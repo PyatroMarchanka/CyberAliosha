@@ -3,7 +3,6 @@ import Popover from '@material-ui/core/Popover';
 import { Button } from '../../global/Button';
 import { theme } from '../../../utils/theme';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
-import { playChord } from '../../../MidiFileCreater/utils';
 
 interface Props {
   children: any;

@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import ItemsSearcher from '../MidiFileCreater/ItemsSearcher';
 import MidiChordsCreator from '../MidiFileCreater/MidiChordsCreator';
-import { chordStringToFullChord } from '../MidiFileCreater/utils';
+import { chordStringToFullChord } from '../utils';
 
 interface State {
   addedChords: ChordModel[];

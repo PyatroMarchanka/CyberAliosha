@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
-import { convertChordToString, playChord } from '../../../MidiFileCreater/utils';
-import { sortChordsByType } from '../../../utils/chordsUtils';
+import { convertChordToString, playChord } from '../../../utils';
+import { sortChordsByType } from '../../../utils';
 import { ChordsTitledLine } from './ChordsTitledLine';
 
 export const ChordsToAdd = () => {

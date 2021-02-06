@@ -1,6 +1,6 @@
 import PartsFabric from './PartsFabric';
 import MidiChordsCreator from './MidiChordsCreator';
-import { randomIntegerRange } from './utils';
+import { randomIntegerRange } from '../utils';
 import Midi from 'jsmidgen';
 
 export default class CreateMidiFile {

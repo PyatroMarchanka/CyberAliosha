@@ -3,7 +3,7 @@ import Selector from './components/Selector';
 import Button from '../ChordEditor/components/Button';
 import FileEditor from '../../MidiFileCreater/FileEditor';
 import partOptions from '../../dataset/partOptions';
-import { chordNamesToFullArr } from '../../MidiFileCreater/utils';
+import { chordNamesToFullArr } from '../../utils';
 import AddedParts from './components/AddedParts';
 
 export default class PartEditor extends Component {

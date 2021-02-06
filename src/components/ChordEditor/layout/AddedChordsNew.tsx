@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
-import { convertChordToString, playAllChords, playChord } from '../../../MidiFileCreater/utils';
+import { convertChordToString, playAllChords, playChord } from '../../../utils';
 import { ChordWithEditModal } from './ChordWithEditModal';
 import SaveIcon from '@material-ui/icons/Save';
 import BackspaceIcon from '@material-ui/icons/Backspace';

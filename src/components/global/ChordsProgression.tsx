@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core';
 import React from 'react';
 import styled from 'styled-components';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
-import { convertChordToString } from '../../MidiFileCreater/utils';
+import { convertChordToString } from '../../utils';
 import { StyledProgressionContainer, StyledProgression } from '../../styled/Chords';
 import { Button } from './Button';
 

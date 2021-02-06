@@ -1,4 +1,4 @@
-import { randomIntegerRange, findNotes } from './utils';
+import { randomIntegerRange, findNotes } from '../utils';
 
 export default function releases(chord) {
   if (!chord) return;
