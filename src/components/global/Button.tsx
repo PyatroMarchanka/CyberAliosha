@@ -1,33 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLongPress } from '../../hooks/useLongPress';
 import { Color, theme } from '../../utils/theme';
 
 interface Props {
   color?: Color;
-  onClick?: (e: any) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onLongPress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: any;
   type?: 'primary' | 'big';
   id?: string;
   className?: string;
   disabled?: boolean;
+  ref?: any;
 }
 
 export function Button({
   color = theme.colors.indigo,
-  onClick,
+  onClick = () => {},
+  onLongPress = () => {},
   children,
   type = 'primary',
   id,
   className,
   disabled = false,
+  ref = null,
 }: Props) {
   const Component = getButtonByType(type);
 
+  const longPressEvent = useLongPress(onLongPress, 500);
+
   return (
     <Component
+      ref={ref}
       disabled={disabled}
       className={className}
       id={id}
+      {...longPressEvent}
       onClick={onClick}
       fontColor={color}
     >

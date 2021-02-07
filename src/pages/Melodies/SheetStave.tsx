@@ -39,7 +39,6 @@ export const SheetStave = ({ generateMelody, bars, playMelody }: Props) => {
       <Button onClick={generateMelodyInternal}>Generate Melody!</Button>
       <Button onClick={playMelody}>Play</Button>
       <div ref={ref} id="vf"></div>
-      <PartEditor />
     </Container>
   );
 };

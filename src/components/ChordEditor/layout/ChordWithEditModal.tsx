@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import { Button } from '../../global/Button';
 import { theme } from '../../../utils/theme';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
+import { useLongPress } from '../../../hooks/useLongPress';
 
 interface Props {
   children: any;
@@ -26,14 +27,17 @@ export const ChordWithEditModal = ({
     state: { addedChordsMode },
     dispatch,
   } = useContext(chordsAdderStore);
+  const ref = useRef(null);
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (addedChordsMode === 'edit') {
-      setAnchorEl(event.currentTarget);
-    } else {
-      playChord();
+    playChord();
+  };
+
+  const handleLongPress = () => {
+    if (ref.current) {
+      setAnchorEl(ref.current);
     }
   };
 
@@ -45,12 +49,13 @@ export const ChordWithEditModal = ({
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <>
+    <div ref={ref}>
       <Button
         className={className}
         color={anchorEl || isSelected ? theme.colors.blue : undefined}
         aria-describedby={id}
         onClick={handleClick}
+        onLongPress={handleLongPress}
       >
         {children}
       </Button>
@@ -75,6 +80,6 @@ export const ChordWithEditModal = ({
           Delete
         </Button>
       </Popover>
-    </>
+    </div>
   );
 };

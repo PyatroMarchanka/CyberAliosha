@@ -61,13 +61,6 @@ export const AddedChordsNew = ({}: Props) => {
     });
   };
 
-  const onModeChange = (value: string) => {
-    dispatch({
-      type: 'SET_ADDED_CHORDS_MODE',
-      payload: value,
-    });
-  };
-
   const onRandomClick = () => {
     dispatch({
       type: 'ADD_RANDOM_CHORDS_TO_ADD',
@@ -79,15 +72,6 @@ export const AddedChordsNew = ({}: Props) => {
     <StyledProgressionContainer>
       <Header>
         <Typography variant="h5">Added chords:</Typography>
-        <RadioButtonsGroup
-          title="Chords mode:"
-          value={addedChordsMode}
-          onChange={(value) => onModeChange(value)}
-          items={[
-            { label: 'Edit', value: 'edit' },
-            { label: 'Play', value: 'play' },
-          ]}
-        />
         <Actions>
           <KeyMoodSelector />
           <Button onClick={onRandomClick} color="inherit" variant="outlined">
