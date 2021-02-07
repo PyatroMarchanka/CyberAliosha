@@ -1,5 +1,6 @@
-import { PartNote } from './../../dataset/all_chords_for_impro';
+import { PartNote, ChordModel } from './../../dataset/all_chords_for_impro';
 import Vex from 'vexflow';
+import { convertChordToString } from '../../utils';
 const VF = Vex.Flow;
 
 export class VexFlowController {
@@ -18,16 +19,18 @@ export class VexFlowController {
     this.renderer.resize(1500, 10);
   }
 
-  drawAll = (notes: PartNote[][]) => {
-    this.drawStaveLines(notes);
+  drawAll = (notes: PartNote[][], chords: ChordModel[]) => {
+    this.drawStaveLines(notes, chords);
   };
 
-  drawStaveLines = (bars: PartNote[][]) => {
+  drawStaveLines = (bars: PartNote[][], chords: ChordModel[]) => {
     if (bars.length) {
       this.context.clear();
     }
-    const barsVexflow = bars.map((bar) => this.convertToVexflow(bar));
-    console.log('bars', barsVexflow);
+    const barsVexflow = bars.map((bar, idx) => {
+      const vexflowBar = this.convertToVexflow(bar);
+      return this.addChordName(vexflowBar, chords[idx]);
+    });
     const staveLines = Math.ceil(barsVexflow.length / 5);
 
     this.renderer.resize(1500, staveLines * this.lineHeight);
@@ -59,7 +62,7 @@ export class VexFlowController {
   };
 
   convertToVexflow = (notes: PartNote[]) => {
-    return notes.map((partNote) => {
+    return notes.map((partNote, idx) => {
       const octave = partNote.note[partNote.note.length - 1];
 
       const accidental = partNote.note.slice(0, -1).length > 1;
@@ -74,6 +77,20 @@ export class VexFlowController {
       }
 
       return vexflowNote;
+    });
+  };
+
+  addChordName = (notes: Vex.Flow.StaveNote[], chord: ChordModel) => {
+    return notes.map((note, idx) => {
+      if (idx === 0) {
+        note.addModifier(
+          0,
+          new VF.Annotation(convertChordToString(chord))
+            .setVerticalJustification(1)
+            .setFont('Sans-serif', 16, ''),
+        );
+      }
+      return note;
     });
   };
 }

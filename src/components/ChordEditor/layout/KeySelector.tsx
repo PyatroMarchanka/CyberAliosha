@@ -43,7 +43,6 @@ export function KeyMoodSelector() {
   };
 
   const handleMoodChange = (event: React.ChangeEvent<{ value: string }>) => {
-    console.log('event.target.value', event.target.value);
     dispatch({
       type: 'SET_START_MOOD',
       payload: event.target.value === 'm' ? 'm' : '',

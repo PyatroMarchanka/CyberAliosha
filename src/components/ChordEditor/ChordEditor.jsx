@@ -31,7 +31,6 @@ export default class ChordEditor extends Component {
       selectedChord: null,
       addedChordsLabel: "Click 'Set these chords' to set",
     };
-    console.log('chordsToAdd', this.state.chordsToAdd);
   }
 
   liftUpChords() {
@@ -89,7 +88,6 @@ export default class ChordEditor extends Component {
 
   proposeChordsForLast() {
     const last = this.state.addedChords[this.state.addedChords.length - 1];
-    console.log(last);
     this.setState({
       chordsToAdd: this.chordSearcher.searchItems(last),
     });
@@ -116,7 +114,6 @@ export default class ChordEditor extends Component {
 
   getRandomChords() {
     const chords = this.chordsCreator.getNewChords(8);
-    console.log(chords);
     this.setState({
       addedChords: chords.map((chord) => chord[0] + chord[1]),
     });

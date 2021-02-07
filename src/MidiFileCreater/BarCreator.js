@@ -38,7 +38,6 @@ export default class BarCreator {
 
   createOctave(idx) {
     if (this.type === 'soprano') {
-      console.log('soprano');
       this.toneJsArr = this.toneJsArr.map((note) => {
         if (!note.note) {
           return note;

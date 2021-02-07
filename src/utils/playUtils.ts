@@ -74,7 +74,6 @@ export const playAllChords = (chords: ChordModel[]) => {
 };
 
 export const playMelody = (notes: PartNote[]) => {
-  console.log('playMelody', notes);
   let now = Tone.now();
 
   notes.forEach((note) => {

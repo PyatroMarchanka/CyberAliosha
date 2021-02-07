@@ -35,7 +35,6 @@ export default class PartEditor extends Component {
   handleSelectorsChange(e) {
     const partOptions = JSON.parse(JSON.stringify(this.state.partOptions));
     partOptions[e.target.name] = e.target.value;
-    console.log(e.target.value);
     this.setState({
       partOptions,
     });

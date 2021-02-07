@@ -3,16 +3,17 @@ import styled from 'styled-components';
 import Vex from 'vexflow';
 import { Button } from '../../components/global/Button';
 import PartEditor from '../../components/PartEditor/PartEditor';
-import { PartNote } from '../../dataset/all_chords_for_impro';
+import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
 import { VexFlowController } from './VexFlowController';
 
 interface Props {
   bars: PartNote[][];
   generateMelody: () => void;
   playMelody: () => void;
+  chords: ChordModel[];
 }
 
-export const SheetStave = ({ generateMelody, bars, playMelody }: Props) => {
+export const SheetStave = ({ generateMelody, bars, chords, playMelody }: Props) => {
   const ref = useRef(null);
   const [staves, setStaves] = useState<VexFlowController | null>(null);
 
@@ -24,7 +25,7 @@ export const SheetStave = ({ generateMelody, bars, playMelody }: Props) => {
 
   useEffect(() => {
     if (staves) {
-      staves.drawAll(bars);
+      staves.drawAll(bars, chords);
     }
   }, [bars]);
 

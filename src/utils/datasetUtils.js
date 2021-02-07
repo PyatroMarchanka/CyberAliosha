@@ -20,7 +20,6 @@ function transposeNote(note, step, notesMap) {
 }
 
 function transposeChord(chord, step, notes) {
-  console.log('transposeChord', chord);
   let newChord = JSON.parse(JSON.stringify(chord));
   newChord[0] = transposeNote(newChord[0], step, notes);
   newChord[2] = newChord[2].map((note) => {

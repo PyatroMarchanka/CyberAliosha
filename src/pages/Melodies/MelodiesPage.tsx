@@ -10,7 +10,6 @@ interface Props {}
 export const MelodiesPage = ({}: Props) => {
   const chordsCreator = new MidiChordsCreator();
   const [chords, setChords] = useState<ChordModel[]>([]);
-  console.log('chords', chords);
 
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
@@ -38,7 +37,12 @@ export const MelodiesPage = ({}: Props) => {
 
   return (
     <div>
-      <SheetStave playMelody={playPart} generateMelody={generateMelody} bars={part} />
+      <SheetStave
+        playMelody={playPart}
+        generateMelody={generateMelody}
+        chords={chords}
+        bars={part}
+      />
     </div>
   );
 };

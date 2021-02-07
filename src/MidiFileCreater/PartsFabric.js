@@ -8,10 +8,6 @@ export default class PartsFabric {
   }
 
   addPart(partOptions) {
-    console.log(
-      'this.chords',
-      this.chords.map((c) => `${c[0]}${c[1]}`),
-    );
     const part = new PartCreator(this.chords, this.squaresCount, partOptions).notes;
     this.parts.push(part);
     return part;
