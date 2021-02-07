@@ -5,7 +5,7 @@ export default class PartCreator {
   constructor(chords, squaresCount, partOptions) {
     this.pattern =
       partOptions.pattern === 'accompaniment' &&
-      new PatternCreator().getPattern(partOptions.notes, partOptions.type);
+      new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
     this.chords = chords;
     this.barCreator = new BarCreator(partOptions.notesLength, partOptions.type);
     this.squaresCountToAdd = squaresCount;

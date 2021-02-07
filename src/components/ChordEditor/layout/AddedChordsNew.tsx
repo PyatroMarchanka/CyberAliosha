@@ -3,7 +3,12 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
-import { convertChordToString, playAllChords, playChord } from '../../../utils';
+import {
+  convertChordToString,
+  playAllChords,
+  playAllChordsArpeggiated,
+  playChord,
+} from '../../../utils';
 import { ChordWithEditModal } from './ChordWithEditModal';
 import SaveIcon from '@material-ui/icons/Save';
 import BackspaceIcon from '@material-ui/icons/Backspace';
@@ -77,7 +82,11 @@ export const AddedChordsNew = ({}: Props) => {
           <Button onClick={onRandomClick} color="inherit" variant="outlined">
             Random
           </Button>
-          <Button onClick={() => playAllChords(addedChords)} color="inherit" variant="outlined">
+          <Button
+            onClick={() => playAllChordsArpeggiated(addedChords, 2)}
+            color="inherit"
+            variant="outlined"
+          >
             Play
           </Button>
         </Actions>

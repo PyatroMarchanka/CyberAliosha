@@ -8,13 +8,32 @@ import { convertChordStringToArr, findNotes } from './chordsUtils';
 // const synth = new PolySynth(5, AMSynth).toMaster();
 
 var guitar = SampleLibrary.load({
-  instruments: 'guitar-acoustic',
+  instruments: 'piano',
 });
 
 Buffer.on('load', function () {
-  console.log('instruments: guitar-acoustic,');
+  console.log('instruments: piano,');
   guitar.toMaster();
 });
+
+const getOctaveForGuitar = (note: string, index: number) => {
+  switch (index) {
+    case 0:
+      return note + '1';
+
+    case 1:
+    case 2:
+      return note + '2';
+
+    case 3:
+    case 4:
+    case 5:
+      return note + '3';
+
+    default:
+      break;
+  }
+};
 
 export function playChord(chord: string, time = 0) {
   const now = Tone.now();
@@ -24,25 +43,7 @@ export function playChord(chord: string, time = 0) {
 
   chordNotes &&
     chordNotes.forEach((note, index) => {
-      switch (index) {
-        case 0:
-          guitar.triggerAttackRelease(note + '1', 2, now + time);
-          break;
-
-        case 1:
-        case 2:
-          guitar.triggerAttackRelease(note + '2', 2, now + time);
-          break;
-
-        case 3:
-        case 4:
-        case 5:
-          guitar.triggerAttackRelease(note + '3', 2, now + time);
-          break;
-
-        default:
-          break;
-      }
+      guitar.triggerAttackRelease(getOctaveForGuitar(note, index), 2, now + time);
     });
 }
 
@@ -50,26 +51,27 @@ export const playAllChords = (chords: ChordModel[]) => {
   const now = Tone.now();
   chords.forEach((chord, idx) => {
     chord[2].forEach((note, index) => {
-      switch (index) {
-        case 0:
-          guitar.triggerAttackRelease(note + '1', 1, now + idx);
-          break;
-
-        case 1:
-        case 2:
-          guitar.triggerAttackRelease(note + '2', 1, now + idx);
-          break;
-
-        case 3:
-        case 4:
-        case 5:
-          guitar.triggerAttackRelease(note + '3', 1, now + idx);
-          break;
-
-        default:
-          break;
-      }
+      guitar.triggerAttackRelease(getOctaveForGuitar(note, index), 2, now + idx);
     });
+  });
+};
+
+export const playAllChordsArpeggiated = (chords: ChordModel[], notesPerBar: number = 4) => {
+  let now = Tone.now();
+  chords.forEach((chord) => {
+    playChordArpeggiated(now, chord, notesPerBar);
+    now += 1;
+  });
+};
+
+const playChordArpeggiated = (now: any, chord: ChordModel, notesPerBar: number = 4) => {
+  const notes = [...chord[2].slice(0, notesPerBar - 1), chord[2][1]];
+  notes.forEach((note, index) => {
+    guitar.triggerAttackRelease(
+      getOctaveForGuitar(note, index),
+      2 / notesPerBar,
+      now + index * (1 / notesPerBar),
+    );
   });
 };
 
@@ -77,7 +79,7 @@ export const playMelody = (notes: PartNote[]) => {
   let now = Tone.now();
 
   notes.forEach((note) => {
-    guitar.triggerAttackRelease(note.note, note.dur, now + note.dur);
+    guitar.triggerAttackRelease(note.note, note.dur, now);
     now = now + note.dur;
   });
 };
