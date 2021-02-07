@@ -87,7 +87,7 @@ export class VexFlowController {
           0,
           new VF.Annotation(convertChordToString(chord))
             .setVerticalJustification(1)
-            .setFont('Sans-serif', 16, ''),
+            .setFont('Sans-serif', 16, '600'),
         );
       }
       return note;
