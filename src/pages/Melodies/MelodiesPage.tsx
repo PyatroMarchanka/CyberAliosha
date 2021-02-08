@@ -33,7 +33,7 @@ export const MelodiesPage = ({}: Props) => {
   };
 
   useEffect(() => {
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(4);
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(8);
     console.log('chords', chords);
     if (chords) {
       setChords(chords);

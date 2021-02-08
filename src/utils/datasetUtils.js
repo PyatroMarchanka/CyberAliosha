@@ -6,11 +6,15 @@ const CHORD_BIG = [
   ['A', 'mAdd9', ['A', 'C', 'E', 'G', 'B'], ['B', 'E', 'D', 'F', 'G']],
   ['A', '', ['A', 'C#', 'E'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', '7', ['A', 'C#', 'E', 'G'], ['B', 'E', 'D', 'F#', 'G']],
+  ['A', '7b5', ['A', 'C#', 'D#', 'G'], ['B', 'E', 'D', 'F#', 'G']],
   ['A', 'maj', ['A', 'C#', 'E', 'G#'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', 'majAdd9', ['A', 'C#', 'E', 'G#', 'B'], ['B', 'E', 'D', 'F#', 'G#']],
   ['A', 'dim7', ['A', 'C', 'D#', 'F#'], ['A#', 'C', 'D#', 'D', 'F#', 'G']],
   ['A', 'aug', ['A', 'C#', 'F'], ['A', 'C#', 'F']],
 ];
+
+const NOTES_MAP_SOLO = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
+
 function transposeNote(note, step, notesMap) {
   let indexOfNote = notesMap.indexOf(note);
   if (step < 0) {
@@ -38,11 +42,11 @@ function transposeTone(toneOfChords, step) {
   return newTone.map((chord) => transposeChord(chord, step, NOTES_MAP_SOLO));
 }
 
-export function getDataSet(chordsMap) {
+function getDataSet() {
   let allChords = [];
 
   for (let index = 0; index < 12; index++) {
-    allChords.push(transposeTone(chordsMap, index, NOTES_MAP_SOLO));
+    allChords.push(transposeTone(CHORD_BIG, index, NOTES_MAP_SOLO));
   }
   return JSON.stringify(allChords);
 }
