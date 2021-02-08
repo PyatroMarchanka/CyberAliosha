@@ -69,6 +69,17 @@ const getTermsFromArrToSum = (
   }
 };
 
+const isInChordsArray = (chordsArr: ChordModel[], chord: ChordModel) => {
+  for (let index = 0; index < chordsArr.length; index++) {
+    const chordElement = chordsArr[index];
+    if (chordElement[0] === chord[0] && chordElement[1] === chord[1]) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
   switch (notesLengthType) {
     case NotesLengthType.Often:
@@ -124,4 +135,5 @@ export {
   chordNamesToFullArr,
   convertChordToString,
   chordStringToFullChord,
+  isInChordsArray,
 };

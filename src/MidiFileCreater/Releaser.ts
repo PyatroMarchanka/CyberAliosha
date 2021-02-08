@@ -1,6 +1,7 @@
+import { ChordModel } from './../dataset/all_chords_for_impro';
 import { randomIntegerRange, findNotes } from '../utils';
 
-export default function releases(chord) {
+export default function releases(chord: ChordModel) {
   if (!chord) return;
 
   let result;
@@ -100,3 +101,29 @@ export default function releases(chord) {
   }
   return result;
 }
+
+export const getAllReleaserableToTarget = (target: ChordModel) => {
+  const results: ChordModel[] = [];
+  if (target[1] === 'm' || target[1] === 'm7' || target[1] === 'mAdd9' || target[1] === 'm9') {
+    results.push(findNotes(target[0], 7, 'm')!);
+    results.push(findNotes(target[0], 7, 'm7')!);
+    results.push(findNotes(target[0], 11, 'dim7')!);
+    results.push(findNotes(target[0], 2, 'dim7')!);
+    results.push(findNotes(target[0], 7, '7')!);
+    return results;
+  }
+
+  if (target[1] === '' || target[1] === 'maj' || target[1] === 'majAdd9' || target[1] === '7') {
+    results.push(findNotes(target[0], 7, '')!);
+    results.push(findNotes(target[0], 7, '7')!);
+    results.push(findNotes(target[0], 11, 'dim7')!);
+    results.push(findNotes(target[0], 2, 'dim7')!);
+    return results;
+  }
+
+  results.push(findNotes(target[0], 7, '')!);
+  results.push(findNotes(target[0], 7, '7')!);
+  results.push(findNotes(target[0], 11, 'dim7')!);
+  results.push(findNotes(target[0], 2, 'dim7')!);
+  return results;
+};

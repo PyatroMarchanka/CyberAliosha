@@ -1,6 +1,6 @@
 export interface ChordModel {
   0: string;
-  1: '' | 'maj' | 'm' | 'm7' | '7' | 'dim7' | 'm7b5' | 'aug';
+  1: '' | 'maj' | 'm' | 'm9' | 'm7' | '7' | 'dim7' | 'm7b5' | 'aug' | 'mAdd9' | 'majAdd9';
   2: string[];
   3: string[];
 }

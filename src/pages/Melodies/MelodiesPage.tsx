@@ -14,10 +14,10 @@ export const MelodiesPage = ({}: Props) => {
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
 
-  const playPart = () => {
+  const playPart = (loops: number = 2) => {
     // playAllChords(chords);
-    playAllChordsArpeggiated(chords, 2);
-    playMelody(part.flat());
+    playAllChordsArpeggiated(chords, 2, loops);
+    playMelody(part.flat(), loops);
   };
 
   const generateMelody = () => {
@@ -33,14 +33,17 @@ export const MelodiesPage = ({}: Props) => {
   };
 
   useEffect(() => {
-    const chords: ChordModel[] = chordsCreator.getNewChords(8);
-    setChords(chords);
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(4);
+    console.log('chords', chords);
+    if (chords) {
+      setChords(chords);
+    }
   }, []);
 
   return (
     <div>
       <SheetStave
-        playMelody={playPart}
+        playMelody={() => playPart(2)}
         generateMelody={generateMelody}
         chords={chords}
         bars={part}

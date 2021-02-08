@@ -47,23 +47,6 @@ export function playChord(chord: string, time = 0) {
     });
 }
 
-export const playAllChords = (chords: ChordModel[]) => {
-  const now = Tone.now();
-  chords.forEach((chord, idx) => {
-    chord[2].forEach((note, index) => {
-      guitar.triggerAttackRelease(getOctaveForGuitar(note, index), 2, now + idx);
-    });
-  });
-};
-
-export const playAllChordsArpeggiated = (chords: ChordModel[], notesPerBar: number = 4) => {
-  let now = Tone.now();
-  chords.forEach((chord) => {
-    playChordArpeggiated(now, chord, notesPerBar);
-    now += 1;
-  });
-};
-
 const playChordArpeggiated = (now: any, chord: ChordModel, notesPerBar: number = 4) => {
   const notes = [...chord[2].slice(0, notesPerBar - 1), chord[2][1]];
   notes.forEach((note, index) => {
@@ -75,11 +58,41 @@ const playChordArpeggiated = (now: any, chord: ChordModel, notesPerBar: number =
   });
 };
 
-export const playMelody = (notes: PartNote[]) => {
+export const playAllChords = (chords: ChordModel[], loops: number = 1) => {
+  const now = Tone.now();
+
+  for (let index = 0; index < loops; index++) {
+    chords.forEach((chord, idx) => {
+      chord[2].forEach((note, index) => {
+        guitar.triggerAttackRelease(getOctaveForGuitar(note, index), 2, now + idx);
+      });
+    });
+  }
+};
+
+export const playAllChordsArpeggiated = (
+  chords: ChordModel[],
+  notesPerBar: number = 4,
+  loops: number = 1,
+) => {
   let now = Tone.now();
 
-  notes.forEach((note) => {
-    guitar.triggerAttackRelease(note.note, note.dur, now);
-    now = now + note.dur;
-  });
+  for (let index = 0; index < loops; index++) {
+    chords.forEach((chord) => {
+      playChordArpeggiated(now, chord, notesPerBar);
+      now += 1;
+    });
+  }
+};
+
+export const playMelody = (notes: PartNote[], loops: number = 1) => {
+  let now = Tone.now();
+  console.log('playMelody', loops);
+
+  for (let index = 0; index < loops; index++) {
+    notes.forEach((note) => {
+      guitar.triggerAttackRelease(note.note, note.dur, now);
+      now = now + note.dur;
+    });
+  }
 };
