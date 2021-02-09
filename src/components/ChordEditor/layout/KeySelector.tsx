@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import { Button as MatButton } from '@material-ui/core';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -12,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { theme } from '../../../utils/theme';
+import { Button } from '../../global/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,9 +64,7 @@ export function KeyMoodSelector() {
 
   return (
     <div>
-      <Button color="inherit" variant="outlined" onClick={handleClickOpen}>
-        {`Key: ${key}${mood}`}
-      </Button>
+      <Button onClick={handleClickOpen}>{`Key: ${key}${mood}`}</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Set key and mood</DialogTitle>
         <DialogContent>
@@ -108,12 +107,12 @@ export function KeyMoodSelector() {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="inherit">
+          <MatButton onClick={handleClose} color="inherit">
             Cancel
-          </Button>
-          <Button onClick={handleClose} color="inherit">
+          </MatButton>
+          <MatButton onClick={handleClose} color="inherit">
             Ok
-          </Button>
+          </MatButton>
         </DialogActions>
       </Dialog>
     </div>

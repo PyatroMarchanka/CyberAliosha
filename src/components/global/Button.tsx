@@ -52,22 +52,25 @@ interface StyledProps {
 const PrimaryButton = styled.button`
   padding: 10px;
   margin: 20px;
-  background-color: ${({ fontColor }: StyledProps) => fontColor[500]};
+  background: linear-gradient(0deg, rgba(128, 126, 126, 1) 20%, rgba(255, 255, 255, 0.7) 100%);
   border: 0;
-  border-radius: 5px;
+  border-radius: 7px;
+  min-width: 55px;
   color: ${theme.colors.grey[50]};
   font-family: ${theme.fonts.primary};
   font-size: 20px;
   font-weight: 500;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  outline: none;
 
   &:hover {
     cursor: pointer;
-    background-color: ${({ fontColor }: StyledProps) => fontColor[400]};
+    background: linear-gradient(0deg, rgba(128, 126, 126, 1) 60%, rgba(255, 255, 255, 0.7) 100%);
   }
 
   &:active {
     background-color: ${({ fontColor }: StyledProps) => fontColor[700]};
+    border: 0;
   }
 
   &:disabled {

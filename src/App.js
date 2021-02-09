@@ -1,4 +1,5 @@
 import React from 'react';
+import GlobalFonts from './styled/fonts';
 import './App.css';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
@@ -13,6 +14,7 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalFonts />
       <MainRouter />
     </ThemeProvider>
   );

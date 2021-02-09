@@ -1,4 +1,4 @@
-import { Button, IconButton, Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
@@ -17,6 +17,7 @@ import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
 import { StyledProgression, StyledProgressionContainer } from '../../../styled/Chords';
 import { RadioButtonsGroup } from '../../global/RadioButtonsGroup';
 import { KeyMoodSelector } from './KeySelector';
+import { Button } from '../../global/Button';
 
 interface Props {}
 
@@ -79,16 +80,8 @@ export const AddedChordsNew = ({}: Props) => {
         <Typography variant="h5">Added chords:</Typography>
         <Actions>
           <KeyMoodSelector />
-          <Button onClick={onRandomClick} color="inherit" variant="outlined">
-            Random
-          </Button>
-          <Button
-            onClick={() => playAllChordsArpeggiated(addedChords, 2)}
-            color="inherit"
-            variant="outlined"
-          >
-            Play
-          </Button>
+          <Button onClick={onRandomClick}>Random</Button>
+          <Button onClick={() => playAllChordsArpeggiated(addedChords, 2)}>Play</Button>
         </Actions>
 
         <IconButton
@@ -144,8 +137,9 @@ const AlignedRight = styled.div`
 `;
 
 const Actions = styled.div`
+  display: flex;
+
   > * {
-    margin: 10px 0;
     display: block;
   }
 `;
