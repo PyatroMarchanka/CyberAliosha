@@ -11,6 +11,8 @@ interface Props {
 }
 
 export const AlioshaLink = styled(({ className, to, children, onClick }: Props) => {
+  console.log('rootPrefix', rootPrefix);
+
   return (
     <Link onClick={!!onClick ? onClick : undefined} className={className} to={rootPrefix + to}>
       {children}
