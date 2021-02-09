@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { Logo } from './Logo';
+import { Navigation } from './Navigation';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +38,7 @@ export default function Header() {
         <Logo />
       </Left>
       <Right>
+        <Navigation />
         <IconButton edge="start" className={classes.menuButton} color="default" aria-label="menu">
           <SettingsIcon className={classes['MuiSvgIcon-root']} />
         </IconButton>

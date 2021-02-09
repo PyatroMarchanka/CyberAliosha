@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
+import { theme } from '../../../utils/theme';
 import { Button } from '../../global/Button';
 
 interface Props {
@@ -15,9 +16,12 @@ export const ChordsTitledLine = ({ chords, title, onChordClick }: Props) => {
   return (
     <Container>
       {!!title && (
-        <Typography className="title" variant="h6">
-          {title}
-        </Typography>
+        <TitleWrapper>
+          <Typography className="title" variant="h6">
+            {title}
+          </Typography>
+          <Line />
+        </TitleWrapper>
       )}
       <div>
         {chords.map((chord, idx) => (
@@ -33,10 +37,24 @@ export const ChordsTitledLine = ({ chords, title, onChordClick }: Props) => {
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
 
   .title {
     margin-right: 20px;
-    min-width: 200px;
+
+    color: ${theme.colors.white};
   }
+`;
+
+const TitleWrapper = styled.div`
+  height: 75px;
+  display: flex;
+  min-width: 200px;
+  align-items: center;
+`;
+
+const Line = styled.div`
+  height: 2px;
+  flex: 1;
+  /* width: 40px; */
+  background-color: ${theme.colors.white};
 `;

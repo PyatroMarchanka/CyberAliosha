@@ -18,6 +18,7 @@ import { StyledProgression, StyledProgressionContainer } from '../../../styled/C
 import { RadioButtonsGroup } from '../../global/RadioButtonsGroup';
 import { KeyMoodSelector } from './KeySelector';
 import { Button } from '../../global/Button';
+import { theme } from '../../../utils/theme';
 
 interface Props {}
 
@@ -75,9 +76,11 @@ export const AddedChordsNew = ({}: Props) => {
   };
 
   return (
-    <StyledProgressionContainer>
+    <Container>
       <Header>
-        <Typography variant="h5">Added chords:</Typography>
+        <Typography className="added-title" variant="h5">
+          Added chords:
+        </Typography>
         <Actions>
           <KeyMoodSelector />
           <Button onClick={onRandomClick}>Random</Button>
@@ -96,7 +99,9 @@ export const AddedChordsNew = ({}: Props) => {
         </IconButton>
       </Header>
       {!addedChords.length ? (
-        <Typography variant="h6">No chords</Typography>
+        <Typography className="added-title" variant="h6">
+          No chords
+        </Typography>
       ) : (
         <StyledProgression>
           {addedChords.map((chord: ChordModel, idx) => (
@@ -122,9 +127,15 @@ export const AddedChordsNew = ({}: Props) => {
           <DeleteForeverIcon fontSize="large" />
         </IconButton>
       </AlignedRight>
-    </StyledProgressionContainer>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  .added-title {
+    color: ${theme.colors.white};
+  }
+`;
 
 const Header = styled.div`
   display: flex;

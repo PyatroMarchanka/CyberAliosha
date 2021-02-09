@@ -11,6 +11,7 @@ import { SavedChordsPage } from './Chords/SavedChordsPage';
 import { MelodiesPage } from './Melodies/MelodiesPage';
 import { theme } from '../utils/theme';
 import { Navigation } from '../components/Header/Navigation';
+import { Tabs } from '../components/global/Tabs';
 
 export default function MainRouter() {
   return (
@@ -18,17 +19,18 @@ export default function MainRouter() {
       <GlobalStyles />
       <Header />
       <Body>
-        <Navigation />
         <Switch>
           <Route path={routes.chordsEditor}>
-            <ChordsEditorPage />
+            <Tabs items={[{ label: 'Editor' }, { label: 'Saved' }]}>
+              <ChordsEditorPage />
+              <SavedChordsPage />
+            </Tabs>
           </Route>
-          <Route path={routes.chordsCreator}>
+          {/* <Route path={routes.chordsCreator}>
             <ChordsCreatorPage />
-          </Route>
-          <Route path={routes.chordsSaved}>
-            <SavedChordsPage />
-          </Route>
+          </Route> */}
+          {/* <Route path={routes.chordsSaved}>
+          </Route> */}
           <Route path={routes.melodyEditor}>
             <MelodiesPage />
           </Route>
@@ -52,7 +54,8 @@ const Body = styled.div`
 
 const GlobalStyles = createGlobalStyle`
   body {
-    background-color:${theme.colors.grey[400]};
+    /* background-color:${theme.colors.grey[400]}; */
+    background-color: #000;
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 50px;

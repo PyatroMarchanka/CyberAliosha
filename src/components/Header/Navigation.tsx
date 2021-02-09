@@ -39,8 +39,12 @@ export const Navigation = ({}: Props) => {
 
   return (
     <Container>
-      <SimpleMenu title="Chords" items={chordsMenu} />
-      <SimpleMenu title="Melody" items={melodyMenu} />
+      <AlioshaLink to={routes.chordsEditor}>
+        <Button>Chords</Button>
+      </AlioshaLink>
+      <AlioshaLink to={routes.melodyEditor}>
+        <Button>Melody</Button>
+      </AlioshaLink>
       <AlioshaLink to={routes.about}>
         <Button>About</Button>
       </AlioshaLink>
