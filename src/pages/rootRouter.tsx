@@ -49,13 +49,14 @@ export default function MainRouter() {
 const Body = styled.div`
   background-color: #60656f;
   border-radius: 10px;
-  padding: 0 20px 20px;
+  overflow: hidden;
+  -webkit-box-shadow: 5px 5px 15px 5px #000000;
+  box-shadow: 5px 5px 15px 5px #000000;
 `;
 
 const GlobalStyles = createGlobalStyle`
   body {
-    /* background-color:${theme.colors.grey[400]}; */
-    background-color: #000;
+    background-color:#454D5E;
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 50px;

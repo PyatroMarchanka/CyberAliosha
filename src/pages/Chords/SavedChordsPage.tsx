@@ -11,6 +11,7 @@ import {
   storages,
 } from '../../localStorageUtils/addedChordsStorage';
 import DeleteIcon from '@material-ui/icons/Delete';
+import styled from 'styled-components';
 
 interface Props {}
 
@@ -29,7 +30,7 @@ export const SavedChordsPage = ({}: Props) => {
   }, []);
 
   return (
-    <div>
+    <Container>
       {!!savedChords &&
         savedChords.map((chordsObject) => (
           <ChordsProgression
@@ -52,6 +53,10 @@ export const SavedChordsPage = ({}: Props) => {
             }
           />
         ))}
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  margin-top: 20px;
+`;

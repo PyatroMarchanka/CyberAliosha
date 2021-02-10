@@ -82,8 +82,6 @@ export const AddedChordsNew = ({}: Props) => {
           Added chords:
         </Typography>
         <Actions>
-          <KeyMoodSelector />
-          <Button onClick={onRandomClick}>Random</Button>
           <Button onClick={() => playAllChordsArpeggiated(addedChords, 2)}>Play</Button>
         </Actions>
 
@@ -132,6 +130,8 @@ export const AddedChordsNew = ({}: Props) => {
 };
 
 const Container = styled.div`
+  padding: 20px;
+
   .added-title {
     color: ${theme.colors.white};
   }

@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ChordsAdderProvider } from '../../context/ChordsAdderContext';
+import { borders } from '../../styled/global';
 import { theme } from '../../utils/theme';
 
 import { AddedChordsNew } from './layout/AddedChordsNew';
@@ -12,30 +13,25 @@ export const ChordEditorNew = ({}: Props) => {
   return (
     <ChordsAdderProvider>
       <Container>
-        <Block>
+        <ChordsToAddBlock>
           <ChordsToAdd />
-        </Block>
-        <Block>
+        </ChordsToAddBlock>
+        <AddedChordsNewBlock>
           <AddedChordsNew />
-        </Block>
+        </AddedChordsNewBlock>
       </Container>
     </ChordsAdderProvider>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
+const Container = styled.div``;
+
+const ChordsToAddBlock = styled.div`
+  background-color: #878c90;
+  ${borders}
 `;
 
-const Block = styled.div`
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.7) 0%, rgb(125, 125, 125) 100%);
-
-  flex-basis: 45%;
-  border-radius: 10px;
-  padding: 20px;
-
-  &:first-child {
-    margin-right: 30px;
-  }
+const AddedChordsNewBlock = styled.div`
+  background-color: #878c90;
+  ${borders}
 `;

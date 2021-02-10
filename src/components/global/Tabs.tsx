@@ -36,7 +36,11 @@ const Container = styled.div``;
 const TabsButtons = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: 0 20px;
+  > button {
+    flex: 1;
+  }
+  border-left: 2px solid #2f3134;
+  border-right: 2px solid #2f3134;
 `;
 
 const TabButton = styled(({ className, title, onClick, isActive }) => (
@@ -49,7 +53,7 @@ const TabButton = styled(({ className, title, onClick, isActive }) => (
   font-size: 20px;
   padding: 10px;
   box-shadow: none;
-  background-color: ${theme.colors.grey50};
+  background-color: unset;
   outline: none;
 
   color: ${theme.colors.white};
@@ -58,12 +62,12 @@ const TabButton = styled(({ className, title, onClick, isActive }) => (
   transition: background-color 0.2s;
 
   &.active {
-    background-color: ${theme.colors.grey[500]};
+    background-color: #4e5b6a;
   }
 
   &:hover {
     cursor: pointer;
-    background-color: ${theme.colors.grey[500]};
+    background-color: #74879c;
     text-decoration: none;
   }
 `;

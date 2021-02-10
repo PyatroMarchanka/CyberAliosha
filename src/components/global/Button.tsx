@@ -16,7 +16,7 @@ interface Props {
 }
 
 export function Button({
-  color = theme.colors.indigo,
+  color = theme.colors.bluegrey,
   onClick = () => {},
   onLongPress = () => {},
   children,
@@ -51,8 +51,8 @@ interface StyledProps {
 
 const PrimaryButton = styled.button`
   padding: 10px;
-  margin: 20px;
-  background: linear-gradient(0deg, rgba(128, 126, 126, 1) 20%, rgba(255, 255, 255, 0.7) 100%);
+  margin: 10px;
+  background-color: ${({ fontColor }: StyledProps) => fontColor[500]};
   border: 0;
   border-radius: 7px;
   min-width: 55px;
@@ -65,7 +65,7 @@ const PrimaryButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background: linear-gradient(0deg, rgba(128, 126, 126, 1) 60%, rgba(255, 255, 255, 0.7) 100%);
+    background-color: rgba(128, 126, 126, 1);
   }
 
   &:active {

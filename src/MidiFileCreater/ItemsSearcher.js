@@ -20,6 +20,21 @@ export default class ItemsSearcher {
       );
     }
 
+    if (chord[1] === '7b5') {
+      return findAllChords(
+        chord,
+        [0, '7'],
+        [5, 'm7'],
+        [5, 'm'],
+        [5, ''],
+        [5, 'maj'],
+        [2, 'm'],
+        [2, 'm7'],
+        [11, 'm7'],
+        [11, 'maj'],
+      );
+    }
+
     if (chord[1] === 'm7b5') {
       return findAllChords(
         chord,
