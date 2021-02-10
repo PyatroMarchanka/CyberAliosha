@@ -12,6 +12,7 @@ import {
 } from '../../localStorageUtils/addedChordsStorage';
 import DeleteIcon from '@material-ui/icons/Delete';
 import styled from 'styled-components';
+import { MetalBlock } from '../../styled/global';
 
 interface Props {}
 
@@ -57,6 +58,6 @@ export const SavedChordsPage = ({}: Props) => {
   );
 };
 
-const Container = styled.div`
-  margin-top: 20px;
+const Container = styled(MetalBlock)`
+  padding: 20px;
 `;

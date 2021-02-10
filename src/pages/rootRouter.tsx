@@ -50,8 +50,9 @@ const Body = styled.div`
   background-color: #60656f;
   border-radius: 10px;
   overflow: hidden;
-  -webkit-box-shadow: 5px 5px 15px 5px #000000;
-  box-shadow: 5px 5px 15px 5px #000000;
+  -webkit-box-shadow: 0px 5px 15px 0px #333333;
+  box-shadow: 0px 5px 15px 0px #333333;
+  margin-top: 30px;
 `;
 
 const GlobalStyles = createGlobalStyle`

@@ -14,11 +14,11 @@ import SaveIcon from '@material-ui/icons/Save';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
-import { StyledProgression, StyledProgressionContainer } from '../../../styled/Chords';
-import { RadioButtonsGroup } from '../../global/RadioButtonsGroup';
-import { KeyMoodSelector } from './KeySelector';
+import { StyledProgression } from '../../../styled/Chords';
 import { Button } from '../../global/Button';
 import { theme } from '../../../utils/theme';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import { Icon } from '../../global/Icon';
 
 interface Props {}
 
@@ -77,25 +77,13 @@ export const AddedChordsNew = ({}: Props) => {
 
   return (
     <Container>
-      <Header>
-        <Typography className="added-title" variant="h5">
-          Added chords:
-        </Typography>
-        <Actions>
-          <Button onClick={() => playAllChordsArpeggiated(addedChords, 2)}>Play</Button>
-        </Actions>
-
-        <IconButton
-          disabled={!addedChords.length}
-          onClick={() => saveSavedChords(addedChords)}
-          className="icon"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-        >
-          <SaveIcon fontSize="large" />
-        </IconButton>
-      </Header>
+      {addedChords.length > 0 && (
+        <Header>
+          <Typography className="added-title" variant="h5">
+            Added chords:
+          </Typography>
+        </Header>
+      )}
       {!addedChords.length ? (
         <Typography className="added-title" variant="h6">
           No chords
@@ -117,14 +105,53 @@ export const AddedChordsNew = ({}: Props) => {
           ))}
         </StyledProgression>
       )}
-      <AlignedRight>
-        <IconButton disabled={!addedChords.length} onClick={deleteLast} color="secondary">
-          <BackspaceIcon fontSize="large" />
+      <Actions>
+        <IconButton
+          disabled={!addedChords.length}
+          onClick={() => playAllChordsArpeggiated(addedChords, 2)}
+          className="icon"
+        >
+          <Icon
+            type="play"
+            disabled={!addedChords.length}
+            fill={theme.colors.white}
+            className="play-icon"
+          />
         </IconButton>
-        <IconButton disabled={!addedChords.length} onClick={deleteAll} color="secondary">
-          <DeleteForeverIcon fontSize="large" />
+        <IconButton className="icon" disabled={!addedChords.length} onClick={deleteLast}>
+          <Icon
+            type="material"
+            Icon={BackspaceIcon}
+            disabled={!addedChords.length}
+            fill={theme.colors.white}
+            className="play-icon"
+          />
         </IconButton>
-      </AlignedRight>
+        <IconButton className="icon" disabled={!addedChords.length} onClick={deleteAll}>
+          <Icon
+            type="material"
+            Icon={DeleteForeverIcon}
+            disabled={!addedChords.length}
+            fill={theme.colors.white}
+            className="play-icon  remove-all-icon"
+          />
+        </IconButton>
+        <IconButton
+          disabled={!addedChords.length}
+          onClick={() => saveSavedChords(addedChords)}
+          className="icon"
+          edge="start"
+          aria-label="menu"
+        >
+          <Icon
+            type="material"
+            Icon={SaveIcon}
+            disabled={!addedChords.length}
+            fill={theme.colors.white}
+            className="play-icon"
+          />
+        </IconButton>
+      </Actions>
     </Container>
   );
 };
@@ -142,15 +169,26 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
-const AlignedRight = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
 const Actions = styled.div`
   display: flex;
+  justify-content: flex-end;
 
-  > * {
-    display: block;
+  .icon {
+    color: ${theme.colors.white};
+
+    &.disabled {
+      color: rgba(255, 255, 255, 0.3);
+      fill: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .play-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .remove-all-icon {
+    width: 35px;
+    height: 35px;
   }
 `;

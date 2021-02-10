@@ -1,8 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { ChordsAdderProvider } from '../../context/ChordsAdderContext';
-import { borders } from '../../styled/global';
-import { theme } from '../../utils/theme';
+import { MetalBlock } from '../../styled/global';
 
 import { AddedChordsNew } from './layout/AddedChordsNew';
 import { ChordsToAdd } from './layout/ChordsToAdd';
@@ -13,25 +12,15 @@ export const ChordEditorNew = ({}: Props) => {
   return (
     <ChordsAdderProvider>
       <Container>
-        <ChordsToAddBlock>
+        <MetalBlock>
           <ChordsToAdd />
-        </ChordsToAddBlock>
-        <AddedChordsNewBlock>
+        </MetalBlock>
+        <MetalBlock>
           <AddedChordsNew />
-        </AddedChordsNewBlock>
+        </MetalBlock>
       </Container>
     </ChordsAdderProvider>
   );
 };
 
 const Container = styled.div``;
-
-const ChordsToAddBlock = styled.div`
-  background-color: #878c90;
-  ${borders}
-`;
-
-const AddedChordsNewBlock = styled.div`
-  background-color: #878c90;
-  ${borders}
-`;

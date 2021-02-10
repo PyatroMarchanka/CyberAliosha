@@ -1,10 +1,13 @@
+import { IconButton } from '@material-ui/core';
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
 import { convertChordToString, playChord } from '../../../utils';
 import { sortChordsByType } from '../../../utils';
+import { theme } from '../../../utils/theme';
 import { Button } from '../../global/Button';
+import { Icon } from '../../global/Icon';
 import { ChordsTitledLine } from './ChordsTitledLine';
 import { KeyMoodSelector } from './KeySelector';
 
@@ -75,7 +78,9 @@ export const ChordsToAdd = () => {
         />
       </Chords>
       <Actions>
-        <Button onClick={onRandomClick}>Random</Button>
+        <IconButton onClick={onRandomClick}>
+          <Icon type="radom" className="random-icon" fill={theme.colors.white} />
+        </IconButton>
         <KeyMoodSelector />
       </Actions>
     </Container>
@@ -97,4 +102,10 @@ const Chords = styled.div`
 const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 30px;
+
+  .random-icon {
+    width: 30px;
+    height: 30px;
+  }
 `;
