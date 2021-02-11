@@ -14,8 +14,9 @@ import { Navigation } from '../components/Header/Navigation';
 import { Tabs } from '../components/global/Tabs';
 
 export default function MainRouter() {
+  console.log('process.env.PUBLIC_URL', process.env.PUBLIC_URL);
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
       <Header />
       <Body>
