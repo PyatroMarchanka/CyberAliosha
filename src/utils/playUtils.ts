@@ -7,7 +7,7 @@ import { convertChordStringToArr, findNotes } from './chordsUtils';
 // old synth
 // const synth = new PolySynth(5, AMSynth).toMaster();
 
-var guitar = SampleLibrary.load({
+let guitar = SampleLibrary.load({
   instruments: 'piano',
 });
 
@@ -95,4 +95,11 @@ export const playMelody = (notes: PartNote[], loops: number = 1) => {
       now = now + note.dur;
     });
   }
+};
+
+export const stopMelody = () => {
+  // guitar.disconnect();
+  // guitar = SampleLibrary.load({
+  //   instruments: 'piano',
+  // });
 };

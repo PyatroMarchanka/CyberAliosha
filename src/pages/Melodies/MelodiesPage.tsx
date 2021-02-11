@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
 import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
+import { MetalBlock } from '../../styled/global';
 import { playAllChords, playAllChordsArpeggiated, playMelody } from '../../utils';
+import { theme } from '../../utils/theme';
 import { SheetStave } from './SheetStave';
 
 interface Props {}
@@ -41,13 +44,18 @@ export const MelodiesPage = ({}: Props) => {
   }, []);
 
   return (
-    <div>
+    <Container>
       <SheetStave
         playMelody={() => playPart(2)}
         generateMelody={generateMelody}
         chords={chords}
         bars={part}
       />
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 20px;
+  background-color: ${theme.colors.white};
+`;

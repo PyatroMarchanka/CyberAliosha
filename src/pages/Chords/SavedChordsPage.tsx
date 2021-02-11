@@ -11,6 +11,10 @@ import {
   storages,
 } from '../../localStorageUtils/addedChordsStorage';
 import DeleteIcon from '@material-ui/icons/Delete';
+import styled from 'styled-components';
+import { MetalBlock } from '../../styled/global';
+import { Icon } from '../../components/global/Icon';
+import { theme } from '../../utils/theme';
 
 interface Props {}
 
@@ -29,7 +33,7 @@ export const SavedChordsPage = ({}: Props) => {
   }, []);
 
   return (
-    <div>
+    <Container>
       {!!savedChords &&
         savedChords.map((chordsObject) => (
           <ChordsProgression
@@ -47,11 +51,15 @@ export const SavedChordsPage = ({}: Props) => {
                 color="inherit"
                 aria-label="menu"
               >
-                <DeleteIcon fontSize="large" />
+                <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
               </IconButton>
             }
           />
         ))}
-    </div>
+    </Container>
   );
 };
+
+const Container = styled(MetalBlock)`
+  padding: 20px;
+`;

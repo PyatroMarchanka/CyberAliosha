@@ -5,6 +5,9 @@ import { ChordModel } from '../../dataset/all_chords_for_impro';
 import { convertChordToString } from '../../utils';
 import { StyledProgressionContainer, StyledProgression } from '../../styled/Chords';
 import { Button } from './Button';
+import { theme } from '../../utils/theme';
+
+import { chunk } from 'lodash';
 
 interface Props {
   chords: ChordModel[];
@@ -13,18 +16,26 @@ interface Props {
 }
 
 export const ChordsProgression = ({ chords, title, action }: Props) => {
+  const chordsChunks = chunk(chords, 4);
+
   return (
     <StyledProgressionContainer>
       <Header>
-        {!!title && <Typography variant="h5">{title}</Typography>}
+        {!!title && (
+          <Typography className="title" variant="h5">
+            {title}
+          </Typography>
+        )}
         {!!action && action}
       </Header>
 
-      <StyledProgression>
-        {chords.map((chord) => (
-          <Button className="chord">{convertChordToString(chord)}</Button>
-        ))}
-      </StyledProgression>
+      {chordsChunks.map((chunk) => (
+        <StyledProgression>
+          {chunk.map((chord) => (
+            <Button className="chord">{convertChordToString(chord)}</Button>
+          ))}
+        </StyledProgression>
+      ))}
     </StyledProgressionContainer>
   );
 };
@@ -32,4 +43,8 @@ export const ChordsProgression = ({ chords, title, action }: Props) => {
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+
+  .title {
+    color: ${theme.colors.white};
+  }
 `;

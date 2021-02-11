@@ -5,11 +5,12 @@
  * https://github.com/nbrosowsky/tonejs-instruments
  */
 import { PolySynth, AMSynth, Sampler } from 'tone';
+import { rootPrefix } from '../utils/constants';
 
 export var SampleLibrary = {
   minify: false,
   ext: '.[mp3|ogg]', // use setExt to change the extensions on all files // do not change this variable //
-  baseUrl: '/samples/',
+  baseUrl: rootPrefix + '/samples/',
   list: [
     'bass-electric',
     'bassoon',

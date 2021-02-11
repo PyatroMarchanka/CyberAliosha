@@ -1,4 +1,4 @@
-import { Button, IconButton, Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
@@ -8,25 +8,41 @@ import {
   playAllChords,
   playAllChordsArpeggiated,
   playChord,
+  stopMelody,
 } from '../../../utils';
 import { ChordWithEditModal } from './ChordWithEditModal';
 import SaveIcon from '@material-ui/icons/Save';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
-import { StyledProgression, StyledProgressionContainer } from '../../../styled/Chords';
-import { RadioButtonsGroup } from '../../global/RadioButtonsGroup';
-import { KeyMoodSelector } from './KeySelector';
+import { StyledProgression } from '../../../styled/Chords';
+import { Button } from '../../global/Button';
+import { theme } from '../../../utils/theme';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import StopIcon from '@material-ui/icons/Stop';
+import { Icon } from '../../global/Icon';
 
 interface Props {}
 
 export const AddedChordsNew = ({}: Props) => {
   const [playingChord, setPlayingChord] = useState<number | null>(null);
 
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const {
     state: { addedChords, replacingChord, addedChordsMode },
     dispatch,
   } = useContext(chordsAdderStore);
+
+  const handlePlaying = () => {
+    if (!isPlaying) {
+      setIsPlaying(true);
+      playAllChordsArpeggiated(addedChords, 4);
+    } else {
+      setIsPlaying(false);
+      stopMelody();
+    }
+  };
 
   const onReplace = (chord: ChordModel, idx: number) => {
     dispatch({
@@ -66,44 +82,19 @@ export const AddedChordsNew = ({}: Props) => {
     });
   };
 
-  const onRandomClick = () => {
-    dispatch({
-      type: 'ADD_RANDOM_CHORDS_TO_ADD',
-      payload: 8,
-    });
-  };
-
   return (
-    <StyledProgressionContainer>
-      <Header>
-        <Typography variant="h5">Added chords:</Typography>
-        <Actions>
-          <KeyMoodSelector />
-          <Button onClick={onRandomClick} color="inherit" variant="outlined">
-            Random
-          </Button>
-          <Button
-            onClick={() => playAllChordsArpeggiated(addedChords, 2)}
-            color="inherit"
-            variant="outlined"
-          >
-            Play
-          </Button>
-        </Actions>
-
-        <IconButton
-          disabled={!addedChords.length}
-          onClick={() => saveSavedChords(addedChords)}
-          className="icon"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-        >
-          <SaveIcon fontSize="large" />
-        </IconButton>
-      </Header>
+    <Container>
+      {addedChords.length > 0 && (
+        <Header>
+          <Typography className="added-title" variant="h5">
+            Added chords:
+          </Typography>
+        </Header>
+      )}
       {!addedChords.length ? (
-        <Typography variant="h6">No chords</Typography>
+        <Typography className="added-title" variant="h6">
+          No chords
+        </Typography>
       ) : (
         <StyledProgression>
           {addedChords.map((chord: ChordModel, idx) => (
@@ -121,31 +112,90 @@ export const AddedChordsNew = ({}: Props) => {
           ))}
         </StyledProgression>
       )}
-      <AlignedRight>
-        <IconButton disabled={!addedChords.length} onClick={deleteLast} color="secondary">
-          <BackspaceIcon fontSize="large" />
+      <Actions>
+        <IconButton disabled={!addedChords.length} onClick={handlePlaying} className="icon">
+          {isPlaying ? (
+            <Icon type="material" fill={theme.colors.white} Icon={StopIcon} className="play-icon" />
+          ) : (
+            <Icon
+              type="play"
+              disabled={!addedChords.length}
+              fill={theme.colors.white}
+              className="play-icon"
+            />
+          )}
         </IconButton>
-        <IconButton disabled={!addedChords.length} onClick={deleteAll} color="secondary">
-          <DeleteForeverIcon fontSize="large" />
+        <IconButton className="icon" disabled={!addedChords.length} onClick={deleteLast}>
+          <Icon
+            type="material"
+            Icon={BackspaceIcon}
+            disabled={!addedChords.length}
+            fill={theme.colors.white}
+            className="play-icon"
+          />
         </IconButton>
-      </AlignedRight>
-    </StyledProgressionContainer>
+        <IconButton className="icon" disabled={!addedChords.length} onClick={deleteAll}>
+          <Icon
+            type="material"
+            Icon={DeleteForeverIcon}
+            disabled={!addedChords.length}
+            fill={theme.colors.white}
+            className="play-icon  remove-all-icon"
+          />
+        </IconButton>
+        <IconButton
+          disabled={!addedChords.length}
+          onClick={() => saveSavedChords(addedChords)}
+          className="icon"
+          edge="start"
+          aria-label="menu"
+        >
+          <Icon
+            type="material"
+            Icon={SaveIcon}
+            disabled={!addedChords.length}
+            fill={theme.colors.white}
+            className="play-icon"
+          />
+        </IconButton>
+      </Actions>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 20px;
+
+  .added-title {
+    color: ${theme.colors.white};
+  }
+`;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const AlignedRight = styled.div`
+const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
 
-const Actions = styled.div`
-  > * {
-    margin: 10px 0;
-    display: block;
+  .icon {
+    color: ${theme.colors.white};
+
+    &.disabled {
+      color: rgba(255, 255, 255, 0.3);
+      fill: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .play-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .remove-all-icon {
+    width: 35px;
+    height: 35px;
   }
 `;

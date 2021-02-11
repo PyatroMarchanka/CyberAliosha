@@ -3,14 +3,13 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import SettingsIcon from '@material-ui/icons/Settings';
 
-import { MenuProps, SimpleMenu } from '../global/SimpleMenu';
-import { routes } from '../../pages/routes';
-import { AlioshaLink } from '../global/AlioshaLink';
+import { Logo } from './Logo';
+import { Navigation } from './Navigation';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,72 +22,34 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    'MuiSvgIcon-root': {
+      width: '2rem',
+      height: '2rem',
+    },
   }),
 );
 
 export default function Header() {
   const classes = useStyles();
 
-  const chordsMenu: MenuProps['items'] = [
-    {
-      title: 'Chords',
-      link: routes.chordsEditor,
-    },
-    {
-      title: 'Suggest',
-      link: routes.chordsCreator,
-    },
-    {
-      title: 'Saved progresions',
-      link: routes.chordsSaved,
-    },
-  ];
-
-  const melodyMenu: MenuProps['items'] = [
-    {
-      title: 'Melody',
-      link: routes.melodyEditor,
-    },
-    {
-      title: 'MIDI',
-      onClick: () => console.log('MIDI'),
-    },
-  ];
-
   return (
     <Container>
-      <AppBar position="static">
-        <Toolbar>
-          <Left>
-            <AlioshaLink to={routes.root}>
-              <Typography variant="h3">CyberAliosha</Typography>
-            </AlioshaLink>
-          </Left>
-          <Right>
-            <SimpleMenu title="Chords" items={chordsMenu} />
-            <SimpleMenu title="Melody" items={melodyMenu} />
-            <AlioshaLink to={routes.about}>
-              <Button>About</Button>
-            </AlioshaLink>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Right>
-        </Toolbar>
-      </AppBar>
+      <Left>
+        <Logo />
+      </Left>
+      <Right>
+        <Navigation />
+        <IconButton edge="start" className={classes.menuButton} color="default" aria-label="menu">
+          <SettingsIcon className={classes['MuiSvgIcon-root']} />
+        </IconButton>
+      </Right>
     </Container>
   );
 }
 
 const Container = styled.div`
-  .MuiToolbar-root {
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Left = styled.div``;
