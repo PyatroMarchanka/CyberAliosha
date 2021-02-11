@@ -76,5 +76,13 @@ const Container = styled.div`
   .stave {
     background-color: ${theme.colors.white};
     padding: 20px;
+
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 `;
