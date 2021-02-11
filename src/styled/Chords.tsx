@@ -7,10 +7,8 @@ export const StyledProgression = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
 
   .chord {
-    flex-basis: 20%;
     margin: 10px;
   }
 `;

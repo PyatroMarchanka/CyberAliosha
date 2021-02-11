@@ -108,7 +108,7 @@ export const AddedChordsNew = ({}: Props) => {
       <Actions>
         <IconButton
           disabled={!addedChords.length}
-          onClick={() => playAllChordsArpeggiated(addedChords, 2)}
+          onClick={() => playAllChordsArpeggiated(addedChords, 4)}
           className="icon"
         >
           <Icon

@@ -55,7 +55,7 @@ const PrimaryButton = styled.button`
   background-color: ${({ fontColor }: StyledProps) => fontColor[500]};
   border: 0;
   border-radius: 7px;
-  min-width: 55px;
+  min-width: 60px;
   color: ${theme.colors.grey[50]};
   font-family: ${theme.fonts.primary};
   font-size: 20px;
