@@ -5,6 +5,7 @@ import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
 import { MetalBlock } from '../../styled/global';
 import { playAllChords, playAllChordsArpeggiated, playMelody } from '../../utils';
+import { theme } from '../../utils/theme';
 import { SheetStave } from './SheetStave';
 
 interface Props {}
@@ -54,6 +55,7 @@ export const MelodiesPage = ({}: Props) => {
   );
 };
 
-const Container = styled(MetalBlock)`
+const Container = styled.div`
   padding: 20px;
+  background-color: ${theme.colors.white};
 `;

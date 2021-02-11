@@ -8,6 +8,7 @@ import {
   playAllChords,
   playAllChordsArpeggiated,
   playChord,
+  stopMelody,
 } from '../../../utils';
 import { ChordWithEditModal } from './ChordWithEditModal';
 import SaveIcon from '@material-ui/icons/Save';
@@ -18,6 +19,7 @@ import { StyledProgression } from '../../../styled/Chords';
 import { Button } from '../../global/Button';
 import { theme } from '../../../utils/theme';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import StopIcon from '@material-ui/icons/Stop';
 import { Icon } from '../../global/Icon';
 
 interface Props {}
@@ -25,10 +27,22 @@ interface Props {}
 export const AddedChordsNew = ({}: Props) => {
   const [playingChord, setPlayingChord] = useState<number | null>(null);
 
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const {
     state: { addedChords, replacingChord, addedChordsMode },
     dispatch,
   } = useContext(chordsAdderStore);
+
+  const handlePlaying = () => {
+    if (!isPlaying) {
+      setIsPlaying(true);
+      playAllChordsArpeggiated(addedChords, 4);
+    } else {
+      setIsPlaying(false);
+      stopMelody();
+    }
+  };
 
   const onReplace = (chord: ChordModel, idx: number) => {
     dispatch({
@@ -68,13 +82,6 @@ export const AddedChordsNew = ({}: Props) => {
     });
   };
 
-  const onRandomClick = () => {
-    dispatch({
-      type: 'ADD_RANDOM_CHORDS_TO_ADD',
-      payload: 8,
-    });
-  };
-
   return (
     <Container>
       {addedChords.length > 0 && (
@@ -106,17 +113,17 @@ export const AddedChordsNew = ({}: Props) => {
         </StyledProgression>
       )}
       <Actions>
-        <IconButton
-          disabled={!addedChords.length}
-          onClick={() => playAllChordsArpeggiated(addedChords, 4)}
-          className="icon"
-        >
-          <Icon
-            type="play"
-            disabled={!addedChords.length}
-            fill={theme.colors.white}
-            className="play-icon"
-          />
+        <IconButton disabled={!addedChords.length} onClick={handlePlaying} className="icon">
+          {isPlaying ? (
+            <Icon type="material" fill={theme.colors.white} Icon={StopIcon} className="play-icon" />
+          ) : (
+            <Icon
+              type="play"
+              disabled={!addedChords.length}
+              fill={theme.colors.white}
+              className="play-icon"
+            />
+          )}
         </IconButton>
         <IconButton className="icon" disabled={!addedChords.length} onClick={deleteLast}>
           <Icon

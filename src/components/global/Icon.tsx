@@ -17,6 +17,7 @@ export const Icon = styled(
     if (Icon && type === 'material') {
       return (
         <Icon
+          fontSize="large"
           className={className}
           style={{ color: disabled ? 'rgba(255, 255, 255, 0.3)' : fill }}
         />
