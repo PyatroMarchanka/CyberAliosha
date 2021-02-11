@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bf801794a595bb9a8c41836a07f4ddb8",
+    "revision": "ea4f5fa5ca923bdc6d7851d0b3e1540a",
     "url": "/CyberAliosha-Parter-React/index.html"
   },
   {
-    "revision": "a0d770273f5d92cb5474",
+    "revision": "d77ca25604eac738c934",
     "url": "/CyberAliosha-Parter-React/static/css/main.839647eb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/CyberAliosha-Parter-React/static/js/2.5cadafdd.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a0d770273f5d92cb5474",
-    "url": "/CyberAliosha-Parter-React/static/js/main.7dafb1c6.chunk.js"
+    "revision": "d77ca25604eac738c934",
+    "url": "/CyberAliosha-Parter-React/static/js/main.4a310747.chunk.js"
   },
   {
     "revision": "96f86e966983d79d6f28",
