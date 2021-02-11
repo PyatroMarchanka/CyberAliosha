@@ -77,12 +77,14 @@ const Container = styled.div`
     background-color: ${theme.colors.white};
     padding: 20px;
 
-    overflow-x: auto;
+    @media screen and (max-width: 900px) {
+      overflow-x: auto;
 
-    &::-webkit-scrollbar {
-      display: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
     }
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
   }
 `;

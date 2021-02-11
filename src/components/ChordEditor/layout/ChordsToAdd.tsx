@@ -92,12 +92,15 @@ const Container = styled.div`
 `;
 
 const Chords = styled.div`
-  overflow-x: auto;
-  &::-webkit-scrollbar {
-    display: none;
+  @media screen and (max-width: 900px) {
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 
   display: flex;
   justify-content: space-between;
