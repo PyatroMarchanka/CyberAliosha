@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { AlioshaLink } from './AlioshaLink';
 
 export interface MenuProps {
-  title: string;
+  target: JSX.Element;
   items: {
     title: string;
     onClick?: () => void;
@@ -15,10 +15,10 @@ export interface MenuProps {
   }[];
 }
 
-export function SimpleMenu({ items, title }: MenuProps) {
+export function SimpleMenu({ items, target }: MenuProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -28,9 +28,14 @@ export function SimpleMenu({ items, title }: MenuProps) {
 
   return (
     <Container>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        {title}
-      </Button>
+      <div
+        className="button"
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        {target}
+      </div>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -59,5 +64,10 @@ const Container = styled.div`
   .MuiMenu-paper,
   .MuiPopover-paper {
     background-color: grey;
+  }
+
+  .button {
+    border: 0;
+    box-shadow: unset;
   }
 `;

@@ -329,4 +329,13 @@ export const theme = {
       '900': '#263238',
     },
   },
+
+  breakpoints: {
+    belowMobileS: `(max-width: 320px)`,
+    belowMobileM: `(max-width: 375px`,
+    belowMobileL: `(max-width: 425px)`,
+    belowTablet: `(max-width: 768px)`,
+    belowTabletM: `(max-width: 925px)`,
+    belowLaptopL: `(max-width: 1440px)`,
+  },
 };

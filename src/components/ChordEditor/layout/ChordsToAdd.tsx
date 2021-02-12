@@ -92,20 +92,15 @@ const Container = styled.div`
 `;
 
 const Chords = styled.div`
-  @media screen and (max-width: 900px) {
-    overflow-x: auto;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  > div {
+    flex: 1;
   }
 
   display: flex;
   justify-content: space-between;
-  > div {
-    flex: 1;
+
+  @media ${theme.breakpoints.belowTablet} {
+    flex-direction: column;
   }
 `;
 

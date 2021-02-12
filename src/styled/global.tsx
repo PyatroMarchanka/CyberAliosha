@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { theme } from '../utils/theme';
 
 export const borders = css`
   border-top: 2px solid #dbdee1;
@@ -10,4 +11,20 @@ export const borders = css`
 export const MetalBlock = styled.div`
   background-color: #878c90;
   ${borders}
+`;
+
+export const Mobile = styled.div<{ display?: string }>`
+  display: none;
+
+  @media ${theme.breakpoints.belowTabletM} {
+    display: ${({ display }) => (display ? display : 'block')};
+  }
+`;
+
+export const Desktop = styled.div<{ display?: string }>`
+  display: ${({ display }) => (display ? display : 'block')};
+
+  @media ${theme.breakpoints.belowTabletM} {
+    display: none;
+  }
 `;

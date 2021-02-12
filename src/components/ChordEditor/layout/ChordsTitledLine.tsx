@@ -42,8 +42,17 @@ const Container = styled.div`
 
   padding: 0 10px 0 0;
   margin: 0 10px 0 0;
+
+  @media ${theme.breakpoints.belowTablet} {
+    margin: 0 10px 20px 0;
+  }
+
   &:not(:last-child) {
     border-right: 1px solid ${theme.colors.white};
+
+    @media ${theme.breakpoints.belowTablet} {
+      border-right: 0;
+    }
   }
 
   .title {
@@ -62,6 +71,10 @@ const TitleWrapper = styled.div`
   min-width: 200px;
   align-items: center;
   justify-content: center;
+
+  @media ${theme.breakpoints.belowTablet} {
+    height: unset;
+  }
 `;
 
 const Line = styled.div`

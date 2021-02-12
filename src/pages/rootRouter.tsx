@@ -62,5 +62,9 @@ const GlobalStyles = createGlobalStyle`
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 50px;
+
+    @media ${theme.breakpoints.belowTabletM} {
+      padding: 0 20px;
+    }
   }
 `;
