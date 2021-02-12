@@ -4,7 +4,12 @@ import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_
 import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
 import { MetalBlock } from '../../styled/global';
-import { playAllChords, playAllChordsArpeggiated, playMelody } from '../../utils';
+import {
+  playAllChords,
+  playAllChordsArpeggiated,
+  playMelody,
+  playPartChordsArpeggiated,
+} from '../../utils';
 import { theme } from '../../utils/theme';
 import { SheetStave } from './SheetStave';
 
@@ -19,7 +24,7 @@ export const MelodiesPage = ({}: Props) => {
 
   const playPart = (loops: number = 2) => {
     // playAllChords(chords);
-    playAllChordsArpeggiated(chords, 2, loops);
+    playPartChordsArpeggiated(chords, 2, loops);
     playMelody(part.flat(), loops);
   };
 

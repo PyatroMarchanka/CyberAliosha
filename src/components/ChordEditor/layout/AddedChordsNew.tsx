@@ -8,6 +8,7 @@ import {
   playAllChords,
   playAllChordsArpeggiated,
   playChord,
+  playPartChordsArpeggiated,
   stopMelody,
 } from '../../../utils';
 import { ChordWithEditModal } from './ChordWithEditModal';
@@ -37,7 +38,8 @@ export const AddedChordsNew = ({}: Props) => {
   const handlePlaying = () => {
     if (!isPlaying) {
       setIsPlaying(true);
-      playAllChordsArpeggiated(addedChords, 4);
+      // playAllChordsArpeggiated(addedChords, 4);
+      playPartChordsArpeggiated(addedChords, 4);
     } else {
       setIsPlaying(false);
       stopMelody();

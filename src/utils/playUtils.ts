@@ -4,6 +4,27 @@ import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
 import { SampleLibrary } from '../MidiFileCreater/ToneInstruments';
 import { convertChordStringToArr, findNotes } from './chordsUtils';
 
+const toneJsDurs = {
+  [2]: '1n',
+  [1]: '1n',
+  [0.5]: '2n',
+  [0.25]: '4n',
+  [0.125]: '8n',
+  [0.0625]: '16n',
+};
+
+const convertNotesToToneJsArr = (notes: PartNote[]) => {
+  let now = 0;
+
+  const data = notes.map((note) => {
+    const noteData = { note: note.note, dur: toneJsDurs[note.dur], time: now };
+    now = now + note.dur;
+    return noteData;
+  });
+
+  return data;
+};
+
 // old synth
 // const synth = new PolySynth(5, AMSynth).toMaster();
 
@@ -31,7 +52,7 @@ const getOctaveForGuitar = (note: string, index: number) => {
       return note + '3';
 
     default:
-      break;
+      return note + '2';
   }
 };
 
@@ -56,6 +77,14 @@ const playChordArpeggiated = (now: any, chord: ChordModel, notesPerBar: number =
       now + index * (1 / notesPerBar),
     );
   });
+};
+
+const getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
+  const notes = [...chord[2].slice(0, notesPerBar - 1), chord[2][1]];
+  return notes.map((note, index) => ({
+    note: getOctaveForGuitar(note, index),
+    dur: (1 / notesPerBar) as PartNote['dur'],
+  }));
 };
 
 export const playAllChords = (chords: ChordModel[], loops: number = 1) => {
@@ -85,20 +114,42 @@ export const playAllChordsArpeggiated = (
   }
 };
 
-export const playMelody = (notes: PartNote[], loops: number = 1) => {
-  let now = Tone.now();
-  console.log('playMelody', loops);
+export const playMelody = async (notes: PartNote[], loops: number = 1) => {
+  const data = convertNotesToToneJsArr(notes);
 
-  for (let index = 0; index < loops; index++) {
-    notes.forEach((note) => {
-      guitar.triggerAttackRelease(note.note, note.dur, now);
-      now = now + note.dur;
-    });
-  }
+  const part = new Tone.Part((time: any, note: any) => {
+    guitar.triggerAttackRelease(note.note, note.dur, time);
+  }, data).start(0);
+
+  part.humanize = true;
+
+  Tone.Transport.start();
+};
+
+export const playPartChordsArpeggiated = (
+  chords: ChordModel[],
+  notesPerBar: number = 4,
+  loops: number = 1,
+) => {
+  const notes = chords.map((chord) => getNotesForChord(chord, notesPerBar)).flat();
+
+  playMelody(notes, 1);
+
+  // for (let index = 0; index < loops; index++) {
+  //   chords.forEach((chord) => {
+  //     playChordArpeggiated(now, chord, notesPerBar);
+  //     now += 1;
+  //   });
+  // }
 };
 
 export const stopMelody = () => {
+  console.log('stopMelodys');
+  // Tone.Transport.clear();
+  Tone.Transport.stop();
+  // Tone.Player.stopAll();
   // guitar.disconnect();
+  // guitar.toMaster();
   // guitar = SampleLibrary.load({
   //   instruments: 'piano',
   // });
