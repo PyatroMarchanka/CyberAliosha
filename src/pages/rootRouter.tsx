@@ -12,6 +12,7 @@ import { MelodiesPage } from './Melodies/MelodiesPage';
 import { theme } from '../utils/theme';
 import { Navigation } from '../components/Header/Navigation';
 import { Tabs } from '../components/global/Tabs';
+import Footer from '../components/Footer/Footer';
 
 export default function MainRouter() {
   console.log('process.env.PUBLIC_URL', process.env.PUBLIC_URL);
@@ -42,6 +43,7 @@ export default function MainRouter() {
             <MainPage />
           </Route>
         </Switch>
+        <Footer />
       </Body>
     </Router>
   );

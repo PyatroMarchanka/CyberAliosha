@@ -25,6 +25,10 @@ const Container = styled.div`
     font-size: 30px;
     color: ${theme.colors.white};
     margin: 0 5px;
+
+    @media ${theme.breakpoints.belowTabletM} {
+      font-size: 20px;
+    }
   }
 `;
 

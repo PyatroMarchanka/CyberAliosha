@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
+import { MetalBlock } from '../../../styled/global';
 import { theme } from '../../../utils/theme';
 import { Button } from '../../global/Button';
 
@@ -35,24 +36,19 @@ export const ChordsTitledLine = ({ chords, title, onChordClick }: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled(MetalBlock)`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  padding: 0 10px 0 0;
-  margin: 0 10px 0 0;
+  padding: 0 10px 20px 0;
 
   @media ${theme.breakpoints.belowTablet} {
-    margin: 0 10px 20px 0;
+    padding: 0 10px 10px 0;
   }
 
   &:not(:last-child) {
-    border-right: 1px solid ${theme.colors.white};
-
-    @media ${theme.breakpoints.belowTablet} {
-      border-right: 0;
-    }
+    border-right: 0;
   }
 
   .title {

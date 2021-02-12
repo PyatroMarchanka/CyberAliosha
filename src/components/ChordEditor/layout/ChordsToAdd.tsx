@@ -88,7 +88,7 @@ export const ChordsToAdd = () => {
 };
 
 const Container = styled.div`
-  padding: 20px;
+  /* padding: 20px; */
 `;
 
 const Chords = styled.div`
