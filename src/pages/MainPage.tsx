@@ -21,7 +21,7 @@ export function MainPage() {
         summary={
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam facilis sapiente quibusdam eum magnam ab voluptatum officiis nemo obcaecati, quos sunt odio nisi maiores cumque, reprehenderit voluptatibus repellat aperiam. Laboriosam.'
         }
-        title="Chords version 3"
+        title="Chords version 4"
         rightImage="https://picsum.photos/500/300"
         actionComponent={<Link to={routes.chordsEditor} />}
       />
