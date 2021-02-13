@@ -56,7 +56,7 @@ export const ChordsToAdd = () => {
         payload: lastChord,
       });
     }
-  }, [state.addedChords, state.key, state.mood]);
+  }, [state.addedChords, state.key, state.mood, dispatch]);
 
   return (
     <Container>

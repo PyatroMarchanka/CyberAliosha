@@ -68,6 +68,15 @@ export function playChord(chord: string, time = 0) {
     });
 }
 
+const getTransportTime = (previousTime: string, note: PartNote) => {
+  let [bar, quaters, sixteenths] = previousTime.split('.').map(Number);
+  const { dur } = note;
+
+  const noteBars = dur - (dur % 1);
+  const noteQuarters = dur - (dur % 0.25) / 0.25;
+  const noteSixteenths = dur - (dur % 0.125) / 0.125;
+};
+
 const playChordArpeggiated = (now: any, chord: ChordModel, notesPerBar: number = 4) => {
   const notes = [...chord[2].slice(0, notesPerBar - 1), chord[2][1]];
   notes.forEach((note, index) => {
