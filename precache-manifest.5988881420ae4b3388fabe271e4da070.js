@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1ba7f5c587b3b44c8ca3816d2e3d5a5a",
+    "revision": "e4529ce2a0184081f2675d4f07e4b0a7",
     "url": "/CyberAliosha-Parter-React/index.html"
   },
   {
-    "revision": "5dd6a5222141639ce3e4",
+    "revision": "23e6f7ababdda1c979b5",
     "url": "/CyberAliosha-Parter-React/static/css/main.839647eb.chunk.css"
   },
   {
-    "revision": "0c3e41dccb01d87e7d68",
-    "url": "/CyberAliosha-Parter-React/static/js/2.b28e41db.chunk.js"
+    "revision": "6875a4a49e05570eb1bb",
+    "url": "/CyberAliosha-Parter-React/static/js/2.6cfc85ac.chunk.js"
   },
   {
     "revision": "6d68128176c55dbd9e19e6430539ddcf",
-    "url": "/CyberAliosha-Parter-React/static/js/2.b28e41db.chunk.js.LICENSE.txt"
+    "url": "/CyberAliosha-Parter-React/static/js/2.6cfc85ac.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "5dd6a5222141639ce3e4",
-    "url": "/CyberAliosha-Parter-React/static/js/main.a0fe8f04.chunk.js"
+    "revision": "23e6f7ababdda1c979b5",
+    "url": "/CyberAliosha-Parter-React/static/js/main.7cc30fb6.chunk.js"
   },
   {
     "revision": "96f86e966983d79d6f28",
