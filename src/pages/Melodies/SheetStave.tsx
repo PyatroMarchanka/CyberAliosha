@@ -6,7 +6,6 @@ import { Button } from '../../components/global/Button';
 import { Icon } from '../../components/global/Icon';
 import PartEditor from '../../components/PartEditor/PartEditor';
 import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
-import { stopMelody } from '../../utils';
 import { theme } from '../../utils/theme';
 import { VexFlowController } from './VexFlowController';
 import StopIcon from '@material-ui/icons/Stop';
@@ -16,9 +15,10 @@ interface Props {
   generateMelody: () => void;
   playMelody: () => void;
   chords: ChordModel[];
+  stopMelody: () => void;
 }
 
-export const SheetStave = ({ generateMelody, bars, chords, playMelody }: Props) => {
+export const SheetStave = ({ generateMelody, bars, chords, playMelody, stopMelody }: Props) => {
   const ref = useRef(null);
   const [staves, setStaves] = useState<VexFlowController | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);

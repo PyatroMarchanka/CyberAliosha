@@ -22,6 +22,7 @@ import { theme } from '../../../utils/theme';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import StopIcon from '@material-ui/icons/Stop';
 import { Icon } from '../../global/Icon';
+import { Player } from '../../../utils/Player';
 
 interface Props {}
 
@@ -29,6 +30,8 @@ export const AddedChordsNew = ({}: Props) => {
   const [playingChord, setPlayingChord] = useState<number | null>(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const [PlayerInst] = useState<Player>(new Player());
 
   const {
     state: { addedChords, replacingChord, addedChordsMode },
@@ -38,11 +41,11 @@ export const AddedChordsNew = ({}: Props) => {
   const handlePlaying = () => {
     if (!isPlaying) {
       setIsPlaying(true);
-      // playAllChordsArpeggiated(addedChords, 4);
-      playPartChordsArpeggiated(addedChords, 4);
+      PlayerInst.setPartChords(addedChords, 4, 2);
+      PlayerInst.playAll();
     } else {
       setIsPlaying(false);
-      stopMelody();
+      PlayerInst.stopMelody();
     }
   };
 

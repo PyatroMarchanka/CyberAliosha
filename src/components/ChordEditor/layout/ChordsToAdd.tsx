@@ -60,6 +60,12 @@ export const ChordsToAdd = () => {
 
   return (
     <Container>
+      <Actions>
+        <IconButton onClick={onRandomClick}>
+          <Icon type="radom" className="random-icon" fill={theme.colors.white} />
+        </IconButton>
+        <KeyMoodSelector />
+      </Actions>
       <Chords>
         <ChordsTitledLine
           onChordClick={onChordClick}
@@ -77,12 +83,6 @@ export const ChordsToAdd = () => {
           title="Unstable chords:"
         />
       </Chords>
-      <Actions>
-        <IconButton onClick={onRandomClick}>
-          <Icon type="radom" className="random-icon" fill={theme.colors.white} />
-        </IconButton>
-        <KeyMoodSelector />
-      </Actions>
     </Container>
   );
 };
@@ -106,8 +106,7 @@ const Chords = styled.div`
 
 const Actions = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-top: 30px;
+  justify-content: flex-start;
 
   .random-icon {
     width: 30px;

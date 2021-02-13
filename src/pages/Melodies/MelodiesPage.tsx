@@ -10,6 +10,7 @@ import {
   playMelody,
   playPartChordsArpeggiated,
 } from '../../utils';
+import { Player } from '../../utils/Player';
 import { theme } from '../../utils/theme';
 import { SheetStave } from './SheetStave';
 
@@ -21,11 +22,11 @@ export const MelodiesPage = ({}: Props) => {
 
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
+  const [PlayerInst] = useState<Player>(new Player());
 
   const playPart = (loops: number = 2) => {
-    // playAllChords(chords);
-    playPartChordsArpeggiated(chords, 2, loops);
-    playMelody(part.flat(), loops);
+    PlayerInst.setChordsAndMelody(chords, part.flat(), 4, loops);
+    PlayerInst.playAll();
   };
 
   const generateMelody = () => {
@@ -51,6 +52,7 @@ export const MelodiesPage = ({}: Props) => {
   return (
     <Container>
       <SheetStave
+        stopMelody={() => PlayerInst.stopMelody()}
         playMelody={() => playPart(2)}
         generateMelody={generateMelody}
         chords={chords}

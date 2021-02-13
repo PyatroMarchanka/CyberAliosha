@@ -37,6 +37,8 @@ Buffer.on('load', function () {
   guitar.toMaster();
 });
 
+Tone.Transport.start();
+
 const getOctaveForGuitar = (note: string, index: number) => {
   switch (index) {
     case 0:
@@ -123,7 +125,7 @@ export const playAllChordsArpeggiated = (
   }
 };
 
-export const playMelody = async (notes: PartNote[], loops: number = 1) => {
+export const playMelody = (notes: PartNote[], loops: number = 1) => {
   const data = convertNotesToToneJsArr(notes);
 
   const part = new Tone.Part((time: any, note: any) => {
@@ -131,6 +133,8 @@ export const playMelody = async (notes: PartNote[], loops: number = 1) => {
   }, data).start(0);
 
   part.humanize = true;
+
+  console.log(part);
 
   Tone.Transport.start();
 };
@@ -154,8 +158,9 @@ export const playPartChordsArpeggiated = (
 
 export const stopMelody = () => {
   console.log('stopMelodys');
-  // Tone.Transport.clear();
-  Tone.Transport.stop();
+  Tone.Transport.cancel();
+  Tone.Transport.start();
+  // Tone.Transport.stop();
   // Tone.Player.stopAll();
   // guitar.disconnect();
   // guitar.toMaster();
