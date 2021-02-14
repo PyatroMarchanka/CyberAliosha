@@ -14,7 +14,7 @@ import Footer from '../components/Footer/Footer';
 
 export default function MainRouter() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <GlobalStyles />
       <Header />
       <Body>
