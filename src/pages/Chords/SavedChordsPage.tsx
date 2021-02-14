@@ -15,11 +15,15 @@ import styled from 'styled-components';
 import { MetalBlock } from '../../styled/global';
 import { Icon } from '../../components/global/Icon';
 import { theme } from '../../utils/theme';
+import { useHistory } from 'react-router';
+import { routes } from '../routes';
+import { Button } from '../../components/global/Button';
 
 interface Props {}
 
 export const SavedChordsPage = ({}: Props) => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
+  const history = useHistory();
 
   const fetchChords = () => {
     const savedChords = getSavedChords();
@@ -27,6 +31,10 @@ export const SavedChordsPage = ({}: Props) => {
       setSavedChords(savedChords);
       console.log('savedChords', savedChords);
     }
+  };
+
+  const openInMelodyEditor = (chords: ChordModel[]) => {
+    history.push({ pathname: routes.melodyEditor, state: { chords } });
   };
 
   useEffect(() => {
@@ -43,18 +51,23 @@ export const SavedChordsPage = ({}: Props) => {
               key={chordsObject.id}
               chords={chordsObject.chords}
               action={
-                <IconButton
-                  onClick={() => {
-                    removeSavedChordsById(chordsObject.id);
-                    fetchChords();
-                  }}
-                  className="icon"
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                >
-                  <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
-                </IconButton>
+                <div>
+                  <IconButton
+                    onClick={() => {
+                      removeSavedChordsById(chordsObject.id);
+                      fetchChords();
+                    }}
+                    className="icon"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                  >
+                    <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
+                  </IconButton>
+                  <Button onClick={() => openInMelodyEditor(chordsObject.chords)}>
+                    Add Melody
+                  </Button>
+                </div>
               }
             />
           </Chords>

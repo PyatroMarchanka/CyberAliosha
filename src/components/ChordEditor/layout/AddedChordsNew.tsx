@@ -1,22 +1,26 @@
-import { IconButton, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
+import { routes } from '../../../pages/routes';
+
+import { IconButton, Typography } from '@material-ui/core';
+import StopIcon from '@material-ui/icons/Stop';
+import BackspaceIcon from '@material-ui/icons/Backspace';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
 import styled from 'styled-components';
+import { theme } from '../../../utils/theme';
+import { MetalBlock } from '../../../styled/global';
+
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
 import { convertChordToString, playChord } from '../../../utils';
-import { ChordWithEditModal } from './ChordWithEditModal';
-import BackspaceIcon from '@material-ui/icons/Backspace';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { StyledProgression } from '../../../styled/Chords';
-import { theme } from '../../../utils/theme';
-import StopIcon from '@material-ui/icons/Stop';
-import { Icon } from '../../global/Icon';
 import { Player } from '../../../utils/Player';
-import { MetalBlock } from '../../../styled/global';
+
+import { ChordWithEditModal } from './ChordWithEditModal';
+import { StyledProgression } from '../../../styled/Chords';
+import { Icon } from '../../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
 import { Button } from '../../global/Button';
-import { useHistory } from 'react-router';
-import { routes } from '../../../pages/routes';
 
 interface Props {}
 
@@ -85,7 +89,7 @@ export const AddedChordsNew = ({}: Props) => {
   const openInMelodyEditor = () => {
     history.push({
       pathname: routes.melodyEditor,
-      state: { useStateChords: true },
+      state: { chords: addedChords },
     });
   };
 

@@ -45,7 +45,6 @@ export const SheetStave = ({ generateMelody, bars, chords, playMelody, stopMelod
 
   useEffect(() => {
     if (ref.current && !staves) {
-      console.log('setStaves');
       setStaves(new VexFlowController(ref));
     }
   }, [ref.current]);

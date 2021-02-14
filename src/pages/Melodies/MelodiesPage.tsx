@@ -18,13 +18,11 @@ interface Props {}
 
 export const MelodiesPage = ({}: Props) => {
   const location = useLocation();
-  console.log(location);
   const chordsCreator = new MidiChordsCreator();
   const [chords, setChords] = useState<ChordModel[]>([]);
-  const {
-    state: { addedChords },
-    dispatch,
-  } = useContext(chordsAdderStore);
+  console.log(location);
+
+  const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
@@ -48,12 +46,11 @@ export const MelodiesPage = ({}: Props) => {
   };
 
   useEffect(() => {
-    if ((location.state as { useStateChords: boolean } | undefined)?.useStateChords) {
-      setChords(addedChords);
+    if (locationChords) {
+      setChords(locationChords);
     } else {
       const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(8);
 
-      console.log('chords', chords);
       if (chords) {
         setChords(chords);
       }
