@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import React,  from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
 import { MetalBlock } from '../../../styled/global';
