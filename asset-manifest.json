@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/CyberAliosha-Parter-React/static/css/main.839647eb.chunk.css",
-    "main.js": "/CyberAliosha-Parter-React/static/js/main.1883be22.chunk.js",
-    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.1883be22.chunk.js.map",
+    "main.js": "/CyberAliosha-Parter-React/static/js/main.6d8ea59f.chunk.js",
+    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.6d8ea59f.chunk.js.map",
     "runtime-main.js": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js",
     "runtime-main.js.map": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js.map",
     "static/js/2.da4109ac.chunk.js": "/CyberAliosha-Parter-React/static/js/2.da4109ac.chunk.js",
     "static/js/2.da4109ac.chunk.js.map": "/CyberAliosha-Parter-React/static/js/2.da4109ac.chunk.js.map",
     "index.html": "/CyberAliosha-Parter-React/index.html",
-    "precache-manifest.b372fbd9cb7334a653c9d06be691eaf6.js": "/CyberAliosha-Parter-React/precache-manifest.b372fbd9cb7334a653c9d06be691eaf6.js",
+    "precache-manifest.1544055476b9dc04955ddf786f591dbf.js": "/CyberAliosha-Parter-React/precache-manifest.1544055476b9dc04955ddf786f591dbf.js",
     "service-worker.js": "/CyberAliosha-Parter-React/service-worker.js",
     "static/css/main.839647eb.chunk.css.map": "/CyberAliosha-Parter-React/static/css/main.839647eb.chunk.css.map",
     "static/js/2.da4109ac.chunk.js.LICENSE.txt": "/CyberAliosha-Parter-React/static/js/2.da4109ac.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.65ac1b0c.js",
     "static/js/2.da4109ac.chunk.js",
     "static/css/main.839647eb.chunk.css",
-    "static/js/main.1883be22.chunk.js"
+    "static/js/main.6d8ea59f.chunk.js"
   ]
 }
