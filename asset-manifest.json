@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/CyberAliosha-Parter-React/static/css/main.839647eb.chunk.css",
-    "main.js": "/CyberAliosha-Parter-React/static/js/main.6d8ea59f.chunk.js",
-    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.6d8ea59f.chunk.js.map",
+    "main.css": "/CyberAliosha-Parter-React/static/css/main.e5416ec8.chunk.css",
+    "main.js": "/CyberAliosha-Parter-React/static/js/main.bad8b5c6.chunk.js",
+    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.bad8b5c6.chunk.js.map",
     "runtime-main.js": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js",
     "runtime-main.js.map": "/CyberAliosha-Parter-React/static/js/runtime-main.65ac1b0c.js.map",
-    "static/js/2.da4109ac.chunk.js": "/CyberAliosha-Parter-React/static/js/2.da4109ac.chunk.js",
-    "static/js/2.da4109ac.chunk.js.map": "/CyberAliosha-Parter-React/static/js/2.da4109ac.chunk.js.map",
+    "static/js/2.113b346d.chunk.js": "/CyberAliosha-Parter-React/static/js/2.113b346d.chunk.js",
+    "static/js/2.113b346d.chunk.js.map": "/CyberAliosha-Parter-React/static/js/2.113b346d.chunk.js.map",
     "index.html": "/CyberAliosha-Parter-React/index.html",
-    "precache-manifest.1544055476b9dc04955ddf786f591dbf.js": "/CyberAliosha-Parter-React/precache-manifest.1544055476b9dc04955ddf786f591dbf.js",
+    "precache-manifest.9a1e67c4440585e0921a98d86b967096.js": "/CyberAliosha-Parter-React/precache-manifest.9a1e67c4440585e0921a98d86b967096.js",
     "service-worker.js": "/CyberAliosha-Parter-React/service-worker.js",
-    "static/css/main.839647eb.chunk.css.map": "/CyberAliosha-Parter-React/static/css/main.839647eb.chunk.css.map",
-    "static/js/2.da4109ac.chunk.js.LICENSE.txt": "/CyberAliosha-Parter-React/static/js/2.da4109ac.chunk.js.LICENSE.txt",
+    "static/css/main.e5416ec8.chunk.css.map": "/CyberAliosha-Parter-React/static/css/main.e5416ec8.chunk.css.map",
+    "static/js/2.113b346d.chunk.js.LICENSE.txt": "/CyberAliosha-Parter-React/static/js/2.113b346d.chunk.js.LICENSE.txt",
     "static/media/HelveticaComp.ttf": "/CyberAliosha-Parter-React/static/media/HelveticaComp.8b0b9deb.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.65ac1b0c.js",
-    "static/js/2.da4109ac.chunk.js",
-    "static/css/main.839647eb.chunk.css",
-    "static/js/main.6d8ea59f.chunk.js"
+    "static/js/2.113b346d.chunk.js",
+    "static/css/main.e5416ec8.chunk.css",
+    "static/js/main.bad8b5c6.chunk.js"
   ]
 }
