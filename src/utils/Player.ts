@@ -40,6 +40,43 @@ export class Player {
     return data;
   };
 
+  setChordsAndMelody = (
+    chords: ChordModel[],
+    notes: PartNote[],
+    notesPerBar: number = 4,
+    loops: number = 1,
+  ) => {
+    this.setPart(notes, loops);
+    this.setPartChords(chords, notesPerBar, loops);
+  };
+
+  setPart = (notes: PartNote[], loops: number = 1) => {
+    this.melodyPart = this.getPart(notes, loops);
+  };
+
+  setPartChords = (chords: ChordModel[], notesPerBar: number = 4, loops: number = 1) => {
+    const notes = chords.map((chord) => this.getNotesForChord(chord, notesPerBar)).flat();
+    this.chordsPart = this.getPart(notes, loops);
+  };
+
+  getPart = (notes: PartNote[], loops: number = 1) => {
+    let loopedNotes: Tone.Part[] = [];
+
+    for (let index = 0; index < loops; index++) {
+      loopedNotes = [...loopedNotes, ...notes];
+    }
+
+    const data = this.convertNotesToToneJsArr(notes);
+
+    const part = new Tone.Part((time: any, note: any) => {
+      guitar.triggerAttackRelease(note.note, note.dur, time);
+    }, data);
+
+    part.humanize = true;
+
+    return part;
+  };
+
   playChordArpeggiatedOld = (now: any, chord: ChordModel, notesPerBar: number = 4) => {
     const notes = [...chord[2].slice(0, notesPerBar - 1), chord[2][1]];
     notes.forEach((note, index) => {
@@ -82,32 +119,6 @@ export class Player {
     }
   };
 
-  setChordsAndMelody = (
-    chords: ChordModel[],
-    notes: PartNote[],
-    notesPerBar: number = 4,
-    loops: number = 1,
-  ) => {
-    this.setPart(notes, loops);
-    this.setPartChords(chords, notesPerBar, loops);
-  };
-
-  setPart = (notes: PartNote[], loops: number = 1) => {
-    const data = this.convertNotesToToneJsArr(notes);
-
-    let looped: Tone.Part[] = [];
-
-    for (let index = 0; index < loops; index++) {
-      looped = [...looped, ...data];
-    }
-
-    this.melodyPart = new Tone.Part((time: any, note: any) => {
-      guitar.triggerAttackRelease(note.note, note.dur, time);
-    }, data);
-
-    this.melodyPart.humanize = true;
-  };
-
   playAll = () => {
     Tone.Transport.start();
 
@@ -118,25 +129,6 @@ export class Player {
     if (this.chordsPart?.start) {
       this.chordsPart.start(0);
     }
-  };
-
-  setPartChords = (chords: ChordModel[], notesPerBar: number = 4, loops: number = 1) => {
-    const notes = chords.map((chord) => this.getNotesForChord(chord, notesPerBar)).flat();
-    const data = this.convertNotesToToneJsArr(notes);
-
-    let looped: Tone.Part[] = [];
-
-    for (let index = 0; index < loops; index++) {
-      looped = [...looped, ...data];
-    }
-
-    this.chordsPart = new Tone.Part((time: any, note: any) => {
-      guitar.triggerAttackRelease(note.note, note.dur, time);
-    }, looped);
-
-    console.log(this.chordsPart);
-
-    this.chordsPart.humanize = true;
   };
 
   stopMelody = () => {

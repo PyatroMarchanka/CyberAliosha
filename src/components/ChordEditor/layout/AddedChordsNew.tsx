@@ -23,6 +23,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import StopIcon from '@material-ui/icons/Stop';
 import { Icon } from '../../global/Icon';
 import { Player } from '../../../utils/Player';
+import { MetalBlock } from '../../../styled/global';
 
 interface Props {}
 
@@ -168,8 +169,11 @@ export const AddedChordsNew = ({}: Props) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled(MetalBlock)`
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .added-title {
     color: ${theme.colors.white};

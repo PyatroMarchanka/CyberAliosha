@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
 import styled from 'styled-components';
+import { theme } from '../../utils/theme';
+
 import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
+import { Player } from '../../utils/Player';
+
 import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
-import { MetalBlock } from '../../styled/global';
-import {
-  playAllChords,
-  playAllChordsArpeggiated,
-  playMelody,
-  playPartChordsArpeggiated,
-} from '../../utils';
-import { Player } from '../../utils/Player';
-import { theme } from '../../utils/theme';
 import { SheetStave } from './SheetStave';
 
 interface Props {}

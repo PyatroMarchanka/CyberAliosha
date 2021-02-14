@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
+import { MetalBlock } from '../../../styled/global';
 import { convertChordToString, playChord } from '../../../utils';
 import { sortChordsByType } from '../../../utils';
 import { theme } from '../../../utils/theme';
@@ -104,7 +105,7 @@ const Chords = styled.div`
   }
 `;
 
-const Actions = styled.div`
+const Actions = styled(MetalBlock)`
   display: flex;
   justify-content: flex-start;
 

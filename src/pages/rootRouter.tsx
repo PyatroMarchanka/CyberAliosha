@@ -3,10 +3,10 @@ import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components';
 import Header from '../components/Header/Header';
 import { AboutPage } from './AboutPage';
-import { ChordsEditorPage } from './Chords/ChordsEditorPage';
 import { MainPage } from './MainPage';
 import { routes } from './routes';
 import { SavedChordsPage } from './Chords/SavedChordsPage';
+import { ChordEditorPage } from './Chords/ChordEditorPage';
 import { MelodiesPage } from './Melodies/MelodiesPage';
 import { theme } from '../utils/theme';
 import { Tabs } from '../components/global/Tabs';
@@ -22,7 +22,7 @@ export default function MainRouter() {
           <Redirect exact from="/" to={routes.chordsEditor} />
           <Route path={routes.chordsEditor}>
             <Tabs items={[{ label: 'Editor' }, { label: 'Saved' }]}>
-              <ChordsEditorPage />
+              <ChordEditorPage />
               <SavedChordsPage />
             </Tabs>
           </Route>

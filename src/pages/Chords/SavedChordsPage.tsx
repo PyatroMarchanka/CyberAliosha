@@ -36,30 +36,30 @@ export const SavedChordsPage = ({}: Props) => {
     <Container>
       {!!savedChords &&
         savedChords.map((chordsObject) => (
-          <ChordsProgression
-            title={chordsObject.id}
-            key={chordsObject.id}
-            chords={chordsObject.chords}
-            action={
-              <IconButton
-                onClick={() => {
-                  removeSavedChordsById(chordsObject.id);
-                  fetchChords();
-                }}
-                className="icon"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-              >
-                <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
-              </IconButton>
-            }
-          />
+          <MetalBlock>
+            <ChordsProgression
+              title={chordsObject.id}
+              key={chordsObject.id}
+              chords={chordsObject.chords}
+              action={
+                <IconButton
+                  onClick={() => {
+                    removeSavedChordsById(chordsObject.id);
+                    fetchChords();
+                  }}
+                  className="icon"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                >
+                  <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
+                </IconButton>
+              }
+            />
+          </MetalBlock>
         ))}
     </Container>
   );
 };
 
-const Container = styled(MetalBlock)`
-  padding: 20px;
-`;
+const Container = styled.div``;

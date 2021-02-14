@@ -1,7 +1,6 @@
 import { Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
+import React,  from 'react';
 import styled from 'styled-components';
-import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
 import { MetalBlock } from '../../../styled/global';
 import { theme } from '../../../utils/theme';
@@ -14,6 +13,10 @@ interface Props {
 }
 
 export const ChordsTitledLine = ({ chords, title, onChordClick }: Props) => {
+  if (!chords.length) {
+    return null;
+  }
+
   return (
     <Container>
       {!!title && (
@@ -45,10 +48,6 @@ const Container = styled(MetalBlock)`
 
   @media ${theme.breakpoints.belowTablet} {
     padding: 0 10px 10px 0;
-  }
-
-  &:not(:last-child) {
-    border-right: 0;
   }
 
   .title {
