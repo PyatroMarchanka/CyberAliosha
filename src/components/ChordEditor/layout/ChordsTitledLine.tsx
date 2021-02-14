@@ -71,10 +71,3 @@ const TitleWrapper = styled.div`
     height: unset;
   }
 `;
-
-const Line = styled.div`
-  height: 2px;
-  flex: 1;
-  /* width: 40px; */
-  background-color: ${theme.colors.white};
-`;

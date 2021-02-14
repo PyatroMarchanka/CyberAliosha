@@ -7,7 +7,6 @@ import { MetalBlock } from '../../../styled/global';
 import { convertChordToString, playChord } from '../../../utils';
 import { sortChordsByType } from '../../../utils';
 import { theme } from '../../../utils/theme';
-import { Button } from '../../global/Button';
 import { Icon } from '../../global/Icon';
 import { ChordsTitledLine } from './ChordsTitledLine';
 import { KeyMoodSelector } from './KeySelector';

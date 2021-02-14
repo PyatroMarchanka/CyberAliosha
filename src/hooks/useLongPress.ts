@@ -19,7 +19,7 @@ export function useLongPress(
     return () => {
       clearTimeout(timerId);
     };
-  }, [callback, ms, startLongPress]);
+  }, [callback, ms, startLongPress, event]);
 
   return {
     onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => {

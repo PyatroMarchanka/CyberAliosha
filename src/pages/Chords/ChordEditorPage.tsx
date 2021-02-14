@@ -15,14 +15,4 @@ export const ChordEditorPage = ({}: Props) => {
   );
 };
 
-const Container = styled.div`
-  /* display: flex;
-
-  > div:first-child {
-    flex: 2;
-  }
-
-  > div:last-child {
-    flex: 1;
-  } */
-`;
+const Container = styled.div``;

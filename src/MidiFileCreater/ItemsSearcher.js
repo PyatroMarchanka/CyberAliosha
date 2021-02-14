@@ -1,4 +1,4 @@
-import { convertChordStringToArr, findNotes } from '../utils';
+import { findNotes } from '../utils';
 
 export default class ItemsSearcher {
   searchItems(chord) {

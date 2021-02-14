@@ -4,11 +4,9 @@ import { useEffect } from 'react';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
 import {
-  clearSavedChords,
   getSavedChords,
   removeSavedChordsById,
   SavedChords,
-  storages,
 } from '../../localStorageUtils/addedChordsStorage';
 import DeleteIcon from '@material-ui/icons/Delete';
 import styled from 'styled-components';

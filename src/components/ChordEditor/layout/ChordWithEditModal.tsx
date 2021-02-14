@@ -3,7 +3,6 @@ import Popover from '@material-ui/core/Popover';
 import { Button } from '../../global/Button';
 import { theme } from '../../../utils/theme';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
-import { useLongPress } from '../../../hooks/useLongPress';
 
 interface Props {
   children: any;
@@ -23,10 +22,6 @@ export const ChordWithEditModal = ({
   className,
   playChord,
 }: Props) => {
-  const {
-    state: { addedChordsMode },
-    dispatch,
-  } = useContext(chordsAdderStore);
   const ref = useRef(null);
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);

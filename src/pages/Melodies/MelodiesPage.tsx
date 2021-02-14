@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
@@ -10,17 +10,15 @@ import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
-import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
 import { Typography } from '@material-ui/core';
 
 interface Props {}
 
-export const MelodiesPage = ({}: Props) => {
+export const MelodiesPage = () => {
   const location = useLocation();
   const chordsCreator = new MidiChordsCreator();
   const [chords, setChords] = useState<ChordModel[]>([]);
-  console.log(location);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 

@@ -4,7 +4,7 @@
  * @author N.P. Brosowsky (nbrosowsky@gmail.com)
  * https://github.com/nbrosowsky/tonejs-instruments
  */
-import { PolySynth, AMSynth, Sampler } from 'tone';
+import { Sampler } from 'tone';
 import { rootPrefix } from '../utils/constants';
 
 export var SampleLibrary = {

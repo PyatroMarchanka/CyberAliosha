@@ -2,7 +2,6 @@
 import Tone, { Buffer } from 'tone';
 import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
 import { SampleLibrary } from '../MidiFileCreater/ToneInstruments';
-import { convertChordStringToArr, findNotes } from './chordsUtils';
 
 const guitar = SampleLibrary.load({
   instruments: 'piano',
@@ -13,16 +12,16 @@ Buffer.on('load', () => {
   guitar.toMaster();
 });
 
-export class Player {
-  private toneJsDurs = {
-    [2]: '1n',
-    [1]: '1n',
-    [0.5]: '2n',
-    [0.25]: '4n',
-    [0.125]: '8n',
-    [0.0625]: '16n',
-  };
+const toneJsDurs = {
+  [2]: '1n',
+  [1]: '1n',
+  [0.5]: '2n',
+  [0.25]: '4n',
+  [0.125]: '8n',
+  [0.0625]: '16n',
+};
 
+export class Player {
   private melodyPart: Tone.Part;
   private chordsPart: Tone.Part;
 
@@ -32,7 +31,7 @@ export class Player {
     let now = Tone.now();
 
     const data = notes.map((note) => {
-      const noteData = { note: note.note, dur: this.toneJsDurs[note.dur], time: now };
+      const noteData = { note: note.note, dur: toneJsDurs[note.dur], time: now };
       now = now + note.dur;
       return noteData;
     });

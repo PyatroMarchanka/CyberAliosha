@@ -41,13 +41,13 @@ export const SheetStave = ({ generateMelody, bars, chords, playMelody, stopMelod
     if (staves && bars.length > 0) {
       staves.drawAll(bars, chords);
     }
-  }, [bars, chords]);
+  }, [bars, chords, staves]);
 
   useEffect(() => {
     if (ref.current && !staves) {
       setStaves(new VexFlowController(ref));
     }
-  }, [ref.current]);
+  }, [staves]);
 
   return (
     <Container>

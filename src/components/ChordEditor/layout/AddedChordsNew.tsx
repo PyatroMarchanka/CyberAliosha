@@ -24,8 +24,8 @@ import { Button } from '../../global/Button';
 
 interface Props {}
 
-export const AddedChordsNew = ({}: Props) => {
-  const [playingChord, setPlayingChord] = useState<number | null>(null);
+export const AddedChordsNew = () => {
+  const [playingChord] = useState<number | null>(null);
   const history = useHistory();
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -33,7 +33,7 @@ export const AddedChordsNew = ({}: Props) => {
   const [PlayerInst] = useState<Player>(new Player());
 
   const {
-    state: { addedChords, replacingChord, addedChordsMode },
+    state: { addedChords, replacingChord },
     dispatch,
   } = useContext(chordsAdderStore);
 
