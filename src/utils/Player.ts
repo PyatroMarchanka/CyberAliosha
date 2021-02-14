@@ -66,7 +66,7 @@ export class Player {
       loopedNotes = [...loopedNotes, ...notes];
     }
 
-    const data = this.convertNotesToToneJsArr(notes);
+    const data = this.convertNotesToToneJsArr(loopedNotes);
 
     const part = new Tone.Part((time: any, note: any) => {
       guitar.triggerAttackRelease(note.note, note.dur, time);

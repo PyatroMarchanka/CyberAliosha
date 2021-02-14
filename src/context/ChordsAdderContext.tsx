@@ -90,7 +90,7 @@ const ChordsAdderProvider = ({ children }: any) => {
         const current = chordStringToFullChord(state.key + state.mood);
         return {
           ...state,
-          addedChords: chordsCreator.getNewChords(action.payload, current) || [],
+          addedChords: chordsCreator.getNewCyclicChords(action.payload, current) || [],
         };
 
       case 'DELETE_CHORD':

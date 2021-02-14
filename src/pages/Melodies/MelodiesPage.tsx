@@ -9,6 +9,7 @@ import { Player } from '../../utils/Player';
 import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
+import { ChordsAdderProvider } from '../../context/ChordsAdderContext';
 
 interface Props {}
 

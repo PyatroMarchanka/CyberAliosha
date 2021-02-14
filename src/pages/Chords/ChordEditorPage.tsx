@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ChordsAdderProvider } from '../../context/ChordsAdderContext';
 
 import { AddedChordsNew } from '../../components/ChordEditor/layout/AddedChordsNew';
 import { ChordsToAdd } from '../../components/ChordEditor/layout/ChordsToAdd';
@@ -9,12 +8,10 @@ interface Props {}
 
 export const ChordEditorPage = ({}: Props) => {
   return (
-    <ChordsAdderProvider>
-      <Container>
-        <ChordsToAdd />
-        <AddedChordsNew />
-      </Container>
-    </ChordsAdderProvider>
+    <Container>
+      <ChordsToAdd />
+      <AddedChordsNew />
+    </Container>
   );
 };
 

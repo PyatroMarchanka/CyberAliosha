@@ -4,6 +4,7 @@ import './App.css';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import MainRouter from './pages/rootRouter';
+import { ChordsAdderProvider } from './context/ChordsAdderContext';
 
 const theme = createMuiTheme({
   palette: {
@@ -14,8 +15,11 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalFonts />
-      <MainRouter />
+      <ChordsAdderProvider>
+        <GlobalFonts />
+
+        <MainRouter />
+      </ChordsAdderProvider>
     </ThemeProvider>
   );
 }

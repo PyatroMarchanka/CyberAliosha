@@ -59,7 +59,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0 50px;
 
     @media ${theme.breakpoints.belowTabletM} {
-      padding: 0;
+      padding: 0 10px;
     }
   }
 `;
