@@ -7,19 +7,24 @@ export const storages = {
 interface SerialazedSavedChords {
   chords: string;
   id: string;
+  title: string;
 }
 
 export interface SavedChords {
   chords: ChordModel[];
   id: string;
+  title?: string;
 }
 
-export const saveSavedChords = async (addedChords: ChordModel[]) => {
+export const saveSavedChords = (addedChords: ChordModel[], title: string) => {
   const previousChords = localStorage.getItem(storages.savedChords);
   const currentChords = {
     id: Math.random().toString(),
     chords: JSON.stringify(addedChords),
+    title,
   };
+
+  console.log('title', title);
 
   if (previousChords) {
     const updatedChords = JSON.parse(previousChords);
@@ -54,9 +59,10 @@ export const getSavedChords = (): SavedChords[] | undefined => {
     const progressions = JSON.parse(saved);
 
     return progressions.map(
-      (progressions: SerialazedSavedChords): SavedChords => ({
-        id: progressions.id,
-        chords: JSON.parse(progressions.chords),
+      (progression: SerialazedSavedChords): SavedChords => ({
+        id: progression.id,
+        chords: JSON.parse(progression.chords),
+        title: progression.title,
       }),
     );
   }

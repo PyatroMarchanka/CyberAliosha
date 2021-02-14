@@ -25,6 +25,7 @@ export const SavedChordsPage = ({}: Props) => {
     const savedChords = getSavedChords();
     if (savedChords) {
       setSavedChords(savedChords);
+      console.log('savedChords', savedChords);
     }
   };
 
@@ -36,9 +37,9 @@ export const SavedChordsPage = ({}: Props) => {
     <Container>
       {!!savedChords &&
         savedChords.map((chordsObject) => (
-          <MetalBlock>
+          <Chords>
             <ChordsProgression
-              title={chordsObject.id}
+              title={chordsObject.title || chordsObject.id}
               key={chordsObject.id}
               chords={chordsObject.chords}
               action={
@@ -56,10 +57,14 @@ export const SavedChordsPage = ({}: Props) => {
                 </IconButton>
               }
             />
-          </MetalBlock>
+          </Chords>
         ))}
     </Container>
   );
 };
 
 const Container = styled.div``;
+
+const Chords = styled(MetalBlock)`
+  padding: 20px;
+`;

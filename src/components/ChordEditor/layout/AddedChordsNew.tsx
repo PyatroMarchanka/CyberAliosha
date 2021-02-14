@@ -3,27 +3,17 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
-import {
-  convertChordToString,
-  playAllChords,
-  playAllChordsArpeggiated,
-  playChord,
-  playPartChordsArpeggiated,
-  stopMelody,
-} from '../../../utils';
+import { convertChordToString, playChord } from '../../../utils';
 import { ChordWithEditModal } from './ChordWithEditModal';
-import SaveIcon from '@material-ui/icons/Save';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { saveSavedChords } from '../../../localStorageUtils/addedChordsStorage';
 import { StyledProgression } from '../../../styled/Chords';
-import { Button } from '../../global/Button';
 import { theme } from '../../../utils/theme';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import StopIcon from '@material-ui/icons/Stop';
 import { Icon } from '../../global/Icon';
 import { Player } from '../../../utils/Player';
 import { MetalBlock } from '../../../styled/global';
+import { SaveChordsModal } from './SaveChordsModal';
 
 interface Props {}
 
@@ -149,21 +139,7 @@ export const AddedChordsNew = ({}: Props) => {
             className="play-icon  remove-all-icon"
           />
         </IconButton>
-        <IconButton
-          disabled={!addedChords.length}
-          onClick={() => saveSavedChords(addedChords)}
-          className="icon"
-          edge="start"
-          aria-label="menu"
-        >
-          <Icon
-            type="material"
-            Icon={SaveIcon}
-            disabled={!addedChords.length}
-            fill={theme.colors.white}
-            className="play-icon"
-          />
-        </IconButton>
+        <SaveChordsModal chords={addedChords} />
       </Actions>
     </Container>
   );

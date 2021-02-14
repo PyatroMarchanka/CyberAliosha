@@ -53,13 +53,13 @@ const Body = styled.div`
 
 const GlobalStyles = createGlobalStyle`
   body {
-    background-color:#454D5E;
+    background-color:#4f4f4f;
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 50px;
 
     @media ${theme.breakpoints.belowTabletM} {
-      padding: 0 20px;
+      padding: 0;
     }
   }
 `;
