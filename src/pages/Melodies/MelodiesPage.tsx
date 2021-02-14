@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
@@ -9,13 +9,22 @@ import { Player } from '../../utils/Player';
 import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
 import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
-import { ChordsAdderProvider } from '../../context/ChordsAdderContext';
+import { useLocation } from 'react-router-dom';
+import { chordsAdderStore } from '../../context/ChordsAdderContext';
+import { ChordsProgression } from '../../components/global/ChordsProgression';
+import { Typography } from '@material-ui/core';
 
 interface Props {}
 
 export const MelodiesPage = ({}: Props) => {
+  const location = useLocation();
+  console.log(location);
   const chordsCreator = new MidiChordsCreator();
   const [chords, setChords] = useState<ChordModel[]>([]);
+  const {
+    state: { addedChords },
+    dispatch,
+  } = useContext(chordsAdderStore);
 
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
@@ -39,15 +48,28 @@ export const MelodiesPage = ({}: Props) => {
   };
 
   useEffect(() => {
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(8);
-    console.log('chords', chords);
-    if (chords) {
-      setChords(chords);
+    if ((location.state as { useStateChords: boolean } | undefined)?.useStateChords) {
+      setChords(addedChords);
+    } else {
+      const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(8);
+
+      console.log('chords', chords);
+      if (chords) {
+        setChords(chords);
+      }
     }
-  }, []);
+  }, [location]);
 
   return (
     <Container>
+      {chords.length > 0 && (
+        <Chords>
+          <ChordsProgression
+            chords={chords}
+            title={<Typography variant="h5">Chords for melody:</Typography>}
+          />
+        </Chords>
+      )}
       <SheetStave
         stopMelody={() => PlayerInst.stopMelody()}
         playMelody={() => playPart(2)}
@@ -62,4 +84,8 @@ export const MelodiesPage = ({}: Props) => {
 const Container = styled.div`
   padding: 20px;
   background-color: ${theme.colors.white};
+`;
+
+const Chords = styled.div`
+  margin-bottom: 30px;
 `;

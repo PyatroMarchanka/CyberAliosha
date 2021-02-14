@@ -55,13 +55,19 @@ const PrimaryButton = styled.button`
   background-color: ${({ fontColor }: StyledProps) => fontColor[500]};
   border: 0;
   border-radius: 7px;
-  min-width: 60px;
+  min-width: 90px;
   color: ${theme.colors.grey[50]};
   font-family: ${theme.fonts.primary};
   font-size: 20px;
   font-weight: 500;
   transition: all 0.2s ease;
   outline: none;
+
+  @media ${theme.breakpoints.belowTablet} {
+    font-size: 16px;
+    min-width: 73px;
+    margin: 5px;
+  }
 
   &:hover {
     cursor: pointer;

@@ -11,7 +11,7 @@ import { chunk } from 'lodash';
 
 interface Props {
   chords: ChordModel[];
-  title?: string;
+  title?: string | JSX.Element;
   action?: any;
 }
 
@@ -21,18 +21,21 @@ export const ChordsProgression = ({ chords, title, action }: Props) => {
   return (
     <StyledProgressionContainer>
       <Header>
-        {!!title && (
+        {!!title && typeof title === 'string' && (
           <Typography className="title" variant="h5">
             {title}
           </Typography>
         )}
+        {!!title && typeof title !== 'string' && title}
         {!!action && action}
       </Header>
 
-      {chordsChunks.map((chunk) => (
-        <StyledProgression>
-          {chunk.map((chord) => (
-            <Button className="chord">{convertChordToString(chord)}</Button>
+      {chordsChunks.map((chunk, i) => (
+        <StyledProgression key={i}>
+          {chunk.map((chord, idx) => (
+            <Button key={idx} className="chord">
+              {convertChordToString(chord)}
+            </Button>
           ))}
         </StyledProgression>
       ))}

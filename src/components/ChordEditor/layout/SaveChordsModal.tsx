@@ -22,10 +22,19 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       display: 'flex',
       flexWrap: 'wrap',
+      '& label.Mui-focused': {
+        color: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'white',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'white',
+      },
     },
     formControl: {
       margin: theme.spacing(1),
-      minWidth: 120,
+      width: '100%',
     },
   }),
 );
@@ -68,15 +77,11 @@ export const SaveChordsModal = ({ chords }: Props) => {
             <FormControl className={classes.formControl}>
               <TextField
                 id="standard-basic"
-                label="Standard"
+                label="Title"
                 value={titleValue}
                 onChange={(e) => setTitleValue(e.target.value)}
               />
             </FormControl>
-
-            {/* <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="demo-dialog-select-input">Mood</InputLabel>
-            </FormControl> */}
           </form>
         </DialogContent>
         <DialogActions>

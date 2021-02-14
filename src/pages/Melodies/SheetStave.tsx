@@ -1,10 +1,8 @@
 import { IconButton } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Vex from 'vexflow';
 import { Button } from '../../components/global/Button';
 import { Icon } from '../../components/global/Icon';
-import PartEditor from '../../components/PartEditor/PartEditor';
 import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
 import { theme } from '../../utils/theme';
 import { VexFlowController } from './VexFlowController';
@@ -40,13 +38,14 @@ export const SheetStave = ({ generateMelody, bars, chords, playMelody, stopMelod
   };
 
   useEffect(() => {
-    if (staves) {
+    if (staves && bars.length > 0) {
       staves.drawAll(bars, chords);
     }
-  }, [bars]);
+  }, [bars, chords]);
 
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && !staves) {
+      console.log('setStaves');
       setStaves(new VexFlowController(ref));
     }
   }, [ref.current]);
@@ -54,19 +53,21 @@ export const SheetStave = ({ generateMelody, bars, chords, playMelody, stopMelod
   return (
     <Container>
       <Button onClick={generateMelodyInternal}>Generate Melody!</Button>
-      <IconButton onClick={handlePlaying} className="icon">
-        {isPlaying ? (
-          <Icon
-            type="material"
-            fill={theme.colors.blueGreySticky[500]}
-            Icon={StopIcon}
-            className="play-icon"
-          />
-        ) : (
-          <Icon type="play" fill={theme.colors.blueGreySticky[500]} className="play-icon" />
-        )}
-      </IconButton>
-      <div className={bars.length ? 'stave' : ''} ref={ref} id="vf"></div>
+      {bars.length > 0 && (
+        <IconButton onClick={handlePlaying} className="icon">
+          {isPlaying ? (
+            <Icon
+              type="material"
+              fill={theme.colors.blueGreySticky[500]}
+              Icon={StopIcon}
+              className="play-icon"
+            />
+          ) : (
+            <Icon type="play" fill={theme.colors.blueGreySticky[500]} className="play-icon" />
+          )}
+        </IconButton>
+      )}
+      <div className={bars.length > 0 ? 'stave' : ''} ref={ref} id="vf"></div>
     </Container>
   );
 };

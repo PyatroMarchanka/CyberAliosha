@@ -14,11 +14,15 @@ import { Icon } from '../../global/Icon';
 import { Player } from '../../../utils/Player';
 import { MetalBlock } from '../../../styled/global';
 import { SaveChordsModal } from './SaveChordsModal';
+import { Button } from '../../global/Button';
+import { useHistory } from 'react-router';
+import { routes } from '../../../pages/routes';
 
 interface Props {}
 
 export const AddedChordsNew = ({}: Props) => {
   const [playingChord, setPlayingChord] = useState<number | null>(null);
+  const history = useHistory();
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -75,6 +79,13 @@ export const AddedChordsNew = ({}: Props) => {
     dispatch({
       type: 'ADD_CHORDS_TO_ADD',
       payload: addedChords[addedChords.length - 1],
+    });
+  };
+
+  const openInMelodyEditor = () => {
+    history.push({
+      pathname: routes.melodyEditor,
+      state: { useStateChords: true },
     });
   };
 
@@ -140,6 +151,9 @@ export const AddedChordsNew = ({}: Props) => {
           />
         </IconButton>
         <SaveChordsModal chords={addedChords} />
+        <Button onClick={openInMelodyEditor} disabled={!addedChords.length} type="primary">
+          Add melody
+        </Button>
       </Actions>
     </Container>
   );
@@ -164,6 +178,7 @@ const Header = styled.div`
 const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 
   .icon {
     color: ${theme.colors.white};
