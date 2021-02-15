@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
 import { MetalBlock } from '../../../styled/global';
-import { convertChordToString, playChord } from '../../../utils';
 import { sortChordsByType } from '../../../utils';
+import { Player } from '../../../utils/Player';
 import { theme } from '../../../utils/theme';
 import { Icon } from '../../global/Icon';
 import { ChordsTitledLine } from './ChordsTitledLine';
@@ -15,7 +15,7 @@ export const ChordsToAdd = () => {
   const { state, dispatch } = useContext(chordsAdderStore);
 
   const onChordClick = (chord: ChordModel) => {
-    playChord(convertChordToString(chord));
+    Player.playChord(chord);
 
     if (state.replacingChord) {
       dispatch({

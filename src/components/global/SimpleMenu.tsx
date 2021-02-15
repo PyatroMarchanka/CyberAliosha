@@ -47,7 +47,16 @@ export function SimpleMenu({ items, target }: MenuProps) {
               <MenuItem className="menu">{item.title}</MenuItem>
             </AlioshaLink>
           ) : (
-            <MenuItem key={`link-${idx}`} className="menu" onClick={item.onClick}>
+            <MenuItem
+              key={`link-${idx}`}
+              className="menu"
+              onClick={() => {
+                if (item.onClick) {
+                  item.onClick();
+                }
+                handleClose();
+              }}
+            >
               {item.title}
             </MenuItem>
           ),

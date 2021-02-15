@@ -1,15 +1,14 @@
-// @ts-ignore
-import Tone, { Buffer } from 'tone';
+import * as Tone from 'tone';
 import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
 import { SampleLibrary } from '../MidiFileCreater/ToneInstruments';
 
-const guitar = SampleLibrary.load({
+const guitar: Tone.Sampler = SampleLibrary.load({
   instruments: 'piano',
 });
 
-Buffer.on('load', () => {
+Tone.Buffer.loaded().then(() => {
   console.log('instruments: piano,');
-  guitar.toMaster();
+  guitar.toDestination();
 });
 
 const toneJsDurs = {
@@ -25,7 +24,9 @@ export class Player {
   private melodyPart: Tone.Part;
   private chordsPart: Tone.Part;
 
-  constructor() {}
+  constructor() {
+    Tone.Transport.start();
+  }
 
   private convertNotesToToneJsArr = (notes: PartNote[]) => {
     let now = Tone.now();
@@ -59,7 +60,7 @@ export class Player {
   };
 
   getPart = (notes: PartNote[], loops: number = 1) => {
-    let loopedNotes: Tone.Part[] = [];
+    let loopedNotes: PartNote[] = [];
 
     for (let index = 0; index < loops; index++) {
       loopedNotes = [...loopedNotes, ...notes];
@@ -129,8 +130,8 @@ export class Player {
   };
 
   playAll = (bpm = 120) => {
-    Tone.Transport.bpm.value = bpm;
-    Tone.Transport.start();
+    console.log('bpm', bpm);
+    // Tone.Transport.bpm.rampTo(bpm);
 
     if (this.melodyPart?.start) {
       this.melodyPart.start(0);

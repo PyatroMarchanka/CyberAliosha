@@ -13,7 +13,7 @@ import { MetalBlock } from '../../../styled/global';
 
 import { chordsAdderStore } from '../../../context/ChordsAdderContext';
 import { ChordModel } from '../../../dataset/all_chords_for_impro';
-import { convertChordToString, playChord } from '../../../utils';
+import { convertChordToString } from '../../../utils';
 import { Player } from '../../../utils/Player';
 
 import { ChordWithEditModal } from './ChordWithEditModal';
@@ -33,7 +33,7 @@ export const AddedChordsNew = () => {
   const [PlayerInst] = useState<Player>(new Player());
 
   const {
-    state: { addedChords, replacingChord },
+    state: { addedChords, replacingChord, bpm },
     dispatch,
   } = useContext(chordsAdderStore);
 
@@ -41,7 +41,7 @@ export const AddedChordsNew = () => {
     if (!isPlaying) {
       setIsPlaying(true);
       PlayerInst.setPartChords(addedChords, 4, 2);
-      PlayerInst.playAll();
+      PlayerInst.playAll(bpm);
     } else {
       setIsPlaying(false);
       PlayerInst.stopMelody();
@@ -116,7 +116,7 @@ export const AddedChordsNew = () => {
               onClose={() => onClose()}
               onDelete={() => onDelete(chord, idx)}
               onReplace={() => onReplace(chord, idx)}
-              playChord={() => playChord(convertChordToString(chord))}
+              playChord={() => Player.playChord(chord)}
             >
               {convertChordToString(chord)}
             </ChordWithEditModal>

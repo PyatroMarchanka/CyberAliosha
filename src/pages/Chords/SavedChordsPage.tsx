@@ -16,7 +16,6 @@ import { theme } from '../../utils/theme';
 import { useHistory } from 'react-router';
 import { routes } from '../routes';
 import { Button } from '../../components/global/Button';
-import { playChord } from '../../utils';
 import { Player } from '../../utils/Player';
 
 interface Props {}

@@ -12,6 +12,7 @@ interface State {
   key: string;
   mood: '' | 'min';
   chordsLenght: 1 | 2 | 4;
+  bpm: number;
 }
 
 interface Action {
@@ -27,7 +28,8 @@ interface Action {
     | 'SET_ADDED_CHORDS_MODE'
     | 'SET_START_KEY'
     | 'SET_START_MOOD'
-    | 'SET_CHORDS_LENGHT';
+    | 'SET_CHORDS_LENGHT'
+    | 'SET_BPM';
   payload?: any;
 }
 
@@ -39,6 +41,7 @@ const initialState: State = {
   key: 'C',
   mood: '',
   chordsLenght: 1,
+  bpm: 120,
 };
 
 interface Context {
@@ -140,6 +143,12 @@ const ChordsAdderProvider = ({ children }: any) => {
         return {
           ...state,
           addedChordsMode: action.payload,
+        };
+
+      case 'SET_BPM':
+        return {
+          ...state,
+          bpm: action.payload,
         };
 
       default:
