@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
@@ -12,6 +12,7 @@ import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
 import { Typography } from '@material-ui/core';
+import { chordsAdderStore } from '../../context/ChordsAdderContext';
 
 interface Props {}
 
@@ -19,6 +20,9 @@ export const MelodiesPage = () => {
   const location = useLocation();
   const chordsCreator = new MidiChordsCreator();
   const [chords, setChords] = useState<ChordModel[]>([]);
+  const {
+    state: { bpm },
+  } = useContext(chordsAdderStore);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 
@@ -28,7 +32,15 @@ export const MelodiesPage = () => {
 
   const playPart = (loops: number = 2) => {
     PlayerInst.setChordsAndMelody(chords, part.flat(), 4, loops);
-    PlayerInst.playAll();
+    PlayerInst.playAll(bpm);
+  };
+
+  const generateChords = () => {
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(8);
+
+    if (chords) {
+      setChords(chords);
+    }
   };
 
   const generateMelody = () => {
@@ -47,11 +59,7 @@ export const MelodiesPage = () => {
     if (locationChords) {
       setChords(locationChords);
     } else {
-      const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(8);
-
-      if (chords) {
-        setChords(chords);
-      }
+      generateChords();
     }
   }, [location]);
 
@@ -62,6 +70,7 @@ export const MelodiesPage = () => {
           <ChordsProgression
             chords={chords}
             title={<Typography variant="h5">Chords for melody:</Typography>}
+            onChordClick={Player.playChord}
           />
         </Chords>
       )}
@@ -69,6 +78,7 @@ export const MelodiesPage = () => {
         stopMelody={() => PlayerInst.stopMelody()}
         playMelody={() => playPart(2)}
         generateMelody={generateMelody}
+        generateChords={generateChords}
         chords={chords}
         bars={part}
       />

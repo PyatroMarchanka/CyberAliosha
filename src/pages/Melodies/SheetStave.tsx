@@ -11,12 +11,20 @@ import StopIcon from '@material-ui/icons/Stop';
 interface Props {
   bars: PartNote[][];
   generateMelody: () => void;
+  generateChords: () => void;
   playMelody: () => void;
   chords: ChordModel[];
   stopMelody: () => void;
 }
 
-export const SheetStave = ({ generateMelody, bars, chords, playMelody, stopMelody }: Props) => {
+export const SheetStave = ({
+  generateMelody,
+  generateChords,
+  bars,
+  chords,
+  playMelody,
+  stopMelody,
+}: Props) => {
   const ref = useRef(null);
   const [staves, setStaves] = useState<VexFlowController | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -51,7 +59,8 @@ export const SheetStave = ({ generateMelody, bars, chords, playMelody, stopMelod
 
   return (
     <Container>
-      <Button onClick={generateMelodyInternal}>Generate Melody!</Button>
+      <Button onClick={generateMelodyInternal}>Generate melody</Button>
+      <Button onClick={generateChords}>Generate chords</Button>
       {bars.length > 0 && (
         <IconButton onClick={handlePlaying} className="icon">
           {isPlaying ? (

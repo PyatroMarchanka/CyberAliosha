@@ -13,9 +13,10 @@ interface Props {
   chords: ChordModel[];
   title?: string | JSX.Element;
   action?: any;
+  onChordClick?: (chord: ChordModel) => void;
 }
 
-export const ChordsProgression = ({ chords, title, action }: Props) => {
+export const ChordsProgression = ({ chords, title, action, onChordClick }: Props) => {
   const chordsChunks = chunk(chords, 4);
 
   return (
@@ -33,7 +34,11 @@ export const ChordsProgression = ({ chords, title, action }: Props) => {
       {chordsChunks.map((chunk, i) => (
         <StyledProgression key={i}>
           {chunk.map((chord, idx) => (
-            <Button key={idx} className="chord">
+            <Button
+              onClick={onChordClick ? () => onChordClick(chord) : undefined}
+              key={idx}
+              className="chord"
+            >
               {convertChordToString(chord)}
             </Button>
           ))}

@@ -76,6 +76,16 @@ export class Player {
     return part;
   };
 
+  static playChord = (chord: ChordModel, time = 0) => {
+    const now = Tone.now();
+    const chordNotes = chord[2];
+
+    chordNotes &&
+      chordNotes.forEach((note, index) => {
+        guitar.triggerAttackRelease(getOctaveForGuitar(note, index), 2, now + time);
+      });
+  };
+
   playChordArpeggiatedOld = (now: any, chord: ChordModel, notesPerBar: number = 4) => {
     const notes = [...chord[2].slice(0, notesPerBar - 1), chord[2][1]];
     notes.forEach((note, index) => {
@@ -118,7 +128,8 @@ export class Player {
     }
   };
 
-  playAll = () => {
+  playAll = (bpm = 120) => {
+    Tone.Transport.bpm.value = bpm;
     Tone.Transport.start();
 
     if (this.melodyPart?.start) {
