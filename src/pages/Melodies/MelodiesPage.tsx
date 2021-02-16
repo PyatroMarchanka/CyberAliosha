@@ -34,7 +34,6 @@ export const MelodiesPage = () => {
   const playPart = (loops: number = 2) => {
     PlayerInst.setChordsAndMelody(chords, part.flat(), 2, loops, () => {
       setIsPlaying(false);
-      console.log('setIsPlaying');
     });
     PlayerInst.playAll(bpm);
   };

@@ -93,8 +93,6 @@ export class Player {
       guitar.triggerAttackRelease(note.note, note.dur, time);
     }, data);
 
-    part.humanize = true;
-
     return part;
   };
 
@@ -152,7 +150,7 @@ export class Player {
 
   playAll = (bpm = 120) => {
     console.log('bpm', bpm);
-    // Tone.Transport.bpm.rampTo(bpm);
+    Tone.getTransport().bpm.rampTo(bpm);
 
     if (this.melodyPart?.start) {
       this.melodyPart.start(0);

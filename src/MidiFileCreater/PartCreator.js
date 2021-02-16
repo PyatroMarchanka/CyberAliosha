@@ -6,7 +6,7 @@ export default class PartCreator {
     this.pattern =
       partOptions.pattern === 'accompaniment' &&
       new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
-    this.endPattern = new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
+    this.middlePattern = new PatternCreator().getPattern('middle', partOptions.type);
     this.chords = chords;
     this.barCreator = new BarCreator(partOptions.notesLength, partOptions.type);
     this.squaresCountToAdd = squaresCount;
@@ -20,7 +20,7 @@ export default class PartCreator {
         const newBar = this.barCreator.getRandomBar(
           chord,
           i,
-          (i + 1) % 4 === 0 ? this.endPattern : this.pattern,
+          (i + 1) % 4 === 0 ? this.middlePattern : this.pattern,
           restProbability,
         );
 
