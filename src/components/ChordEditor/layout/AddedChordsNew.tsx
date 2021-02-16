@@ -40,7 +40,7 @@ export const AddedChordsNew = () => {
   const handlePlaying = () => {
     if (!isPlaying) {
       setIsPlaying(true);
-      PlayerInst.setPartChords(addedChords, 4, 2);
+      PlayerInst.setPartChords(addedChords, 4, 2, () => setIsPlaying(false));
       PlayerInst.playAll(bpm);
     } else {
       setIsPlaying(false);

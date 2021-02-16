@@ -20,6 +20,7 @@ export const MelodiesPage = () => {
   const location = useLocation();
   const chordsCreator = new MidiChordsCreator();
   const [chords, setChords] = useState<ChordModel[]>([]);
+  const [isPlaying, setIsPlaying] = useState(false);
   const {
     state: { bpm },
   } = useContext(chordsAdderStore);
@@ -31,7 +32,10 @@ export const MelodiesPage = () => {
   const [PlayerInst] = useState<Player>(new Player());
 
   const playPart = (loops: number = 2) => {
-    PlayerInst.setChordsAndMelody(chords, part.flat(), 4, loops);
+    PlayerInst.setChordsAndMelody(chords, part.flat(), 2, loops, () => {
+      setIsPlaying(false);
+      console.log('setIsPlaying');
+    });
     PlayerInst.playAll(bpm);
   };
 
@@ -75,6 +79,8 @@ export const MelodiesPage = () => {
         </Chords>
       )}
       <SheetStave
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
         stopMelody={() => PlayerInst.stopMelody()}
         playMelody={() => playPart(2)}
         generateMelody={generateMelody}

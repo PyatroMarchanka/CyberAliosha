@@ -15,6 +15,8 @@ interface Props {
   playMelody: () => void;
   chords: ChordModel[];
   stopMelody: () => void;
+  isPlaying: boolean;
+  setIsPlaying: (bool: boolean) => void;
 }
 
 export const SheetStave = ({
@@ -24,10 +26,11 @@ export const SheetStave = ({
   chords,
   playMelody,
   stopMelody,
+  isPlaying,
+  setIsPlaying,
 }: Props) => {
   const ref = useRef(null);
   const [staves, setStaves] = useState<VexFlowController | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlaying = () => {
     if (!isPlaying) {

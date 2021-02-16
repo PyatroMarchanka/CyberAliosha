@@ -23,6 +23,7 @@ const toneJsDurs = {
 export class Player {
   private melodyPart: Tone.Part;
   private chordsPart: Tone.Part;
+  private part: number;
 
   constructor() {
     Tone.Transport.start();
@@ -45,18 +46,38 @@ export class Player {
     notes: PartNote[],
     notesPerBar: number = 4,
     loops: number = 1,
+    cb?: () => void,
   ) => {
     this.setPart(notes, loops);
     this.setPartChords(chords, notesPerBar, loops);
+
+    if (cb) {
+      const end = notes.reduce((acc, cur) => acc + cur.dur, 0);
+      Tone.Transport.scheduleOnce(cb, Tone.now() + end * loops);
+    }
   };
 
-  setPart = (notes: PartNote[], loops: number = 1) => {
+  setPart = (notes: PartNote[], loops: number = 1, cb?: () => void) => {
     this.melodyPart = this.getPart(notes, loops);
+
+    if (cb) {
+      const end = notes.reduce((acc, cur) => acc + cur.dur, 0);
+      Tone.Transport.scheduleOnce(cb, Tone.now() + end * loops);
+    }
   };
 
-  setPartChords = (chords: ChordModel[], notesPerBar: number = 4, loops: number = 1) => {
+  setPartChords = (
+    chords: ChordModel[],
+    notesPerBar: number = 4,
+    loops: number = 1,
+    cb?: () => void,
+  ) => {
     const notes = chords.map((chord) => this.getNotesForChord(chord, notesPerBar)).flat();
     this.chordsPart = this.getPart(notes, loops);
+    if (cb) {
+      const end = notes.reduce((acc, cur) => acc + cur.dur, 0);
+      Tone.Transport.scheduleOnce(cb, Tone.now() + end * loops);
+    }
   };
 
   getPart = (notes: PartNote[], loops: number = 1) => {
