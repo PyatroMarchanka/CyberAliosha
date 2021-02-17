@@ -23,6 +23,37 @@ export enum NotesLengthType {
   Sixteen = 'sixteen',
 }
 
+export enum NotesPatterns {
+  None = 'none',
+  Riff = 'riff',
+}
+
+export const getNotesTypeLabel = (type: NotesLengthType) => {
+  const labels = {
+    [NotesLengthType.Often]: 'Often',
+    [NotesLengthType.Middle]: 'Middle',
+    [NotesLengthType.VeryOften]: 'Very often',
+    [NotesLengthType.VerySeldom]: 'Very seldom',
+    [NotesLengthType.Whole]: 'Whole',
+    [NotesLengthType.Half]: 'Half',
+    [NotesLengthType.Quarter]: 'Quarter',
+    [NotesLengthType.Eight]: 'Eight',
+    [NotesLengthType.Sixteen]: 'Sixteen',
+    [NotesLengthType.Seldom]: 'Seldom',
+  };
+
+  return labels[type];
+};
+
+export const getNotesPatternLabel = (type: NotesPatterns) => {
+  const labels = {
+    [NotesPatterns.None]: 'None',
+    [NotesPatterns.Riff]: 'Riff',
+  };
+
+  return labels[type];
+};
+
 export default [
   [
     ['A', 'm', ['A', 'C', 'E'], ['B', 'D', 'E', 'F', 'G']],

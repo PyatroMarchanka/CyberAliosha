@@ -22,7 +22,7 @@ export const MelodiesPage = () => {
   const [chords, setChords] = useState<ChordModel[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const {
-    state: { bpm },
+    state: { bpm, notesLength, notesPattern },
   } = useContext(chordsAdderStore);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
@@ -49,9 +49,9 @@ export const MelodiesPage = () => {
   const generateMelody = () => {
     const newPart = fileEditor.addPart({
       type: 'soprano',
-      notesLength: NotesLengthType.Middle,
+      notesLength: notesLength,
       function: 'accompaniment',
-      pattern: 'accompaniment',
+      pattern: notesPattern,
       restProbability: 0,
     });
 

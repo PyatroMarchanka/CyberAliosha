@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { ChordModel, NotesLengthType } from '../dataset/all_chords_for_impro';
+import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
 import ItemsSearcher from '../MidiFileCreater/ItemsSearcher';
 import MidiChordsCreator from '../MidiFileCreater/MidiChordsCreator';
 import { chordStringToFullChord } from '../utils';
@@ -14,6 +14,7 @@ interface State {
   chordsLenght: 1 | 2 | 4;
   bpm: number;
   notesLength: NotesLengthType;
+  notesPattern: NotesPatterns;
 }
 
 interface Action {
@@ -31,7 +32,8 @@ interface Action {
     | 'SET_START_MOOD'
     | 'SET_CHORDS_LENGHT'
     | 'SET_BPM'
-    | 'SET_NOTES_LENGTH';
+    | 'SET_NOTES_LENGTH'
+    | 'SET_NOTES_PATTERN';
   payload?: any;
 }
 
@@ -45,6 +47,7 @@ const initialState: State = {
   chordsLenght: 1,
   bpm: 120,
   notesLength: NotesLengthType.Middle,
+  notesPattern: NotesPatterns.Riff,
 };
 
 interface Context {
@@ -158,6 +161,12 @@ const ChordsAdderProvider = ({ children }: any) => {
         return {
           ...state,
           notesLength: action.payload,
+        };
+
+      case 'SET_NOTES_PATTERN':
+        return {
+          ...state,
+          notesPattern: action.payload,
         };
 
       default:

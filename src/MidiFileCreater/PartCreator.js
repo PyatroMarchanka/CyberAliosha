@@ -4,9 +4,9 @@ import BarCreator from './BarCreator';
 export default class PartCreator {
   constructor(chords, squaresCount, partOptions) {
     this.pattern =
-      partOptions.pattern === 'accompaniment' &&
+      partOptions.pattern === 'riff' &&
       new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
-    this.middlePattern = new PatternCreator().getPattern('middle', partOptions.type);
+    this.middlePattern = new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
     this.chords = chords;
     this.barCreator = new BarCreator(partOptions.notesLength, partOptions.type);
     this.squaresCountToAdd = squaresCount;
