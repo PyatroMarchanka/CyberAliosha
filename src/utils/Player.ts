@@ -1,6 +1,6 @@
 import * as Tone from 'tone';
 import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
-import { SampleLibrary } from '../MidiFileCreater/ToneInstruments';
+import { SampleLibrary } from '../musicBrain/ToneInstruments';
 
 let guitar: Tone.Sampler;
 

@@ -21,7 +21,7 @@ export default function Footer() {
       >
         Follow @PyatroMarchanka
       </GitHubButton>
-      <a href="https://www.facebook.com/piatro.marchanka">FaceBook</a>
+      <FacebookButton href="https://www.facebook.com/piatro.marchanka">FaceBook</FacebookButton>
     </Container>
   );
 }
@@ -36,5 +36,31 @@ const Container = styled.div`
 
   > * {
     margin-right: 10px;
+  }
+`;
+
+const FacebookButton = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  color: #24292e;
+  background-color: #eff3f6;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  border-radius: 0.25em;
+
+  border-color: rgba(27, 31, 35, 0.35);
+  background-image: linear-gradient(180deg, #f0f3f6, #e6ebf1 90%);
+
+  &:hover {
+    background-color: #e6ebf1;
+    background-position: -0.5em;
+    border-color: #9fa4a9;
+    border-color: rgba(27, 31, 35, 0.35);
+    background-image: -moz-linear-gradient(top, #f0f3f6, #e6ebf1 90%);
+    background-image: linear-gradient(180deg, #f0f3f6, #e6ebf1 90%);
   }
 `;

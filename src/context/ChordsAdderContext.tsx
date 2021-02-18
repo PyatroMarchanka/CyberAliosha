@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
-import ItemsSearcher from '../MidiFileCreater/ItemsSearcher';
-import MidiChordsCreator from '../MidiFileCreater/MidiChordsCreator';
+import ItemsSearcher from '../musicBrain/ItemsSearcher';
+import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
 import { chordStringToFullChord } from '../utils';
 
 interface State {

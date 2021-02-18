@@ -6,8 +6,8 @@ import { theme } from '../../utils/theme';
 import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
 import { Player } from '../../utils/Player';
 
-import CreateMidiFile from '../../MidiFileCreater/CreateMidiFile';
-import MidiChordsCreator from '../../MidiFileCreater/MidiChordsCreator';
+import CreateMidiFile from '../../musicBrain/CreateMidiFile';
+import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
