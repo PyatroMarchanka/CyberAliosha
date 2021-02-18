@@ -1,4 +1,4 @@
-import { ChordModel } from './../dataset/all_chords_for_impro';
+import { ChordModel } from '../dataset/all_chords_for_impro';
 import { randomIntegerRange, findNotes } from '../utils';
 
 export default function releases(chord: ChordModel) {

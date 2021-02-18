@@ -1,4 +1,4 @@
-import { ChordModel } from './../dataset/all_chords_for_impro';
+import { ChordModel } from '../dataset/all_chords_for_impro';
 import CreateMidiFile from './CreateMidiFile';
 export default class FileEditor {
   userChords: any;
