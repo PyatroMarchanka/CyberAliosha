@@ -48,8 +48,8 @@ export class MidiPlayer {
     }));
   };
 
-  playPart = (part: PartNote[]) => {
-    var bpm = this.bpm;
+  playPart = (part: PartNote[], newBpm?: number) => {
+    var bpm = newBpm || this.bpm;
     var N = (4 * 60) / bpm;
 
     const midipart = this.convertPartNotesPartToMidiPitches(part);
@@ -60,6 +60,14 @@ export class MidiPlayer {
       this.playRef.current.playChordAt(when, 4, [note.note], bpmDur);
       when += bpmDur;
     }
+  };
+
+  playChord = (chord: ChordModel, time = 0) => {
+    const notes = chord[2].map((note, index) =>
+      this.convertNoteToMidiPitch(getOctaveForGuitar(note, index)),
+    );
+
+    this.playRef.current.playChordNow(4, notes, 0.5);
   };
 
   stopAll = () => {

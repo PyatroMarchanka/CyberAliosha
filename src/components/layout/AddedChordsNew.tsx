@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from '../../pages/routes';
 
@@ -21,6 +21,9 @@ import { StyledProgression } from '../../styled/Chords';
 import { Icon } from '../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
 import { Button } from '../global/Button';
+import { MidiPlayer } from '../../utils/MidiPlayer';
+// @ts-ignore
+import MIDISounds from 'midi-sounds-react';
 
 interface Props {}
 
@@ -30,7 +33,9 @@ export const AddedChordsNew = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const [PlayerInst] = useState<Player>(new Player());
+  const [midiPlayer, setMidiPlayer] = useState<MidiPlayer | null>(null);
+
+  const playerRef = useRef(null);
 
   const {
     state: { addedChords, replacingChord, bpm },
@@ -40,11 +45,10 @@ export const AddedChordsNew = () => {
   const handlePlaying = () => {
     if (!isPlaying) {
       setIsPlaying(true);
-      PlayerInst.setPartChords(addedChords, 4, 2, () => setIsPlaying(false));
-      PlayerInst.playAll(bpm);
+      midiPlayer?.playPartChords(addedChords);
     } else {
       setIsPlaying(false);
-      PlayerInst.stopMelody();
+      midiPlayer?.stopAll();
     }
   };
 
@@ -92,6 +96,10 @@ export const AddedChordsNew = () => {
       state: { chords: addedChords },
     });
   };
+
+  useEffect(() => {
+    setMidiPlayer(new MidiPlayer(playerRef));
+  }, [playerRef.current]);
 
   return (
     <Container>
@@ -159,6 +167,7 @@ export const AddedChordsNew = () => {
           Add melody
         </Button>
       </Actions>
+      <MIDISounds ref={playerRef} appElementName="root" instruments={[4]} />
     </Container>
   );
 };
