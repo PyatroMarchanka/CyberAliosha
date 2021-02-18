@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
@@ -13,6 +13,10 @@ import { useLocation } from 'react-router-dom';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
 import { Typography } from '@material-ui/core';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
+// @ts-ignore
+import MIDISounds from 'midi-sounds-react';
+import { MidiPlayer } from '../../utils/MidiPlayer';
+import { Button } from '../../components/global/Button';
 
 interface Props {}
 
@@ -30,12 +34,13 @@ export const MelodiesPage = () => {
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
   const [PlayerInst] = useState<Player>(new Player());
+  const [midiPlayer, setMidiPlayer] = useState<MidiPlayer | null>(null);
+
+  const playerRef = useRef(null);
 
   const playPart = (loops: number = 2) => {
-    PlayerInst.setChordsAndMelody(chords, part.flat(), 2, loops, () => {
-      setIsPlaying(false);
-    });
-    PlayerInst.playAll(bpm);
+    midiPlayer?.playPartChords(chords);
+    midiPlayer?.playPart(part.flat());
   };
 
   const generateChords = () => {
@@ -66,6 +71,10 @@ export const MelodiesPage = () => {
     }
   }, [location]);
 
+  useEffect(() => {
+    setMidiPlayer(new MidiPlayer(playerRef));
+  }, [playerRef.current]);
+
   return (
     <Container>
       {chords.length > 0 && (
@@ -80,13 +89,14 @@ export const MelodiesPage = () => {
       <SheetStave
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
-        stopMelody={() => PlayerInst.stopMelody()}
+        stopMelody={() => midiPlayer?.stopAll()}
         playMelody={() => playPart(2)}
         generateMelody={generateMelody}
         generateChords={generateChords}
         chords={chords}
         bars={part}
       />
+      <MIDISounds ref={playerRef} appElementName="root" instruments={[4]} />
     </Container>
   );
 };

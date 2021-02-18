@@ -6,15 +6,8 @@ export const useSoundsLoaded = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    loadSounds()
-      .then(() => {
-        setIsLoaded(true);
-      })
-      .catch((e) => {
-        console.log(e);
-        setError(true);
-      });
-  });
+    setIsLoaded(true);
+  }, []);
 
   return [isLoaded, error];
 };

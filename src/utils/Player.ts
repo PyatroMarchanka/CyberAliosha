@@ -1,5 +1,5 @@
 import * as Tone from 'tone';
-import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
+import { ChordModel, MidiNote, PartNote } from '../dataset/all_chords_for_impro';
 import { SampleLibrary } from '../musicBrain/ToneInstruments';
 
 let guitar: Tone.Sampler;
@@ -34,11 +34,6 @@ export class Player {
     Tone.Transport.start();
     Tone.Transport.bpm.rampTo(80);
     this.loaded = false;
-
-    Tone.Buffer.loaded().then(() => {
-      console.log('Tone.Transport');
-      guitar.toDestination();
-    });
   }
 
   private convertNotesToToneJsArr = (notes: PartNote[]) => {
@@ -129,7 +124,7 @@ export class Player {
     });
   };
 
-  private getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
+  getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
     const notes = [...chord[2].slice(0, notesPerBar - 1), chord[2][1]];
     return notes.map((note, index) => ({
       note: getOctaveForGuitar(note, index),
