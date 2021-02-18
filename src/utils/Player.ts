@@ -2,14 +2,17 @@ import * as Tone from 'tone';
 import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
 import { SampleLibrary } from '../MidiFileCreater/ToneInstruments';
 
-const guitar: Tone.Sampler = SampleLibrary.load({
-  instruments: 'piano',
-});
+let guitar: Tone.Sampler;
 
-Tone.Buffer.loaded().then(() => {
+export const loadSounds = async () => {
+  guitar = SampleLibrary.load({
+    instruments: 'piano',
+  });
+
+  await Tone.Buffer.loaded();
   console.log('instruments: piano,');
   guitar.toDestination();
-});
+};
 
 const toneJsDurs = {
   [2]: '1n',
@@ -24,9 +27,18 @@ export class Player {
   private melodyPart: Tone.Part;
   private chordsPart: Tone.Part;
   private part: number;
+  public loaded: boolean;
 
   constructor() {
+    Tone.Transport.bpm.setValueAtTime(80, Tone.now());
     Tone.Transport.start();
+    Tone.Transport.bpm.rampTo(80);
+    this.loaded = false;
+
+    Tone.Buffer.loaded().then(() => {
+      console.log('Tone.Transport');
+      guitar.toDestination();
+    });
   }
 
   private convertNotesToToneJsArr = (notes: PartNote[]) => {
@@ -150,7 +162,7 @@ export class Player {
 
   playAll = (bpm = 120) => {
     console.log('bpm', bpm);
-    Tone.getTransport().bpm.rampTo(bpm);
+    // Tone.getTransport().bpm.rampTo(bpm);
 
     if (this.melodyPart?.start) {
       this.melodyPart.start(0);
