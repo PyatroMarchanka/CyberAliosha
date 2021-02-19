@@ -44,14 +44,18 @@ const Container = styled(MetalBlock)`
   flex-direction: column;
   align-items: center;
 
-  padding: 0 10px 20px 0;
+  padding: 0 10px 10px;
 
   @media ${theme.breakpoints.belowTablet} {
-    padding: 0 10px 10px 0;
+    padding: 0 10px 10px 5px;
   }
 
   .title {
     color: ${theme.colors.white};
+
+    @media ${theme.breakpoints.belowTablet} {
+      font-size: 16px;
+    }
   }
 `;
 

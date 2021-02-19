@@ -39,8 +39,8 @@ const TabsButtons = styled.div`
   > button {
     flex: 1;
   }
-  border-left: 2px solid #2f3134;
-  border-right: 2px solid #2f3134;
+  /* border-left: 2px solid #2f3134;
+  border-right: 2px solid #2f3134; */
 `;
 
 const TabButton = styled(({ className, title, onClick, isActive }) => (

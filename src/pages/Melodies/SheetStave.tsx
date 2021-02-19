@@ -64,22 +64,24 @@ export const SheetStave = ({
 
   return (
     <Container>
-      <Button onClick={generateMelodyInternal}>Generate melody</Button>
-      <Button onClick={generateChords}>Generate chords</Button>
-      {bars.length > 0 && (
-        <IconButton onClick={handlePlaying} className="icon">
-          {isPlaying ? (
-            <Icon
-              type="material"
-              fill={theme.colors.blueGreySticky[500]}
-              Icon={StopIcon}
-              className="play-icon"
-            />
-          ) : (
-            <Icon type="play" fill={theme.colors.blueGreySticky[500]} className="play-icon" />
-          )}
-        </IconButton>
-      )}
+      <Actions>
+        <Button onClick={generateMelodyInternal}>Generate melody</Button>
+        <Button onClick={generateChords}>Generate chords</Button>
+        {bars.length > 0 && (
+          <IconButton onClick={handlePlaying} className="icon">
+            {isPlaying ? (
+              <Icon
+                type="material"
+                fill={theme.colors.blueGreySticky[500]}
+                Icon={StopIcon}
+                className="play-icon"
+              />
+            ) : (
+              <Icon type="play" fill={theme.colors.blueGreySticky[500]} className="play-icon" />
+            )}
+          </IconButton>
+        )}
+      </Actions>
       <div className={bars.length > 0 ? 'stave' : ''} ref={ref} id="vf"></div>
     </Container>
   );
@@ -101,4 +103,9 @@ const Container = styled.div`
       scrollbar-width: none; /* Firefox */
     }
   }
+`;
+
+const Actions = styled.div`
+  display: flex;
+  justify-content: center;
 `;

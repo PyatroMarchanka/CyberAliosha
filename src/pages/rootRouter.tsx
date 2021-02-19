@@ -44,7 +44,7 @@ export default function MainRouter() {
 
 const Body = styled.div`
   background-color: #60656f;
-  border-radius: 10px;
+  border-radius: 2px;
   overflow: hidden;
   -webkit-box-shadow: 0px 5px 15px 0px #333333;
   box-shadow: 0px 5px 15px 0px #333333;

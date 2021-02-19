@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLongPress } from '../../hooks/useLongPress';
+import { borders } from '../../styled/global';
 import { Color, theme } from '../../utils/theme';
 
 interface Props {
@@ -54,7 +55,10 @@ const PrimaryButton = styled.button`
   margin: 10px;
   background-color: ${({ fontColor }: StyledProps) => fontColor[500]};
   border: 0;
-  border-radius: 7px;
+  ${borders}
+  border-radius: 3px;
+
+  /* border-radius: 7px; */
   min-width: 90px;
   color: ${theme.colors.grey[50]};
   font-family: ${theme.fonts.primary};
@@ -64,9 +68,10 @@ const PrimaryButton = styled.button`
   outline: none;
 
   @media ${theme.breakpoints.belowTablet} {
-    font-size: 16px;
-    min-width: 73px;
+    font-size: 13px;
+    min-width: 60px;
     margin: 5px;
+    padding: 10px 5px;
   }
 
   &:hover {

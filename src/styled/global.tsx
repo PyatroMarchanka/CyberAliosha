@@ -10,6 +10,7 @@ export const borders = css`
 
 export const MetalBlock = styled.div`
   background-color: #878c90;
+  border-radius: 3px;
   ${borders}
 `;
 

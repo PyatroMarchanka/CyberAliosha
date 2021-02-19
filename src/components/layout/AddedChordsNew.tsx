@@ -22,6 +22,7 @@ import { SaveChordsModal } from './SaveChordsModal';
 import { Button } from '../global/Button';
 
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
+import { chunk } from 'lodash';
 
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
@@ -105,21 +106,25 @@ export const AddedChordsNew = () => {
           No chords
         </Typography>
       ) : (
-        <StyledProgression>
-          {addedChords.map((chord: ChordModel, idx) => (
-            <ChordWithEditModal
-              className={`chord ${true && 'half'}`}
-              isSelected={idx === replacingChord?.idx || idx === playingChord}
-              key={`chord-${chord[0]}-${idx}`}
-              onClose={() => onClose()}
-              onDelete={() => onDelete(chord, idx)}
-              onReplace={() => onReplace(chord, idx)}
-              playChord={() => Player?.playChord(chord)}
-            >
-              {convertChordToString(chord)}
-            </ChordWithEditModal>
+        <AllChordsLines>
+          {chunk(addedChords, 4).map((chords: ChordModel[], idx) => (
+            <StyledProgression>
+              {chords.map((chord: ChordModel, idx) => (
+                <ChordWithEditModal
+                  className={`chord ${true && 'half'}`}
+                  isSelected={idx === replacingChord?.idx || idx === playingChord}
+                  key={`chord-${chord[0]}-${idx}`}
+                  onClose={() => onClose()}
+                  onDelete={() => onDelete(chord, idx)}
+                  onReplace={() => onReplace(chord, idx)}
+                  playChord={() => Player?.playChord(chord)}
+                >
+                  {convertChordToString(chord)}
+                </ChordWithEditModal>
+              ))}
+            </StyledProgression>
           ))}
-        </StyledProgression>
+        </AllChordsLines>
       )}
       <Actions>
         <IconButton disabled={!addedChords.length} onClick={handlePlaying} className="icon">
@@ -201,4 +206,8 @@ const Actions = styled.div`
     width: 35px;
     height: 35px;
   }
+`;
+
+const AllChordsLines = styled.div`
+  margin: 20px 0;
 `;

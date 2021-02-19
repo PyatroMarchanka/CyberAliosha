@@ -27,7 +27,7 @@ export const MelodiesPage = () => {
   const [chords, setChords] = useState<ChordModel[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const {
-    state: { bpm, notesLength, notesPattern },
+    state: { notesLength, notesPattern },
   } = useContext(chordsAdderStore);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
@@ -36,8 +36,6 @@ export const MelodiesPage = () => {
   const [part, setPart] = useState<PartNote[][]>([]);
 
   const { Player, MPlayer } = useMidiPlayer();
-
-  const playerRef = useRef(null);
 
   const playPart = (loops: number = 2) => {
     Player?.playPartChords(chords);
@@ -73,19 +71,11 @@ export const MelodiesPage = () => {
     }
   }, [location]);
 
-  useEffect(() => {
-    // setMidiPlayer(new MidiPlayer(playerRef));
-  }, [playerRef.current]);
-
   return (
     <Container>
       {chords.length > 0 && (
         <Chords>
-          <ChordsProgression
-            chords={chords}
-            title={<Typography variant="h5">Chords for melody:</Typography>}
-            onChordClick={Player?.playChord}
-          />
+          <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
         </Chords>
       )}
       <SheetStave
@@ -110,4 +100,6 @@ const Container = styled.div`
 
 const Chords = styled.div`
   margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
 `;

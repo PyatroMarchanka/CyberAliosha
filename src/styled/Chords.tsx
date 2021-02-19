@@ -6,8 +6,5 @@ export const StyledProgression = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-
-  .chord {
-    margin: 10px;
-  }
+  justify-content: center;
 `;
