@@ -10,6 +10,11 @@ export class MidiPlayer {
   constructor(playRef: any, bpm: number) {
     this.playRef = playRef;
     this.bpm = bpm;
+
+    if (this.playRef.current) {
+      this.playRef.current.setBand256(-5);
+      this.playRef.current.setBand512(-5);
+    }
   }
 
   convertNoteToMidiPitch = (noteNameStr: string) => {
