@@ -30,7 +30,7 @@ export const AddedChordsNew = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { Player, MPlayer } = useMidiPlayer();
+  const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
 
   const {
     state: { addedChords, replacingChord, bpm },

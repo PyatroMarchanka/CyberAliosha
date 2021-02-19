@@ -5,7 +5,7 @@ import { MidiPlayer } from './MidiPlayer';
 import MIDISounds from 'midi-sounds-react';
 import styled from 'styled-components';
 
-export const useMidiPlayer = () => {
+export const useMidiPlayer = (setIsPlaying?: (bool: boolean) => void) => {
   const {
     state: { bpm },
   } = useContext(chordsAdderStore);
@@ -22,6 +22,7 @@ export const useMidiPlayer = () => {
 
   useEffect(() => {
     if (midiPlayer) {
+      setIsPlaying && setIsPlaying(false);
       midiPlayer.stopAll();
     }
     setMidiPlayer(new MidiPlayer(playerRef, bpm));

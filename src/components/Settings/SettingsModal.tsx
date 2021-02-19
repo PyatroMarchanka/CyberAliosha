@@ -106,7 +106,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
           <FormControl className={classes.formControl}>
             <TextField
               id="standard-basic"
-              label="120"
+              label="Beats per minute"
               type="number"
               value={bpm}
               onChange={(e) => setBpm(e.target.value)}
@@ -127,7 +127,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="demo-dialog-select-input">Melody notes pattern</InputLabel>
+            <InputLabel htmlFor="demo-dialog-select-input">Melody rythme pattern</InputLabel>
             <Select
               labelId="demo-dialog-select-label"
               id="demo-dialog-select"
