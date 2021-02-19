@@ -6,6 +6,7 @@ interface Note {
 export class MidiPlayer {
   playRef: any;
   bpm: number = 80;
+  timeout: NodeJS.Timeout | null;
 
   constructor(playRef: any, bpm: number) {
     this.playRef = playRef;
@@ -57,10 +58,10 @@ export class MidiPlayer {
     });
   };
 
-  playPartChords = (chords: ChordModel[], notesPerBar: number = 4) => {
+  playPartChords = (chords: ChordModel[], onEnd?: () => void, notesPerBar: number = 4) => {
     const part = chords.map((chord) => this.getNotesForChord(chord, notesPerBar)).flat();
 
-    this.playPart(part);
+    this.playPart(part, onEnd);
   };
 
   getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
@@ -71,9 +72,37 @@ export class MidiPlayer {
     }));
   };
 
-  playPart = (part: PartNote[], newBpm?: number) => {
+  getPartLength = (part?: PartNote[] | null, chords?: ChordModel[]): number => {
+    let length = 0;
+    let partToCalculate;
+
+    if (part) {
+      partToCalculate = part;
+    }
+
+    if (chords) {
+      partToCalculate = chords.map((chord) => this.getNotesForChord(chord, 4)).flat();
+    }
+
+    var bpm = this.bpm;
+    var N = (4 * 60) / bpm;
+
+    if (!partToCalculate) {
+      return 0;
+    }
+
+    for (let note of partToCalculate) {
+      const bpmDur = N * note.dur;
+      length += bpmDur;
+    }
+
+    return length;
+  };
+
+  playPart = (part: PartNote[], onEnd?: () => void, newBpm?: number) => {
     var bpm = newBpm || this.bpm;
     var N = (4 * 60) / bpm;
+    let length = 0;
 
     const midipart = this.convertPartNotesPartToMidiPitches(part);
     let when = this.playRef.current.contextTime();
@@ -81,6 +110,11 @@ export class MidiPlayer {
       const bpmDur = N * note.dur;
       this.playRef.current.playChordAt(when, 4, [note.note], bpmDur);
       when += bpmDur;
+      length += bpmDur;
+    }
+
+    if (onEnd) {
+      this.timeout = setTimeout(onEnd, length * 1000);
     }
   };
 
@@ -94,6 +128,11 @@ export class MidiPlayer {
 
   stopAll = () => {
     this.playRef.current.cancelQueue();
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
   };
 }
 

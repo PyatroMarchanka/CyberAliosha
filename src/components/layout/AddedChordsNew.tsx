@@ -39,7 +39,7 @@ export const AddedChordsNew = () => {
   const handlePlaying = () => {
     if (!isPlaying) {
       setIsPlaying(true);
-      Player?.playPartChords(addedChords);
+      Player?.playPartChords(addedChords, () => setIsPlaying(false));
     } else {
       setIsPlaying(false);
       Player?.stopAll();

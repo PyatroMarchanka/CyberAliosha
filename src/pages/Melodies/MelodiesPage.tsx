@@ -41,7 +41,7 @@ export const MelodiesPage = () => {
 
   const playPart = (loops: number = 2) => {
     Player?.playPartChords(chords);
-    Player?.playPart(part.flat());
+    Player?.playPart(part.flat(), () => setIsPlaying(false));
   };
 
   const generateChords = () => {
