@@ -5,8 +5,8 @@ import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
 import { MetalBlock } from '../../styled/global';
 import { sortChordsByType } from '../../utils';
-import { Player } from '../../utils/Player';
 import { theme } from '../../utils/theme';
+import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Icon } from '../global/Icon';
 import { ChordsTitledLine } from './ChordsTitledLine';
 import { KeyMoodSelector } from './KeySelector';
@@ -14,8 +14,10 @@ import { KeyMoodSelector } from './KeySelector';
 export const ChordsToAdd = () => {
   const { state, dispatch } = useContext(chordsAdderStore);
 
+  const { Player, MPlayer } = useMidiPlayer();
+
   const onChordClick = (chord: ChordModel) => {
-    Player.playChord(chord);
+    Player?.playChord(chord);
 
     if (state.replacingChord) {
       dispatch({
@@ -83,6 +85,7 @@ export const ChordsToAdd = () => {
           title="Unstable chords:"
         />
       </Chords>
+      {MPlayer}
     </Container>
   );
 };

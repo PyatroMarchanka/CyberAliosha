@@ -1,11 +1,15 @@
 import { ChordModel, MidiNote, PartNote } from '../dataset/all_chords_for_impro';
 
+interface Note {
+  note: 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
+}
 export class MidiPlayer {
   playRef: any;
   bpm: number = 80;
 
-  constructor(playRef: any) {
+  constructor(playRef: any, bpm: number) {
     this.playRef = playRef;
+    this.bpm = bpm;
   }
 
   convertNoteToMidiPitch = (noteNameStr: string) => {
@@ -15,8 +19,22 @@ export class MidiPlayer {
     if (noteNameStr === '') {
       return -100;
     }
-    const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-    const note = notes.indexOf(noteNameStr.slice(0, noteNameStr.length - 1));
+    const notesDictionary = {
+      C: 0,
+      'C#': 1,
+      D: 2,
+      'D#': 3,
+      E: 4,
+      F: 5,
+      'F#': 6,
+      G: 7,
+      'G#': 8,
+      A: 9,
+      'A#': 10,
+      B: 11,
+    };
+
+    const note = notesDictionary[noteNameStr.slice(0, noteNameStr.length - 1) as Note['note']];
     const octave = +noteNameStr[noteNameStr.length - 1];
     const c = 24;
     const result = c + (octave - 1) * 12 + note;
@@ -56,7 +74,6 @@ export class MidiPlayer {
     let when = this.playRef.current.contextTime();
     for (let note of midipart) {
       const bpmDur = N * note.dur;
-      console.log('when', when);
       this.playRef.current.playChordAt(when, 4, [note.note], bpmDur);
       when += bpmDur;
     }
@@ -67,7 +84,7 @@ export class MidiPlayer {
       this.convertNoteToMidiPitch(getOctaveForGuitar(note, index)),
     );
 
-    this.playRef.current.playChordNow(4, notes, 0.5);
+    this.playRef.current.playChordNow(4, notes, 1);
   };
 
   stopAll = () => {
@@ -78,18 +95,18 @@ export class MidiPlayer {
 const getOctaveForGuitar = (note: string, index: number) => {
   switch (index) {
     case 0:
-      return note + '1';
+      return note + '2';
 
     case 1:
     case 2:
-      return note + '2';
+      return note + '3';
 
     case 3:
     case 4:
     case 5:
-      return note + '3';
+      return note + '4';
 
     default:
-      return note + '2';
+      return note + '3';
   }
 };

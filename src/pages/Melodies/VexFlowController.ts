@@ -22,6 +22,10 @@ export class VexFlowController {
     this.drawStaveLines(notes, chords);
   };
 
+  clear = () => {
+    this.context.clear();
+  };
+
   drawStaveLines = (bars: PartNote[][], chords: ChordModel[]) => {
     if (bars.length) {
       this.context.clear();

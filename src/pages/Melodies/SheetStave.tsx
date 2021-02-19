@@ -51,6 +51,8 @@ export const SheetStave = ({
   useEffect(() => {
     if (staves && bars.length > 0) {
       staves.drawAll(bars, chords);
+    } else {
+      staves?.clear();
     }
   }, [bars, chords, staves]);
 

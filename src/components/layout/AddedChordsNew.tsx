@@ -14,18 +14,14 @@ import { MetalBlock } from '../../styled/global';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
 import { convertChordToString } from '../../utils';
-import { Player } from '../../utils/Player';
 
 import { ChordWithEditModal } from './ChordWithEditModal';
 import { StyledProgression } from '../../styled/Chords';
 import { Icon } from '../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
 import { Button } from '../global/Button';
-import { MidiPlayer } from '../../utils/MidiPlayer';
-// @ts-ignore
-import MIDISounds from 'midi-sounds-react';
 
-interface Props {}
+import { useMidiPlayer } from '../../utils/useMidiPlayer';
 
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
@@ -33,9 +29,7 @@ export const AddedChordsNew = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const [midiPlayer, setMidiPlayer] = useState<MidiPlayer | null>(null);
-
-  const playerRef = useRef(null);
+  const { Player, MPlayer } = useMidiPlayer();
 
   const {
     state: { addedChords, replacingChord, bpm },
@@ -45,10 +39,10 @@ export const AddedChordsNew = () => {
   const handlePlaying = () => {
     if (!isPlaying) {
       setIsPlaying(true);
-      midiPlayer?.playPartChords(addedChords);
+      Player?.playPartChords(addedChords);
     } else {
       setIsPlaying(false);
-      midiPlayer?.stopAll();
+      Player?.stopAll();
     }
   };
 
@@ -97,10 +91,6 @@ export const AddedChordsNew = () => {
     });
   };
 
-  useEffect(() => {
-    setMidiPlayer(new MidiPlayer(playerRef));
-  }, [playerRef.current]);
-
   return (
     <Container>
       {addedChords.length > 0 && (
@@ -124,7 +114,7 @@ export const AddedChordsNew = () => {
               onClose={() => onClose()}
               onDelete={() => onDelete(chord, idx)}
               onReplace={() => onReplace(chord, idx)}
-              playChord={() => Player.playChord(chord)}
+              playChord={() => Player?.playChord(chord)}
             >
               {convertChordToString(chord)}
             </ChordWithEditModal>
@@ -167,7 +157,7 @@ export const AddedChordsNew = () => {
           Add melody
         </Button>
       </Actions>
-      <MIDISounds ref={playerRef} appElementName="root" instruments={[4]} />
+      {MPlayer}
     </Container>
   );
 };

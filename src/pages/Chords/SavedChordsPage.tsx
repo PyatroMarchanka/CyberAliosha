@@ -16,7 +16,7 @@ import { theme } from '../../utils/theme';
 import { useHistory } from 'react-router';
 import { routes } from '../routes';
 import { Button } from '../../components/global/Button';
-import { Player } from '../../utils/Player';
+import { Player } from '../../utils/PlayerLegacy';
 
 interface Props {}
 

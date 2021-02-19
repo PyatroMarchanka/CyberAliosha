@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { theme } from '../../utils/theme';
 
 import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
-import { Player } from '../../utils/Player';
+import { Player } from '../../utils/PlayerLegacy';
 
 import CreateMidiFile from '../../musicBrain/CreateMidiFile';
 import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
@@ -17,6 +17,7 @@ import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import MIDISounds from 'midi-sounds-react';
 import { MidiPlayer } from '../../utils/MidiPlayer';
 import { Button } from '../../components/global/Button';
+import { useMidiPlayer } from '../../utils/useMidiPlayer';
 
 interface Props {}
 
@@ -33,14 +34,14 @@ export const MelodiesPage = () => {
 
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
-  const [PlayerInst] = useState<Player>(new Player());
-  const [midiPlayer, setMidiPlayer] = useState<MidiPlayer | null>(null);
+
+  const { Player, MPlayer } = useMidiPlayer();
 
   const playerRef = useRef(null);
 
   const playPart = (loops: number = 2) => {
-    midiPlayer?.playPartChords(chords);
-    midiPlayer?.playPart(part.flat());
+    Player?.playPartChords(chords);
+    Player?.playPart(part.flat());
   };
 
   const generateChords = () => {
@@ -48,6 +49,7 @@ export const MelodiesPage = () => {
 
     if (chords) {
       setChords(chords);
+      setPart([]);
     }
   };
 
@@ -72,7 +74,7 @@ export const MelodiesPage = () => {
   }, [location]);
 
   useEffect(() => {
-    setMidiPlayer(new MidiPlayer(playerRef));
+    // setMidiPlayer(new MidiPlayer(playerRef));
   }, [playerRef.current]);
 
   return (
@@ -82,21 +84,21 @@ export const MelodiesPage = () => {
           <ChordsProgression
             chords={chords}
             title={<Typography variant="h5">Chords for melody:</Typography>}
-            onChordClick={Player.playChord}
+            onChordClick={Player?.playChord}
           />
         </Chords>
       )}
       <SheetStave
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
-        stopMelody={() => midiPlayer?.stopAll()}
+        stopMelody={() => Player?.stopAll()}
         playMelody={() => playPart(2)}
         generateMelody={generateMelody}
         generateChords={generateChords}
         chords={chords}
         bars={part}
       />
-      <MIDISounds ref={playerRef} appElementName="root" instruments={[4]} />
+      {MPlayer}
     </Container>
   );
 };
