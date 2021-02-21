@@ -48,7 +48,7 @@ const Body = styled.div`
 
 const GlobalStyles = createGlobalStyle`
   body {
-    background-color:#4f4f4f;
+    background-color:#262626;
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 50px;
