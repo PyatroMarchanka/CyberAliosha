@@ -22,7 +22,7 @@ export const theme = {
   colors: {
     grey50: 'rgb(125, 125, 125)',
     blueGreySticky: {
-      '500': '#4e5b6a',
+      '500': '#414141',
       '50': '#eceff1',
       '100': '#cfd8dc',
       '200': '#b0bec5',
