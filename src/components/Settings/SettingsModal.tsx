@@ -122,7 +122,9 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
               input={<Input id="demo-dialog-select-input" />}
             >
               {notesLengthTypes.map((type) => (
-                <MenuItem value={type}>{getNotesTypeLabel(type)}</MenuItem>
+                <MenuItem key={type} value={type}>
+                  {getNotesTypeLabel(type)}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -136,7 +138,9 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
               input={<Input id="demo-dialog-select-input" />}
             >
               {notesPatterns.map((pattern) => (
-                <MenuItem value={pattern}>{getNotesPatternLabel(pattern)}</MenuItem>
+                <MenuItem key={pattern} value={pattern}>
+                  {getNotesPatternLabel(pattern)}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>

@@ -5,12 +5,10 @@ import Header from '../components/Header/Header';
 import { AboutPage } from './AboutPage';
 import { MainPage } from './MainPage';
 import { routes } from './routes';
-import { SavedChordsPage } from './Chords/SavedChordsPage';
-import { ChordEditorPage } from './Chords/ChordEditorPage';
 import { MelodiesPage } from './Melodies/MelodiesPage';
 import { theme } from '../utils/theme';
-import { Tabs } from '../components/global/Tabs';
 import Footer from '../components/Footer/Footer';
+import { ChordsPage } from './Chords';
 
 export default function MainRouter() {
   return (
@@ -21,10 +19,7 @@ export default function MainRouter() {
         <Switch>
           <Redirect exact from="/" to={routes.chordsEditor} />
           <Route path={routes.chordsEditor}>
-            <Tabs items={[{ label: 'Editor' }, { label: 'Saved' }]}>
-              <ChordEditorPage />
-              <SavedChordsPage />
-            </Tabs>
+            <ChordsPage />
           </Route>
           <Route path={routes.melodyEditor}>
             <MelodiesPage />

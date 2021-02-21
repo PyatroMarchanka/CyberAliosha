@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { AddedChordsNew } from '../../components/layout/AddedChordsNew';
-import { ChordsToAdd } from '../../components/layout/ChordsToAdd';
+import { AddedChordsNew } from '../../components/Chords/AddedChordsNew';
+import { ChordsToAdd } from '../../components/Chords/ChordsToAdd';
 
 interface Props {}
 

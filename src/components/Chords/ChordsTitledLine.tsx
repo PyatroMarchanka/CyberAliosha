@@ -13,10 +13,6 @@ interface Props {
 }
 
 export const ChordsTitledLine = ({ chords, title, onChordClick }: Props) => {
-  if (!chords.length) {
-    return null;
-  }
-
   return (
     <Container>
       {!!title && (
@@ -28,12 +24,18 @@ export const ChordsTitledLine = ({ chords, title, onChordClick }: Props) => {
         </TitleWrapper>
       )}
       <Chords>
-        {chords.map((chord, idx) => (
-          <Button
-            key={`${chord[0]}-${idx}`}
-            onClick={() => onChordClick(chord)}
-          >{`${chord[0]}${chord[1]}`}</Button>
-        ))}
+        {chords.length ? (
+          chords.map((chord, idx) => (
+            <Button
+              key={`${chord[0]}-${idx}`}
+              onClick={() => onChordClick(chord)}
+            >{`${chord[0]}${chord[1]}`}</Button>
+          ))
+        ) : (
+          <Typography className="title" variant="subtitle1">
+            No chords
+          </Typography>
+        )}
       </Chords>
     </Container>
   );
