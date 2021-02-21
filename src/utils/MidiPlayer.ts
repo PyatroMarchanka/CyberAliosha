@@ -123,7 +123,7 @@ export class MidiPlayer {
       this.convertNoteToMidiPitch(getOctaveForGuitar(note, index)),
     );
 
-    this.playRef.current?.playChordNow(4, notes, 1);
+    this.playRef.current?.playStrumUpNow(4, notes, 1);
   };
 
   stopAll = () => {
