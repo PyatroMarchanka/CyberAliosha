@@ -30,24 +30,24 @@ export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
   const history = useHistory();
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
 
-  const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
+  const { Player, MPlayer } = useMidiPlayer();
 
   const {
-    state: { addedChords, replacingChord, bpm },
+    state: { addedChords, replacingChord },
     dispatch,
   } = useContext(chordsAdderStore);
 
-  const handlePlaying = () => {
-    if (!isPlaying) {
-      setIsPlaying(true);
-      Player?.playPartChords(addedChords, () => setIsPlaying(false));
-    } else {
-      setIsPlaying(false);
-      Player?.stopAll();
-    }
-  };
+  // const handlePlaying = () => {
+  //   if (!isPlaying) {
+  //     setIsPlaying(true);
+  //     Player?.playPartChords(addedChords, () => setIsPlaying(false));
+  //   } else {
+  //     setIsPlaying(false);
+  //     Player?.stopAll();
+  //   }
+  // };
 
   const onReplace = (chord: ChordModel, idx: number) => {
     dispatch({
@@ -127,6 +127,7 @@ export const AddedChordsNew = () => {
           </Button>
         </AddMelody>
       )}
+      {MPlayer}
     </Container>
   );
 };

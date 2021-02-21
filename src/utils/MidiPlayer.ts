@@ -13,8 +13,8 @@ export class MidiPlayer {
     this.bpm = bpm;
 
     if (this.playRef.current) {
-      this.playRef.current.setBand256(-5);
-      this.playRef.current.setBand512(-5);
+      this.playRef.current?.setBand256(-5);
+      this.playRef.current?.setBand512(-5);
     }
   }
 
@@ -105,10 +105,10 @@ export class MidiPlayer {
     let length = 0;
 
     const midipart = this.convertPartNotesPartToMidiPitches(part);
-    let when = this.playRef.current.contextTime();
+    let when = this.playRef.current?.contextTime();
     for (let note of midipart) {
       const bpmDur = N * note.dur;
-      this.playRef.current.playChordAt(when, 4, [note.note], bpmDur);
+      this.playRef.current?.playChordAt(when, 4, [note.note], bpmDur);
       when += bpmDur;
       length += bpmDur;
     }
@@ -123,7 +123,7 @@ export class MidiPlayer {
       this.convertNoteToMidiPitch(getOctaveForGuitar(note, index)),
     );
 
-    this.playRef.current.playChordNow(4, notes, 1);
+    this.playRef.current?.playChordNow(4, notes, 1);
   };
 
   stopAll = () => {
