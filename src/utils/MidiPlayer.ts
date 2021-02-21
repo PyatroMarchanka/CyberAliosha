@@ -127,7 +127,7 @@ export class MidiPlayer {
   };
 
   stopAll = () => {
-    this.playRef.current.cancelQueue();
+    this.playRef?.current?.cancelQueue();
 
     if (this.timeout) {
       clearTimeout(this.timeout);

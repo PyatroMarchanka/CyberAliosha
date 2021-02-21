@@ -46,6 +46,36 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const notesLengthTypes = [
+  NotesLengthType.Often,
+  NotesLengthType.Middle,
+  NotesLengthType.Seldom,
+  NotesLengthType.VeryOften,
+  NotesLengthType.VerySeldom,
+  NotesLengthType.Sixteen,
+  NotesLengthType.Eight,
+  NotesLengthType.Quarter,
+  NotesLengthType.Half,
+  NotesLengthType.Whole,
+];
+
+const notesPatterns = [NotesPatterns.None, NotesPatterns.Riff];
+
+interface Tempos {
+  bpm: 60 | 75 | 90 | 110 | 130 | 160 | 190 | 220;
+}
+
+const bpmToTempoName = {
+  60: 'Adagio',
+  75: 'Andante',
+  90: 'Moderato',
+  110: 'Animato',
+  130: 'Allegro',
+  160: 'Vivo',
+  190: 'Presto',
+  220: 'Prestissimo',
+};
+
 export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
   const classes = useStyles();
 
@@ -83,34 +113,26 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
     handleClose();
   };
 
-  const notesLengthTypes = [
-    NotesLengthType.Often,
-    NotesLengthType.Middle,
-    NotesLengthType.Seldom,
-    NotesLengthType.VeryOften,
-    NotesLengthType.VerySeldom,
-    NotesLengthType.Sixteen,
-    NotesLengthType.Eight,
-    NotesLengthType.Quarter,
-    NotesLengthType.Half,
-    NotesLengthType.Whole,
-  ];
-
-  const notesPatterns = [NotesPatterns.None, NotesPatterns.Riff];
-
   return (
     <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle>Settings</DialogTitle>
       <DialogContent>
         <form className={classes.container}>
           <FormControl className={classes.formControl}>
-            <TextField
-              id="standard-basic"
-              label="Beats per minute"
-              type="number"
+            <InputLabel htmlFor="tempo-label">Tempo</InputLabel>
+            <Select
+              labelId="tempo-label"
+              id="tempo"
               value={bpm}
-              onChange={(e) => setBpm(e.target.value)}
-            />
+              onChange={(e: any) => setBpm(e.target.value)}
+              input={<Input id="demo-dialog-select-input" />}
+            >
+              {Object.entries(bpmToTempoName).map(([bpm, label]) => (
+                <MenuItem key={label} value={bpm}>
+                  {`${label} - ${bpm} bpm`}
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="demo-dialog-select-input">Melody notes length</InputLabel>

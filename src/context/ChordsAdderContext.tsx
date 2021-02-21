@@ -45,7 +45,7 @@ const initialState: State = {
   key: 'C',
   mood: '',
   chordsLenght: 1,
-  bpm: 120,
+  bpm: 130,
   notesLength: NotesLengthType.Middle,
   notesPattern: NotesPatterns.Riff,
 };
