@@ -65,8 +65,12 @@ export const SheetStave = ({
   return (
     <Container>
       <Actions>
-        <Button onClick={generateMelodyInternal}>Generate melody</Button>
-        <Button onClick={generateChords}>Generate chords</Button>
+        <Button disabled={isPlaying} onClick={generateMelodyInternal}>
+          Generate melody
+        </Button>
+        <Button disabled={isPlaying} onClick={generateChords}>
+          Generate chords
+        </Button>
         {bars.length > 0 && (
           <IconButton onClick={handlePlaying} className="icon">
             {isPlaying ? (
