@@ -43,6 +43,10 @@ export default function Header() {
       link: routes.melodyEditor,
     },
     {
+      title: 'Saved',
+      link: routes.saved,
+    },
+    {
       title: 'Settings',
       onClick: () => setIsSettingsOpen(true),
     },

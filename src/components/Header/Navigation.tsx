@@ -16,6 +16,9 @@ export const Navigation = ({}: Props) => {
       <AlioshaLink to={routes.melodyEditor}>
         <Button>Melody</Button>
       </AlioshaLink>
+      <AlioshaLink to={routes.saved}>
+        <Button>Saved</Button>
+      </AlioshaLink>
       <AlioshaLink to={routes.about}>
         <Button>About</Button>
       </AlioshaLink>

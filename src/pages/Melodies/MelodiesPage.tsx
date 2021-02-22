@@ -18,6 +18,7 @@ import MIDISounds from 'midi-sounds-react';
 import { MidiPlayer } from '../../utils/MidiPlayer';
 import { Button } from '../../components/global/Button';
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
+import { PageTitle } from '../../components/global/PageTitle';
 
 interface Props {}
 
@@ -72,24 +73,27 @@ export const MelodiesPage = () => {
   }, [location]);
 
   return (
-    <Container>
-      {chords.length > 0 && (
-        <Chords>
-          <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
-        </Chords>
-      )}
-      <SheetStave
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-        stopMelody={() => Player?.stopAll()}
-        playMelody={() => playPart(2)}
-        generateMelody={generateMelody}
-        generateChords={generateChords}
-        chords={chords}
-        bars={part}
-      />
-      {MPlayer}
-    </Container>
+    <>
+      <PageTitle title="Melodies Editor" />
+      <Container>
+        {chords.length > 0 && (
+          <Chords>
+            <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
+          </Chords>
+        )}
+        <SheetStave
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          stopMelody={() => Player?.stopAll()}
+          playMelody={() => playPart(2)}
+          generateMelody={generateMelody}
+          generateChords={generateChords}
+          chords={chords}
+          bars={part}
+        />
+        {MPlayer}
+      </Container>
+    </>
   );
 };
 

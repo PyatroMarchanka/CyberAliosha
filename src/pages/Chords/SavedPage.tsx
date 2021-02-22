@@ -17,10 +17,11 @@ import { useHistory } from 'react-router';
 import { routes } from '../routes';
 import { Button } from '../../components/global/Button';
 import { Player } from '../../utils/PlayerLegacy';
+import { Tabs } from '../../components/global/Tabs';
 
 interface Props {}
 
-export const SavedChordsPage = ({}: Props) => {
+export const SavedPage = ({}: Props) => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
   const history = useHistory();
 
@@ -41,38 +42,41 @@ export const SavedChordsPage = ({}: Props) => {
   }, []);
 
   return (
-    <Container>
-      {!!savedChords &&
-        savedChords.map((chordsObject) => (
-          <Chords>
-            <ChordsProgression
-              title={chordsObject.title || chordsObject.id}
-              key={chordsObject.id}
-              chords={chordsObject.chords}
-              onChordClick={Player.playChord}
-              action={
-                <div>
-                  <IconButton
-                    onClick={() => {
-                      removeSavedChordsById(chordsObject.id);
-                      fetchChords();
-                    }}
-                    className="icon"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                  >
-                    <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
-                  </IconButton>
-                  <Button onClick={() => openInMelodyEditor(chordsObject.chords)}>
-                    Add Melody
-                  </Button>
-                </div>
-              }
-            />
-          </Chords>
-        ))}
-    </Container>
+    <Tabs items={[{ label: 'Chords' }, { label: 'Melodies' }]}>
+      <Container>
+        {!!savedChords &&
+          savedChords.map((chordsObject) => (
+            <Chords>
+              <ChordsProgression
+                title={chordsObject.title || chordsObject.id}
+                key={chordsObject.id}
+                chords={chordsObject.chords}
+                onChordClick={Player.playChord}
+                action={
+                  <div>
+                    <IconButton
+                      onClick={() => {
+                        removeSavedChordsById(chordsObject.id);
+                        fetchChords();
+                      }}
+                      className="icon"
+                      edge="start"
+                      color="inherit"
+                      aria-label="menu"
+                    >
+                      <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
+                    </IconButton>
+                    <Button onClick={() => openInMelodyEditor(chordsObject.chords)}>
+                      Add Melody
+                    </Button>
+                  </div>
+                }
+              />
+            </Chords>
+          ))}
+      </Container>
+      <Container>Saved Melodies</Container>
+    </Tabs>
   );
 };
 

@@ -1,7 +1,7 @@
 export const routes = {
   chordsEditor: '/chords-editor',
   chordsCreator: '/chords-creator',
-  chordsSaved: '/chords-saved',
+  saved: '/saved',
   melodyEditor: '/melody-editor',
   midiEditor: '/midi-editor',
   about: '/about',
