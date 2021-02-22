@@ -47,7 +47,7 @@ const initialState: State = {
   chordsLenght: 1,
   bpm: 130,
   notesLength: NotesLengthType.Middle,
-  notesPattern: NotesPatterns.Riff,
+  notesPattern: NotesPatterns.None,
 };
 
 interface Context {

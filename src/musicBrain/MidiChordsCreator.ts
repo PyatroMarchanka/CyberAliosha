@@ -1,8 +1,7 @@
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import ALL_CHORDS_FOR_IMPROVISE from '../dataset/all_chords_for_impro';
-import { convertChordToString, isInChordsArray, randomIntegerRange } from '../utils';
+import { isInChordsArray, randomIntegerRange } from '../utils';
 import releases, { getAllReleaserableToTarget } from './Releaser';
-import { Slide } from '@material-ui/core';
 
 export default class MidiChordsCreator {
   chords: ChordModel[];
