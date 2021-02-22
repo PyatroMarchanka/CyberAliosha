@@ -38,9 +38,9 @@ export default class MidiChordsCreator {
   ): ChordModel[] | undefined => {
     if (!startChord) {
       const randTone = all_chords[randomIntegerRange(0, all_chords.length)];
-      const chordsOk = [0, 1, 5, 7];
+      const chordsOk = [0, 1, 2, 4, 5, 8, 9];
       let randChord = randTone[chordsOk[randomIntegerRange(0, chordsOk.length)]];
-      console.log('randChord', randChord);
+      // let randChord = randTone[chordsOk[randomIntegerRange(0, chordsOk.length)]];
       startChord = randChord;
     }
 
@@ -56,6 +56,7 @@ export default class MidiChordsCreator {
     }
 
     const releaseChord = releases(result[result.length - 1]);
+
     if (releaseChord) {
       const test = this.generateCyclicChords(all_chords, count, startChord, [
         ...result,
@@ -69,17 +70,14 @@ export default class MidiChordsCreator {
       ) {
         return test;
       } else if (result.length > 1) {
-        console.log('startChord', convertChordToString(startChord));
-
-        result.pop();
         return this.generateCyclicChords(
           all_chords,
           count,
           startChord,
-          result.slice(0, result.length - 1),
+          result.slice(0, result.length - 3),
         );
       } else {
-        this.generateCyclicChords(all_chords, count, startChord, [startChord]);
+        return this.generateCyclicChords(all_chords, count, startChord, [startChord]);
       }
     } else {
       result.pop();

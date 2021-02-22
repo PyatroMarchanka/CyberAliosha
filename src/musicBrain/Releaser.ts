@@ -83,7 +83,7 @@ export default function releases(chord: ChordModel) {
     return result;
   }
 
-  if (chord[1] === 'm' || chord[1] === 'm7' || chord[1] === 'mAdd9') {
+  if (chord[1] === 'm' || chord[1] === 'm7' || chord[1] === 'mAdd9' || chord[1] === 'm9') {
     switch (randomIntegerRange(1, 7)) {
       case 1:
         result = findNotes(chord[0], 3, 'maj');
@@ -159,6 +159,8 @@ export const getAllReleaserableToTarget = (target: ChordModel) => {
     results.push(findNotes(target[0], 2, 'dim7')!);
     results.push(findNotes(target[0], 7, '7')!);
     results.push(findNotes(target[0], 1, '7b5')!);
+    results.push(findNotes(target[0], 11, 'aug')!);
+
     return results;
   }
 
@@ -169,6 +171,11 @@ export const getAllReleaserableToTarget = (target: ChordModel) => {
     results.push(findNotes(target[0], 2, 'dim7')!);
     results.push(findNotes(target[0], 1, '7b5')!);
     return results;
+  }
+
+  if (target[1] === '7b5') {
+    results.push(findNotes(target[0], 7, '7')!);
+    results.push(findNotes(target[0], 1, 'dim7')!);
   }
 
   results.push(findNotes(target[0], 7, '')!);
