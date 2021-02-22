@@ -86,26 +86,32 @@ export const SheetStave = ({
           </IconButton>
         )}
       </Actions>
-      <div className={bars.length > 0 ? 'stave' : ''} ref={ref} id="vf"></div>
+      <StaveContainer>
+        <div className={bars.length > 0 ? 'stave' : ''} ref={ref} id="vf"></div>
+      </StaveContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
   margin: 0;
+`;
+
+const StaveContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
   .stave {
     background-color: ${theme.colors.white};
     padding: 20px;
 
-    @media screen and (max-width: 900px) {
-      overflow-x: auto;
+    overflow-x: auto;
 
-      &::-webkit-scrollbar {
-        display: none;
-      }
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
     }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 `;
 

@@ -1,7 +1,30 @@
+import { getDevice } from './../../styled/utils';
 import { PartNote, ChordModel } from './../../dataset/all_chords_for_impro';
 import Vex from 'vexflow';
 import { convertChordToString } from '../../utils';
 const VF = Vex.Flow;
+
+const getBarsPerLine = (): 4 | 3 | 2 | 1 => {
+  const device = getDevice();
+  console.log('device', device);
+
+  switch (device) {
+    case 'desktop':
+      return 4;
+
+    case 'smallLaptop':
+      return 3;
+
+    case 'tablet':
+      return 2;
+
+    case 'mobile':
+      return 1;
+
+    default:
+      return 4;
+  }
+};
 
 export class VexFlowController {
   ref: any;
@@ -16,6 +39,7 @@ export class VexFlowController {
     this.renderer = new VF.Renderer(this.ref?.current!, VF.Renderer.Backends.SVG);
     this.context = this.renderer.getContext();
     this.context.setFont('Arial', 10).setBackgroundFillStyle('#eed');
+    this.barsPerLine = getBarsPerLine();
   }
 
   drawAll = (notes: PartNote[][], chords: ChordModel[]) => {
@@ -34,9 +58,9 @@ export class VexFlowController {
       const vexflowBar = this.convertToVexflow(bar);
       return this.addChordName(vexflowBar, chords[idx]);
     });
-    const staveLines = Math.ceil(barsVexflow.length / 5);
+    const staveLines = Math.ceil(barsVexflow.length / this.barsPerLine);
 
-    this.renderer.resize(1200, staveLines * this.lineHeight);
+    this.renderer.resize(this.lineWidth * this.barsPerLine, staveLines * this.lineHeight);
 
     for (let staveLineNumber = 0; staveLineNumber < staveLines; staveLineNumber++) {
       barsVexflow

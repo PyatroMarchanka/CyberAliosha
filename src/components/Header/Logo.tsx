@@ -24,6 +24,7 @@ const Container = styled.div`
     font-size: 30px;
     color: ${theme.colors.white};
     margin: 0 5px;
+    text-align: center;
 
     @media ${theme.breakpoints.belowTabletM} {
       font-size: 20px;

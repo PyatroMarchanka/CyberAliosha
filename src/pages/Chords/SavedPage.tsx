@@ -42,7 +42,7 @@ export const SavedPage = ({}: Props) => {
   }, []);
 
   return (
-    <Tabs items={[{ label: 'Chords' }, { label: 'Melodies' }]}>
+    <Tabs items={[{ label: 'Saved chords' }, { label: 'Saved melodies' }]}>
       <Container>
         {!!savedChords &&
           savedChords.map((chordsObject) => (
