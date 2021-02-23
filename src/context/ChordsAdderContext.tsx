@@ -1,7 +1,8 @@
 import React, { createContext, useReducer } from 'react';
 import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
-import ItemsSearcher from '../musicBrain/ItemsSearcher';
+
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
+import { searchItems, searchItemsForReplace } from '../musicBrain/Releaser';
 import { chordStringToFullChord } from '../utils';
 
 interface State {
@@ -33,7 +34,8 @@ interface Action {
     | 'SET_CHORDS_LENGHT'
     | 'SET_BPM'
     | 'SET_NOTES_LENGTH'
-    | 'SET_NOTES_PATTERN';
+    | 'SET_NOTES_PATTERN'
+    | 'ADD_CHORDS_FOR_REPLACE';
   payload?: any;
 }
 
@@ -60,7 +62,6 @@ const { Provider } = chordsAdderStore;
 
 const ChordsAdderProvider = ({ children }: any) => {
   const chordsCreator = new MidiChordsCreator();
-  const chordSearcher = new ItemsSearcher();
 
   const [state, dispatch] = useReducer((state: State, action: Action) => {
     switch (action.type) {
@@ -85,14 +86,20 @@ const ChordsAdderProvider = ({ children }: any) => {
       case 'ADD_CHORD':
         return {
           ...state,
-          chordsToAdd: chordSearcher.searchItems(action.payload) || [],
+          chordsToAdd: searchItems(action.payload) || [],
           addedChords: [...state.addedChords, action.payload],
         };
 
       case 'ADD_CHORDS_TO_ADD':
         return {
           ...state,
-          chordsToAdd: chordSearcher.searchItems(action.payload) || [],
+          chordsToAdd: searchItems(action.payload) || [],
+        };
+
+      case 'ADD_CHORDS_FOR_REPLACE':
+        return {
+          ...state,
+          chordsToAdd: searchItemsForReplace(action.payload.previous, action.payload.next) || [],
         };
 
       case 'ADD_RANDOM_CHORDS_TO_ADD':
@@ -108,8 +115,7 @@ const ChordsAdderProvider = ({ children }: any) => {
         return {
           ...state,
           addedChords: newFilteredChords,
-          chordsToAdd:
-            chordSearcher.searchItems(newFilteredChords[newFilteredChords.length - 1]) || [],
+          chordsToAdd: searchItems(newFilteredChords[newFilteredChords.length - 1]) || [],
         };
 
       case 'DELETE_ALL_CHORDS':
@@ -138,8 +144,7 @@ const ChordsAdderProvider = ({ children }: any) => {
           return {
             ...state,
             addedChords: newReplacedChords,
-            chordsToAdd:
-              chordSearcher.searchItems(newReplacedChords[newReplacedChords.length - 1]) || [],
+            chordsToAdd: searchItems(newReplacedChords[newReplacedChords.length - 1]) || [],
           };
         } else {
           return state;

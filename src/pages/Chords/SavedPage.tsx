@@ -3,11 +3,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
-import {
-  getSavedChords,
-  removeSavedChordsById,
-  SavedChords,
-} from '../../localStorageUtils/addedChordsStorage';
+import { getSavedChords, removeSavedChordsById } from '../../localStorageUtils/addedChordsStorage';
 import DeleteIcon from '@material-ui/icons/Delete';
 import styled from 'styled-components';
 import { MetalBlock } from '../../styled/global';
@@ -18,11 +14,14 @@ import { routes } from '../routes';
 import { Button } from '../../components/global/Button';
 import { Player } from '../../utils/PlayerLegacy';
 import { Tabs } from '../../components/global/Tabs';
+import { SavedChords, SavedMelodies } from '../../localStorageUtils/storagesController';
+import { getSavedMelodies } from '../../localStorageUtils/melodiesStorage';
 
 interface Props {}
 
 export const SavedPage = ({}: Props) => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
+  const [savedMelodies, setSavedMelodies] = useState<SavedMelodies[]>([]);
   const history = useHistory();
 
   const fetchChords = () => {
@@ -32,6 +31,13 @@ export const SavedPage = ({}: Props) => {
       console.log('savedChords', savedChords);
     }
   };
+  const fetchMelodies = () => {
+    const melodies = getSavedMelodies();
+    console.log('melodies', melodies);
+    if (melodies) {
+      setSavedMelodies(melodies);
+    }
+  };
 
   const openInMelodyEditor = (chords: ChordModel[]) => {
     history.push({ pathname: routes.melodyEditor, state: { chords } });
@@ -39,6 +45,7 @@ export const SavedPage = ({}: Props) => {
 
   useEffect(() => {
     fetchChords();
+    fetchMelodies();
   }, []);
 
   return (
@@ -50,7 +57,7 @@ export const SavedPage = ({}: Props) => {
               <ChordsProgression
                 title={chordsObject.title || chordsObject.id}
                 key={chordsObject.id}
-                chords={chordsObject.chords}
+                chords={chordsObject.data}
                 onChordClick={Player.playChord}
                 action={
                   <div>
@@ -66,7 +73,7 @@ export const SavedPage = ({}: Props) => {
                     >
                       <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
                     </IconButton>
-                    <Button onClick={() => openInMelodyEditor(chordsObject.chords)}>
+                    <Button onClick={() => openInMelodyEditor(chordsObject.data)}>
                       Add Melody
                     </Button>
                   </div>
@@ -75,7 +82,11 @@ export const SavedPage = ({}: Props) => {
             </Chords>
           ))}
       </Container>
-      <Container>Saved Melodies</Container>
+      <Container>
+        {savedMelodies?.map((melody) => (
+          <Melody>{melody.title}</Melody>
+        ))}
+      </Container>
     </Tabs>
   );
 };
@@ -84,4 +95,9 @@ const Container = styled.div``;
 
 const Chords = styled(MetalBlock)`
   padding: 20px;
+`;
+
+const Melody = styled(MetalBlock)`
+  padding: 20px;
+  background-color: #fff;
 `;

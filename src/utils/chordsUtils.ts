@@ -20,12 +20,12 @@ function chordNamesToFullArr(chordNames: string[]) {
   return fullChordsArr;
 }
 
-function findNotes(tone: string, step: number, type: string) {
-  const keyChords: ChordModel[] | undefined = chordsForImpro.find(
+function findNotes(tone: string, step: number, type: ChordModel[1]) {
+  const keyChords: ChordModel[] = chordsForImpro.find(
     (tonica) => tonica[0][0] === transposeNote(tone, step, NOTES_MAP_SOLO),
-  );
+  )!;
 
-  return keyChords?.find((chord: ChordModel) => chord[1] === type);
+  return keyChords.find((chord: ChordModel) => chord[1] === type)!;
 }
 
 function convertChordStringToArr(chord: string) {
@@ -39,7 +39,7 @@ function convertChordStringToArr(chord: string) {
     chordFunction = chord.slice(1);
   }
 
-  return [tone, chordFunction];
+  return [tone, chordFunction] as { 0: ChordModel[0]; 1: ChordModel[1] };
 }
 
 const convertChordToString = (chord: ChordModel) => {

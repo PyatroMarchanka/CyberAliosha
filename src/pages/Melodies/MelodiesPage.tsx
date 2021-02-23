@@ -19,6 +19,7 @@ import { MidiPlayer } from '../../utils/MidiPlayer';
 import { Button } from '../../components/global/Button';
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { PageTitle } from '../../components/global/PageTitle';
+import { SaveMelodiesModal } from './SaveMelodiesModal';
 
 interface Props {}
 
@@ -36,6 +37,7 @@ export const MelodiesPage = () => {
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
 
+  console.log('part', part);
   const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
 
   const playPart = (loops: number = 2) => {
@@ -81,6 +83,8 @@ export const MelodiesPage = () => {
             <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
           </Chords>
         )}
+        <SaveMelodiesModal melody={part} />
+
         <SheetStave
           isPlaying={isPlaying}
           setIsPlaying={setIsPlaying}

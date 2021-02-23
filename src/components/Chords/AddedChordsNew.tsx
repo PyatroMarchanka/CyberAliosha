@@ -49,15 +49,15 @@ export const AddedChordsNew = () => {
   //   }
   // };
 
-  const onReplace = (chord: ChordModel, idx: number) => {
+  const onReplace = (previousChord: ChordModel, nextChord: ChordModel, idx: number) => {
     dispatch({
-      type: 'ADD_CHORDS_TO_ADD',
-      payload: chord,
+      type: 'ADD_CHORDS_FOR_REPLACE',
+      payload: { previous: previousChord, next: nextChord },
     });
 
     dispatch({
       type: 'SET_REPLACING_CHORD',
-      payload: { chord, idx },
+      payload: { chord: addedChords[idx], idx },
     });
   };
 
@@ -101,14 +101,14 @@ export const AddedChordsNew = () => {
         <AllChordsLines>
           <StyledProgression>
             <TransitionGroup className="list">
-              {addedChords.map((chord: ChordModel, idx) => (
+              {addedChords.map((chord: ChordModel, idx, arr) => (
                 <CSSTransition key={`chord-${chord[0]}-${idx}`} timeout={500} classNames="item">
                   <ChordWithEditModal
                     className={`chord ${true && 'half'}`}
                     isSelected={idx === replacingChord?.idx || idx === playingChord}
                     onClose={() => onClose()}
                     onDelete={() => onDelete(chord, idx)}
-                    onReplace={() => onReplace(chord, idx)}
+                    onReplace={() => onReplace(arr[idx - 1], arr[idx + 1] || arr[0], idx)}
                     playChord={() => Player?.playChord(chord)}
                   >
                     {convertChordToString(chord)}
