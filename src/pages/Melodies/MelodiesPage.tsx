@@ -129,7 +129,7 @@ export const MelodiesPage = () => {
                     )}
                   </IconButton>
                 )}
-                <SaveMelodiesModal melody={part} />
+                <SaveMelodiesModal melody={part} chords={chords} />
                 <Checkbox
                   label="Play accompaniment"
                   value={playAccompanimentWithMelody}

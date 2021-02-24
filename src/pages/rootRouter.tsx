@@ -9,7 +9,7 @@ import { MelodiesPage } from './Melodies/MelodiesPage';
 import { theme } from '../utils/theme';
 import Footer from '../components/Footer/Footer';
 import { ChordsPage } from './Chords';
-import { SavedPage } from './Chords/SavedPage';
+import { SavedPage } from './SavedPage';
 import { ChordEditorPage } from './Chords/ChordEditorPage';
 
 export default function MainRouter() {

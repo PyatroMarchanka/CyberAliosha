@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from '../../components/global/Tabs';
 import { ChordEditorPage } from './ChordEditorPage';
-import { SavedPage } from './SavedPage';
+import { SavedPage } from '../SavedPage';
 
 interface Props {}
 

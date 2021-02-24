@@ -10,7 +10,7 @@ import StopIcon from '@material-ui/icons/Stop';
 
 interface Props {
   bars: PartNote[][];
-  chords: ChordModel[];
+  chords?: ChordModel[];
 }
 
 export const SheetStave = ({ bars, chords }: Props) => {

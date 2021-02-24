@@ -23,7 +23,7 @@ export const ChordsProgression = ({ chords, title, action, onChordClick }: Props
     <StyledProgressionContainer>
       <Header>
         {!!title && typeof title === 'string' && (
-          <Typography className="title" variant="h5">
+          <Typography className="title" variant="h6">
             {title}
           </Typography>
         )}

@@ -18,7 +18,7 @@ export interface SavedChords {
 }
 
 export interface SavedMelodies {
-  data: PartNote[][];
+  data: { melody: PartNote[][]; chords: ChordModel[] };
   id: string;
   title?: string;
 }

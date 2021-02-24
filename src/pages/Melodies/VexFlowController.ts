@@ -42,7 +42,7 @@ export class VexFlowController {
     this.barsPerLine = getBarsPerLine();
   }
 
-  drawAll = (notes: PartNote[][], chords: ChordModel[]) => {
+  drawAll = (notes: PartNote[][], chords?: ChordModel[]) => {
     this.drawStaveLines(notes, chords);
   };
 
@@ -50,13 +50,15 @@ export class VexFlowController {
     this.context.clear();
   };
 
-  drawStaveLines = (bars: PartNote[][], chords: ChordModel[]) => {
+  drawStaveLines = (bars: PartNote[][], chords?: ChordModel[]) => {
     if (bars.length) {
       this.context.clear();
     }
     const barsVexflow = bars.map((bar, idx) => {
       const vexflowBar = this.convertToVexflow(bar);
-      return this.addChordName(vexflowBar, chords[idx]);
+      if (chords) {
+        return this.addChordName(vexflowBar, chords[idx]);
+      } else return vexflowBar;
     });
     const staveLines = Math.ceil(barsVexflow.length / this.barsPerLine);
 

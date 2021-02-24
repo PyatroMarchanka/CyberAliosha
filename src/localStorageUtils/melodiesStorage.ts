@@ -4,18 +4,13 @@ import {
   getStorage,
   removeItemById,
   SavedChords,
+  SavedMelodies,
   saveItem,
   StorageNames,
 } from './storagesController';
 
-export interface SavedMelodies {
-  id: string;
-  data: PartNote[][];
-  title: string;
-}
-
-export const saveMelody = (addedChords: PartNote[][], title: string) => {
-  saveItem(addedChords, StorageNames.Melodies, title);
+export const saveMelody = (addedChords: PartNote[][], chords: ChordModel[], title: string) => {
+  saveItem({ melody: addedChords, chords: chords }, StorageNames.Melodies, title);
 };
 
 export const clearMelody = () => {

@@ -10,6 +10,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import styled from 'styled-components';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,9 +29,10 @@ interface Props {
   title: string;
   triggerComponent: JSX.Element;
   children: any;
+  className?: string;
 }
 
-export default function Modal({ triggerComponent, children, title }: Props) {
+export default function Modal({ triggerComponent, children, title, className }: Props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -42,13 +44,31 @@ export default function Modal({ triggerComponent, children, title }: Props) {
   };
 
   return (
-    <div>
+    <Container>
       <div onClick={handleClickOpen}>{triggerComponent}</div>
 
-      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+      <Dialog
+        maxWidth="xl"
+        className="modal"
+        onBackdropClick={handleClose}
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={open}
+        onClose={handleClose}
+      >
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>{children}</DialogContent>
       </Dialog>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  .modal {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+`;
