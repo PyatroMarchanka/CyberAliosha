@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
 
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
-import { searchItems, searchItemsForReplace } from '../musicBrain/Releaser';
+import { getAllReleases, searchItemsForReplace } from '../musicBrain/releaserUtils';
 import { chordStringToFullChord } from '../utils';
 
 interface State {
@@ -86,14 +86,14 @@ const ChordsAdderProvider = ({ children }: any) => {
       case 'ADD_CHORD':
         return {
           ...state,
-          chordsToAdd: searchItems(action.payload) || [],
+          chordsToAdd: getAllReleases(action.payload) || [],
           addedChords: [...state.addedChords, action.payload],
         };
 
       case 'ADD_CHORDS_TO_ADD':
         return {
           ...state,
-          chordsToAdd: searchItems(action.payload) || [],
+          chordsToAdd: getAllReleases(action.payload) || [],
         };
 
       case 'ADD_CHORDS_FOR_REPLACE':
@@ -115,7 +115,7 @@ const ChordsAdderProvider = ({ children }: any) => {
         return {
           ...state,
           addedChords: newFilteredChords,
-          chordsToAdd: searchItems(newFilteredChords[newFilteredChords.length - 1]) || [],
+          chordsToAdd: getAllReleases(newFilteredChords[newFilteredChords.length - 1]) || [],
         };
 
       case 'DELETE_ALL_CHORDS':
@@ -144,7 +144,7 @@ const ChordsAdderProvider = ({ children }: any) => {
           return {
             ...state,
             addedChords: newReplacedChords,
-            chordsToAdd: searchItems(newReplacedChords[newReplacedChords.length - 1]) || [],
+            chordsToAdd: getAllReleases(newReplacedChords[newReplacedChords.length - 1]) || [],
           };
         } else {
           return state;

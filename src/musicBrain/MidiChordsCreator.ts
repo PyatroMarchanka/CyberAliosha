@@ -1,7 +1,7 @@
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import ALL_CHORDS_FOR_IMPROVISE from '../dataset/all_chords_for_impro';
 import { isInChordsArray, randomIntegerRange } from '../utils';
-import releases, { getAllReleaserableToTarget } from './Releaser';
+import { getAllReleaserable, getAllReleases } from './releaserUtils';
 
 export default class MidiChordsCreator {
   chords: ChordModel[];
@@ -12,7 +12,9 @@ export default class MidiChordsCreator {
   generateChords(all_chords: ChordModel[][], count: number, startChord?: ChordModel) {
     const result = [];
     for (let i = 0; i < count; i++) {
-      const releaseChord = releases(result[i - 1]);
+      const releases = getAllReleases(result[i - 1]);
+
+      const releaseChord = releases[randomIntegerRange(0, releases?.length)];
       if (releaseChord) {
         result.push(releaseChord);
       } else {
@@ -43,7 +45,7 @@ export default class MidiChordsCreator {
       startChord = randChord;
     }
 
-    const releasersForStartChord = getAllReleaserableToTarget(startChord);
+    const releasersForStartChord = getAllReleaserable(startChord);
     let result = [...partial];
 
     if (!result.length) {
@@ -54,7 +56,8 @@ export default class MidiChordsCreator {
       return partial;
     }
 
-    const releaseChord = releases(result[result.length - 1]);
+    const releases = getAllReleases(result[result.length - 1]);
+    const releaseChord = releases[randomIntegerRange(0, releases?.length)];
 
     if (releaseChord) {
       const test = this.generateCyclicChords(all_chords, count, startChord, [
