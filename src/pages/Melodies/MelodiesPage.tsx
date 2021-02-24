@@ -11,7 +11,7 @@ import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
-import { Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
 // @ts-ignore
 import MIDISounds from 'midi-sounds-react';
@@ -20,6 +20,10 @@ import { Button } from '../../components/global/Button';
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { PageTitle } from '../../components/global/PageTitle';
 import { SaveMelodiesModal } from './SaveMelodiesModal';
+import { Checkbox } from '../../components/global/Checkbox';
+import { MetalBlock } from '../../styled/global';
+import { Icon } from '../../components/global/Icon';
+import StopIcon from '@material-ui/icons/Stop';
 
 interface Props {}
 
@@ -29,7 +33,8 @@ export const MelodiesPage = () => {
   const [chords, setChords] = useState<ChordModel[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const {
-    state: { notesLength, notesPattern },
+    state: { notesLength, notesPattern, playAccompanimentWithMelody },
+    dispatch,
   } = useContext(chordsAdderStore);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
@@ -41,7 +46,9 @@ export const MelodiesPage = () => {
   const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
 
   const playPart = (loops: number = 2) => {
-    Player?.playPartChords(chords);
+    if (playAccompanimentWithMelody) {
+      Player?.playPartChords(chords);
+    }
     Player?.playPart(part.flat(), () => setIsPlaying(false));
   };
 
@@ -66,6 +73,23 @@ export const MelodiesPage = () => {
     setPart(newPart);
   };
 
+  const handlePlaying = () => {
+    if (!isPlaying) {
+      setIsPlaying(true);
+      playPart(2);
+    } else {
+      setIsPlaying(false);
+      Player?.stopAll();
+    }
+  };
+
+  const onPlayAccompanimentChange = (value: boolean) => {
+    dispatch({
+      type: 'PLAY_ACCOMPANIMENT',
+      payload: value,
+    });
+  };
+
   useEffect(() => {
     if (locationChords) {
       setChords(locationChords);
@@ -78,23 +102,53 @@ export const MelodiesPage = () => {
     <>
       <PageTitle title="Melodies Editor" />
       <Container>
-        {chords.length > 0 && (
-          <Chords>
-            <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
-          </Chords>
-        )}
-        <SaveMelodiesModal melody={part} />
+        <MetalBlock>
+          <Header>
+            {chords.length > 0 && (
+              <Chords>
+                <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
+              </Chords>
+            )}
+            <Actions>
+              <div>
+                {part.length > 0 && (
+                  <IconButton onClick={handlePlaying} className="icon">
+                    {isPlaying ? (
+                      <Icon
+                        type="material"
+                        fill={theme.colors.blueGreySticky[500]}
+                        Icon={StopIcon}
+                        className="play-icon"
+                      />
+                    ) : (
+                      <Icon
+                        type="play"
+                        fill={theme.colors.blueGreySticky[500]}
+                        className="play-icon"
+                      />
+                    )}
+                  </IconButton>
+                )}
+                <SaveMelodiesModal melody={part} />
+                <Checkbox
+                  label="Play accompaniment"
+                  value={playAccompanimentWithMelody}
+                  onChange={onPlayAccompanimentChange}
+                />
+              </div>
+              <div>
+                <Button disabled={isPlaying} onClick={generateMelody}>
+                  Generate melody
+                </Button>
+                <Button disabled={isPlaying} onClick={generateChords}>
+                  Generate chords
+                </Button>
+              </div>
+            </Actions>
+          </Header>
+        </MetalBlock>
 
-        <SheetStave
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          stopMelody={() => Player?.stopAll()}
-          playMelody={() => playPart(2)}
-          generateMelody={generateMelody}
-          generateChords={generateChords}
-          chords={chords}
-          bars={part}
-        />
+        <SheetStave chords={chords} bars={part} />
         {MPlayer}
       </Container>
     </>
@@ -102,12 +156,30 @@ export const MelodiesPage = () => {
 };
 
 const Container = styled.div`
-  padding: 20px;
   background-color: ${theme.colors.white};
 `;
 
 const Chords = styled.div`
-  margin-bottom: 30px;
   display: flex;
-  justify-content: center;
+`;
+
+const Actions = styled.div`
+  > div {
+    display: flex;
+  }
+`;
+
+const Header = styled.div`
+  padding: 20px;
+  display: flex;
+  > div {
+    flex-basis: 50%;
+  }
+
+  @media ${theme.breakpoints.belowTabletM} {
+    flex-direction: column;
+    > div {
+      flex-basis: 100%;
+    }
+  }
 `;

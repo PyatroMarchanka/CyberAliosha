@@ -61,8 +61,6 @@ export const getReleasesByChordType = (type: ChordModel[1]): ChordRelease[] => {
     case 'aug':
       return [
         [0, ''],
-        [0, 'm'],
-        [0, '7'],
         [1, 'm'],
         [8, ''],
         [8, '7'],

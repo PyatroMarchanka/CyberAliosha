@@ -16,6 +16,7 @@ interface State {
   bpm: number;
   notesLength: NotesLengthType;
   notesPattern: NotesPatterns;
+  playAccompanimentWithMelody: boolean;
 }
 
 interface Action {
@@ -35,7 +36,8 @@ interface Action {
     | 'SET_BPM'
     | 'SET_NOTES_LENGTH'
     | 'SET_NOTES_PATTERN'
-    | 'ADD_CHORDS_FOR_REPLACE';
+    | 'ADD_CHORDS_FOR_REPLACE'
+    | 'PLAY_ACCOMPANIMENT';
   payload?: any;
 }
 
@@ -50,6 +52,7 @@ const initialState: State = {
   bpm: 130,
   notesLength: NotesLengthType.Middle,
   notesPattern: NotesPatterns.None,
+  playAccompanimentWithMelody: true,
 };
 
 interface Context {
@@ -172,6 +175,12 @@ const ChordsAdderProvider = ({ children }: any) => {
         return {
           ...state,
           notesPattern: action.payload,
+        };
+
+      case 'PLAY_ACCOMPANIMENT':
+        return {
+          ...state,
+          playAccompanimentWithMelody: action.payload,
         };
 
       default:

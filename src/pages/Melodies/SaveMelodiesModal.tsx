@@ -14,7 +14,7 @@ export const SaveMelodiesModal = ({ melody }: { melody: PartNote[][] }) => {
       title="Set name of the new hit"
       onSave={saveAndClose}
       disabled={!melody?.length}
-      iconColor={theme.colors.black}
+      iconColor={theme.colors.blueGreySticky[500]}
     />
   );
 };
