@@ -55,7 +55,11 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
           style={{ padding: '0' }}
         >
           <Actions>
-            <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
+            <PlayStopButton
+              iconColor={theme.colors.white}
+              handlePlaying={handlePlaying}
+              isPlaying={isPlaying}
+            />
           </Actions>
           <SheetStave bars={melody} chords={chords} />
         </Modal>

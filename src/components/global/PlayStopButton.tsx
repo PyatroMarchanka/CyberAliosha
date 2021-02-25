@@ -7,20 +7,20 @@ import StopIcon from '@material-ui/icons/Stop';
 interface Props {
   handlePlaying: () => void;
   isPlaying: boolean;
+  iconColor?: string;
 }
 
-export const PlayStopButton = ({ handlePlaying, isPlaying }: Props) => {
+export const PlayStopButton = ({
+  handlePlaying,
+  isPlaying,
+  iconColor = theme.colors.blueGreySticky[500],
+}: Props) => {
   return (
     <IconButton onClick={handlePlaying} className="icon">
       {isPlaying ? (
-        <Icon
-          type="material"
-          fill={theme.colors.blueGreySticky[500]}
-          Icon={StopIcon}
-          className="play-icon"
-        />
+        <Icon type="material" fill={iconColor} Icon={StopIcon} className="play-icon" />
       ) : (
-        <Icon type="play" fill={theme.colors.blueGreySticky[500]} className="play-icon" />
+        <Icon type="play" fill={iconColor} className="play-icon" />
       )}
     </IconButton>
   );
