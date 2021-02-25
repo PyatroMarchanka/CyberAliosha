@@ -82,7 +82,7 @@ export const AddedChordsNew = () => {
             No chords
           </Typography>
         )}
-        <Actions />
+        <Actions chords={addedChords} />
       </Header>
 
       {!!addedChords.length && (

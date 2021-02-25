@@ -12,32 +12,35 @@ import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Icon } from '../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
 import { PlayStopButton } from '../global/PlayStopButton';
-import { colorChordsOnPlay } from '../../utils/PlayerLegacy';
+import { colorChordsOnPlay, stopTransport } from '../../utils/PlayerLegacy';
+import { ChordModel } from '../../dataset/all_chords_for_impro';
 
 interface Props {
   play?: boolean;
   deleteLast?: boolean;
   deleteAll?: boolean;
+  chords: ChordModel[];
 }
 
-export const Actions = ({}: Props) => {
+export const Actions = ({ chords }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
   const [colorChord, setColorChord] = useState<number | null>(null);
 
   const {
-    state: { addedChords, replacingChord, bpm },
+    state: { bpm },
     dispatch,
   } = useContext(chordsAdderStore);
 
   const handlePlaying = () => {
     if (!isPlaying) {
       setIsPlaying(true);
-      Player?.playPartChords(addedChords, () => setIsPlaying(false));
-      colorChordsOnPlay(addedChords, setColorChord, bpm);
+      Player?.playPartChords(chords, () => setIsPlaying(false));
+      colorChordsOnPlay(chords, setColorChord, bpm);
     } else {
       setIsPlaying(false);
+      stopTransport();
       Player?.stopAll();
     }
   };
@@ -54,7 +57,7 @@ export const Actions = ({}: Props) => {
     });
   };
 
-  const buttonsDisabled = !addedChords.length || isPlaying;
+  const buttonsDisabled = !chords.length || isPlaying;
 
   return (
     <ActionsContainer>
@@ -77,7 +80,7 @@ export const Actions = ({}: Props) => {
           className="play-icon  remove-all-icon"
         />
       </IconButton>
-      <SaveChordsModal chords={addedChords} />
+      <SaveChordsModal chords={chords} />
       {MPlayer}
     </ActionsContainer>
   );

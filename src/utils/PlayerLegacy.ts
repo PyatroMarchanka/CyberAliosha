@@ -195,17 +195,23 @@ export const colorChordsOnPlay = (
   setColorChord: (idx: number) => void,
   bpm: number,
 ) => {
+  Tone.Transport.start();
+
+  console.log('colorChordsOnPlay', bpm);
   var N = (4 * 60) / bpm;
   const now = Tone.now();
 
-  chords.forEach((_, idx) =>
+  chords.forEach((_, idx) => {
     Tone.Transport.scheduleOnce(() => {
       setColorChord(idx);
       console.log('idx', idx);
-    }, now + N * idx),
-  );
+    }, N * idx);
+    console.log(now + N * idx);
+  });
+};
 
-  Tone.Transport.start();
+export const stopTransport = () => {
+  Tone.Transport.stop();
 };
 
 const getOctaveForGuitar = (note: string, index: number) => {
