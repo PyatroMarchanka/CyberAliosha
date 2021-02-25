@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import styled from 'styled-components';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,9 +31,10 @@ interface Props {
   triggerComponent: JSX.Element;
   children: any;
   className?: string;
+  style?: CSSProperties;
 }
 
-export default function Modal({ triggerComponent, children, title, className }: Props) {
+export default function Modal({ triggerComponent, children, title, className, style }: Props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -49,7 +51,8 @@ export default function Modal({ triggerComponent, children, title, className }: 
 
       <Dialog
         maxWidth="xl"
-        className="modal"
+        style={style || {}}
+        className={className}
         onBackdropClick={handleClose}
         disableBackdropClick
         disableEscapeKeyDown

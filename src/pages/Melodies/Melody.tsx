@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { IconButton, Typography } from '@material-ui/core';
 import { MetalBlock } from '../../styled/global';
 
@@ -23,6 +23,7 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
   console.log('chords, melody', chords, melody);
   return (
     <StyledMelody>
+      <GlobalStyles />
       <Typography className="title" variant="h6">
         {melodyData.title}
       </Typography>
@@ -43,6 +44,7 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
           className="sheet-modal"
           triggerComponent={<Button>View</Button>}
           title="Part Preview"
+          style={{ padding: '0' }}
         >
           <SheetStave bars={melody} chords={chords} />
         </Modal>
@@ -64,8 +66,18 @@ const StyledMelody = styled(MetalBlock)`
     display: flex;
     align-items: center;
   }
+`;
 
-  .MuiPaper-root {
-    width: 100%;
+const GlobalStyles = createGlobalStyle`
+.sheet-modal {
+    .MuiDialogContent-root {
+      padding: 0;
+    }
+
+    @media ${theme.breakpoints.belowMobile} {
+      .MuiDialog-paper {
+        margin: 15px;
+      }
+    }
   }
 `;
