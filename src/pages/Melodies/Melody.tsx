@@ -36,6 +36,13 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
         {melodyData.title}
       </Typography>
       <div className="actions">
+        <Actions>
+          <PlayStopButton
+            iconColor={theme.colors.white}
+            handlePlaying={handlePlaying}
+            isPlaying={isPlaying}
+          />
+        </Actions>
         <IconButton
           onClick={() => {
             removeMelodyById(melodyData.id);
@@ -48,19 +55,13 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
         >
           <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
         </IconButton>
+
         <Modal
           className="sheet-modal"
           triggerComponent={<Button>View</Button>}
           title="Part Preview"
           style={{ padding: '0' }}
         >
-          <Actions>
-            <PlayStopButton
-              iconColor={theme.colors.white}
-              handlePlaying={handlePlaying}
-              isPlaying={isPlaying}
-            />
-          </Actions>
           <SheetStave bars={melody} chords={chords} />
         </Modal>
         {MPlayer}

@@ -12,6 +12,7 @@ import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Icon } from '../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
 import { PlayStopButton } from '../global/PlayStopButton';
+import { colorChordsOnPlay } from '../../utils/PlayerLegacy';
 
 interface Props {
   play?: boolean;
@@ -23,6 +24,7 @@ export const Actions = ({}: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
+  const [colorChord, setColorChord] = useState<number | null>(null);
 
   const {
     state: { addedChords, replacingChord, bpm },
@@ -33,6 +35,7 @@ export const Actions = ({}: Props) => {
     if (!isPlaying) {
       setIsPlaying(true);
       Player?.playPartChords(addedChords, () => setIsPlaying(false));
+      colorChordsOnPlay(addedChords, setColorChord, bpm);
     } else {
       setIsPlaying(false);
       Player?.stopAll();

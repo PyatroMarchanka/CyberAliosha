@@ -4,15 +4,13 @@ import styled from 'styled-components';
 import { theme } from '../../utils/theme';
 
 import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
-import { Player } from '../../utils/PlayerLegacy';
-
 import CreateMidiFile from '../../musicBrain/CreateMidiFile';
 import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
-import { IconButton } from '@material-ui/core';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
+
 import { Button } from '../../components/global/Button';
 import { PageTitle } from '../../components/global/PageTitle';
 import { SaveMelodiesModal } from './SaveMelodiesModal';
@@ -37,7 +35,7 @@ export const MelodiesPage = () => {
   const [part, setPart] = useState<PartNote[][]>([]);
 
   console.log('part', part);
-  const { handlePlaying, MPlayer, isPlaying } = usePlayMelodyAndChords({
+  const { handlePlaying, MPlayer, isPlaying, Player } = usePlayMelodyAndChords({
     chords,
     part,
   });

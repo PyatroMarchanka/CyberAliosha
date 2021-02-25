@@ -12,11 +12,11 @@ import { theme } from '../utils/theme';
 import { useHistory } from 'react-router';
 import { routes } from './routes';
 import { Button } from '../components/global/Button';
-import { Player } from '../utils/PlayerLegacy';
 import { Tabs } from '../components/global/Tabs';
 import { SavedChords, SavedMelodies } from '../localStorageUtils/storagesController';
 import { getSavedMelodies } from '../localStorageUtils/melodiesStorage';
 import { Melody } from './Melodies/Melody';
+import { useMidiPlayer } from '../utils/useMidiPlayer';
 
 interface Props {}
 
@@ -24,6 +24,7 @@ export const SavedPage = ({}: Props) => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
   const [savedMelodies, setSavedMelodies] = useState<SavedMelodies[]>([]);
   const history = useHistory();
+  const { Player, MPlayer } = useMidiPlayer();
 
   const fetchChords = () => {
     const savedChords = getSavedChords();
@@ -59,7 +60,7 @@ export const SavedPage = ({}: Props) => {
                 title={chordsObject.title || chordsObject.id}
                 key={chordsObject.id}
                 chords={chordsObject.data}
-                onChordClick={Player.playChord}
+                onChordClick={Player?.playChord}
                 action={
                   <div>
                     <IconButton
@@ -82,6 +83,7 @@ export const SavedPage = ({}: Props) => {
               />
             </Chords>
           ))}
+        {MPlayer}
       </Container>
       <Container>
         {savedMelodies?.map((melody) => (

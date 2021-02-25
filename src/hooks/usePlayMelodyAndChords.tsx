@@ -45,5 +45,6 @@ export const usePlayMelodyAndChords = ({ part, chords }: Props) => {
     handlePlaying,
     MPlayer,
     isPlaying,
+    Player,
   };
 };
