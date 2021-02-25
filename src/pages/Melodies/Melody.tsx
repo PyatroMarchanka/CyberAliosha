@@ -63,8 +63,8 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
           </Actions>
           <SheetStave bars={melody} chords={chords} />
         </Modal>
+        {MPlayer}
       </div>
-      {MPlayer}
     </StyledMelody>
   );
 };
