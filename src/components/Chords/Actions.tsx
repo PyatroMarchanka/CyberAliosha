@@ -11,8 +11,13 @@ import { theme } from '../../utils/theme';
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Icon } from '../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
+import { PlayStopButton } from '../global/PlayStopButton';
 
-interface Props {}
+interface Props {
+  play?: boolean;
+  deleteLast?: boolean;
+  deleteAll?: boolean;
+}
 
 export const Actions = ({}: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -50,18 +55,7 @@ export const Actions = ({}: Props) => {
 
   return (
     <ActionsContainer>
-      <IconButton disabled={!addedChords.length} onClick={handlePlaying} className="icon">
-        {isPlaying ? (
-          <Icon type="material" fill={theme.colors.white} Icon={StopIcon} className="play-icon" />
-        ) : (
-          <Icon
-            type="play"
-            disabled={!addedChords.length}
-            fill={theme.colors.white}
-            className="play-icon"
-          />
-        )}
-      </IconButton>
+      <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
       <IconButton className="icon" disabled={buttonsDisabled} onClick={deleteLast}>
         <Icon
           type="material"

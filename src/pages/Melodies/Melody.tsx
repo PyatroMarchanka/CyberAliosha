@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled, { createGlobalStyle } from 'styled-components';
 import { IconButton, Typography } from '@material-ui/core';
@@ -12,6 +12,8 @@ import { SheetStave } from './SheetStave';
 import { removeMelodyById } from '../../localStorageUtils/melodiesStorage';
 import { Icon } from '../../components/global/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { PlayStopButton } from '../../components/global/PlayStopButton';
+import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
 
 interface Props {
   melodyData: SavedMelodies;
@@ -21,6 +23,12 @@ interface Props {
 export const Melody = ({ melodyData, fetchMelodies }: Props) => {
   const { chords, melody } = melodyData.data;
   console.log('chords, melody', chords, melody);
+
+  const { handlePlaying, MPlayer, isPlaying } = usePlayMelodyAndChords({
+    part: melody,
+    chords,
+  });
+
   return (
     <StyledMelody>
       <GlobalStyles />
@@ -46,9 +54,13 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
           title="Part Preview"
           style={{ padding: '0' }}
         >
+          <Actions>
+            <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
+          </Actions>
           <SheetStave bars={melody} chords={chords} />
         </Modal>
       </div>
+      {MPlayer}
     </StyledMelody>
   );
 };
@@ -81,3 +93,5 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 `;
+
+const Actions = styled.div``;
