@@ -3,7 +3,7 @@ import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chord
 
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
 import { getAllReleases, searchItemsForReplace } from '../musicBrain/releaserUtils';
-import { chordStringToFullChord } from '../utils';
+import { chordStringToFullChord, isChordsEqual } from '../utils';
 
 interface State {
   addedChords: ChordModel[];
@@ -23,6 +23,7 @@ interface Action {
   type:
     | 'ADD_CHORD'
     | 'ADD_CHORDS_TO_ADD'
+    | 'ADD_INITIAL_CHORDS_TO_ADD'
     | 'DELETE_CHORD'
     | 'DELETE_ALL_CHORDS'
     | 'DELETE_LAST_CHORD'
@@ -97,6 +98,13 @@ const ChordsAdderProvider = ({ children }: any) => {
         return {
           ...state,
           chordsToAdd: getAllReleases(action.payload) || [],
+        };
+
+      case 'ADD_INITIAL_CHORDS_TO_ADD':
+        const keyChord = chordStringToFullChord(state.key + state.mood);
+        return {
+          ...state,
+          chordsToAdd: [keyChord, ...(getAllReleases(keyChord) || [])],
         };
 
       case 'ADD_CHORDS_FOR_REPLACE':

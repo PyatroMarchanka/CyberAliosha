@@ -14,6 +14,10 @@ const chordStringToFullChord = (chordName: string) => {
   return findNotes(chordKeyMood[0], 0, chordKeyMood[1]);
 };
 
+const isChordsEqual = (chord1: ChordModel, chord2: ChordModel) => {
+  return chord1[0] === chord2[0] && chord1[1] === chord2[1];
+};
+
 function chordNamesToFullArr(chordNames: string[]) {
   const chordsArrs = chordNames.map((chordString) => convertChordStringToArr(chordString));
   const fullChordsArr = chordsArrs.map((chordsArr) => findNotes(chordsArr[0], 0, chordsArr[1]));
@@ -136,4 +140,5 @@ export {
   convertChordToString,
   chordStringToFullChord,
   isInChordsArray,
+  isChordsEqual,
 };

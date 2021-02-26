@@ -1,5 +1,5 @@
 import { IconButton } from '@material-ui/core';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
@@ -47,8 +47,7 @@ export const ChordsToAdd = () => {
   useEffect(() => {
     if (!state.addedChords.length) {
       dispatch({
-        type: 'ADD_CHORDS_TO_ADD',
-        payload: [state.key, state.mood],
+        type: 'ADD_INITIAL_CHORDS_TO_ADD',
       });
     } else {
       const lastChord = state.addedChords[state.addedChords.length - 1];
