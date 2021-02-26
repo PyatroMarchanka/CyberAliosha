@@ -14,11 +14,16 @@ interface Props {
   title?: string | JSX.Element;
   action?: any;
   onChordClick?: (chord: ChordModel) => void;
+  selectedChord?: number;
 }
 
-export const ChordsProgression = ({ chords, title, action, onChordClick }: Props) => {
-  const chordsChunks = chunk(chords, 4);
-
+export const ChordsProgression = ({
+  chords,
+  title,
+  action,
+  onChordClick,
+  selectedChord,
+}: Props) => {
   return (
     <StyledProgressionContainer>
       <Header>
@@ -31,19 +36,18 @@ export const ChordsProgression = ({ chords, title, action, onChordClick }: Props
         {!!action && action}
       </Header>
 
-      {chordsChunks.map((chunk, i) => (
-        <StyledProgression key={i}>
-          {chunk.map((chord, idx) => (
-            <Button
-              onClick={onChordClick ? () => onChordClick(chord) : undefined}
-              key={idx}
-              className="chord"
-            >
-              {convertChordToString(chord)}
-            </Button>
-          ))}
-        </StyledProgression>
-      ))}
+      <StyledProgression>
+        {chords.map((chord, idx) => (
+          <Button
+            onClick={onChordClick ? () => onChordClick(chord) : undefined}
+            key={idx}
+            className="chord"
+            color={idx === selectedChord ? theme.colors.blue : undefined}
+          >
+            {convertChordToString(chord)}
+          </Button>
+        ))}
+      </StyledProgression>
     </StyledProgressionContainer>
   );
 };

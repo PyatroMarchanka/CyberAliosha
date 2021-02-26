@@ -34,7 +34,6 @@ export const MelodiesPage = () => {
   const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
 
-  console.log('part', part);
   const { handlePlaying, MPlayer, isPlaying, Player } = usePlayMelodyAndChords({
     chords,
     part,

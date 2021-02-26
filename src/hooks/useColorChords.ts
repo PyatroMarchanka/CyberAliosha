@@ -5,7 +5,7 @@ import { ChordModel } from '../dataset/all_chords_for_impro';
 
 export const colorChordsOnPlay = (
   chords: ChordModel[],
-  setColorChord: (idx: number | null) => void,
+  setColorChord: (idx: number | undefined) => void,
   bpm: number,
 ) => {
   Tone.Transport.start();
@@ -16,12 +16,11 @@ export const colorChordsOnPlay = (
   chords.forEach((_, idx, allChords) => {
     Tone.Transport.scheduleOnce(() => {
       setColorChord(idx);
-      console.log('idx', idx);
     }, N * idx);
 
     if (idx === allChords.length - 1) {
       Tone.Transport.scheduleOnce(() => {
-        setColorChord(null);
+        setColorChord(undefined);
       }, N * idx + 1);
     }
     console.log(now + N * idx);
@@ -41,7 +40,7 @@ export const useColorChords = ({ chords }: Props) => {
     state: { bpm },
   } = useContext(chordsAdderStore);
 
-  const [colorChord, setColorChord] = useState<number | null>(null);
+  const [colorChord, setColorChord] = useState<number | undefined>(undefined);
 
   const onPlay = () => {
     if (setColorChord) {
@@ -52,7 +51,7 @@ export const useColorChords = ({ chords }: Props) => {
   const onStop = () => {
     stopTransport();
     if (setColorChord) {
-      setColorChord(null);
+      setColorChord(undefined);
     }
   };
 

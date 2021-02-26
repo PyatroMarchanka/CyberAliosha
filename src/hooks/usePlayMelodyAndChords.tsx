@@ -24,7 +24,9 @@ export const usePlayMelodyAndChords = ({ part, chords, onPlay, onStop }: Props) 
     state: { playAccompanimentWithMelody },
   } = useContext(chordsAdderStore);
 
-  const playPart = () => {
+  const playPart = (chords?: ChordModel[], part?: PartNote[][]) => {
+    setIsPlaying(true);
+
     if ((chords && part && playAccompanimentWithMelody) || (chords && !part)) {
       Player?.playPartChords(chords);
     }
@@ -33,17 +35,20 @@ export const usePlayMelodyAndChords = ({ part, chords, onPlay, onStop }: Props) 
     }
   };
 
+  const stopAll = () => {
+    setIsPlaying(false);
+    Player?.stopAll();
+  };
+
   const handlePlaying = () => {
     if (!isPlaying) {
-      setIsPlaying(true);
-      playPart();
+      playPart(chords, part);
 
       if (onPlay) {
         onPlay(chords, part);
       }
     } else {
-      setIsPlaying(false);
-      Player?.stopAll();
+      stopAll();
 
       if (onStop) {
         onStop(chords, part);
@@ -56,5 +61,7 @@ export const usePlayMelodyAndChords = ({ part, chords, onPlay, onStop }: Props) 
     MPlayer,
     isPlaying,
     Player,
+    playPart,
+    stopAll,
   };
 };

@@ -17,6 +17,9 @@ import { SavedChords, SavedMelodies } from '../localStorageUtils/storagesControl
 import { getSavedMelodies } from '../localStorageUtils/melodiesStorage';
 import { Melody } from './Melodies/Melody';
 import { useMidiPlayer } from '../utils/useMidiPlayer';
+import { usePlayMelodyAndChords } from '../hooks/usePlayMelodyAndChords';
+import { SavedChordsLine } from './Chords/SavedChordsLine';
+import { useColorChords } from '../hooks/useColorChords';
 
 interface Props {}
 
@@ -24,7 +27,6 @@ export const SavedPage = ({}: Props) => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
   const [savedMelodies, setSavedMelodies] = useState<SavedMelodies[]>([]);
   const history = useHistory();
-  const { Player, MPlayer } = useMidiPlayer();
 
   const fetchChords = () => {
     const savedChords = getSavedChords();
@@ -41,6 +43,8 @@ export const SavedPage = ({}: Props) => {
     }
   };
 
+  const { MPlayer, isPlaying, Player, playPart, stopAll } = usePlayMelodyAndChords({});
+
   const openInMelodyEditor = (chords: ChordModel[]) => {
     history.push({ pathname: routes.melodyEditor, state: { chords } });
   };
@@ -55,33 +59,14 @@ export const SavedPage = ({}: Props) => {
       <Container>
         {!!savedChords &&
           savedChords.map((chordsObject) => (
-            <Chords>
-              <ChordsProgression
-                title={chordsObject.title || chordsObject.id}
-                key={chordsObject.id}
-                chords={chordsObject.data}
-                onChordClick={Player?.playChord}
-                action={
-                  <div>
-                    <IconButton
-                      onClick={() => {
-                        removeSavedChordsById(chordsObject.id);
-                        fetchChords();
-                      }}
-                      className="icon"
-                      edge="start"
-                      color="inherit"
-                      aria-label="menu"
-                    >
-                      <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
-                    </IconButton>
-                    <Button onClick={() => openInMelodyEditor(chordsObject.data)}>
-                      Add Melody
-                    </Button>
-                  </div>
-                }
-              />
-            </Chords>
+            <SavedChordsLine
+              openInEditor={openInMelodyEditor}
+              savedChords={chordsObject}
+              onRemove={() => {
+                removeSavedChordsById(chordsObject.id);
+                fetchChords();
+              }}
+            />
           ))}
         {MPlayer}
       </Container>
