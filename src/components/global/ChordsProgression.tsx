@@ -37,16 +37,18 @@ export const ChordsProgression = ({
       </Header>
 
       <StyledProgression>
-        {chords.map((chord, idx) => (
-          <Button
-            onClick={onChordClick ? () => onChordClick(chord) : undefined}
-            key={idx}
-            className="chord"
-            color={idx === selectedChord ? theme.colors.blue : undefined}
-          >
-            {convertChordToString(chord)}
-          </Button>
-        ))}
+        <div className="list">
+          {chords.map((chord, idx) => (
+            <Button
+              onClick={onChordClick ? () => onChordClick(chord) : undefined}
+              key={idx}
+              className="chord"
+              color={idx === selectedChord ? theme.colors.blue : undefined}
+            >
+              {convertChordToString(chord)}
+            </Button>
+          ))}
+        </div>
       </StyledProgression>
     </StyledProgressionContainer>
   );
