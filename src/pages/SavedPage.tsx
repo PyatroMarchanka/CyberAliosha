@@ -1,25 +1,16 @@
-import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { ChordsProgression } from '../components/global/ChordsProgression';
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import { getSavedChords, removeSavedChordsById } from '../localStorageUtils/addedChordsStorage';
-import DeleteIcon from '@material-ui/icons/Delete';
 import styled from 'styled-components';
 import { MetalBlock } from '../styled/global';
-import { Icon } from '../components/global/Icon';
-import { theme } from '../utils/theme';
 import { useHistory } from 'react-router';
 import { routes } from './routes';
-import { Button } from '../components/global/Button';
 import { Tabs } from '../components/global/Tabs';
 import { SavedChords, SavedMelodies } from '../localStorageUtils/storagesController';
 import { getSavedMelodies } from '../localStorageUtils/melodiesStorage';
 import { Melody } from './Melodies/Melody';
-import { useMidiPlayer } from '../utils/useMidiPlayer';
-import { usePlayMelodyAndChords } from '../hooks/usePlayMelodyAndChords';
 import { SavedChordsLine } from './Chords/SavedChordsLine';
-import { useColorChords } from '../hooks/useColorChords';
 
 interface Props {}
 
@@ -42,8 +33,6 @@ export const SavedPage = ({}: Props) => {
       setSavedMelodies(melodies);
     }
   };
-
-  const { MPlayer, isPlaying, Player, playPart, stopAll } = usePlayMelodyAndChords({});
 
   const openInMelodyEditor = (chords: ChordModel[]) => {
     history.push({ pathname: routes.melodyEditor, state: { chords } });
@@ -68,7 +57,6 @@ export const SavedPage = ({}: Props) => {
               }}
             />
           ))}
-        {MPlayer}
       </Container>
       <Container>
         {savedMelodies?.map((melody) => (
