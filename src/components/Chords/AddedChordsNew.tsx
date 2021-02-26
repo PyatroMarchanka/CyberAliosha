@@ -25,18 +25,20 @@ import { Button } from '../global/Button';
 
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Actions } from './Actions';
+import { useColorChords } from '../../hooks/useColorChords';
 
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
   const history = useHistory();
 
   const { Player, MPlayer } = useMidiPlayer();
-  const [colorChord, setColorChord] = useState<number | null>(null);
 
   const {
     state: { addedChords, replacingChord },
     dispatch,
   } = useContext(chordsAdderStore);
+
+  const { colorChord, onPlay, onStop } = useColorChords({ chords: addedChords });
 
   const onReplace = (previousChord: ChordModel, nextChord: ChordModel, idx: number) => {
     dispatch({
@@ -83,7 +85,7 @@ export const AddedChordsNew = () => {
             No chords
           </Typography>
         )}
-        <Actions chords={addedChords} setColorChord={setColorChord} />
+        <Actions chords={addedChords} onPlay={onPlay} onStop={onStop} />
       </Header>
 
       {!!addedChords.length && (

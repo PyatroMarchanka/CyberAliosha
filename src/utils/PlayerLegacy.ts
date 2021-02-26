@@ -190,36 +190,6 @@ export class Player {
   };
 }
 
-export const colorChordsOnPlay = (
-  chords: ChordModel[],
-  setColorChord: (idx: number | null) => void,
-  bpm: number,
-) => {
-  Tone.Transport.start();
-
-  console.log('colorChordsOnPlay', bpm);
-  var N = (4 * 60) / bpm;
-  const now = Tone.now();
-
-  chords.forEach((_, idx, allChords) => {
-    Tone.Transport.scheduleOnce(() => {
-      setColorChord(idx);
-      console.log('idx', idx);
-    }, N * idx);
-
-    if (idx === allChords.length - 1) {
-      Tone.Transport.scheduleOnce(() => {
-        setColorChord(null);
-      }, N * idx + 1);
-    }
-    console.log(now + N * idx);
-  });
-};
-
-export const stopTransport = () => {
-  Tone.Transport.stop();
-};
-
 const getOctaveForGuitar = (note: string, index: number) => {
   switch (index) {
     case 0:

@@ -12,9 +12,11 @@ import { Checkbox } from '../components/global/Checkbox';
 interface Props {
   part?: PartNote[][];
   chords?: ChordModel[];
+  onPlay?: (chords?: ChordModel[], part?: PartNote[][]) => void;
+  onStop?: (chords?: ChordModel[], part?: PartNote[][]) => void;
 }
 
-export const usePlayMelodyAndChords = ({ part, chords }: Props) => {
+export const usePlayMelodyAndChords = ({ part, chords, onPlay, onStop }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
 
@@ -35,9 +37,17 @@ export const usePlayMelodyAndChords = ({ part, chords }: Props) => {
     if (!isPlaying) {
       setIsPlaying(true);
       playPart();
+
+      if (onPlay) {
+        onPlay(chords, part);
+      }
     } else {
       setIsPlaying(false);
       Player?.stopAll();
+
+      if (onStop) {
+        onStop(chords, part);
+      }
     }
   };
 

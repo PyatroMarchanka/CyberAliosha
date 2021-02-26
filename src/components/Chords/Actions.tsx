@@ -12,44 +12,26 @@ import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Icon } from '../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
 import { PlayStopButton } from '../global/PlayStopButton';
-import { colorChordsOnPlay, stopTransport } from '../../utils/PlayerLegacy';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
+import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
 
 interface Props {
   play?: boolean;
   deleteLast?: boolean;
   deleteAll?: boolean;
   chords: ChordModel[];
-  setColorChord?: (idx: number | null) => void;
+  onPlay?: (chords: ChordModel[]) => void;
+  onStop?: (chords: ChordModel[]) => void;
 }
 
-export const Actions = ({ chords, setColorChord }: Props) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+export const Actions = ({ chords, onPlay, onStop }: Props) => {
+  const { dispatch } = useContext(chordsAdderStore);
 
-  const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
-
-  const {
-    state: { bpm },
-    dispatch,
-  } = useContext(chordsAdderStore);
-
-  const handlePlaying = () => {
-    if (!isPlaying) {
-      setIsPlaying(true);
-      Player?.playPartChords(chords, () => setIsPlaying(false));
-      if (setColorChord) {
-        colorChordsOnPlay(chords, setColorChord, bpm);
-      }
-    } else {
-      setIsPlaying(false);
-      stopTransport();
-
-      if (setColorChord) {
-        setColorChord(null);
-      }
-      Player?.stopAll();
-    }
-  };
+  const { handlePlaying, MPlayer, isPlaying } = usePlayMelodyAndChords({
+    chords,
+    onPlay,
+    onStop,
+  });
 
   const deleteAll = () => {
     dispatch({
