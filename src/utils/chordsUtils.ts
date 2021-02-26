@@ -1,11 +1,15 @@
 import { NOTES_MAP_SOLO } from '../dataset/dataset';
-import chordsForImpro, { ChordModel, NotesLengthType } from '../dataset/all_chords_for_impro';
+import chordsForImpro, {
+  ChordModel,
+  ChordType,
+  NotesLengthType,
+} from '../dataset/all_chords_for_impro';
 
 function randomIntegerRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export const sortChordsByType = (types: ChordModel[1][], chords: ChordModel[]) => {
+export const sortChordsByType = (types: ChordType[], chords: ChordModel[]) => {
   return chords.filter((chord) => types.includes(chord[1]));
 };
 

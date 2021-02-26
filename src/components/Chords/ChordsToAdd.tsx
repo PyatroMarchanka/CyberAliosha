@@ -2,7 +2,12 @@ import { IconButton } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
-import { ChordModel } from '../../dataset/all_chords_for_impro';
+import {
+  ChordModel,
+  MajorChords,
+  MinorChords,
+  UnstableChords,
+} from '../../dataset/all_chords_for_impro';
 import { MetalBlock } from '../../styled/global';
 import { sortChordsByType } from '../../utils';
 import { theme } from '../../utils/theme';
@@ -70,17 +75,17 @@ export const ChordsToAdd = () => {
       <Chords>
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(['m', 'm7'], state.chordsToAdd)}
+          chords={sortChordsByType(Object.values(MinorChords), state.chordsToAdd)}
           title="Minor chords:"
         />
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(['', 'maj'], state.chordsToAdd)}
+          chords={sortChordsByType(Object.values(MajorChords), state.chordsToAdd)}
           title="Major chords:"
         />
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(['7', 'dim7', 'aug', 'dim7', 'm7b5'], state.chordsToAdd)}
+          chords={sortChordsByType(Object.values(UnstableChords), state.chordsToAdd)}
           title="Unstable chords:"
         />
       </Chords>

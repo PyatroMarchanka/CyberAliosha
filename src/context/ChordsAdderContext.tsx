@@ -2,8 +2,12 @@ import React, { createContext, useReducer } from 'react';
 import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
 
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
-import { getAllReleases, searchItemsForReplace } from '../musicBrain/releaserUtils';
-import { chordStringToFullChord, isChordsEqual } from '../utils';
+import {
+  getAllReleases,
+  getChordsForChords,
+  searchItemsForReplace,
+} from '../musicBrain/releaserUtils';
+import { chordStringToFullChord, convertChordToString, isChordsEqual } from '../utils';
 
 interface State {
   addedChords: ChordModel[];
@@ -95,6 +99,10 @@ const ChordsAdderProvider = ({ children }: any) => {
         };
 
       case 'ADD_CHORDS_TO_ADD':
+        // if (state.addedChords.length > 1) {
+        //   getChordsForChords(state.addedChords);
+        // }
+
         return {
           ...state,
           chordsToAdd: getAllReleases(action.payload) || [],

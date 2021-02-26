@@ -1,8 +1,41 @@
 export interface ChordModel {
   0: string;
-  1: '' | 'maj' | 'm' | 'm9' | 'm7' | '7' | '7b5' | 'dim7' | 'm7b5' | 'aug' | 'mAdd9' | 'majAdd9';
+  1: ChordType;
   2: string[];
   3: string[];
+}
+
+export type ChordType = MajorChords | MinorChords | UnstableChords;
+
+export enum MajorChords {
+  Major = '',
+  Maj7 = 'maj',
+  MajAdd9 = 'majAdd9',
+}
+
+export enum MinorChords {
+  Minor = 'm',
+  M7 = 'm7',
+  Madd9 = 'mAdd9',
+}
+
+export enum UnstableChords {
+  Dim7 = 'dim7',
+  Aug = 'aug',
+  D7b5 = '7b5',
+  D7 = '7',
+  Min7b5 = 'm7b5',
+  M9 = 'm9',
+}
+
+export interface ChordRelease {
+  0: number;
+  1: MajorChords | MinorChords | UnstableChords;
+}
+
+export interface Tonality {
+  0: ChordModel[0];
+  1: MajorChords.Major | MinorChords.Minor;
 }
 
 export interface PartNote {
