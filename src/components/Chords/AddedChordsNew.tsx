@@ -31,6 +31,7 @@ export const AddedChordsNew = () => {
   const history = useHistory();
 
   const { Player, MPlayer } = useMidiPlayer();
+  const [colorChord, setColorChord] = useState<number | null>(null);
 
   const {
     state: { addedChords, replacingChord },
@@ -82,7 +83,7 @@ export const AddedChordsNew = () => {
             No chords
           </Typography>
         )}
-        <Actions chords={addedChords} />
+        <Actions chords={addedChords} setColorChord={setColorChord} />
       </Header>
 
       {!!addedChords.length && (
@@ -93,7 +94,9 @@ export const AddedChordsNew = () => {
                 <CSSTransition key={`chord-${chord[0]}-${idx}`} timeout={500} classNames="item">
                   <ChordWithEditModal
                     className={`chord ${true && 'half'}`}
-                    isSelected={idx === replacingChord?.idx || idx === playingChord}
+                    isSelected={
+                      idx === replacingChord?.idx || idx === playingChord || idx === colorChord
+                    }
                     onClose={() => onClose()}
                     onDelete={() => onDelete(chord, idx)}
                     onReplace={() => onReplace(arr[idx - 1], arr[idx + 1] || arr[0], idx)}

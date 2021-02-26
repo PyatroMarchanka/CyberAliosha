@@ -20,13 +20,13 @@ interface Props {
   deleteLast?: boolean;
   deleteAll?: boolean;
   chords: ChordModel[];
+  setColorChord?: (idx: number | null) => void;
 }
 
-export const Actions = ({ chords }: Props) => {
+export const Actions = ({ chords, setColorChord }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
-  const [colorChord, setColorChord] = useState<number | null>(null);
 
   const {
     state: { bpm },
@@ -37,10 +37,16 @@ export const Actions = ({ chords }: Props) => {
     if (!isPlaying) {
       setIsPlaying(true);
       Player?.playPartChords(chords, () => setIsPlaying(false));
-      colorChordsOnPlay(chords, setColorChord, bpm);
+      if (setColorChord) {
+        colorChordsOnPlay(chords, setColorChord, bpm);
+      }
     } else {
       setIsPlaying(false);
       stopTransport();
+
+      if (setColorChord) {
+        setColorChord(null);
+      }
       Player?.stopAll();
     }
   };
@@ -61,7 +67,9 @@ export const Actions = ({ chords }: Props) => {
 
   return (
     <ActionsContainer>
-      <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
+      {!!chords && !!chords.length && (
+        <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
+      )}
       <IconButton className="icon" disabled={buttonsDisabled} onClick={deleteLast}>
         <Icon
           type="material"
