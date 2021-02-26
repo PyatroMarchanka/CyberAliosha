@@ -23,7 +23,6 @@ export const colorChordsOnPlay = (
         setColorChord(undefined);
       }, N * idx + 1);
     }
-    console.log(now + N * idx);
   });
 };
 
