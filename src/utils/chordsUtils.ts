@@ -1,9 +1,7 @@
 import { NOTES_MAP_SOLO } from '../dataset/dataset';
-import chordsForImpro, {
-  ChordModel,
-  ChordType,
-  NotesLengthType,
-} from '../dataset/all_chords_for_impro';
+import { ChordModel, ChordType, NotesLengthType } from '../dataset/all_chords_for_impro';
+
+import chordsForImpro from '../dataset/all_chords';
 
 function randomIntegerRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;

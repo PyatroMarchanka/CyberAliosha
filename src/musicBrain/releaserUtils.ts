@@ -1,11 +1,9 @@
-import { ChordType } from './../dataset/all_chords_for_impro';
 import { intersectionWith, isEqual, uniqBy, uniqWith } from 'lodash';
 import {
   ChordModel,
   ChordRelease,
   MajorChords,
   MinorChords,
-  Tonality,
   UnstableChords,
 } from '../dataset/all_chords_for_impro';
 import { convertChordToString, findNotes, isChordsEqual } from '../utils';

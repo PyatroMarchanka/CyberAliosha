@@ -1,7 +1,7 @@
-import { getDevice } from './../../styled/utils';
-import { PartNote, ChordModel } from './../../dataset/all_chords_for_impro';
+import { getDevice } from '../styled/utils';
+import { PartNote, ChordModel } from '../dataset/all_chords_for_impro';
 import Vex from 'vexflow';
-import { convertChordToString } from '../../utils';
+import { convertChordToString } from '../utils';
 const VF = Vex.Flow;
 
 const getBarsPerLine = (): 4 | 3 | 2 | 1 => {

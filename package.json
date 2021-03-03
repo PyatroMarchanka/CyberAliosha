@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
+    "@svgdotjs/svg.js": "^3.0.16",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
@@ -28,7 +29,6 @@
     "scripts": "^0.1.0",
     "styled-components": "^5.2.1",
     "tone": "^14.7.77",
-    "vexchords": "^1.2.0",
     "vexflow": "^3.0.9"
   },
   "devDependencies": {

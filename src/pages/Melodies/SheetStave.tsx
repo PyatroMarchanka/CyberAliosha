@@ -5,7 +5,7 @@ import { Button } from '../../components/global/Button';
 import { Icon } from '../../components/global/Icon';
 import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
 import { theme } from '../../utils/theme';
-import { VexFlowController } from './VexFlowController';
+import { VexFlowController } from '../../musicViews/VexFlowController';
 import StopIcon from '@material-ui/icons/Stop';
 
 interface Props {

@@ -1,12 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from '../../pages/routes';
-import { chunk } from 'lodash';
 
-import { IconButton, Typography } from '@material-ui/core';
-import StopIcon from '@material-ui/icons/Stop';
-import BackspaceIcon from '@material-ui/icons/Backspace';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Typography } from '@material-ui/core';
 
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
@@ -19,17 +15,20 @@ import { convertChordToString } from '../../utils';
 
 import { ChordWithEditModal } from './ChordWithEditModal';
 import { StyledProgression } from '../../styled/Chords';
-import { Icon } from '../global/Icon';
-import { SaveChordsModal } from './SaveChordsModal';
 import { Button } from '../global/Button';
 
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Actions } from './Actions';
 import { useColorChords } from '../../hooks/useColorChords';
+import { VexChordsController } from '../../musicViews/VexChordsController';
 
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
   const history = useHistory();
+  const [showGuitarChords, setShowGuitarChords] = useState(true);
+  const chordsPrefix = 'added-chords-';
+
+  const [ChordsDrawer, setChordsDrawer] = useState<VexChordsController | null>(null);
 
   const { Player, MPlayer } = useMidiPlayer();
 
@@ -73,6 +72,57 @@ export const AddedChordsNew = () => {
     });
   };
 
+  useEffect(() => {
+    setChordsDrawer(new VexChordsController(chordsPrefix));
+  }, []);
+
+  const chords = [
+    {
+      name: 'Am',
+      chord: [
+        [1, 2],
+        [2, 1],
+        [3, 2],
+        [4, 0], // fret 0 = open string
+        [5, 'x'], // fret x = muted string
+        [6, 'x'],
+      ],
+
+      // optional: position marker
+      position: 5, // start render at fret 5
+
+      // optional: barres for barre chords
+      // barres: [{ fromString: 6, toString: 1, fret: 1 }],
+
+      // optional: tuning keys
+      tuning: ['E', 'A', 'D', 'G', 'B', 'E'],
+    },
+    {
+      name: 'E7',
+      chord: [
+        [1, 1],
+        [2, 1],
+        [3, 1],
+        [4, 3], // fret 0 = open string
+        [5, 'x'], // fret x = muted string
+        [6, 'x'],
+      ],
+
+      // optional: position marker
+      position: 5, // start render at fret 5
+
+      // optional: barres for barre chords
+      // barres: [{ fromString: 6, toString: 1, fret: 1 }],
+
+      // optional: tuning keys
+      tuning: ['E', 'A', 'D', 'G', 'B', 'E'],
+    },
+  ];
+
+  useEffect(() => {
+    ChordsDrawer?.drawChords(addedChords);
+  }, [addedChords]);
+
   return (
     <Container>
       <Header>
@@ -110,6 +160,12 @@ export const AddedChordsNew = () => {
               ))}
             </TransitionGroup>
           </StyledProgression>
+          {showGuitarChords && <div></div>}
+          <Chords>
+            {chords.map((chord, idx) => (
+              <div id={`${chordsPrefix}${idx}`}></div>
+            ))}
+          </Chords>
         </AllChordsLines>
       )}
 
@@ -154,4 +210,9 @@ const AllChordsLines = styled.div`
 const AddMelody = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const Chords = styled.div`
+  display: flex;
+  background-color: ${theme.colors.white};
 `;
