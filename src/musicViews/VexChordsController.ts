@@ -68,7 +68,7 @@ export class VexChordsController {
 
   findChordChartData = (chord: ChordModel): ChordChart => {
     console.log(chord);
-    const chordChart = build(chord[0], 'A', `${chord[1]} A`);
+    const chordChart = build(chord[0], chord[1]);
     return chordChart;
   };
 

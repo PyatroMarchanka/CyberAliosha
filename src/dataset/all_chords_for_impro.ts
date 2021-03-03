@@ -1,27 +1,28 @@
 export interface ChordModel {
-  0:
-    | 'A'
-    | 'A#'
-    | 'Bb'
-    | 'B'
-    | 'C'
-    | 'C#'
-    | 'Db'
-    | 'D'
-    | 'D#'
-    | 'Eb'
-    | 'E'
-    | 'F'
-    | 'F#'
-    | 'Gb'
-    | 'G'
-    | 'G#'
-    | 'Ab';
-
+  0: Notes;
   1: ChordType;
   2: string[];
   3: string[];
 }
+
+export type Notes =
+  | 'A'
+  | 'A#'
+  | 'Bb'
+  | 'B'
+  | 'C'
+  | 'C#'
+  | 'Db'
+  | 'D'
+  | 'D#'
+  | 'Eb'
+  | 'E'
+  | 'F'
+  | 'F#'
+  | 'Gb'
+  | 'G'
+  | 'G#'
+  | 'Ab';
 
 export type ChordType = MajorChords | MinorChords | UnstableChords;
 

@@ -1,9 +1,20 @@
 import { ChordChart } from './chordbox';
-import { MinorChords, UnstableChords, MajorChords } from './../../dataset/all_chords_for_impro';
+import {
+  MinorChords,
+  UnstableChords,
+  MajorChords,
+  Notes,
+  ChordType,
+} from './../../dataset/all_chords_for_impro';
 /*
  * Vex Chords
  * Mohit Muthanna Cheppudira -- http://0xfe.blogspot.com
  */
+
+enum GuitarStrings {
+  E = 'E',
+  A = 'A',
+}
 
 const SHAPES = {
   [`${MajorChords.Major} E`]: {
@@ -71,6 +82,18 @@ const SHAPES = {
       [4, 2],
       [5, 'x'],
       [6, 2],
+    ],
+    positionText: 1,
+  },
+  [`${UnstableChords.Aug} E`]: {
+    name: 'aug',
+    chord: [
+      [1, 'x'],
+      [2, 2],
+      [3, 2],
+      [4, 3],
+      [5, 'x'],
+      [6, 1],
     ],
     positionText: 1,
   },
@@ -160,6 +183,17 @@ const SHAPES = {
       [6, 'x'],
     ],
     positionText: 1,
+  },
+  [`${UnstableChords.Aug} A`]: {
+    name: 'aug',
+    chord: [
+      [1, 2],
+      [2, 3],
+      [3, 3],
+      [4, 'x'],
+      [5, 1],
+      [6, 'x'],
+    ],
   },
   [`${MajorChords.Maj7} A`]: {
     name: 'Maj7',
@@ -292,11 +326,13 @@ const POSITIONS = {
   },
 };
 
-function build(key: keyof typeof POSITIONS['A'], string: 'A' | 'E', shape: any): ChordChart {
+function build(key: Notes, shape: ChordType): ChordChart {
   console.log('shape:-', `-${shape}-`);
-  const theString: keyof typeof POSITIONS = string.toUpperCase() as 'A' | 'E';
-  const position = POSITIONS[theString][key];
-  const struct = SHAPES[shape];
+  const position = Math.min(
+    ...Object.values(GuitarStrings).map((string) => POSITIONS[string][key]),
+  );
+
+  const struct = SHAPES[`${shape} ${getMinPositionString(key)}`];
 
   return {
     name: key + struct.name,
@@ -306,5 +342,14 @@ function build(key: keyof typeof POSITIONS['A'], string: 'A' | 'E', shape: any):
     barres: struct.barres,
   };
 }
+
+const getMinPositionString = (key: Notes) => {
+  const positionsWithStrings = Object.values(GuitarStrings).map((string) => ({
+    position: POSITIONS[string][key],
+    string,
+  }));
+  const minString = positionsWithStrings.sort((a, b) => a.position - b.position);
+  return minString[0].string;
+};
 
 export { POSITIONS, SHAPES, build };
