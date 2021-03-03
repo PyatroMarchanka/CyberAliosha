@@ -47,7 +47,7 @@ export const SavedPage = ({}: Props) => {
     <Tabs items={[{ label: 'Saved chords' }, { label: 'Saved melodies' }]}>
       <Container>
         {!!savedChords &&
-          savedChords.map((chordsObject) => (
+          savedChords.map((chordsObject, idx) => (
             <SavedChordsLine
               openInEditor={openInMelodyEditor}
               savedChords={chordsObject}
@@ -55,6 +55,7 @@ export const SavedPage = ({}: Props) => {
                 removeSavedChordsById(chordsObject.id);
                 fetchChords();
               }}
+              idx={idx}
             />
           ))}
       </Container>

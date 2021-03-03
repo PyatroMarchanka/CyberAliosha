@@ -58,7 +58,11 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
 
         <Modal
           className="sheet-modal"
-          triggerComponent={<Button>View</Button>}
+          triggerComponent={
+            <IconButton className="icon" edge="start" color="inherit" aria-label="menu">
+              <Icon type="notes" fill={theme.colors.white} />
+            </IconButton>
+          }
           title="Part Preview"
           style={{ padding: '0' }}
         >

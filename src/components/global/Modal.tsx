@@ -67,6 +67,7 @@ export default function Modal({ triggerComponent, children, title, className, st
 }
 
 const Container = styled.div`
+  display: inline-block;
   .modal {
     &::-webkit-scrollbar {
       display: none;
