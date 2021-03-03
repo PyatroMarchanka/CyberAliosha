@@ -21,6 +21,7 @@ interface State {
   notesLength: NotesLengthType;
   notesPattern: NotesPatterns;
   playAccompanimentWithMelody: boolean;
+  chordsGuitarMode: boolean;
 }
 
 interface Action {
@@ -42,7 +43,8 @@ interface Action {
     | 'SET_NOTES_LENGTH'
     | 'SET_NOTES_PATTERN'
     | 'ADD_CHORDS_FOR_REPLACE'
-    | 'PLAY_ACCOMPANIMENT';
+    | 'PLAY_ACCOMPANIMENT'
+    | 'SET_CHORDS_GUITAR_MODE';
   payload?: any;
 }
 
@@ -58,6 +60,7 @@ const initialState: State = {
   notesLength: NotesLengthType.Middle,
   notesPattern: NotesPatterns.None,
   playAccompanimentWithMelody: true,
+  chordsGuitarMode: true,
 };
 
 interface Context {
@@ -197,6 +200,12 @@ const ChordsAdderProvider = ({ children }: any) => {
         return {
           ...state,
           playAccompanimentWithMelody: action.payload,
+        };
+
+      case 'SET_CHORDS_GUITAR_MODE':
+        return {
+          ...state,
+          chordsGuitarMode: action.payload,
         };
 
       default:

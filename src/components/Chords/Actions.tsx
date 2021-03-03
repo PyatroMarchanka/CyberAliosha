@@ -14,6 +14,7 @@ import { SaveChordsModal } from './SaveChordsModal';
 import { PlayStopButton } from '../global/PlayStopButton';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
 import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
+import { GuitarModeSwitcher } from './GuitarModeSwitcher';
 
 interface Props {
   play?: boolean;
@@ -49,6 +50,7 @@ export const Actions = ({ chords, onPlay, onStop }: Props) => {
 
   return (
     <ActionsContainer>
+      <GuitarModeSwitcher />
       {!!chords && !!chords.length && (
         <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
       )}

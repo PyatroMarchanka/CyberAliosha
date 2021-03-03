@@ -5,6 +5,29 @@
 
 import { SVG, Svg } from '@svgdotjs/svg.js';
 
+// const chords = [
+//   {
+//     name: 'Am',
+//     chord: [
+//       [1, 2],
+//       [2, 1],
+//       [3, 2],
+//       [4, 0], // fret 0 = open string
+//       [5, 'x'], // fret x = muted string
+//       [6, 'x'],
+//     ],
+
+//     // optional: position marker
+//     position: 5, // start render at fret 5
+
+//     // optional: barres for barre chords
+//      barres: [{ fromString: 6, toString: 1, fret: 1 }],
+
+//     // optional: tuning keys
+//     tuning: ['E', 'A', 'D', 'G', 'B', 'E'],
+//   },
+// ];
+
 interface Barre {
   fromString: number;
   toString: number;

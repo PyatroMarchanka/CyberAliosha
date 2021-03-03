@@ -40,15 +40,19 @@ export class VexChordsController {
   }
 
   drawChords = (chords: ChordModel[]) => {
-    this.chords.forEach((chord) => {
-      chord.clear();
-    });
+    if (this.chords.length > 0) {
+      this.chords.forEach((chord) => {
+        chord.clear();
+      });
+    }
 
     this.chordCharts = this.getChordsData(chords);
+    console.log('chordCharts', this.chordCharts);
 
     this.chords = this.chordCharts.map(
       (chart, idx) => new ChordBox(`#${this.selectorPrefix}${idx}`, this.chordParams),
     );
+    console.log(' this.chords', this.chords);
 
     this.chords.forEach((chord, idx) => {
       chord.draw(this.chordCharts[idx]);
