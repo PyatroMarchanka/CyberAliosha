@@ -18,7 +18,7 @@ enum GuitarStrings {
 
 const SHAPES = {
   [`${MajorChords.Major} E`]: {
-    name: 'Maj',
+    name: '',
     chord: [
       [3, 2],
       [4, 3],
@@ -126,7 +126,7 @@ const SHAPES = {
     positionText: 1,
   },
   [`${MajorChords.Major} A`]: {
-    name: 'Maj',
+    name: '',
     chord: [
       [2, 3],
       [3, 3],
