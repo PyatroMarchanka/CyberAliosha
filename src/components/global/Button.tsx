@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function Button({
-  color = theme.colors.indigo,
+  color = theme.colors.purple,
   onClick = () => {},
   onLongPress = () => {},
   children,

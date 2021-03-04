@@ -22,6 +22,7 @@ import { Actions } from './Actions';
 import { useColorChords } from '../../hooks/useColorChords';
 import { VexChordsController } from '../../musicViews/VexChordsController';
 import { ChordCharts } from './ChordCharts';
+import { splitTextToSyllables } from '../../utils/textUtils';
 
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
@@ -72,6 +73,15 @@ export const AddedChordsNew = () => {
 
   return (
     <Container>
+      <Button
+        onClick={() =>
+          splitTextToSyllables(
+            'Two roads diverged in a yellow wood, And sorry I could not travel both, And be one traveler, long I stood, And looked down one as far as I could',
+          )
+        }
+      >
+        Split
+      </Button>
       <Header>
         {!!addedChords.length ? (
           <Typography className="added-title" variant="h6">

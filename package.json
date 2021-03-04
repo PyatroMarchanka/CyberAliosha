@@ -15,6 +15,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-transition-group": "^4.4.0",
+    "compromise": "^13.10.0",
+    "compromise-syllables": "^0.0.6",
     "jsmidgen": "^0.1.5",
     "lodash": "^4.17.20",
     "midi-sounds-react": "^1.2.54",
