@@ -60,7 +60,7 @@ const initialState: State = {
   notesLength: NotesLengthType.Middle,
   notesPattern: NotesPatterns.None,
   playAccompanimentWithMelody: true,
-  chordsGuitarMode: true,
+  chordsGuitarMode: false,
 };
 
 interface Context {
