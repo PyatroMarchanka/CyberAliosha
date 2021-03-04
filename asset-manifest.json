@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CyberAliosha-Parter-React/static/css/main.9a20111d.chunk.css",
-    "main.js": "/CyberAliosha-Parter-React/static/js/main.bb38dbf7.chunk.js",
-    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.bb38dbf7.chunk.js.map",
+    "main.js": "/CyberAliosha-Parter-React/static/js/main.be16b5f1.chunk.js",
+    "main.js.map": "/CyberAliosha-Parter-React/static/js/main.be16b5f1.chunk.js.map",
     "runtime-main.js": "/CyberAliosha-Parter-React/static/js/runtime-main.b796f15b.js",
     "runtime-main.js.map": "/CyberAliosha-Parter-React/static/js/runtime-main.b796f15b.js.map",
     "static/js/2.7c9dab83.chunk.js": "/CyberAliosha-Parter-React/static/js/2.7c9dab83.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.b796f15b.js",
     "static/js/2.7c9dab83.chunk.js",
     "static/css/main.9a20111d.chunk.css",
-    "static/js/main.bb38dbf7.chunk.js"
+    "static/js/main.be16b5f1.chunk.js"
   ]
 }
