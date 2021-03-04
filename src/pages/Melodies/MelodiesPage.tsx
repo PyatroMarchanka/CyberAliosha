@@ -87,7 +87,7 @@ export const MelodiesPage = () => {
               </Chords>
             )}
             <Actions>
-              <div>
+              <div className="buttons">
                 {part.length > 0 && (
                   <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
                 )}
@@ -126,6 +126,13 @@ const Chords = styled.div`
 `;
 
 const Actions = styled.div`
+  .buttons {
+    padding: 0 10px;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   > div {
     display: flex;
   }
@@ -134,6 +141,7 @@ const Actions = styled.div`
 const Header = styled.div`
   padding: 20px;
   display: flex;
+  flex-wrap: wrap;
   > div {
     flex-basis: 50%;
   }
