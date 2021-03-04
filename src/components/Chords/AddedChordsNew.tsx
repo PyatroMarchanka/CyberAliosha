@@ -26,7 +26,6 @@ import { ChordCharts } from './ChordCharts';
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
   const history = useHistory();
-  const [guitarChordsMode, setGuitarChordsMode] = useState(true);
   const chordsPrefix = 'added-chords-';
 
   const { Player, MPlayer } = useMidiPlayer();
@@ -87,7 +86,7 @@ export const AddedChordsNew = () => {
       </Header>
 
       {!!addedChords.length && chordsGuitarMode && (
-        <ChordCharts chords={addedChords} chordsPrefix={chordsPrefix} />
+        <ChordCharts selectedChord={colorChord} chords={addedChords} chordsPrefix={chordsPrefix} />
       )}
       {!!addedChords.length && !chordsGuitarMode && (
         <AllChordsLines>

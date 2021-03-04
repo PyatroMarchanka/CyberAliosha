@@ -8,9 +8,10 @@ import { theme } from '../../utils/theme';
 interface Props {
   chords: ChordModel[];
   chordsPrefix: string;
+  selectedChord?: number;
 }
 
-export const ChordCharts = ({ chords, chordsPrefix }: Props) => {
+export const ChordCharts = ({ chords, chordsPrefix, selectedChord }: Props) => {
   const [ChordsDrawer, setChordsDrawer] = useState<VexChordsController | null>(null);
   const { Player, MPlayer } = usePlayMelodyAndChords({});
   useEffect(() => {
@@ -24,11 +25,12 @@ export const ChordCharts = ({ chords, chordsPrefix }: Props) => {
   return (
     <Chords>
       {chords.map((chord, idx) => (
-        <div
+        <Chord
+          isSelected={selectedChord === idx}
           onClick={() => Player?.playChord(chord)}
           key={`${chordsPrefix}${idx}`}
           id={`${chordsPrefix}${idx}`}
-        ></div>
+        ></Chord>
       ))}
       {MPlayer}
     </Chords>
@@ -37,7 +39,18 @@ export const ChordCharts = ({ chords, chordsPrefix }: Props) => {
 
 const Chords = styled.div`
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   background-color: ${theme.colors.white};
   min-width: 200px;
   overflow-x: auto;
+`;
+
+const Chord = styled.div<{ isSelected: boolean }>`
+  &:hover {
+    background-color: ${theme.colors.grey[200]};
+    cursor: pointer;
+  }
+
+  background-color: ${({ isSelected }) => (isSelected ? theme.colors.grey[200] : 0)};
 `;
