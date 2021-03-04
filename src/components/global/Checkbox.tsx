@@ -1,6 +1,6 @@
 import React from 'react';
 import MUCheckbox from '@material-ui/core/Checkbox';
-import { FormControlLabel, FormGroup } from '@material-ui/core';
+import { FormControlLabel, FormGroup, makeStyles } from '@material-ui/core';
 import { theme } from '../../utils/theme';
 
 interface Props {
@@ -10,17 +10,27 @@ interface Props {
   label: string | JSX.Element;
 }
 
+const useStyles = makeStyles({
+  root: {},
+  icon: {},
+  'MuiSvgIcon-root': {
+    fill: theme.colors.primary,
+  },
+});
+
 export const Checkbox = ({ onChange, value, className, label }: Props) => {
+  const classes = useStyles();
   return (
     <FormGroup row>
       <FormControlLabel
-        style={{ color: theme.colors.white }}
+        // style={{ color: theme.colors.white }}
         control={
           <MUCheckbox
-            className={className}
+            style={{ color: theme.colors.black }}
+            className={classes.root + ' ' + className}
             checked={value}
             onChange={(e, checked) => onChange(checked)}
-            color="default"
+            color="primary"
             inputProps={{ 'aria-label': 'checkbox with default color' }}
           />
         }

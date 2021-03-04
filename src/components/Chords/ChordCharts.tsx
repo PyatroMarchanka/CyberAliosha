@@ -9,13 +9,14 @@ interface Props {
   chords: ChordModel[];
   chordsPrefix: string;
   selectedChord?: number;
+  color?: string;
 }
 
-export const ChordCharts = ({ chords, chordsPrefix, selectedChord }: Props) => {
+export const ChordCharts = ({ chords, chordsPrefix, selectedChord, color = '#666' }: Props) => {
   const [ChordsDrawer, setChordsDrawer] = useState<VexChordsController | null>(null);
   const { Player, MPlayer } = usePlayMelodyAndChords({});
   useEffect(() => {
-    setChordsDrawer(new VexChordsController(chordsPrefix));
+    setChordsDrawer(new VexChordsController(chordsPrefix, color));
   }, []);
 
   useEffect(() => {

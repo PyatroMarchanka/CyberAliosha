@@ -73,7 +73,7 @@ export const Settings = () => {
         edge="start"
         aria-label="menu"
       >
-        <Icon type="material" Icon={SettingsIcon} fill={theme.colors.white} className="play-icon" />
+        <Icon type="material" Icon={SettingsIcon} className="play-icon" />
       </IconButton>
       <SettingsModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </Container>

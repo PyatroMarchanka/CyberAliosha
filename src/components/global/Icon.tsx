@@ -19,7 +19,7 @@ export const Icon = styled(
         <Icon
           fontSize="large"
           className={className}
-          style={{ color: disabled ? 'rgba(255, 255, 255, 0.3)' : fill }}
+          style={{ color: disabled ? 'rgba(179, 179, 179, 0.3)' : fill }}
         />
       );
     }
@@ -164,7 +164,7 @@ export const Icon = styled(
   },
 )`
   &.disabled {
-    color: rgba(255, 255, 255, 0.3);
-    fill: rgba(255, 255, 255, 0.3);
+    color: rgba(179, 179, 179, 0.3);
+    fill: rgba(198, 198, 198, 0.3);
   }
 `;

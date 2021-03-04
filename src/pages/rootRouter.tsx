@@ -43,17 +43,18 @@ export default function MainRouter() {
 }
 
 const Body = styled.div`
-  background-color: #60656f;
+  /* background-color: #60656f; */
+  background-color: ${theme.colors.black};
   border-radius: 2px;
   overflow: hidden;
-  -webkit-box-shadow: 0px 5px 15px 0px #333333;
-  box-shadow: 0px 5px 15px 0px #333333;
+  /* -webkit-box-shadow: 0px 5px 15px 0px #333333;
+  box-shadow: 0px 5px 15px 0px #333333; */
   margin-top: 30px;
 `;
 
 const GlobalStyles = createGlobalStyle`
   body {
-    background-color:#262626;
+    background-color:#000000;
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 50px;
@@ -61,5 +62,6 @@ const GlobalStyles = createGlobalStyle`
     @media ${theme.breakpoints.belowTabletM} {
       padding: 0 10px;
     }
+
   }
 `;

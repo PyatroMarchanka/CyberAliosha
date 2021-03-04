@@ -37,11 +37,7 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
       </Typography>
       <div className="actions">
         <Actions>
-          <PlayStopButton
-            iconColor={theme.colors.white}
-            handlePlaying={handlePlaying}
-            isPlaying={isPlaying}
-          />
+          <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
         </Actions>
         <IconButton
           onClick={() => {
@@ -53,20 +49,20 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
           color="inherit"
           aria-label="menu"
         >
-          <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
+          <Icon type="material" Icon={DeleteIcon} />
         </IconButton>
 
         <Modal
           className="sheet-modal"
           triggerComponent={
             <IconButton className="icon" edge="start" color="inherit" aria-label="menu">
-              <Icon type="notes" fill={theme.colors.white} />
+              <Icon type="notes" />
             </IconButton>
           }
           title="Part Preview"
           style={{ padding: '0' }}
         >
-          <SheetStave bars={melody} chords={chords} />
+          <SheetStave bars={melody} chords={chords} backgroundColor={theme.colors.white} />
         </Modal>
         {MPlayer}
       </div>
@@ -80,7 +76,7 @@ const StyledMelody = styled(MetalBlock)`
   justify-content: space-between;
 
   .title {
-    color: ${theme.colors.white};
+    /* color: ${theme.colors.white}; */
   }
 
   .actions {

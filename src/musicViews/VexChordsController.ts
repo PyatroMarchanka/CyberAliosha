@@ -35,8 +35,18 @@ export class VexChordsController {
   chords: ChordBox[] = [];
   chordCharts: ChordChart[];
 
-  constructor(selectorPrefix: string) {
+  constructor(selectorPrefix: string, color = '#666') {
     this.selectorPrefix = selectorPrefix;
+    this.chordParams = {
+      ...this.chordParams,
+      defaultColor: color,
+      bgColor: '#FFF',
+      strokeColor: color,
+      textColor: color,
+      stringColor: color,
+      fretColor: color,
+      labelColor: color,
+    };
   }
 
   drawChords = (chords: ChordModel[]) => {

@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.white }: Props) => {
+export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.black }: Props) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
   const [titleValue, setTitleValue] = useState('');

@@ -1,6 +1,6 @@
 import { IconButton } from '@material-ui/core';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Button } from '../../components/global/Button';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
 import { Icon } from '../../components/global/Icon';
@@ -50,7 +50,7 @@ export const SavedChordsLine = ({ onRemove, savedChords, openInEditor, idx }: Pr
               color="inherit"
               aria-label="menu"
             >
-              <Icon type="material" Icon={DeleteIcon} fill={theme.colors.white} />
+              <Icon type="material" Icon={DeleteIcon} />
             </IconButton>
             <Modal
               className="sheet-modal"
@@ -62,7 +62,7 @@ export const SavedChordsLine = ({ onRemove, savedChords, openInEditor, idx }: Pr
                   color="inherit"
                   aria-label="menu"
                 >
-                  <Icon type="guitar" fill={theme.colors.white} />
+                  <Icon type="guitar" />
                 </IconButton>
               }
               title="Chords on guitar"
@@ -75,6 +75,7 @@ export const SavedChordsLine = ({ onRemove, savedChords, openInEditor, idx }: Pr
           </div>
         }
       />
+      <GlobalStyles />
       {MPlayer}
     </Chords>
   );
@@ -86,5 +87,19 @@ const Chords = styled(MetalBlock)`
   .guitar-icon {
     width: 28px;
     height: 28px;
+  }
+`;
+
+const GlobalStyles = createGlobalStyle`
+.sheet-modal {
+    .MuiDialogContent-root {
+      padding: 0;
+    }
+
+    @media ${theme.breakpoints.belowMobile} {
+      .MuiDialog-paper {
+        margin: 15px;
+      }
+    }
   }
 `;

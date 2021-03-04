@@ -132,7 +132,7 @@ const Container = styled(MetalBlock)`
   justify-content: space-between;
 
   .added-title {
-    color: ${theme.colors.white};
+    /* color: ${theme.colors.white}; */
   }
 `;
 

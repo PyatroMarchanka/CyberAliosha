@@ -55,6 +55,8 @@ const TabButton = styled(({ className, title, onClick, isActive }) => (
   box-shadow: none;
   background-color: unset;
   outline: none;
+  border-radius: 8px;
+  margin: 0 5px;
 
   color: ${theme.colors.white};
   text-transform: uppercase;
@@ -62,7 +64,8 @@ const TabButton = styled(({ className, title, onClick, isActive }) => (
   transition: background-color 0.2s;
 
   &.active {
-    background-color: ${theme.colors.blueGreySticky[500]};
+    background-color: ${theme.colors.indigo[500]};
+    // background-color: ${theme.colors.blueGreySticky[500]};
   }
 
   &:hover {

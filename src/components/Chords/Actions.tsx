@@ -59,7 +59,6 @@ export const Actions = ({ chords, onPlay, onStop }: Props) => {
           type="material"
           Icon={BackspaceIcon}
           disabled={buttonsDisabled}
-          fill={theme.colors.white}
           className="play-icon"
         />
       </IconButton>
@@ -68,7 +67,6 @@ export const Actions = ({ chords, onPlay, onStop }: Props) => {
           type="material"
           Icon={DeleteForeverIcon}
           disabled={buttonsDisabled}
-          fill={theme.colors.white}
           className="play-icon  remove-all-icon"
         />
       </IconButton>
@@ -84,11 +82,9 @@ const ActionsContainer = styled.div`
   align-items: center;
 
   .icon {
-    color: ${theme.colors.white};
-
     &.disabled {
-      color: rgba(255, 255, 255, 0.3);
-      fill: rgba(255, 255, 255, 0.3);
+      color: rgba(210, 210, 210, 0.3);
+      fill: rgba(210, 210, 210, 0.3);
     }
   }
 

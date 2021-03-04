@@ -11,9 +11,10 @@ import StopIcon from '@material-ui/icons/Stop';
 interface Props {
   bars: PartNote[][];
   chords?: ChordModel[];
+  backgroundColor?: string;
 }
 
-export const SheetStave = ({ bars, chords }: Props) => {
+export const SheetStave = ({ bars, chords, backgroundColor }: Props) => {
   const ref = useRef(null);
   const [staves, setStaves] = useState<VexFlowController | null>(null);
 
@@ -33,7 +34,7 @@ export const SheetStave = ({ bars, chords }: Props) => {
 
   return (
     <Container>
-      <StaveContainer>
+      <StaveContainer backgroundColor={backgroundColor}>
         <div className={bars.length > 0 ? 'stave' : ''} ref={ref} id="vf"></div>
       </StaveContainer>
     </Container>
@@ -44,12 +45,12 @@ const Container = styled.div`
   margin: 0;
 `;
 
-const StaveContainer = styled.div`
+const StaveContainer = styled.div<{ backgroundColor?: string }>`
   display: flex;
   justify-content: center;
 
   .stave {
-    background-color: ${theme.colors.white};
+    background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : 'unset')};
     padding: 20px;
 
     overflow-x: auto;

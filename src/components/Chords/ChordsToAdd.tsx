@@ -68,7 +68,7 @@ export const ChordsToAdd = () => {
     <Container>
       <Actions>
         <IconButton onClick={onRandomClick}>
-          <Icon type="radom" className="random-icon" fill={theme.colors.white} />
+          <Icon type="radom" className="random-icon" />
         </IconButton>
         <KeyMoodSelector />
       </Actions>

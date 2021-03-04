@@ -13,7 +13,7 @@ interface Props {
 export const PlayStopButton = ({
   handlePlaying,
   isPlaying,
-  iconColor = theme.colors.blueGreySticky[500],
+  iconColor = theme.colors.black,
 }: Props) => {
   return (
     <IconButton onClick={handlePlaying} className="icon">

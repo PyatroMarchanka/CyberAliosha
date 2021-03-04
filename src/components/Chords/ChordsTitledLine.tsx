@@ -53,7 +53,7 @@ const Container = styled(MetalBlock)`
   }
 
   .title {
-    color: ${theme.colors.white};
+    /* color: ${theme.colors.white}; */
 
     @media ${theme.breakpoints.belowTablet} {
       font-size: 16px;

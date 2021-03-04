@@ -59,6 +59,6 @@ const Header = styled.div`
   justify-content: space-between;
 
   .title {
-    color: ${theme.colors.white};
+    /* color: ${theme.colors.white}; */
   }
 `;
