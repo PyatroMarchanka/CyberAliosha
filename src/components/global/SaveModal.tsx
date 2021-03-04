@@ -74,10 +74,11 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.wh
       <Dialog open={isOpen} onClose={handleClose}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <form className={classes.container}>
+          <form className={classes.container} onSubmit={() => saveAndClose()}>
             <FormControl className={classes.formControl}>
               <TextField
                 id="standard-basic"
+                autoFocus
                 label="Title"
                 value={titleValue}
                 onChange={(e) => setTitleValue(e.target.value)}
@@ -89,7 +90,7 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.wh
           <MatButton onClick={handleClose} color="inherit">
             Cancel
           </MatButton>
-          <MatButton onClick={() => saveAndClose()} color="inherit">
+          <MatButton type="submit" color="inherit">
             Ok
           </MatButton>
         </DialogActions>
