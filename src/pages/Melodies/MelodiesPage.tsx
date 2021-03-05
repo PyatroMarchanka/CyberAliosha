@@ -19,6 +19,9 @@ import { MetalBlock } from '../../styled/global';
 
 import { PlayStopButton } from '../../components/global/PlayStopButton';
 import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
+import { TextSplitter } from '../../components/Text/TextSplitter';
+import { convertTextLinesToLyric, Lyric } from '../../utils/textUtils';
+import { generateMelody } from '../../musicBrain/melodyUtils';
 
 export const MelodiesPage = () => {
   const location = useLocation();
@@ -31,8 +34,8 @@ export const MelodiesPage = () => {
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 
-  const fileEditor = new CreateMidiFile(chords);
   const [part, setPart] = useState<PartNote[][]>([]);
+  const [lyric, setLyric] = useState<Lyric | null>(null);
 
   const { handlePlaying, MPlayer, isPlaying, Player } = usePlayMelodyAndChords({
     chords,
@@ -48,8 +51,8 @@ export const MelodiesPage = () => {
     }
   };
 
-  const generateMelody = () => {
-    const newPart = fileEditor.addPart({
+  const getMelody = () => {
+    const newPart = generateMelody(chords, {
       type: 'soprano',
       notesLength: notesLength,
       function: 'accompaniment',
@@ -75,6 +78,12 @@ export const MelodiesPage = () => {
     }
   }, [location]);
 
+  const onLyricAdd = (text: string) => {
+    const lyric = convertTextLinesToLyric(text);
+    console.log('lyric', lyric);
+    setLyric(lyric);
+  };
+
   return (
     <>
       <PageTitle title="Melodies Editor" />
@@ -99,7 +108,7 @@ export const MelodiesPage = () => {
                 />
               </div>
               <div>
-                <Button disabled={isPlaying} onClick={generateMelody}>
+                <Button disabled={isPlaying} onClick={getMelody}>
                   Generate melody
                 </Button>
                 <Button disabled={isPlaying} onClick={generateChords}>
@@ -107,6 +116,9 @@ export const MelodiesPage = () => {
                 </Button>
               </div>
             </Actions>
+            <TextSplitterWrapper>
+              <TextSplitter onSubmit={onLyricAdd} />
+            </TextSplitterWrapper>
           </Header>
         </MetalBlock>
 
@@ -137,14 +149,14 @@ const Actions = styled.div`
     display: flex;
   }
 `;
+const TextSplitterWrapper = styled.div``;
 
 const Header = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  > div {
-    flex-basis: 50%;
-  }
+  justify-content: space-between;
+  align-items: center;
 
   @media ${theme.breakpoints.belowTabletM} {
     flex-direction: column;
