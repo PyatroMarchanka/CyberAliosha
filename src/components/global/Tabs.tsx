@@ -64,8 +64,8 @@ const TabButton = styled(({ className, title, onClick, isActive }) => (
   transition: background-color 0.2s;
 
   &.active {
-    background-color: ${theme.colors.indigo[500]};
-    // background-color: ${theme.colors.blueGreySticky[500]};
+    background-color: ${theme.colors.bluePurple[500]};
+    // background-color: ${theme.colors.bluePurple[500]};
   }
 
   &:hover {
