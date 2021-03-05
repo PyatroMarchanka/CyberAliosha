@@ -20,7 +20,7 @@ export const SaveMelodiesModal = ({
       title="Set name of the new hit"
       onSave={saveAndClose}
       disabled={!melody?.length}
-      iconColor={theme.colors.blueGreySticky[500]}
+      iconColor={theme.colors.bluePurple[500]}
     />
   );
 };
