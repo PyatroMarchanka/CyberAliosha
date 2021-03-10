@@ -1,8 +1,8 @@
 export interface ChordModel {
   0: Notes;
   1: ChordType;
-  2: string[];
-  3: string[];
+  2: Notes[];
+  3: Notes[];
 }
 
 export type Notes =

@@ -82,6 +82,25 @@ export const MelodiesPage = () => {
     const lyric = convertTextLinesToLyric(text);
     console.log('lyric', lyric);
     setLyric(lyric);
+
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(
+      lyric.lines.length * 2,
+    );
+
+    if (chords) {
+      setChords(chords);
+
+      const newPart = generateMelody(chords, {
+        type: 'soprano',
+        notesLength: notesLength,
+        function: 'accompaniment',
+        pattern: notesPattern,
+        restProbability: 0,
+        lyric,
+      });
+
+      setPart(newPart);
+    }
   };
 
   return (

@@ -1,26 +1,32 @@
+import { PartOptions } from './PartCreator';
+import { NotesLengthType, ChordModel, PartNote, Notes } from './../dataset/all_chords_for_impro';
 import { DURATIONS } from '../dataset/dataset';
 import { randomIntegerRange, createDurMeasure } from '../utils';
+import { Pattern } from './PatternCreator';
 
 export default class BarCreator {
-  constructor(notesLengthMode, type) {
+  type: PartOptions['type'];
+  notesLengthMode: NotesLengthType;
+  toneJsArr: PartNote[] | null | undefined;
+  constructor(notesLengthMode: NotesLengthType, type: PartOptions['type']) {
     this.type = type;
     this.notesLengthMode = notesLengthMode;
     this.toneJsArr = [];
   }
 
-  getRandomBar(chord, idx, pattern, restProbability) {
+  getRandomBar(chord: ChordModel, idx: number, pattern: Pattern[] | null, restProbability: number) {
     this.toneJsArr = this.createRandomBar(chord, pattern, restProbability);
     this.createOctave(idx);
     return this.toneJsArr;
   }
 
-  createRandomBar(chord, pattern, restProbability) {
-    let resultBar = [];
+  createRandomBar(chord: ChordModel, pattern: Pattern[] | null, restProbability: number) {
+    let resultBar: PartNote[] = [];
     if (pattern) {
       pattern.map((patternNote) => {
         resultBar.push({
           note: Math.random() > restProbability ? chord[2][patternNote.chordPitch] : '',
-          dur: patternNote.dur,
+          dur: patternNote.dur as PartNote['dur'],
         });
       });
 
@@ -28,17 +34,24 @@ export default class BarCreator {
     }
 
     const durs = createDurMeasure(this.notesLengthMode);
+    if (!durs) return null;
+
     for (let index = 0; index < durs.length; index++) {
-      const newNote = this.createRandomNote(chord[2], durs[index], null, restProbability);
+      const newNote = this.createRandomNote(
+        chord[2],
+        durs[index] as PartNote['dur'],
+        null,
+        restProbability,
+      );
       resultBar.push(newNote);
     }
 
     return resultBar;
   }
 
-  createOctave(idx) {
+  createOctave(idx: number) {
     if (this.type === 'soprano') {
-      this.toneJsArr = this.toneJsArr.map((note) => {
+      this.toneJsArr = this.toneJsArr?.map((note) => {
         if (!note.note) {
           return note;
         }
@@ -48,7 +61,7 @@ export default class BarCreator {
       });
     }
     if (this.type === 'bass') {
-      this.toneJsArr = this.toneJsArr.map((note) => {
+      this.toneJsArr = this.toneJsArr?.map((note) => {
         if (!note.note) {
           return note;
         }
@@ -57,7 +70,7 @@ export default class BarCreator {
       });
     }
     if (this.type === 'tenor') {
-      this.toneJsArr = this.toneJsArr.map((note) => {
+      this.toneJsArr = this.toneJsArr?.map((note) => {
         if (!note.note) {
           return note;
         }
@@ -68,7 +81,12 @@ export default class BarCreator {
     }
   }
 
-  createRandomNote(notes, dur, note, restProbability) {
+  createRandomNote(
+    notes: Notes[],
+    dur: PartNote['dur'],
+    note: Notes | null,
+    restProbability: number,
+  ) {
     const randNoteIndex = randomIntegerRange(0, notes.length);
     const randNote = {
       note: Math.random() > restProbability ? (note ? note : notes[randNoteIndex]) : '',

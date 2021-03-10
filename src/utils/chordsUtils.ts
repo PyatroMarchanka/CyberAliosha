@@ -72,7 +72,7 @@ const getTermsFromArrToSum = (
 
   if (sum + rand < target) {
     return getTermsFromArrToSum(array, target, result);
-  }
+  } else return result;
 };
 
 const isInChordsArray = (chordsArr: ChordModel[], chord: ChordModel) => {
@@ -114,7 +114,7 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
   }
 };
 
-function createDurMeasure(notesLengthType: NotesLengthType, count: number) {
+function createDurMeasure(notesLengthType: NotesLengthType, count?: number) {
   let result = getTermsFromArrToSum(
     getDursByNotesLengthType(notesLengthType).map((num) => 1 / num),
     1,
