@@ -1,2 +1,2 @@
-"Parter" is one of the services of the "CyberAliosha" project.  
-It was developed for automatic creation musical MIDI parts for composers, sound engineers, and for anybody, who write, or want write music.  
+CyberAliosha is a service that has been designed to automatically create musical parts for composers, sound engineers and anyone else who writes or wants to write music.
+It can create chord progressions, add chord melodies, and save and manage them.
