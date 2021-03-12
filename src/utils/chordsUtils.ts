@@ -141,13 +141,13 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
 
     case NotesLengthType.Lyric:
       return [
-        // DotNotes.Half,
+        DotNotes.Half,
         SolidNotes.Half,
         SolidNotes.Half,
-        // DotNotes.Quarter,
+        DotNotes.Quarter,
         SolidNotes.Quarter,
         SolidNotes.Quarter,
-        // DotNotes.Eight,
+        DotNotes.Eight,
         SolidNotes.Eight,
         SolidNotes.Eight,
         SolidNotes.Sixteen,

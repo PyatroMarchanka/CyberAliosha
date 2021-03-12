@@ -101,11 +101,12 @@ export class VexFlowController {
       const accidental = partNote.note.slice(0, -1).length > 1;
 
       const vexflowNote = new Vex.Flow.StaveNote({
-        keys: [`${partNote.note[0]}/${octave}`],
+        keys: [rest ? 'B/4' : `${partNote.note[0]}/${octave}`],
         duration: rest ? noteWithDur.dur + 'r' : noteWithDur.dur,
       });
 
       if (dot) {
+        console.log('dot');
         vexflowNote.addDotToAll();
       }
 
