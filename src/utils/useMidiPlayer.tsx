@@ -16,7 +16,7 @@ export const useMidiPlayer = (setIsPlaying?: (bool: boolean) => void) => {
 
   const MPlayer = (
     <Container>
-      <MIDISounds ref={playerRef} appElementName="root" instruments={[4]} />
+      <MIDISounds ref={playerRef} appElementName="root" instruments={[4, 211]} />
     </Container>
   );
 

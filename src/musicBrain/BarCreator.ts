@@ -1,8 +1,15 @@
 import { PartOptions } from './PartCreator';
-import { NotesLengthType, ChordModel, PartNote, Notes } from './../dataset/all_chords_for_impro';
+import {
+  NotesLengthType,
+  ChordModel,
+  PartNote,
+  Notes,
+  SolidNotes,
+} from './../dataset/all_chords_for_impro';
 import { DURATIONS } from '../dataset/dataset';
-import { randomIntegerRange, createDurMeasure } from '../utils';
+import { randomIntegerRange, createDurMeasure, createDurMeasureByCount } from '../utils';
 import { Pattern } from './PatternCreator';
+import { cloneDeep, shuffle } from 'lodash';
 
 export default class BarCreator {
   type: PartOptions['type'];
@@ -14,14 +21,26 @@ export default class BarCreator {
     this.toneJsArr = [];
   }
 
-  getRandomBar(chord: ChordModel, idx: number, pattern: Pattern[] | null, restProbability: number) {
-    this.toneJsArr = this.createRandomBar(chord, pattern, restProbability);
+  getRandomBar(
+    chord: ChordModel,
+    idx: number,
+    pattern: Pattern[] | null,
+    restProbability: number,
+    notesCount?: number,
+  ) {
+    this.toneJsArr = this.createRandomBar(chord, pattern, restProbability, notesCount);
     this.createOctave(idx);
     return this.toneJsArr;
   }
 
-  createRandomBar(chord: ChordModel, pattern: Pattern[] | null, restProbability: number) {
+  createRandomBar(
+    chord: ChordModel,
+    pattern: Pattern[] | null,
+    restProbability: number,
+    notesCount?: number,
+  ) {
     let resultBar: PartNote[] = [];
+
     if (pattern) {
       pattern.map((patternNote) => {
         resultBar.push({
@@ -33,7 +52,13 @@ export default class BarCreator {
       return resultBar;
     }
 
-    const durs = createDurMeasure(this.notesLengthMode);
+    let durs: number[] | undefined = [];
+    if (notesCount) {
+      durs = createDurMeasureByCount(this.notesLengthMode, notesCount);
+    } else {
+      durs = createDurMeasure(this.notesLengthMode);
+    }
+
     if (!durs) return null;
 
     for (let index = 0; index < durs.length; index++) {
@@ -46,8 +71,25 @@ export default class BarCreator {
       resultBar.push(newNote);
     }
 
-    return resultBar;
+    if (notesCount) {
+      return this.muteNotesBySyllablesCount(resultBar, notesCount);
+    } else {
+      return resultBar;
+    }
   }
+
+  muteNotesBySyllablesCount = (notes: PartNote[], count: number) => {
+    const shortIdxes: number[] = notes.map((note, idx) => idx);
+
+    const shuffledShortsIdxes = shuffle(shortIdxes);
+    const result = cloneDeep(notes);
+    let i = 0;
+    while (result.filter((note) => !note.rest).length > count) {
+      result[shortIdxes[i]].rest = true;
+      i++;
+    }
+    return result;
+  };
 
   createOctave(idx: number) {
     if (this.type === 'soprano') {

@@ -18,8 +18,6 @@ export default class PartsFabric {
     return part;
   }
 
-  createPartByLyric = (partOptions: PartOptions) => {};
-
   getParts() {
     return this.parts;
   }

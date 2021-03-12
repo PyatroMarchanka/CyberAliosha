@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
 
-import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
+import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
 import CreateMidiFile from '../../musicBrain/CreateMidiFile';
 import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
@@ -59,7 +59,6 @@ export const MelodiesPage = () => {
       pattern: notesPattern,
       restProbability: 0,
     });
-
     setPart(newPart);
   };
 
@@ -92,12 +91,13 @@ export const MelodiesPage = () => {
 
       const newPart = generateMelody(chords, {
         type: 'soprano',
-        notesLength: notesLength,
+        notesLength: NotesLengthType.Middle,
         function: 'accompaniment',
         pattern: notesPattern,
         restProbability: 0,
         lyric,
       });
+      console.log('onLyricAdd newPart', newPart);
 
       setPart(newPart);
     }

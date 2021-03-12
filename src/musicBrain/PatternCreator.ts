@@ -13,7 +13,6 @@ export default class PatternCreator {
     const result: Pattern[] = [];
 
     durs?.forEach((dur, idx) => {
-      console.log(idx);
       if (idx === 0 && type === 'bass') {
         result.push({
           chordPitch: 0,
@@ -31,8 +30,7 @@ export default class PatternCreator {
         });
       }
     });
-    console.log(result);
-    console.log(result.reduce((acc, cur) => acc + cur.dur, 0));
+
     return result;
   }
 }

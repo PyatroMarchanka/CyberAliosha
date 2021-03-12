@@ -57,14 +57,32 @@ export interface Tonality {
   1: MajorChords.Major | MinorChords.Minor;
 }
 
+export enum SolidNotes {
+  Double = 2,
+  Whole = 1,
+  Half = 0.5,
+  Quarter = 0.25,
+  Eight = 0.125,
+  Sixteen = 0.0625,
+}
+
+export enum DotNotes {
+  Half = 0.75,
+  Quarter = 0.375,
+  Eight = 0.1875,
+}
+
 export interface PartNote {
   note: string;
-  dur: 0.0625 | 0.125 | 0.25 | 0.5 | 1 | 2;
+  dur: SolidNotes | DotNotes;
+  dot?: boolean;
+  rest?: boolean;
 }
 
 export interface MidiNote {
   note: number;
-  dur: 0.0625 | 0.125 | 0.25 | 0.5 | 1 | 2;
+  dur: SolidNotes | DotNotes;
+  dot?: boolean;
 }
 
 export enum NotesLengthType {
@@ -78,6 +96,7 @@ export enum NotesLengthType {
   Quarter = 'quarter',
   Eight = 'eight',
   Sixteen = 'sixteen',
+  Lyric = 'lyric',
 }
 
 export enum NotesPatterns {
@@ -97,6 +116,7 @@ export const getNotesTypeLabel = (type: NotesLengthType) => {
     [NotesLengthType.Eight]: 'Eight',
     [NotesLengthType.Sixteen]: 'Sixteen',
     [NotesLengthType.Seldom]: 'Seldom',
+    [NotesLengthType.Lyric]: 'Lyric',
   };
 
   return labels[type];

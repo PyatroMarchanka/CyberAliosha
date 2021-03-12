@@ -1,5 +1,6 @@
+import { DotNotes } from './../dataset/all_chords_for_impro';
 import { getDevice } from '../styled/utils';
-import { PartNote, ChordModel } from '../dataset/all_chords_for_impro';
+import { PartNote, ChordModel, SolidNotes } from '../dataset/all_chords_for_impro';
 import Vex from 'vexflow';
 import { convertChordToString } from '../utils';
 const VF = Vex.Flow;
@@ -92,17 +93,24 @@ export class VexFlowController {
 
   convertToVexflow = (notes: PartNote[]) => {
     return notes.map((partNote, idx) => {
+      const noteWithDur = this.getVexflowDuration(partNote);
+      const dot = noteWithDur.dot;
+      const rest = partNote.rest;
       const octave = partNote.note[partNote.note.length - 1];
 
       const accidental = partNote.note.slice(0, -1).length > 1;
 
       const vexflowNote = new Vex.Flow.StaveNote({
         keys: [`${partNote.note[0]}/${octave}`],
-        duration: (1 / partNote.dur).toString(),
+        duration: rest ? noteWithDur.dur + 'r' : noteWithDur.dur,
       });
 
+      if (dot) {
+        vexflowNote.addDotToAll();
+      }
+
       if (accidental) {
-        vexflowNote.addAccidental(0, new Vex.Flow.Accidental('#'));
+        !rest && vexflowNote.addAccidental(0, new Vex.Flow.Accidental('#'));
       }
 
       return vexflowNote;
@@ -121,5 +129,30 @@ export class VexFlowController {
       }
       return note;
     });
+  };
+
+  getVexflowDuration = (partNote: PartNote) => {
+    switch (partNote.dur) {
+      case SolidNotes.Double:
+        return { ...partNote, dur: '1' };
+      case SolidNotes.Whole:
+        return { ...partNote, dur: '1' };
+      case SolidNotes.Half:
+        return { ...partNote, dur: '2' };
+      case SolidNotes.Quarter:
+        return { ...partNote, dur: '4' };
+      case SolidNotes.Eight:
+        return { ...partNote, dur: '8' };
+      case SolidNotes.Sixteen:
+        return { ...partNote, dur: '16' };
+      case DotNotes.Eight:
+        return { ...partNote, dur: '8', dot: true };
+      case DotNotes.Half:
+        return { ...partNote, dur: '2', dot: true };
+      case DotNotes.Quarter:
+        return { ...partNote, dur: '4', dot: true };
+      default:
+        return partNote.dur;
+    }
   };
 }

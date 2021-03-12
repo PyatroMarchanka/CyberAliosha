@@ -69,7 +69,7 @@ export default function Header() {
           target={
             <IconButton
               edge="start"
-              className={classes.menuButton}
+              className={`${classes.menuButton} settings-icon`}
               color="default"
               aria-label="menu"
             >
@@ -86,6 +86,10 @@ export default function Header() {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  .settings-icon {
+    fill: white;
+    color: white;
+  }
 `;
 
 const Left = styled.div``;

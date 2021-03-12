@@ -43,7 +43,9 @@ interface Props {
 }
 
 export const TextSplitter = ({ onSubmit }: Props) => {
-  const [lyric, setLyric] = useState('');
+  const [lyric, setLyric] = useState(
+    'Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could',
+  );
 
   const submit = (lyric: string) => {
     if (lyric) {

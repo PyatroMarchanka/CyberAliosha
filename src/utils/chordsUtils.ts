@@ -1,3 +1,4 @@
+import { SolidNotes, DotNotes } from './../dataset/all_chords_for_impro';
 import { NOTES_MAP_SOLO } from '../dataset/dataset';
 import { ChordModel, ChordType, NotesLengthType } from '../dataset/all_chords_for_impro';
 
@@ -52,27 +53,45 @@ const convertChordToString = (chord: ChordModel) => {
   return `${chord[0]}${chord[1]}`;
 };
 
+const shortNotes = [
+  SolidNotes.Quarter,
+  SolidNotes.Quarter,
+  DotNotes.Eight,
+  SolidNotes.Eight,
+  SolidNotes.Eight,
+  SolidNotes.Sixteen,
+];
+const longNotes = [DotNotes.Half, SolidNotes.Half, SolidNotes.Half];
+
 const getTermsFromArrToSum = (
   array: number[],
   target: number,
   partial: number[],
+  count?: number,
 ): number[] | undefined => {
   array = array.sort((a, b) => a - b);
   const sum = partial.reduce((acc, cur) => acc + cur, 0);
   const rand = array[Math.floor(Math.random() * array.length)];
   const result = [...partial, rand];
 
-  if (sum + rand === target) {
+  if (count) {
+    if (sum + rand === target && result.length >= count) {
+      return result;
+    }
+    if (sum + rand === target && result.length < count) {
+      return getTermsFromArrToSum(array, target, partial.slice(0, partial.length - 2), count);
+    }
+  } else if (sum + rand === target) {
     return result;
   }
 
   if (sum + rand > target) {
-    return getTermsFromArrToSum(array.slice(0, array.indexOf(rand)), target, partial);
+    return getTermsFromArrToSum(array.slice(0, array.indexOf(rand)), target, partial, count);
   }
 
   if (sum + rand < target) {
-    return getTermsFromArrToSum(array, target, result);
-  } else return result;
+    return getTermsFromArrToSum(array, target, result, count);
+  }
 };
 
 const isInChordsArray = (chordsArr: ChordModel[], chord: ChordModel) => {
@@ -91,7 +110,18 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
     case NotesLengthType.Often:
       return [2, 4, 8, 8, 8, 16];
     case NotesLengthType.Middle:
-      return [2, 4, 4, 4, 4, 8, 8, 8];
+      return [
+        // DotNotes.Half,
+        SolidNotes.Half,
+        SolidNotes.Half,
+        // DotNotes.Quarter,
+        SolidNotes.Quarter,
+        SolidNotes.Quarter,
+        // DotNotes.Eight,
+        SolidNotes.Eight,
+        SolidNotes.Eight,
+        // SolidNotes.Sixteen,
+      ];
     case NotesLengthType.Seldom:
       return [1, 1, 2, 2, 2, 4];
     case NotesLengthType.VeryOften:
@@ -109,18 +139,37 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
     case NotesLengthType.Sixteen:
       return [16];
 
+    case NotesLengthType.Lyric:
+      return [
+        // DotNotes.Half,
+        SolidNotes.Half,
+        SolidNotes.Half,
+        // DotNotes.Quarter,
+        SolidNotes.Quarter,
+        SolidNotes.Quarter,
+        // DotNotes.Eight,
+        SolidNotes.Eight,
+        SolidNotes.Eight,
+        SolidNotes.Sixteen,
+      ];
+
     default:
       return [8];
   }
 };
 
-function createDurMeasure(notesLengthType: NotesLengthType, count?: number) {
+function createDurMeasure(notesLengthType: NotesLengthType) {
   let result = getTermsFromArrToSum(
     getDursByNotesLengthType(notesLengthType).map((num) => 1 / num),
     1,
     [],
   );
 
+  return result;
+}
+
+function createDurMeasureByCount(notesLengthType: NotesLengthType, count: number) {
+  let result = getTermsFromArrToSum(getDursByNotesLengthType(notesLengthType), 1, [], count);
   return result;
 }
 
@@ -136,6 +185,7 @@ export {
   transposeNote,
   randomIntegerRange,
   createDurMeasure,
+  createDurMeasureByCount,
   convertChordStringToArr,
   findNotes,
   chordNamesToFullArr,

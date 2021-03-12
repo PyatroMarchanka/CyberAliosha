@@ -18,11 +18,11 @@ export class MidiPlayer {
     }
   }
 
-  convertNoteToMidiPitch = (noteNameStr: string) => {
+  convertNoteToMidiPitch = (noteNameStr: string, isRest?: boolean) => {
     if (typeof noteNameStr === 'number') {
       return noteNameStr;
     }
-    if (noteNameStr === '') {
+    if (isRest) {
       return -100;
     }
     const notesDictionary = {
@@ -50,7 +50,7 @@ export class MidiPlayer {
   convertPartNotesPartToMidiPitches = (notes: PartNote[]): MidiNote[] => {
     return notes.map((note) => {
       const midiNote = {
-        note: this.convertNoteToMidiPitch(note.note),
+        note: this.convertNoteToMidiPitch(note.note, note.rest),
         dur: note.dur,
       };
 
@@ -61,7 +61,7 @@ export class MidiPlayer {
   playPartChords = (chords: ChordModel[], onEnd?: () => void, notesPerBar: number = 4) => {
     const part = chords.map((chord) => this.getNotesForChord(chord, notesPerBar)).flat();
 
-    this.playPart(part, onEnd);
+    this.playPart(part, onEnd, undefined, 4);
   };
 
   getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
@@ -120,7 +120,7 @@ export class MidiPlayer {
     return length;
   };
 
-  playPart = (part: PartNote[], onEnd?: () => void, newBpm?: number) => {
+  playPart = (part: PartNote[], onEnd?: () => void, newBpm?: number, instrument: 4 | 211 = 211) => {
     var bpm = newBpm || this.bpm;
     var N = (4 * 60) / bpm;
     let length = 0;
@@ -129,7 +129,7 @@ export class MidiPlayer {
     let when = this.playRef.current?.contextTime();
     for (let note of midipart) {
       const bpmDur = N * note.dur;
-      this.playRef.current?.playChordAt(when, 4, [note.note], bpmDur);
+      this.playRef.current?.playChordAt(when, instrument, [note.note], bpmDur);
       when += bpmDur;
       length += bpmDur;
     }

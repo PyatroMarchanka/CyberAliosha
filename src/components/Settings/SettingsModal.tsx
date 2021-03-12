@@ -125,7 +125,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
               id="tempo"
               value={bpm}
               onChange={(e: any) => setBpm(e.target.value)}
-              input={<Input id="demo-dialog-select-input" />}
+              input={<Input id="tempo-label" />}
             >
               {Object.entries(bpmToTempoName).map(([bpm, label]) => (
                 <MenuItem key={label} value={bpm}>
@@ -135,13 +135,13 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="demo-dialog-select-input">Melody notes length</InputLabel>
+            <InputLabel htmlFor="demo-dialog-melody-type">Melody notes length</InputLabel>
             <Select
               labelId="demo-dialog-select-label"
               id="demo-dialog-select"
               value={notesLength}
               onChange={(e) => setNotesLength(e.target.value as NotesLengthType)}
-              input={<Input id="demo-dialog-select-input" />}
+              input={<Input id="demo-dialog-melody-type" />}
             >
               {notesLengthTypes.map((type) => (
                 <MenuItem key={type} value={type}>
@@ -151,13 +151,13 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="demo-dialog-select-input">Melody rythme pattern</InputLabel>
+            <InputLabel htmlFor="demo-dialog-notes-pattern">Melody rythme pattern</InputLabel>
             <Select
               labelId="demo-dialog-select-label"
               id="demo-dialog-select"
               value={notesPattern}
               onChange={(e) => setNotesPattern(e.target.value as NotesPatterns)}
-              input={<Input id="demo-dialog-select-input" />}
+              input={<Input id="demo-dialog-notes-pattern" />}
             >
               {notesPatterns.map((pattern) => (
                 <MenuItem key={pattern} value={pattern}>

@@ -73,11 +73,15 @@ export const Settings = () => {
         edge="start"
         aria-label="menu"
       >
-        <Icon type="material" Icon={SettingsIcon} className="play-icon" />
+        <Icon type="material" Icon={SettingsIcon} className="settings-icon" />
       </IconButton>
       <SettingsModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </Container>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  .settings-icon {
+    fill: white;
+  }
+`;

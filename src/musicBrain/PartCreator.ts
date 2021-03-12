@@ -19,16 +19,19 @@ export default class PartCreator {
   barCreator: BarCreator;
   squaresCountToAdd: number;
   notes: PartNote[][];
+  lyric?: Lyric;
+
   constructor(chords: ChordModel[], squaresCount: number, partOptions: PartOptions) {
     this.pattern =
       partOptions.pattern === 'riff'
         ? new PatternCreator().getPattern(partOptions.notesLength, partOptions.type)
         : null;
-    this.middlePattern = new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
+    // this.middlePattern = new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
     this.chords = chords;
     this.barCreator = new BarCreator(partOptions.notesLength, partOptions.type);
     this.squaresCountToAdd = squaresCount;
     this.notes = [];
+    this.lyric = partOptions.lyric;
     this.onInit(partOptions.restProbability / 100);
   }
 
@@ -49,11 +52,50 @@ export default class PartCreator {
     }
   }
 
+  createPartByLyric = (lyric: Lyric, restProbability: number = 0) => {
+    this.notes = [];
+    const chordsForLine = Math.floor(this.chords.length / lyric.lines.length);
+
+    const chordNotesCounts = lyric.lines.reduce((acc, cur) => {
+      const chordNotesCount = Math.floor(cur.syllablesCount / chordsForLine);
+      let i = cur.syllablesCount;
+      const a = new Array(Math.floor(cur.syllablesCount / chordNotesCount) - 1).fill(
+        chordNotesCount,
+      );
+      a.push((cur.syllablesCount % chordNotesCount) + chordNotesCount);
+
+      return acc.concat(a);
+    }, [] as number[]);
+
+    console.log('chordNotesCounts', chordNotesCounts);
+
+    for (let index = 0; index < this.squaresCountToAdd; index++) {
+      this.chords.forEach((chord, i) => {
+        const newBar = this.barCreator.getRandomBar(
+          chord,
+          i,
+          (i + 1) % 4 === 0 ? this.middlePattern : this.pattern,
+          restProbability,
+          chordNotesCounts[i],
+        );
+
+        if (newBar) {
+          this.notes = [...this.notes, newBar];
+        }
+      });
+    }
+  };
+
   onInit(restProbability: number) {
-    this.createNewRandomPart(restProbability);
+    if (this.lyric) {
+      this.createPartByLyric(this.lyric);
+    } else {
+      this.createNewRandomPart(restProbability);
+    }
   }
 
   createRandomPart(restProbability: number) {
+    this.notes = [];
     for (let index = 0; index < this.squaresCountToAdd; index++) {
       for (let idx in this.chords) {
         const newBar = this.barCreator.getRandomBar(
