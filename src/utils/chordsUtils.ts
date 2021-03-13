@@ -107,13 +107,22 @@ const getTermsFromArrToSumSimple = (
     return result;
   }
 
+  if (array.length === 0) {
+    return getTermsFromArrToSumSimple(
+      getDursByNotesLengthType(NotesLengthType.Middle),
+      target,
+      partial.slice(0, partial.length - 1),
+    );
+  }
+
   if (sum + rand > target) {
-    return getTermsFromArrToSum(array.slice(0, array.indexOf(rand)), target, partial);
+    return getTermsFromArrToSumSimple(array.slice(0, array.indexOf(rand)), target, partial);
   }
 
   if (sum + rand < target) {
-    return getTermsFromArrToSum(array, target, result);
-  } else return result;
+    return getTermsFromArrToSumSimple(array, target, result);
+  }
+  return result;
 };
 
 const isInChordsArray = (chordsArr: ChordModel[], chord: ChordModel) => {
@@ -141,7 +150,9 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
         SolidNotes.Quarter,
         SolidNotes.Quarter,
         SolidNotes.Quarter,
-        // DotNotes.Eight,
+        DotNotes.Eight,
+        SolidNotes.Eight,
+        SolidNotes.Eight,
         SolidNotes.Eight,
         // SolidNotes.Sixteen,
       ];
@@ -183,7 +194,6 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
 
 function createDurMeasure(notesLengthType: NotesLengthType) {
   let result = getTermsFromArrToSumSimple(getDursByNotesLengthType(notesLengthType), 1, []);
-
   return result;
 }
 

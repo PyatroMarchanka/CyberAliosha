@@ -52,6 +52,8 @@ export default class PartCreator {
         }
       });
     }
+
+    console.log('this.notes', this.notes);
   }
 
   createPartByLyric = (lyric: Lyric, restProbability: number = 0) => {
