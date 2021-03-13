@@ -44,7 +44,8 @@ interface Props {
 
 export const TextSplitter = ({ onSubmit }: Props) => {
   const [lyric, setLyric] = useState(
-    'Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could',
+    // 'Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could',
+    '— Скажи-ка, дядя, ведь не даром\n Москва, спаленная пожаром,\n Французу отдана?\n Ведь были ж схватки боевые,\nДа, говорят, еще какие!\n Недаром помнит вся Россия\n Про день Бородина!',
   );
 
   const submit = (lyric: string) => {

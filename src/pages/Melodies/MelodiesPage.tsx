@@ -18,7 +18,12 @@ import { MetalBlock } from '../../styled/global';
 import { PlayStopButton } from '../../components/global/PlayStopButton';
 import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
 import { TextSplitter } from '../../components/Text/TextSplitter';
-import { convertTextLinesToLyric, Lyric } from '../../utils/textUtils';
+import {
+  convertTextLinesToLyricEnglish,
+  convertTextLinesToLyricRussian,
+  convertTextToSyllables,
+  Lyric,
+} from '../../utils/textUtils';
 import { generateMelody } from '../../musicBrain/melodyUtils';
 import { settingsStore } from '../../context/SettingsProvider';
 
@@ -42,10 +47,10 @@ export const MelodiesPage = () => {
   });
 
   const generateChords = () => {
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(8);
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(4);
 
     if (chords) {
-      setChords(chords);
+      setChords([...chords, ...chords]);
       setPart([]);
     }
   };
@@ -78,18 +83,24 @@ export const MelodiesPage = () => {
   }, [location]);
 
   const onLyricAdd = (text: string) => {
-    const lyric = convertTextLinesToLyric(text);
+    const lyric = convertTextToSyllables(text);
     console.log('lyric', lyric);
     setLyric(lyric);
+    const chords = chordsCreator.getNewCyclicChords(4);
 
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(
-      lyric.lines.length * 3,
-    );
+    const chordsCountForSong = lyric.lines.length * 2;
 
-    if (chords) {
-      setChords(chords);
+    let chordsForSong: ChordModel[] = [];
+    while (chordsForSong.length < chordsCountForSong) {
+      chordsForSong = [...chordsForSong, ...chords!];
+    }
 
-      const newPart = generateMelody(chords, {
+    chordsForSong = chordsForSong.slice(0, chordsCountForSong);
+
+    if (chordsForSong) {
+      setChords(chordsForSong);
+
+      const newPart = generateMelody(chordsForSong, {
         type: 'soprano',
         notesLength: NotesLengthType.Middle,
         function: 'accompaniment',

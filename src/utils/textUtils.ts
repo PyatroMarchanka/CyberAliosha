@@ -1,6 +1,9 @@
 import nlp from 'compromise';
 import compromiseSyllables from 'compromise-syllables';
 
+// @ts-ignore
+import { syllabify } from 'syllables-ru';
+
 export type Word = string[];
 export interface LyricLine {
   words: Word[];
@@ -19,7 +22,7 @@ export const splitTextLineToSyllables = (text: string) => {
   return syllables;
 };
 
-export const convertTextLinesToLyric = (textLines: string) => {
+export const convertTextLinesToLyricEnglish = (textLines: string) => {
   const lines = textLines.split('\n');
   const splited = lines.map((line) => splitTextLineToSyllables(line)) as string[][][];
   const lyric: Lyric = {
@@ -34,4 +37,49 @@ export const convertTextLinesToLyric = (textLines: string) => {
   };
 
   return lyric;
+};
+
+export const convertTextLinesToLyricRussian = (textLines: string) => {
+  const lines: string[][][] = textLines.split('\n').map((str) => {
+    const line = syllabify(str);
+    return line
+      .split(' ')
+      .filter((str: string) => {
+        const reg = new RegExp(
+          /[йцукенгшщзхъёфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]/,
+        );
+
+        if (!reg.test(str)) {
+          return false;
+        }
+        return true;
+      })
+      .map((word: string) => word.split('·'));
+  });
+  console.log('lines', lines);
+
+  const lyric: Lyric = {
+    lines: lines.map((line) => ({ words: line, syllablesCount: line.flat(Infinity).length })),
+    syllablesCount: lines.flat(Infinity).length,
+  };
+
+  return lyric;
+};
+
+export const isTextRussian = (text: string) => {
+  const reg = new RegExp(/[йцукенгшщзхъёфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]/);
+
+  if (reg.test(text)) {
+    return true;
+  }
+
+  return false;
+};
+
+export const convertTextToSyllables = (textLines: string) => {
+  if (isTextRussian(textLines)) {
+    return convertTextLinesToLyricRussian(textLines);
+  } else {
+    return convertTextLinesToLyricEnglish(textLines);
+  }
 };

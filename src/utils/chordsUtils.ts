@@ -150,7 +150,7 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
         SolidNotes.Quarter,
         SolidNotes.Quarter,
         SolidNotes.Quarter,
-        DotNotes.Eight,
+        // DotNotes.Eight,
         SolidNotes.Eight,
         SolidNotes.Eight,
         SolidNotes.Eight,
