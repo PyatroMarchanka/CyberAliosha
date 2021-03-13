@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { routes } from '../../pages/routes';
 
@@ -20,10 +20,7 @@ import { Button } from '../global/Button';
 import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Actions } from './Actions';
 import { useColorChords } from '../../hooks/useColorChords';
-import { VexChordsController } from '../../musicViews/VexChordsController';
 import { ChordCharts } from './ChordCharts';
-import { splitTextLineToSyllables, convertTextLinesToLyric } from '../../utils/textUtils';
-import { TextSplitter } from '../Text/TextSplitter';
 
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);

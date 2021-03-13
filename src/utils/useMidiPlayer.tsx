@@ -26,7 +26,7 @@ export const useMidiPlayer = (setIsPlaying?: (bool: boolean) => void) => {
       midiPlayer.stopAll();
     }
     setMidiPlayer(new MidiPlayer(playerRef, bpm));
-  }, [bpm, midiPlayer, setIsPlaying]);
+  }, [bpm]);
 
   return { Player: midiPlayer, MPlayer };
 };

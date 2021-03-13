@@ -17,7 +17,7 @@ export const ChordCharts = ({ chords, chordsPrefix, selectedChord, color = '#666
   const { Player, MPlayer } = usePlayMelodyAndChords({});
   useEffect(() => {
     setChordsDrawer(new VexChordsController(chordsPrefix, color));
-  }, [chordsPrefix, color]);
+  }, []);
 
   useEffect(() => {
     ChordsDrawer?.drawChords(chords);
