@@ -1,8 +1,8 @@
 {
-  "homepage": "https://pyatromarchanka.github.io/CyberAliosha-Parter-React/",
+  "homepage": ".",
   "name": "parter",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
