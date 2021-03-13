@@ -3,6 +3,7 @@ import PatternCreator, { Pattern } from './PatternCreator';
 import BarCreator from './BarCreator';
 import { NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
 import { Lyric } from '../utils/textUtils';
+import { capitalize } from 'lodash';
 
 export interface PartOptions {
   type: 'soprano' | 'tenor' | 'bass';
@@ -26,7 +27,7 @@ export default class PartCreator {
       partOptions.pattern === 'riff'
         ? new PatternCreator().getPattern(partOptions.notesLength, partOptions.type)
         : null;
-    // this.middlePattern = new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
+    this.middlePattern = new PatternCreator().getPattern(partOptions.notesLength, partOptions.type);
     this.chords = chords;
     this.barCreator = new BarCreator(partOptions.notesLength, partOptions.type);
     this.squaresCountToAdd = squaresCount;
@@ -36,6 +37,7 @@ export default class PartCreator {
   }
 
   createNewRandomPart(restProbability: number) {
+    this.notes = [];
     for (let index = 0; index < this.squaresCountToAdd; index++) {
       this.chords.forEach((chord, i) => {
         const newBar = this.barCreator.getRandomBar(
@@ -54,6 +56,34 @@ export default class PartCreator {
 
   createPartByLyric = (lyric: Lyric, restProbability: number = 0) => {
     this.notes = [];
+    const chordNotesCounts = this.getChordNotesCounts(lyric);
+    let notes: PartNote[][] = this.getBarNotesByLyric(chordNotesCounts, restProbability);
+    this.notes = this.addLyricToNotes(notes, lyric);
+  };
+
+  getBarNotesByLyric = (chordNotesCounts: number[], restProbability: number = 0) => {
+    let notes: PartNote[][] = [];
+
+    for (let index = 0; index < this.squaresCountToAdd; index++) {
+      this.chords.forEach((chord, i) => {
+        const newBar = this.barCreator.getRandomBar(
+          chord,
+          i,
+          (i + 1) % 4 === 0 ? this.middlePattern : this.pattern,
+          restProbability,
+          chordNotesCounts[i],
+        );
+
+        if (newBar) {
+          notes = [...notes, newBar];
+        }
+      });
+    }
+
+    return notes;
+  };
+
+  getChordNotesCounts = (lyric: Lyric) => {
     const chordsForLine = Math.floor(this.chords.length / lyric.lines.length);
 
     const chordNotesCounts = lyric.lines.reduce((acc, cur) => {
@@ -68,22 +98,23 @@ export default class PartCreator {
     }, [] as number[]);
 
     console.log('chordNotesCounts', chordNotesCounts);
+    return chordNotesCounts;
+  };
 
-    for (let index = 0; index < this.squaresCountToAdd; index++) {
-      this.chords.forEach((chord, i) => {
-        const newBar = this.barCreator.getRandomBar(
-          chord,
-          i,
-          (i + 1) % 4 === 0 ? this.middlePattern : this.pattern,
-          restProbability,
-          chordNotesCounts[i],
-        );
+  addLyricToNotes = (notes: PartNote[][], lyric: Lyric) => {
+    const textLine = lyric.lines.map((line) => line.words.flat(Infinity)).flat() as string[];
+    console.log('textLine', textLine);
 
-        if (newBar) {
-          this.notes = [...this.notes, newBar];
+    const result = notes.map((notesBar, barIdx) => {
+      return notesBar.map((note, noteIdx) => {
+        if (!note.rest) {
+          note.lyric = noteIdx === 0 ? capitalize(textLine.shift()) : textLine.shift();
         }
+        return note;
       });
-    }
+    });
+
+    return result;
   };
 
   onInit(restProbability: number) {

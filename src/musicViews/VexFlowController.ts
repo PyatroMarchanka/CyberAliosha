@@ -114,6 +114,11 @@ export class VexFlowController {
         !rest && vexflowNote.addAccidental(0, new Vex.Flow.Accidental('#'));
       }
 
+      if (partNote.lyric) {
+        const lyricMod = this.getLyricModifier(partNote.lyric);
+        vexflowNote.addModifier(0, lyricMod);
+      }
+
       return vexflowNote;
     });
   };
@@ -128,8 +133,17 @@ export class VexFlowController {
             .setFont('Sans-serif', 16, '600'),
         );
       }
+
       return note;
     });
+  };
+
+  getLyricModifier = (lyric: string) => {
+    const lyricMod = new VF.Annotation(lyric)
+      .setVerticalJustification(3)
+      .setFont('Sans-serif', 11, '400');
+
+    return lyricMod;
   };
 
   getVexflowDuration = (partNote: PartNote) => {

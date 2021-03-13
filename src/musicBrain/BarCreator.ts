@@ -33,12 +33,11 @@ export default class BarCreator {
     return this.toneJsArr;
   }
 
-  createRandomBar(
+  createRandomBarByPattern = (
     chord: ChordModel,
     pattern: Pattern[] | null,
     restProbability: number,
-    notesCount?: number,
-  ) {
+  ) => {
     let resultBar: PartNote[] = [];
 
     if (pattern) {
@@ -51,6 +50,17 @@ export default class BarCreator {
 
       return resultBar;
     }
+  };
+
+  createRandomBar(
+    chord: ChordModel,
+    pattern: Pattern[] | null,
+    restProbability: number,
+    notesCount?: number,
+  ) {
+    if (pattern) {
+      return this.createRandomBarByPattern(chord, pattern, restProbability);
+    }
 
     let durs: number[] | undefined = [];
     if (notesCount) {
@@ -59,7 +69,17 @@ export default class BarCreator {
       durs = createDurMeasure(this.notesLengthMode);
     }
 
+    return this.getNotesForBar(durs, chord, notesCount, restProbability);
+  }
+
+  getNotesForBar = (
+    durs: number[] | undefined,
+    chord: ChordModel,
+    notesCount?: number,
+    restProbability?: number,
+  ) => {
     if (!durs) return null;
+    let resultBar: PartNote[] = [];
 
     for (let index = 0; index < durs.length; index++) {
       const newNote = this.createRandomNote(
@@ -76,7 +96,7 @@ export default class BarCreator {
     } else {
       return resultBar;
     }
-  }
+  };
 
   muteNotesBySyllablesCount = (notes: PartNote[], count: number) => {
     const shortIdxes: number[] = notes.map((note, idx) => idx);
@@ -98,7 +118,7 @@ export default class BarCreator {
           return note;
         }
 
-        note.note = note.note + (idx % 5 === 0 ? '3' : idx % 9 === 0 ? '5' : '4');
+        note.note = note.note + '4';
         return note;
       });
     }
@@ -127,11 +147,11 @@ export default class BarCreator {
     notes: Notes[],
     dur: PartNote['dur'],
     note: Notes | null,
-    restProbability: number,
+    restProbability?: number,
   ) {
     const randNoteIndex = randomIntegerRange(0, notes.length);
     const randNote = {
-      note: Math.random() > restProbability ? (note ? note : notes[randNoteIndex]) : '',
+      note: Math.random() > (restProbability || 0) ? (note ? note : notes[randNoteIndex]) : '',
       dur: dur || 1 / +DURATIONS[randomIntegerRange(1, DURATIONS.length)],
     };
     return randNote;

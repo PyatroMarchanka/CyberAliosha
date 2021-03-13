@@ -77,6 +77,7 @@ export interface PartNote {
   dur: SolidNotes | DotNotes;
   dot?: boolean;
   rest?: boolean;
+  lyric?: string;
 }
 
 export interface MidiNote {

@@ -9,7 +9,6 @@ export interface Pattern {
 export default class PatternCreator {
   getPattern(notesLengthType: NotesLengthType, type: PartOptions['type']) {
     const durs = createDurMeasure(notesLengthType);
-
     const result: Pattern[] = [];
 
     durs?.forEach((dur, idx) => {

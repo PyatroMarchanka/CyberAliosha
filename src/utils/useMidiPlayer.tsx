@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { chordsAdderStore } from '../context/ChordsAdderContext';
-import { MidiPlayer } from './MidiPlayer';
+import { instruments, MidiPlayer } from './MidiPlayer';
 // @ts-ignore
 import MIDISounds from 'midi-sounds-react';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ export const useMidiPlayer = (setIsPlaying?: (bool: boolean) => void) => {
 
   const MPlayer = (
     <Container>
-      <MIDISounds ref={playerRef} appElementName="root" instruments={[4, 211]} />
+      <MIDISounds ref={playerRef} appElementName="root" instruments={instruments} />
     </Container>
   );
 

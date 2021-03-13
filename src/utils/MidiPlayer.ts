@@ -3,6 +3,9 @@ import { ChordModel, MidiNote, PartNote } from '../dataset/all_chords_for_impro'
 interface Note {
   note: 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
 }
+
+export const instruments = [4, 4];
+const voiceInstrument = instruments[1];
 export class MidiPlayer {
   playRef: any;
   bpm: number = 80;
@@ -120,7 +123,12 @@ export class MidiPlayer {
     return length;
   };
 
-  playPart = (part: PartNote[], onEnd?: () => void, newBpm?: number, instrument: 4 | 211 = 211) => {
+  playPart = (
+    part: PartNote[],
+    onEnd?: () => void,
+    newBpm?: number,
+    instrument = voiceInstrument,
+  ) => {
     var bpm = newBpm || this.bpm;
     var N = (4 * 60) / bpm;
     let length = 0;
@@ -130,6 +138,7 @@ export class MidiPlayer {
     for (let note of midipart) {
       const bpmDur = N * note.dur;
       this.playRef.current?.playChordAt(when, instrument, [note.note], bpmDur);
+      // this.playRef.current?.playChordAt(when, 4, [note.note], bpmDur);
       when += bpmDur;
       length += bpmDur;
     }

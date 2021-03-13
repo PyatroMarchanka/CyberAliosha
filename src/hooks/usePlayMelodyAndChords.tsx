@@ -28,7 +28,7 @@ export const usePlayMelodyAndChords = ({ part, chords, onPlay, onStop }: Props) 
     setIsPlaying(true);
 
     if ((chords && part && playAccompanimentWithMelody) || (chords && !part)) {
-      Player?.playPartChords(chords, () => setIsPlaying(false));
+      Player?.playPartChords(chords, () => setIsPlaying(false), 4);
     }
     if (part) {
       Player?.playPart(part.flat(), () => setIsPlaying(false));

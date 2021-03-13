@@ -59,6 +59,7 @@ export const MelodiesPage = () => {
       pattern: notesPattern,
       restProbability: 0,
     });
+    console.log('newPart', newPart);
     setPart(newPart);
   };
 
@@ -83,7 +84,7 @@ export const MelodiesPage = () => {
     setLyric(lyric);
 
     const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(
-      lyric.lines.length * 2,
+      lyric.lines.length * 3,
     );
 
     if (chords) {
