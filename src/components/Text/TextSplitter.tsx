@@ -63,7 +63,7 @@ export const TextSplitter = ({ onSubmit }: Props) => {
     <Container>
       <CssTextField
         id="outlined-multiline-flexible"
-        label="The lyric of the song"
+        label="The lyric of the song (English or Russian) "
         multiline
         rowsMax={4}
         value={lyric}
