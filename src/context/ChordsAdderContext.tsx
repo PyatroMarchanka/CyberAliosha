@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
+import { getSettings, Settings } from '../localStorageUtils/settingsStorage';
 
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
 import {
@@ -17,11 +18,6 @@ interface State {
   key: string;
   mood: '' | 'min';
   chordsLenght: 1 | 2 | 4;
-  bpm: number;
-  notesLength: NotesLengthType;
-  notesPattern: NotesPatterns;
-  playAccompanimentWithMelody: boolean;
-  chordsGuitarMode: boolean;
 }
 
 interface Action {
@@ -39,12 +35,7 @@ interface Action {
     | 'SET_START_KEY'
     | 'SET_START_MOOD'
     | 'SET_CHORDS_LENGHT'
-    | 'SET_BPM'
-    | 'SET_NOTES_LENGTH'
-    | 'SET_NOTES_PATTERN'
-    | 'ADD_CHORDS_FOR_REPLACE'
-    | 'PLAY_ACCOMPANIMENT'
-    | 'SET_CHORDS_GUITAR_MODE';
+    | 'ADD_CHORDS_FOR_REPLACE';
   payload?: any;
 }
 
@@ -56,11 +47,6 @@ const initialState: State = {
   key: 'C',
   mood: '',
   chordsLenght: 1,
-  bpm: 130,
-  notesLength: NotesLengthType.Middle,
-  notesPattern: NotesPatterns.None,
-  playAccompanimentWithMelody: true,
-  chordsGuitarMode: false,
 };
 
 interface Context {
@@ -177,37 +163,6 @@ const ChordsAdderProvider = ({ children }: any) => {
           ...state,
           addedChordsMode: action.payload,
         };
-
-      case 'SET_BPM':
-        return {
-          ...state,
-          bpm: action.payload,
-        };
-
-      case 'SET_NOTES_LENGTH':
-        return {
-          ...state,
-          notesLength: action.payload,
-        };
-
-      case 'SET_NOTES_PATTERN':
-        return {
-          ...state,
-          notesPattern: action.payload,
-        };
-
-      case 'PLAY_ACCOMPANIMENT':
-        return {
-          ...state,
-          playAccompanimentWithMelody: action.payload,
-        };
-
-      case 'SET_CHORDS_GUITAR_MODE':
-        return {
-          ...state,
-          chordsGuitarMode: action.payload,
-        };
-
       default:
         return state;
     }

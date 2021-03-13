@@ -9,6 +9,7 @@ import {
 } from './storagesController';
 
 export const saveSavedChords = (addedChords: ChordModel[], title: string) => {
+  console.log('addedChords', addedChords, 'title', title);
   saveItem(addedChords, StorageNames.Chords, title);
 };
 

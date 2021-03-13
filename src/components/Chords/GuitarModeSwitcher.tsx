@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { chordsAdderStore } from '../../context/ChordsAdderContext';
+import { settingsStore } from '../../context/SettingsProvider';
 import { Checkbox } from '../global/Checkbox';
 
 interface Props {}
@@ -8,7 +8,7 @@ export const GuitarModeSwitcher = () => {
   const {
     state: { chordsGuitarMode },
     dispatch,
-  } = useContext(chordsAdderStore);
+  } = useContext(settingsStore);
 
   const onChange = (value: boolean) => {
     dispatch({

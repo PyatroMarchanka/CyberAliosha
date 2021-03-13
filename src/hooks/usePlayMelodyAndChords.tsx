@@ -1,13 +1,9 @@
-import { IconButton } from '@material-ui/core';
-import React, { useCallback, useContext, useState } from 'react';
-import styled from 'styled-components';
-import { Icon } from '../components/global/Icon';
-import { chordsAdderStore } from '../context/ChordsAdderContext';
+import React, { useContext, useState } from 'react';
+
 import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
-import { theme } from '../utils/theme';
 import { useMidiPlayer } from '../utils/useMidiPlayer';
-import StopIcon from '@material-ui/icons/Stop';
-import { Checkbox } from '../components/global/Checkbox';
+
+import { settingsStore } from '../context/SettingsProvider';
 
 interface Props {
   part?: PartNote[][];
@@ -22,7 +18,7 @@ export const usePlayMelodyAndChords = ({ part, chords, onPlay, onStop }: Props) 
 
   const {
     state: { playAccompanimentWithMelody },
-  } = useContext(chordsAdderStore);
+  } = useContext(settingsStore);
 
   const playPart = (chords?: ChordModel[], part?: PartNote[][]) => {
     setIsPlaying(true);

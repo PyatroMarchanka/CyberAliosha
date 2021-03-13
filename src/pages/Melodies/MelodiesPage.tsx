@@ -4,12 +4,10 @@ import styled from 'styled-components';
 import { theme } from '../../utils/theme';
 
 import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
-import CreateMidiFile from '../../musicBrain/CreateMidiFile';
 import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
-import { chordsAdderStore } from '../../context/ChordsAdderContext';
 
 import { Button } from '../../components/global/Button';
 import { PageTitle } from '../../components/global/PageTitle';
@@ -22,6 +20,7 @@ import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
 import { TextSplitter } from '../../components/Text/TextSplitter';
 import { convertTextLinesToLyric, Lyric } from '../../utils/textUtils';
 import { generateMelody } from '../../musicBrain/melodyUtils';
+import { settingsStore } from '../../context/SettingsProvider';
 
 export const MelodiesPage = () => {
   const location = useLocation();
@@ -30,7 +29,7 @@ export const MelodiesPage = () => {
   const {
     state: { notesLength, notesPattern, playAccompanimentWithMelody },
     dispatch,
-  } = useContext(chordsAdderStore);
+  } = useContext(settingsStore);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { chordsAdderStore } from '../context/ChordsAdderContext';
 import { instruments, MidiPlayer } from './MidiPlayer';
 // @ts-ignore
 import MIDISounds from 'midi-sounds-react';
 import styled from 'styled-components';
+import { settingsStore } from '../context/SettingsProvider';
 
 export const useMidiPlayer = (setIsPlaying?: (bool: boolean) => void) => {
   const {
     state: { bpm },
-  } = useContext(chordsAdderStore);
+  } = useContext(settingsStore);
 
   const [midiPlayer, setMidiPlayer] = useState<MidiPlayer | null>(null);
 

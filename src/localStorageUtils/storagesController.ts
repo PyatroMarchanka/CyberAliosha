@@ -1,8 +1,14 @@
-import { ChordModel, PartNote } from './../dataset/all_chords_for_impro';
+import {
+  ChordModel,
+  NotesLengthType,
+  NotesPatterns,
+  PartNote,
+} from './../dataset/all_chords_for_impro';
 
 export enum StorageNames {
   Chords = 'added_chords',
   Melodies = 'saved_melodies',
+  Settings = 'settings',
 }
 
 interface SerialazedData {

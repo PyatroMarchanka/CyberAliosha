@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import * as Tone from 'tone';
-import { chordsAdderStore } from '../context/ChordsAdderContext';
+import { settingsStore } from '../context/SettingsProvider';
 import { ChordModel } from '../dataset/all_chords_for_impro';
 
 export const colorChordsOnPlay = (
@@ -37,7 +37,7 @@ interface Props {
 export const useColorChords = ({ chords }: Props) => {
   const {
     state: { bpm },
-  } = useContext(chordsAdderStore);
+  } = useContext(settingsStore);
 
   const [colorChord, setColorChord] = useState<number | undefined>(undefined);
 

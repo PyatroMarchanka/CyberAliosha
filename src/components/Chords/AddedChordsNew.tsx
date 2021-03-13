@@ -21,6 +21,7 @@ import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Actions } from './Actions';
 import { useColorChords } from '../../hooks/useColorChords';
 import { ChordCharts } from './ChordCharts';
+import { settingsStore } from '../../context/SettingsProvider';
 
 export const AddedChordsNew = () => {
   const [playingChord] = useState<number | null>(null);
@@ -30,9 +31,13 @@ export const AddedChordsNew = () => {
   const { Player, MPlayer } = useMidiPlayer();
 
   const {
-    state: { addedChords, replacingChord, chordsGuitarMode },
+    state: { addedChords, replacingChord },
     dispatch,
   } = useContext(chordsAdderStore);
+
+  const {
+    state: { chordsGuitarMode },
+  } = useContext(settingsStore);
 
   const { colorChord, onPlay, onStop } = useColorChords({ chords: addedChords });
 

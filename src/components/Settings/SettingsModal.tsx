@@ -1,4 +1,4 @@
-import { FormControl, Input, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
+import { FormControl, Input, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useContext } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -8,13 +8,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import {
   getNotesPatternLabel,
   getNotesTypeLabel,
   NotesLengthType,
   NotesPatterns,
 } from '../../dataset/all_chords_for_impro';
+import { settingsStore } from '../../context/SettingsProvider';
 
 interface Props {
   isOpen: boolean;
@@ -82,7 +82,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
   const {
     state: { bpm, notesLength, notesPattern },
     dispatch,
-  } = useContext(chordsAdderStore);
+  } = useContext(settingsStore);
 
   const setBpm = (value: string) => {
     dispatch({

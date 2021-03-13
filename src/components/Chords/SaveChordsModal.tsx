@@ -12,11 +12,12 @@ interface Props {
 
 export const SaveChordsModal = ({ chords }: Props) => {
   const saveAndClose = (title: string) => {
+    console.log('saveAndClose');
     saveSavedChords(chords, title);
   };
 
   return (
-    <SaveModal title="Set name of the new hit" onSave={saveAndClose} disabled={!chords.length} />
+    <SaveModal title="Set name of the new hit2" onSave={saveAndClose} disabled={!chords.length} />
   );
 };
 

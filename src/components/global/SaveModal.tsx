@@ -50,6 +50,7 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.bl
   };
 
   const saveAndClose = () => {
+    console.log('saveAndClose', titleValue);
     onSave(titleValue);
     handleClose();
   };
@@ -90,7 +91,14 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.bl
           <MatButton onClick={handleClose} color="inherit">
             Cancel
           </MatButton>
-          <MatButton type="submit" color="inherit">
+          <MatButton
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              saveAndClose();
+            }}
+            color="inherit"
+          >
             Ok
           </MatButton>
         </DialogActions>

@@ -1,19 +1,14 @@
-import { FormControl, IconButton, TextField } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
+import { FormControl, IconButton, TextField } from '@material-ui/core';
 import styled from 'styled-components';
-import Dialog from '@material-ui/core/Dialog';
-import { Button as MatButton } from '@material-ui/core';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+
 import { Icon } from '../global/Icon';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { ChordModel } from '../../dataset/all_chords_for_impro';
-import { theme } from '../../utils/theme';
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { chordsAdderStore } from '../../context/ChordsAdderContext';
 
 import { SettingsModal } from './SettingsModal';
+import { settingsStore } from '../../context/SettingsProvider';
 
 interface Props {}
 
@@ -48,7 +43,7 @@ export const Settings = () => {
   const {
     state: { bpm },
     dispatch,
-  } = useContext(chordsAdderStore);
+  } = useContext(settingsStore);
 
   const setBpm = (value: string) => {
     dispatch({
