@@ -4,7 +4,7 @@ import { Checkbox } from '../global/Checkbox';
 
 interface Props {}
 
-export const GuitarModeSwitcher = ({}: Props) => {
+export const GuitarModeSwitcher = () => {
   const {
     state: { chordsGuitarMode },
     dispatch,

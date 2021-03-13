@@ -6,7 +6,7 @@ import { AlioshaLink } from '../global/AlioshaLink';
 
 interface Props {}
 
-export const Logo = ({}: Props) => {
+export const Logo = () => {
   return (
     <AlioshaLink to={routes.root}>
       <Container>
