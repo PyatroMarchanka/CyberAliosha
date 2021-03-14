@@ -23,7 +23,7 @@ import {
   convertTextLinesToLyricRussian,
   convertTextToSyllables,
   Lyric,
-} from '../../utils/textUtils';
+} from '../../utils/text/textUtils';
 import { generateMelody } from '../../musicBrain/melodyUtils';
 import { settingsStore } from '../../context/SettingsProvider';
 

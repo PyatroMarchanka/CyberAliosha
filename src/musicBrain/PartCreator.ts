@@ -2,7 +2,7 @@ import { ChordModel, PartNote } from './../dataset/all_chords_for_impro';
 import PatternCreator, { Pattern } from './PatternCreator';
 import BarCreator from './BarCreator';
 import { NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
-import { Lyric } from '../utils/textUtils';
+import { Lyric } from '../utils/text/textUtils';
 import { capitalize } from 'lodash';
 
 export interface PartOptions {

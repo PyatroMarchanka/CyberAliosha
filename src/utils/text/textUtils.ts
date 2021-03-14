@@ -2,7 +2,7 @@ import nlp from 'compromise';
 import compromiseSyllables from 'compromise-syllables';
 
 // @ts-ignore
-import { syllabify } from 'syllables-ru';
+import { syllabify } from './syllabifyRuFork';
 
 export type Word = string[];
 export interface LyricLine {
@@ -42,23 +42,28 @@ export const convertTextLinesToLyricEnglish = (textLines: string) => {
 export const convertTextLinesToLyricRussian = (textLines: string) => {
   const lines: string[][][] = textLines.split('\n').map((str) => {
     const line = syllabify(str);
+    console.log('line', line);
 
-    const vovels = new RegExp(/[уеёыаоэяиюУЕЁЫАОЭЯИЮ]/);
+    const vovels = new RegExp(/[уеёыаоэяиюіУЕЁЫАОЭЯИЮІ]/g);
 
     const words: string[] = [];
 
     line.split(/[\s-]/).forEach((str: string) => {
       if (vovels.test(str)) {
+        // const match = str.match(vovels);
+        // console.log('match', match);
         words.push(str);
       } else {
         words[words.length - 1] = `${words[words.length - 1]} ${str}`;
       }
     });
 
+    console.log('words', words);
+
     return words
       .filter((str: string) => {
         const reg = new RegExp(
-          /[йцукенгшщзхъёфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]/,
+          /[йцукенгшщзхъёфывапролджэячсмиітьбюўЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИІТЬБЮЎ]/,
         );
 
         if (!reg.test(str)) {
@@ -71,7 +76,9 @@ export const convertTextLinesToLyricRussian = (textLines: string) => {
   console.log('lines', lines);
 
   const lyric: Lyric = {
-    lines: lines.map((line) => ({ words: line, syllablesCount: line.flat(Infinity).length })),
+    lines: lines
+      .filter((line) => !!line.length)
+      .map((line) => ({ words: line, syllablesCount: line.flat(Infinity).length })),
     syllablesCount: lines.flat(Infinity).length,
   };
 

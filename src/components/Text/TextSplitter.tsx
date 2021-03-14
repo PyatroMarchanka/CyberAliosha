@@ -45,7 +45,7 @@ interface Props {
 export const TextSplitter = ({ onSubmit }: Props) => {
   const [lyric, setLyric] = useState(
     // 'Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could',
-    '— Скажи-ка, дядя, ведь не даром\n Москва, спаленная пожаром,\n Французу отдана?\n Ведь были ж схватки боевые,\nДа, говорят, еще какие!\n Недаром помнит вся Россия\n Про день Бородина!',
+    'Божа, паспагадай усім, –\nI магутнаму, і слабому,\nI відушчаму, і сляпому,\n Каб у згодзе жылося ім.',
   );
 
   const submit = (lyric: string) => {
@@ -63,7 +63,7 @@ export const TextSplitter = ({ onSubmit }: Props) => {
     <Container>
       <CssTextField
         id="outlined-multiline-flexible"
-        label="The lyric of the song (English or Russian) "
+        label="Song's lyric (English, Russian or Belarussian)"
         multiline
         rowsMax={4}
         value={lyric}

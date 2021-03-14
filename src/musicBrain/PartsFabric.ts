@@ -1,4 +1,4 @@
-import { Lyric } from '../utils/textUtils';
+import { Lyric } from '../utils/text/textUtils';
 import { ChordModel, NotesLengthType, NotesPatterns } from './../dataset/all_chords_for_impro';
 import PartCreator, { PartOptions } from './PartCreator';
 
