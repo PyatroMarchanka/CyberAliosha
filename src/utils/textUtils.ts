@@ -42,8 +42,20 @@ export const convertTextLinesToLyricEnglish = (textLines: string) => {
 export const convertTextLinesToLyricRussian = (textLines: string) => {
   const lines: string[][][] = textLines.split('\n').map((str) => {
     const line = syllabify(str);
-    return line
-      .split(' ')
+
+    const vovels = new RegExp(/[уеёыаоэяиюУЕЁЫАОЭЯИЮ]/);
+
+    const words: string[] = [];
+
+    line.split(/[\s-]/).forEach((str: string) => {
+      if (vovels.test(str)) {
+        words.push(str);
+      } else {
+        words[words.length - 1] = `${words[words.length - 1]} ${str}`;
+      }
+    });
+
+    return words
       .filter((str: string) => {
         const reg = new RegExp(
           /[йцукенгшщзхъёфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]/,
