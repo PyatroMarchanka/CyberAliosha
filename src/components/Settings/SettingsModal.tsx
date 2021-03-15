@@ -80,7 +80,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
   const classes = useStyles();
 
   const {
-    state: { bpm, notesLength, notesPattern },
+    state: { bpm, notesLength, notesPattern, chordsToGenerateCount },
     dispatch,
   } = useContext(settingsStore);
 
@@ -101,6 +101,13 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
   const setNotesPattern = (value: NotesPatterns) => {
     dispatch({
       type: 'SET_NOTES_PATTERN',
+      payload: value,
+    });
+  };
+
+  const setChordsToGenerateCount = (value: number) => {
+    dispatch({
+      type: 'SET_CHORDS_TO_GENERATE_COUNT',
       payload: value,
     });
   };
@@ -162,6 +169,22 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
               {notesPatterns.map((pattern) => (
                 <MenuItem key={pattern} value={pattern}>
                   {getNotesPatternLabel(pattern)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="demo-dialog-chords-count">Chords to generate count</InputLabel>
+            <Select
+              labelId="demo-dialog-chords-count"
+              id="chords-count"
+              value={+chordsToGenerateCount}
+              onChange={(e) => setChordsToGenerateCount(e.target.value as number)}
+              input={<Input id="demo-dialog-chords-count" />}
+            >
+              {[4, 6, 8, 12, 16].map((count) => (
+                <MenuItem key={count} value={+count}>
+                  {count}
                 </MenuItem>
               ))}
             </Select>

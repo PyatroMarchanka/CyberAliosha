@@ -13,6 +13,7 @@ export interface Settings {
   notesPattern: NotesPatterns;
   playAccompanimentWithMelody: boolean;
   chordsGuitarMode: boolean;
+  chordsToGenerateCount: number;
 }
 
 const initialSettings: Settings = {
@@ -21,6 +22,7 @@ const initialSettings: Settings = {
   notesPattern: NotesPatterns.None,
   playAccompanimentWithMelody: true,
   chordsGuitarMode: false,
+  chordsToGenerateCount: 8,
 };
 
 export const getSettings = (): Settings => {

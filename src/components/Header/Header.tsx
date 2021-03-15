@@ -86,9 +86,10 @@ export default function Header() {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
   .settings-icon {
-    fill: white;
-    color: white;
+    fill: black;
+    color: black;
   }
 `;
 

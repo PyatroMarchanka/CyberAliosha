@@ -19,8 +19,8 @@ export const MetalBlock = styled.div`
   border-radius: 3px;
   /* ${borders} */
   margin: 5px;
-  -webkit-box-shadow: 0px 5px 15px 0px #333333;
-  box-shadow: 0px 5px 15px 0px #333333;
+  -webkit-box-shadow: 0px 0px 5px 0px #7d6d8f;
+  box-shadow: 0px 0px 5px 0px #7d6d8f;
 `;
 
 export const Mobile = styled.div<{ display?: string }>`

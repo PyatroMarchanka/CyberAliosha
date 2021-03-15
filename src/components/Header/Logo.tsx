@@ -20,9 +20,9 @@ export const Logo = () => {
 
 const Container = styled.div`
   h1 {
-    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+    font-family: 'ArvoBold', sans-serif;
     font-size: 30px;
-    color: ${theme.colors.white};
+    color: ${theme.colors.bluePurple[500]};
     margin: 0 5px;
     text-align: center;
 
@@ -34,5 +34,5 @@ const Container = styled.div`
 
 const Line = styled.div`
   height: 3px;
-  background-color: ${theme.colors.white};
+  background-color: ${theme.colors.bluePurple[500]};
 `;

@@ -8,6 +8,6 @@ export const PageTitle = styled(({ title, className }: { title: string; classNam
     {title}
   </Typography>
 ))`
-  color: ${theme.colors.white};
+  color: ${theme.colors.black};
   text-align: center;
 `;

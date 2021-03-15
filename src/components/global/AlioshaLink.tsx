@@ -17,4 +17,5 @@ export const AlioshaLink = styled(({ className, to, children, onClick }: Props) 
   );
 })`
   text-decoration: none;
+  color: black;
 `;

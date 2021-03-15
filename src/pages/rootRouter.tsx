@@ -44,7 +44,7 @@ export default function MainRouter() {
 
 const Body = styled.div`
   /* background-color: #60656f; */
-  background-color: ${theme.colors.black};
+  background-color: ${theme.colors.white};
   border-radius: 2px;
   overflow: hidden;
   /* -webkit-box-shadow: 0px 5px 15px 0px #333333;
@@ -54,7 +54,7 @@ const Body = styled.div`
 
 const GlobalStyles = createGlobalStyle`
   body {
-    background-color:#000000;
+    background-color: ${theme.colors.white};
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 50px;

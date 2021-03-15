@@ -10,7 +10,9 @@ interface Action {
     | 'SET_NOTES_PATTERN'
     | 'PLAY_ACCOMPANIMENT'
     | 'SET_CHORDS_GUITAR_MODE'
-    | 'SET_SETTINGS';
+    | 'SET_SETTINGS'
+    | 'SET_CHORDS_TO_GENERATE_COUNT';
+
   payload?: any;
 }
 
@@ -61,6 +63,13 @@ const SettingsProvider = ({ children }: any) => {
         return {
           ...state,
           chordsGuitarMode: action.payload,
+        };
+
+      case 'SET_CHORDS_TO_GENERATE_COUNT':
+        saveSettings({ chordsToGenerateCount: action.payload });
+        return {
+          ...state,
+          chordsToGenerateCount: action.payload,
         };
 
       case 'SET_SETTINGS':

@@ -2,6 +2,7 @@ import { IconButton } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
+import { settingsStore } from '../../context/SettingsProvider';
 import {
   ChordModel,
   MajorChords,
@@ -18,6 +19,9 @@ import { KeyMoodSelector } from './KeySelector';
 
 export const ChordsToAdd = () => {
   const { state, dispatch } = useContext(chordsAdderStore);
+  const {
+    state: { chordsToGenerateCount },
+  } = useContext(settingsStore);
 
   const { Player, MPlayer } = useMidiPlayer();
 
@@ -45,7 +49,7 @@ export const ChordsToAdd = () => {
   const onRandomClick = () => {
     dispatch({
       type: 'ADD_RANDOM_CHORDS_TO_ADD',
-      payload: 8,
+      payload: chordsToGenerateCount,
     });
   };
 

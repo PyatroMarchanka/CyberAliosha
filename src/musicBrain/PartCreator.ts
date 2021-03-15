@@ -110,7 +110,7 @@ export default class PartCreator {
     const result = notes.map((notesBar, barIdx) => {
       return notesBar.map((note, noteIdx) => {
         if (!note.rest) {
-          note.lyric = noteIdx === 0 ? capitalize(textLine.shift()) : textLine.shift();
+          note.lyric = textLine.shift();
         }
         return note;
       });

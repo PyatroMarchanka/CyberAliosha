@@ -63,7 +63,6 @@ const _syllabifyWord = (word, { separator = '·' } = {}) => {
   const collection = [];
 
   const vowelsMatches = word.match(vowels);
-  console.log('vowelsMatches', vowelsMatches);
 
   if (!vowelsMatches) {
     return word;
@@ -138,8 +137,10 @@ export const syllabify = (source, { separator = '·' } = {}) => {
   const lines = splitLines(source);
   const modifyLines = lines.map((line) => {
     const words = splitWords(line);
-    const syllabifyedWords = words.map((word) => syllabifyWord(word, { separator }));
-    return joinWords(syllabifyedWords);
+    const syllabifyedWords = words
+      .map((word) => syllabifyWord(word, { separator }))
+      .map((word) => word.split('·'));
+    return syllabifyedWords;
   });
-  return joinLines(modifyLines);
+  return modifyLines.flat();
 };
