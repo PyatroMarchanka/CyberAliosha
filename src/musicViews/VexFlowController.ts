@@ -106,7 +106,6 @@ export class VexFlowController {
       });
 
       if (dot) {
-        console.log('dot');
         vexflowNote.addDotToAll();
       }
 

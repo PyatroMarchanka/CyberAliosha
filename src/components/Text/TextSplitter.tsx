@@ -45,7 +45,7 @@ interface Props {
 export const TextSplitter = ({ onSubmit }: Props) => {
   const [lyric, setLyric] = useState(
     // 'Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could',
-    'Божа, паспагадай усім, –\nI магутнаму, і слабому,\nI відушчаму, і сляпому,\n Каб у згодзе жылося ім.',
+    'Калi раптам адчуеш камунальныя пахi\nI жыцьцё цябе возьме ў пятлю.\nЗразумееш тады, што тры чарапахi\nПа ранейшаму цягнуць Зямлю.\nКалi выйдзеш у горад, цi залезеш у горы,\nI з людзьмi ўсталюеш кантакт.\nЗразумееш тады, што i сёньня i ўчора\nНаша месца на трох кiтах.',
   );
 
   const submit = (lyric: string) => {
@@ -76,7 +76,7 @@ export const TextSplitter = ({ onSubmit }: Props) => {
   );
 };
 
-const Container = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
 

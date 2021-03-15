@@ -84,13 +84,13 @@ export const MelodiesPage = () => {
 
   const onLyricAdd = (text: string) => {
     const lyric = convertTextToSyllables(text);
-    const avarageSyllablesCount = Math.round(lyric.syllablesCount / lyric.lines.length);
+    const isLinesLong = Math.round(lyric.syllablesCount / lyric.lines.length) > 4;
 
     console.log('lyric', lyric);
     setLyric(lyric);
     const chords = chordsCreator.getNewCyclicChords(4);
 
-    const chordsCountForSong = lyric.lines.length * 2;
+    const chordsCountForSong = lyric.lines.length * (isLinesLong ? 4 : 2);
 
     let chordsForSong: ChordModel[] = [];
     while (chordsForSong.length < chordsCountForSong) {
