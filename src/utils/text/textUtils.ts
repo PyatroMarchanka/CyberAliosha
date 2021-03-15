@@ -42,28 +42,12 @@ export const convertTextLinesToLyricEnglish = (textLines: string) => {
 
 export const convertTextLinesToLyricRussian = (textLines: string) => {
   const lines: string[][][] = textLines.split('\n').map((str) => {
-    console.log('filteredLines', str.split('–').join('').split(' ').filter(Boolean).join(' '));
     const line: string[][] = syllabify(
       str.split('–').join('').split(' ').filter(Boolean).join(' '),
     );
-    console.log('line', line);
 
-    const vovels = new RegExp(/[уеёыаоэяиюуеёыаоэяію]/g);
-    console.log('filteredLines', line);
     return line;
-    // return words.filter((str: string) => {
-    //   const reg = new RegExp(
-    //     /[йцукенгшщзхъёфывапролджэячсмиітьбюўЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИІТЬБЮЎ]/,
-    //   );
-
-    //   if (!reg.test(str)) {
-    //     return false;
-    //   }
-    //   return true;
-    // });
-    // .map((word: string) => word.split('·'));
   });
-  console.log('lines', lines);
 
   const lyric: Lyric = {
     lines: lines

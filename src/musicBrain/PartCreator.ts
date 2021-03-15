@@ -71,7 +71,7 @@ export default class PartCreator {
         const newBar = this.barCreator.getRandomBar(
           chord,
           i,
-          (i + 1) % 4 === 0 ? this.middlePattern : this.pattern,
+          this.pattern,
           restProbability,
           chordNotesCounts[i],
         );
