@@ -51,8 +51,9 @@ const FacebookButton = styled.a`
   font-weight: 600;
   line-height: 20px;
   border-radius: 0.25em;
+  border: 1px solid;
 
-  border-color: rgba(27, 31, 35, 0.35);
+  border-color: rgba(68, 72, 77, 0.25);
   background-image: linear-gradient(180deg, #f0f3f6, #e6ebf1 90%);
 
   &:hover {

@@ -58,19 +58,21 @@ const TabButton = styled(({ className, title, onClick, isActive }) => (
   border-radius: 8px;
   margin: 0 5px;
 
-  color: ${theme.colors.white};
+  color: ${theme.colors.black};
   text-transform: uppercase;
 
   transition: background-color 0.2s;
 
   &.active {
     background-color: ${theme.colors.bluePurple[500]};
+    color: ${theme.colors.white};
     // background-color: ${theme.colors.bluePurple[500]};
   }
 
   &:hover {
     cursor: pointer;
-    background-color: #74879c;
+    background-color: ${theme.colors.bluePurple[200]};
+    color: ${theme.colors.white};
     text-decoration: none;
   }
 `;
