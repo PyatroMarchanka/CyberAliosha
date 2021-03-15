@@ -84,6 +84,8 @@ export const MelodiesPage = () => {
 
   const onLyricAdd = (text: string) => {
     const lyric = convertTextToSyllables(text);
+    const avarageSyllablesCount = Math.round(lyric.syllablesCount / lyric.lines.length);
+
     console.log('lyric', lyric);
     setLyric(lyric);
     const chords = chordsCreator.getNewCyclicChords(4);

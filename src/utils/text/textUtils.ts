@@ -40,6 +40,26 @@ export const convertTextLinesToLyricEnglish = (textLines: string) => {
   return lyric;
 };
 
+const removePronounseFromLine = (line: string[][]) => {
+  const vowels = /[аеёиоуыэюяі]/gi;
+
+  const reduceWord = (word: string[]) => {
+    const result: string[] = new Array(word.length).fill('');
+
+    word.forEach((str, i) => {
+      if (!vowels.test(str) && result[i - 1]) {
+        result[i - 1] = `${result[i - 1]} ${str}`;
+      } else if (!vowels.test(str) && result[i + 1]) {
+        result[i + 1] = `${str} ${result[i + 1]}`;
+      } else {
+        result[i] = result[i] + str;
+      }
+    });
+
+    return result;
+  };
+};
+
 export const convertTextLinesToLyricRussian = (textLines: string) => {
   const lines: string[][][] = textLines.split('\n').map((str) => {
     const line: string[][] = syllabify(
