@@ -190,7 +190,12 @@ const Actions = styled.div`
     display: flex;
   }
 `;
-const TextSplitterWrapper = styled.div``;
+const TextSplitterWrapper = styled.div`
+  @media ${theme.breakpoints.belowMobile} {
+    margin-top: 20px;
+    width: 100%;
+  }
+`;
 
 const Header = styled.div`
   padding: 20px;

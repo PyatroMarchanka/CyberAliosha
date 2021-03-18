@@ -71,7 +71,7 @@ export const TextSplitter = ({ onSubmit }: Props) => {
     <Container>
       <CssTextField
         id="outlined-multiline-flexible"
-        label="Song's lyric (English, Russian or Belarussian)"
+        label="Lyric (English, Russian or Belarussian)"
         multiline
         rowsMax={4}
         value={lyric}
@@ -88,6 +88,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
+  @media ${theme.breakpoints.belowMobile} {
+    width: 100%;
+  }
+
   .lyric-input {
     min-width: 400px;
 
@@ -101,6 +105,11 @@ const Container = styled.div`
       &.Mui-focused fieldset {
         border-color: "green";
       }
+    }
+
+    @media ${theme.breakpoints.belowMobile} {
+      min-width: unset;
+      width: 100%;
     }
   }
 `;
