@@ -1,7 +1,23 @@
-import { ChordModel, MidiNote, PartNote } from '../dataset/all_chords_for_impro';
+import {
+  ChordModel,
+  MidiNote,
+  PartNote,
+} from "../dataset/all_chords_for_impro";
 
 interface Note {
-  note: 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
+  note:
+    | "C"
+    | "C#"
+    | "D"
+    | "D#"
+    | "E"
+    | "F"
+    | "F#"
+    | "G"
+    | "G#"
+    | "A"
+    | "A#"
+    | "B";
 }
 
 export const instruments = [4, 4];
@@ -22,7 +38,7 @@ export class MidiPlayer {
   }
 
   convertNoteToMidiPitch = (noteNameStr: string, isRest?: boolean) => {
-    if (typeof noteNameStr === 'number') {
+    if (typeof noteNameStr === "number") {
       return noteNameStr;
     }
     if (isRest) {
@@ -30,20 +46,23 @@ export class MidiPlayer {
     }
     const notesDictionary = {
       C: 0,
-      'C#': 1,
+      "C#": 1,
       D: 2,
-      'D#': 3,
+      "D#": 3,
       E: 4,
       F: 5,
-      'F#': 6,
+      "F#": 6,
       G: 7,
-      'G#': 8,
+      "G#": 8,
       A: 9,
-      'A#': 10,
+      "A#": 10,
       B: 11,
     };
 
-    const note = notesDictionary[noteNameStr.slice(0, noteNameStr.length - 1) as Note['note']];
+    const note =
+      notesDictionary[
+        noteNameStr.slice(0, noteNameStr.length - 1) as Note["note"]
+      ];
     const octave = +noteNameStr[noteNameStr.length - 1];
     const c = 24;
     const result = c + (octave - 1) * 12 + note;
@@ -61,16 +80,28 @@ export class MidiPlayer {
     });
   };
 
-  playPartChords = (chords: ChordModel[], onEnd?: () => void, notesPerBar: number = 4) => {
-    const part = chords.map((chord) => this.getNotesForChord(chord, notesPerBar)).flat();
+  playPartChords = (
+    chords: ChordModel[],
+    onEnd?: () => void,
+    notesPerBar: number = 4
+  ) => {
+    const part = chords
+      .map((chord) => this.getNotesForChord(chord, notesPerBar))
+      .flat();
 
     this.playPart(part, onEnd, undefined, 4);
   };
 
-  getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
+  getNotesForChord = (
+    chord: ChordModel,
+    notesPerBar: number = 4
+  ): PartNote[] => {
     let notes: string[] = [];
     if (chord[2].length === 3) {
-      notes = [...chord[2], chord[2][1], ...chord[2], chord[2][1]].slice(0, notesPerBar);
+      notes = [...chord[2], chord[2][1], ...chord[2], chord[2][1]].slice(
+        0,
+        notesPerBar
+      );
     }
 
     if (chord[2].length === 4) {
@@ -92,7 +123,7 @@ export class MidiPlayer {
 
     return notes.map((note, index) => ({
       note: getOctaveForGuitar(note, index),
-      dur: (1 / notesPerBar) as PartNote['dur'],
+      dur: (1 / notesPerBar) as PartNote["dur"],
     }));
   };
 
@@ -105,7 +136,9 @@ export class MidiPlayer {
     }
 
     if (chords) {
-      partToCalculate = chords.map((chord) => this.getNotesForChord(chord, 4)).flat();
+      partToCalculate = chords
+        .map((chord) => this.getNotesForChord(chord, 4))
+        .flat();
     }
 
     var bpm = this.bpm;
@@ -127,7 +160,7 @@ export class MidiPlayer {
     part: PartNote[],
     onEnd?: () => void,
     newBpm?: number,
-    instrument = voiceInstrument,
+    instrument = voiceInstrument
   ) => {
     var bpm = newBpm || this.bpm;
     var N = (4 * 60) / bpm;
@@ -150,7 +183,7 @@ export class MidiPlayer {
 
   playChord = (chord: ChordModel, time = 0) => {
     const notes = chord[2].map((note, index) =>
-      this.convertNoteToMidiPitch(getOctaveForGuitar(note, index)),
+      this.convertNoteToMidiPitch(getOctaveForGuitar(note, index))
     );
 
     this.playRef.current?.playStrumUpNow(4, notes, 1);
@@ -169,18 +202,18 @@ export class MidiPlayer {
 const getOctaveForGuitar = (note: string, index: number) => {
   switch (index) {
     case 0:
-      return note + '2';
+      return note + "2";
 
     case 1:
     case 2:
-      return note + '3';
+      return note + "3";
 
     case 3:
     case 4:
     case 5:
-      return note + '4';
+      return note + "4";
 
     default:
-      return note + '3';
+      return note + "3";
   }
 };

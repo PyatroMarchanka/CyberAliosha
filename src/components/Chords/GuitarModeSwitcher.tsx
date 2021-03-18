@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { settingsStore } from '../../context/SettingsProvider';
-import { Checkbox } from '../global/Checkbox';
+import React, { useContext } from "react";
+import { settingsStore } from "../../context/SettingsProvider";
+import { CheckboxIcon } from "../global/CheckboxIcon";
 
 interface Props {}
 
@@ -12,10 +12,10 @@ export const GuitarModeSwitcher = () => {
 
   const onChange = (value: boolean) => {
     dispatch({
-      type: 'SET_CHORDS_GUITAR_MODE',
+      type: "SET_CHORDS_GUITAR_MODE",
       payload: value,
     });
   };
 
-  return <Checkbox label="Guitar mode" onChange={onChange} value={chordsGuitarMode} />;
+  return <CheckboxIcon onChange={onChange} value={chordsGuitarMode} />;
 };

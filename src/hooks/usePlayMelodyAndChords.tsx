@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
 
-import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
-import { useMidiPlayer } from '../utils/useMidiPlayer';
+import { ChordModel, PartNote } from "../dataset/all_chords_for_impro";
+import { useMidiPlayer } from "../utils/useMidiPlayer";
 
-import { settingsStore } from '../context/SettingsProvider';
+import { settingsStore } from "../context/SettingsProvider";
 
 interface Props {
   part?: PartNote[][];
@@ -12,19 +12,28 @@ interface Props {
   onStop?: (chords?: ChordModel[], part?: PartNote[][]) => void;
 }
 
-export const usePlayMelodyAndChords = ({ part, chords, onPlay, onStop }: Props) => {
+export const usePlayMelodyAndChords = ({
+  part,
+  chords,
+  onPlay,
+  onStop,
+}: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const { Player, MPlayer } = useMidiPlayer(setIsPlaying);
 
   const {
-    state: { playAccompanimentWithMelody },
+    state: { playAccompanimentWithMelody, notesCountToPlayForChord },
   } = useContext(settingsStore);
 
   const playPart = (chords?: ChordModel[], part?: PartNote[][]) => {
     setIsPlaying(true);
 
     if ((chords && part && playAccompanimentWithMelody) || (chords && !part)) {
-      Player?.playPartChords(chords, () => setIsPlaying(false), 1);
+      Player?.playPartChords(
+        chords,
+        () => setIsPlaying(false),
+        notesCountToPlayForChord
+      );
     }
     if (part) {
       Player?.playPart(part.flat(), () => setIsPlaying(false));

@@ -1,31 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 
-import styled from 'styled-components';
-import { theme } from '../../utils/theme';
+import styled from "styled-components";
+import { theme } from "../../utils/theme";
 
-import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
-import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
-import { SheetStave } from './SheetStave';
-import { useLocation } from 'react-router-dom';
-import { ChordsProgression } from '../../components/global/ChordsProgression';
-
-import { Button } from '../../components/global/Button';
-import { PageTitle } from '../../components/global/PageTitle';
-import { SaveMelodiesModal } from './SaveMelodiesModal';
-import { Checkbox } from '../../components/global/Checkbox';
-import { MetalBlock } from '../../styled/global';
-
-import { PlayStopButton } from '../../components/global/PlayStopButton';
-import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
-import { TextSplitter } from '../../components/Text/TextSplitter';
 import {
-  convertTextLinesToLyricEnglish,
-  convertTextLinesToLyricRussian,
-  convertTextToSyllables,
-  Lyric,
-} from '../../utils/text/textUtils';
-import { generateMelody } from '../../musicBrain/melodyUtils';
-import { settingsStore } from '../../context/SettingsProvider';
+  ChordModel,
+  NotesLengthType,
+  PartNote,
+} from "../../dataset/all_chords_for_impro";
+import MidiChordsCreator from "../../musicBrain/MidiChordsCreator";
+import { SheetStave } from "./SheetStave";
+import { useLocation } from "react-router-dom";
+import { ChordsProgression } from "../../components/global/ChordsProgression";
+
+import { Button } from "../../components/global/Button";
+import { PageTitle } from "../../components/global/PageTitle";
+import { SaveMelodiesModal } from "./SaveMelodiesModal";
+import { Checkbox } from "../../components/global/Checkbox";
+import { MetalBlock } from "../../styled/global";
+
+import { PlayStopButton } from "../../components/global/PlayStopButton";
+import { usePlayMelodyAndChords } from "../../hooks/usePlayMelodyAndChords";
+import { TextSplitter } from "../../components/Text/TextSplitter";
+import { convertTextToSyllables, Lyric } from "../../utils/text/textUtils";
+import { generateMelody } from "../../musicBrain/melodyUtils";
+import { settingsStore } from "../../context/SettingsProvider";
 
 export const MelodiesPage = () => {
   const location = useLocation();
@@ -36,7 +35,9 @@ export const MelodiesPage = () => {
     dispatch,
   } = useContext(settingsStore);
 
-  const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
+  const locationChords = (location.state as
+    | { chords: ChordModel[] }
+    | undefined)?.chords;
 
   const [part, setPart] = useState<PartNote[][]>([]);
   const [lyric, setLyric] = useState<Lyric | null>(null);
@@ -47,7 +48,9 @@ export const MelodiesPage = () => {
   });
 
   const generateChords = () => {
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(4);
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(
+      4
+    );
 
     if (chords) {
       setChords([...chords, ...chords]);
@@ -57,19 +60,19 @@ export const MelodiesPage = () => {
 
   const getMelody = () => {
     const newPart = generateMelody(chords, {
-      type: 'soprano',
+      type: "soprano",
       notesLength: notesLength,
-      function: 'accompaniment',
+      function: "accompaniment",
       pattern: notesPattern,
       restProbability: 0,
     });
-    console.log('newPart', newPart);
+    console.log("newPart", newPart);
     setPart(newPart);
   };
 
   const onPlayAccompanimentChange = (value: boolean) => {
     dispatch({
-      type: 'PLAY_ACCOMPANIMENT',
+      type: "PLAY_ACCOMPANIMENT",
       payload: value,
     });
   };
@@ -84,11 +87,11 @@ export const MelodiesPage = () => {
 
   const onLyricAdd = (text: string) => {
     const lyric = convertTextToSyllables(text);
-    const isLinesLong = Math.round(lyric.syllablesCount / lyric.lines.length) > 4;
+    const isLinesLong =
+      Math.round(lyric.syllablesCount / lyric.lines.length) > 4;
 
-    console.log('lyric', lyric);
+    console.log("lyric", lyric);
     setLyric(lyric);
-    const chords = chordsCreator.getNewCyclicChords(4);
 
     const chordsCountForSong = lyric.lines.length * (isLinesLong ? 4 : 2);
 
@@ -103,14 +106,14 @@ export const MelodiesPage = () => {
       setChords(chordsForSong);
 
       const newPart = generateMelody(chordsForSong, {
-        type: 'soprano',
+        type: "soprano",
         notesLength: NotesLengthType.Middle,
-        function: 'accompaniment',
+        function: "accompaniment",
         pattern: notesPattern,
         restProbability: 0,
         lyric,
       });
-      console.log('onLyricAdd newPart', newPart);
+      console.log("onLyricAdd newPart", newPart);
 
       setPart(newPart);
     }
@@ -124,13 +127,19 @@ export const MelodiesPage = () => {
           <Header>
             {chords.length > 0 && (
               <Chords>
-                <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
+                <ChordsProgression
+                  chords={chords}
+                  onChordClick={Player?.playChord}
+                />
               </Chords>
             )}
             <Actions>
               <div className="buttons">
                 {part.length > 0 && (
-                  <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
+                  <PlayStopButton
+                    handlePlaying={handlePlaying}
+                    isPlaying={isPlaying}
+                  />
                 )}
                 <SaveMelodiesModal melody={part} chords={chords} />
                 <Checkbox

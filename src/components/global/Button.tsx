@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useLongPress } from '../../hooks/useLongPress';
-import { borders } from '../../styled/global';
-import { Color, theme } from '../../utils/theme';
+import React from "react";
+import styled from "styled-components";
+import { useLongPress } from "../../hooks/useLongPress";
+import { borders } from "../../styled/global";
+import { Color, theme } from "../../utils/theme";
 
 interface Props {
   color?: Color;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onLongPress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: any;
-  type?: 'primary' | 'big';
+  type?: "primary" | "big";
   id?: string;
   className?: string;
   disabled?: boolean;
@@ -21,7 +21,7 @@ export function Button({
   onClick = () => {},
   onLongPress = () => {},
   children,
-  type = 'primary',
+  type = "primary",
   id,
   className,
   disabled = false,
@@ -55,7 +55,6 @@ const PrimaryButton = styled.button`
   margin: 10px;
   background-color: ${({ fontColor }: StyledProps) => fontColor[500]};
   border: 0;
-  ${borders}
   border-radius: 8px;
 
   /* border-radius: 7px; */
@@ -99,12 +98,12 @@ const BigButton = styled(PrimaryButton)`
   font-weight: 500;
 `;
 
-function getButtonByType(type: Props['type']) {
+function getButtonByType(type: Props["type"]) {
   switch (type) {
-    case 'primary':
+    case "primary":
       return PrimaryButton;
 
-    case 'big':
+    case "big":
       return BigButton;
 
     default:

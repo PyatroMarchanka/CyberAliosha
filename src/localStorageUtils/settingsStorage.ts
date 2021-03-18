@@ -1,11 +1,14 @@
-import { NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
+import {
+  NotesLengthType,
+  NotesPatterns,
+} from "../dataset/all_chords_for_impro";
 import {
   clearStorage,
   getStorage,
   removeItemById,
   saveItem,
   StorageNames,
-} from './storagesController';
+} from "./storagesController";
 
 export interface Settings {
   bpm: number;
@@ -14,6 +17,7 @@ export interface Settings {
   playAccompanimentWithMelody: boolean;
   chordsGuitarMode: boolean;
   chordsToGenerateCount: number;
+  notesCountToPlayForChord: number;
 }
 
 const initialSettings: Settings = {
@@ -23,18 +27,25 @@ const initialSettings: Settings = {
   playAccompanimentWithMelody: true,
   chordsGuitarMode: false,
   chordsToGenerateCount: 8,
+  notesCountToPlayForChord: 2,
 };
 
 export const getSettings = (): Settings => {
   return !!localStorage?.getItem(StorageNames.Settings)
-    ? JSON.parse(localStorage.getItem(StorageNames.Settings)!)
+    ? {
+        ...initialSettings,
+        ...JSON.parse(localStorage.getItem(StorageNames.Settings)!),
+      }
     : initialSettings;
 };
 
 export const saveSettings = (settings: Partial<Settings>) => {
   const oldSettings = getSettings();
 
-  localStorage.setItem(StorageNames.Settings, JSON.stringify({ ...oldSettings, ...settings }));
+  localStorage.setItem(
+    StorageNames.Settings,
+    JSON.stringify({ ...oldSettings, ...settings })
+  );
 };
 
 export const clearSettings = () => {
