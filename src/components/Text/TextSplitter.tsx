@@ -51,7 +51,7 @@ interface Props {
 export const TextSplitter = ({ onSubmit }: Props) => {
   const [lyric, setLyric] = useState(
     // 'Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could',
-    "Калi раптам адчуеш камунальныя пахi\nI жыцьцё цябе возьме ў пятлю.\nЗразумееш тады, што тры чарапахi\nПа ранейшаму цягнуць Зямлю."
+    "Падымi мяне па-над зямлею\nПадымi мяне ў сьветлы абшар\nПадымi мяне над мiтусьнею\nПадымi мяне паветраны шар."
   );
 
   const submit = (lyric: string) => {
