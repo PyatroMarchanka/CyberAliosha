@@ -10,7 +10,7 @@ export const StyledProgression = styled.div`
   justify-content: center;
   .list {
     display: grid;
-    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-columns: 105px 105px 105px 105px;
 
     @media ${theme.breakpoints.belowTablet} {
       grid-template-columns: 70px 70px 70px 70px;
