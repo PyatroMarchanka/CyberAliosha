@@ -1,9 +1,4 @@
-import {
-  ChordModel,
-  NotesLengthType,
-  NotesPatterns,
-  PartNote,
-} from './../dataset/all_chords_for_impro';
+import { ChordModel, PartNote } from './../dataset/all_chords_for_impro';
 
 export enum StorageNames {
   Chords = 'added_chords',

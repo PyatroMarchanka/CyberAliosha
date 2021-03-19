@@ -5,12 +5,10 @@ import { AddedChordsNew } from '../../components/Chords/AddedChordsNew';
 import { ChordsToAdd } from '../../components/Chords/ChordsToAdd';
 import { PageTitle } from '../../components/global/PageTitle';
 
-interface Props {}
-
-export const ChordEditorPage = ({}: Props) => {
+export const ChordEditorPage = () => {
   return (
     <Container>
-      <PageTitle title="Chords Editor" />
+      <PageTitle title='Chords Editor' />
       <ChordsToAdd />
       <AddedChordsNew />
     </Container>

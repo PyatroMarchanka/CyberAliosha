@@ -8,7 +8,6 @@ import { routes } from './routes';
 import { MelodiesPage } from './Melodies/MelodiesPage';
 import { theme } from '../utils/theme';
 import Footer from '../components/Footer/Footer';
-import { ChordsPage } from './Chords';
 import { SavedPage } from './SavedPage';
 import { ChordEditorPage } from './Chords/ChordEditorPage';
 
@@ -19,7 +18,7 @@ export default function MainRouter() {
       <Header />
       <Body>
         <Switch>
-          <Redirect exact from="/" to={routes.chordsEditor} />
+          <Redirect exact from='/' to={routes.chordsEditor} />
           <Route path={routes.chordsEditor}>
             <ChordEditorPage />
           </Route>

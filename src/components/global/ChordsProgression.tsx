@@ -7,8 +7,6 @@ import { StyledProgressionContainer, StyledProgression } from '../../styled/Chor
 import { Button } from './Button';
 import { theme } from '../../utils/theme';
 
-import { chunk } from 'lodash';
-
 interface Props {
   chords: ChordModel[];
   title?: string | JSX.Element;
@@ -28,7 +26,7 @@ export const ChordsProgression = ({
     <StyledProgressionContainer>
       <Header>
         {!!title && typeof title === 'string' && (
-          <Typography className="title" variant="h6">
+          <Typography className='title' variant='h6'>
             {title}
           </Typography>
         )}
@@ -37,12 +35,12 @@ export const ChordsProgression = ({
       </Header>
 
       <StyledProgression>
-        <div className="list">
+        <div className='list'>
           {chords.map((chord, idx) => (
             <Button
               onClick={onChordClick ? () => onChordClick(chord) : undefined}
               key={idx}
-              className="chord"
+              className='chord'
               color={idx === selectedChord ? theme.colors.blue : undefined}
             >
               {convertChordToString(chord)}
@@ -57,8 +55,4 @@ export const ChordsProgression = ({
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-
-  .title {
-    /* color: ${theme.colors.white}; */
-  }
 `;

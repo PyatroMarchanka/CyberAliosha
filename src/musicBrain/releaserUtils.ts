@@ -1,4 +1,4 @@
-import { intersectionWith, isEqual, uniqBy, uniqWith } from 'lodash';
+import { intersectionWith, uniqWith } from 'lodash';
 import {
   ChordModel,
   ChordRelease,
@@ -10,7 +10,7 @@ import { convertChordToString, findNotes, isChordsEqual } from '../utils';
 
 export const getReleasesByType = (
   step: number,
-  type: MajorChords.Major | MinorChords.Minor,
+  type: MajorChords.Major | MinorChords.Minor
 ): ChordRelease[] => {
   switch (type) {
     case MajorChords.Major:
@@ -26,7 +26,7 @@ export const getReleasesByType = (
 
 export const getAllReleaserable = (target: ChordModel) => {
   const results = getReleaserablesByChordType(target[1]).map((release) =>
-    findNotes(target[0], release[0], release[1]),
+    findNotes(target[0], release[0], release[1])
   );
 
   return results;
@@ -34,7 +34,7 @@ export const getAllReleaserable = (target: ChordModel) => {
 
 export const getAllReleases = (target: ChordModel) => {
   const results = getReleasesByChordType(target[1]).map((release) =>
-    findNotes(target[0], release[0], release[1]),
+    findNotes(target[0], release[0], release[1])
   );
   return results;
 };

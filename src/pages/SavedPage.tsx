@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import { getSavedChords, removeSavedChordsById } from '../localStorageUtils/addedChordsStorage';
 import styled from 'styled-components';
-import { MetalBlock } from '../styled/global';
 import { useHistory } from 'react-router';
 import { routes } from './routes';
 import { Tabs } from '../components/global/Tabs';
@@ -12,9 +11,7 @@ import { getSavedMelodies } from '../localStorageUtils/melodiesStorage';
 import { Melody } from './Melodies/Melody';
 import { SavedChordsLine } from './Chords/SavedChordsLine';
 
-interface Props {}
-
-export const SavedPage = ({}: Props) => {
+export const SavedPage = () => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
   const [savedMelodies, setSavedMelodies] = useState<SavedMelodies[]>([]);
   const history = useHistory();
@@ -69,7 +66,3 @@ export const SavedPage = ({}: Props) => {
 };
 
 const Container = styled.div``;
-
-const Chords = styled(MetalBlock)`
-  padding: 20px;
-`;

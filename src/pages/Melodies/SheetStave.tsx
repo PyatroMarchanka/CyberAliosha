@@ -1,12 +1,7 @@
-import { IconButton } from '@material-ui/core';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Button } from '../../components/global/Button';
-import { Icon } from '../../components/global/Icon';
 import { ChordModel, PartNote } from '../../dataset/all_chords_for_impro';
-import { theme } from '../../utils/theme';
 import { VexFlowController } from '../../musicViews/VexFlowController';
-import StopIcon from '@material-ui/icons/Stop';
 
 interface Props {
   bars: PartNote[][];
@@ -35,7 +30,7 @@ export const SheetStave = ({ bars, chords, backgroundColor }: Props) => {
   return (
     <Container>
       <StaveContainer backgroundColor={backgroundColor}>
-        <div className={bars.length > 0 ? 'stave' : ''} ref={ref} id="vf"></div>
+        <div className={bars.length > 0 ? 'stave' : ''} ref={ref} id='vf'></div>
       </StaveContainer>
     </Container>
   );
@@ -61,9 +56,4 @@ const StaveContainer = styled.div<{ backgroundColor?: string }>`
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
-`;
-
-const Actions = styled.div`
-  display: flex;
-  justify-content: center;
 `;

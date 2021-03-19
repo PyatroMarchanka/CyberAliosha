@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-
 import styled, { createGlobalStyle } from 'styled-components';
 import { IconButton, Typography } from '@material-ui/core';
 import { MetalBlock } from '../../styled/global';
 
 import { SavedMelodies } from '../../localStorageUtils/storagesController';
-import { Button } from '../../components/global/Button';
 import { theme } from '../../utils/theme';
 import Modal from '../../components/global/Modal';
 import { SheetStave } from './SheetStave';
@@ -32,10 +29,10 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
   return (
     <StyledMelody>
       <GlobalStyles />
-      <Typography className="title" variant="h6">
+      <Typography className='title' variant='h6'>
         {melodyData.title}
       </Typography>
-      <div className="actions">
+      <div className='actions'>
         <Actions>
           <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
         </Actions>
@@ -44,22 +41,22 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
             removeMelodyById(melodyData.id);
             fetchMelodies();
           }}
-          className="icon"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
+          className='icon'
+          edge='start'
+          color='inherit'
+          aria-label='menu'
         >
-          <Icon type="material" Icon={DeleteIcon} />
+          <Icon type='material' Icon={DeleteIcon} />
         </IconButton>
 
         <Modal
-          className="sheet-modal"
+          className='sheet-modal'
           triggerComponent={
-            <IconButton className="icon" edge="start" color="inherit" aria-label="menu">
-              <Icon type="notes" />
+            <IconButton className='icon' edge='start' color='inherit' aria-label='menu'>
+              <Icon type='notes' />
             </IconButton>
           }
-          title="Part Preview"
+          title='Part Preview'
           style={{ padding: '0' }}
         >
           <SheetStave bars={melody} chords={chords} backgroundColor={theme.colors.white} />

@@ -1,11 +1,5 @@
 import { PartOptions } from './PartCreator';
-import {
-  NotesLengthType,
-  ChordModel,
-  PartNote,
-  Notes,
-  SolidNotes,
-} from './../dataset/all_chords_for_impro';
+import { NotesLengthType, ChordModel, PartNote, Notes } from './../dataset/all_chords_for_impro';
 import { DURATIONS } from '../dataset/dataset';
 import { randomIntegerRange, createDurMeasure, createDurMeasureByCount } from '../utils';
 import { Pattern } from './PatternCreator';
@@ -26,7 +20,7 @@ export default class BarCreator {
     idx: number,
     pattern: Pattern[] | null,
     restProbability: number,
-    notesCount?: number,
+    notesCount?: number
   ) {
     this.toneJsArr = this.createRandomBar(chord, pattern, restProbability, notesCount);
     this.createOctave(idx);
@@ -36,7 +30,7 @@ export default class BarCreator {
   createRandomBarByPattern = (
     chord: ChordModel,
     pattern: Pattern[] | null,
-    restProbability: number,
+    restProbability: number
   ) => {
     let resultBar: PartNote[] = [];
 
@@ -56,7 +50,7 @@ export default class BarCreator {
     chord: ChordModel,
     pattern: Pattern[] | null,
     restProbability: number,
-    notesCount?: number,
+    notesCount?: number
   ) {
     if (pattern) {
       return this.createRandomBarByPattern(chord, pattern, restProbability);
@@ -76,7 +70,7 @@ export default class BarCreator {
     durs: number[] | undefined,
     chord: ChordModel,
     notesCount?: number,
-    restProbability?: number,
+    restProbability?: number
   ) => {
     if (!durs) return null;
     let resultBar: PartNote[] = [];
@@ -86,7 +80,7 @@ export default class BarCreator {
         chord[2],
         durs[index] as PartNote['dur'],
         null,
-        restProbability,
+        restProbability
       );
       resultBar.push(newNote);
     }
@@ -147,7 +141,7 @@ export default class BarCreator {
     notes: Notes[],
     dur: PartNote['dur'],
     note: Notes | null,
-    restProbability?: number,
+    restProbability?: number
   ) {
     const randNoteIndex = randomIntegerRange(0, notes.length);
     const randNote = {

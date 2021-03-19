@@ -1,14 +1,5 @@
-import {
-  NotesLengthType,
-  NotesPatterns,
-} from "../dataset/all_chords_for_impro";
-import {
-  clearStorage,
-  getStorage,
-  removeItemById,
-  saveItem,
-  StorageNames,
-} from "./storagesController";
+import { NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
+import { StorageNames } from './storagesController';
 
 export interface Settings {
   bpm: number;
@@ -42,10 +33,7 @@ export const getSettings = (): Settings => {
 export const saveSettings = (settings: Partial<Settings>) => {
   const oldSettings = getSettings();
 
-  localStorage.setItem(
-    StorageNames.Settings,
-    JSON.stringify({ ...oldSettings, ...settings })
-  );
+  localStorage.setItem(StorageNames.Settings, JSON.stringify({ ...oldSettings, ...settings }));
 };
 
 export const clearSettings = () => {

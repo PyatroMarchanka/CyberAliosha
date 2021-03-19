@@ -3,7 +3,6 @@ import {
   clearStorage,
   getStorage,
   removeItemById,
-  SavedChords,
   SavedMelodies,
   saveItem,
   StorageNames,

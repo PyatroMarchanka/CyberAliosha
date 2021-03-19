@@ -7,16 +7,8 @@ const splitLines = (source) => {
   return source.split('\n');
 };
 
-const joinLines = (lines) => {
-  return lines.join('\n');
-};
-
 const splitWords = (source) => {
   return source.split(' ');
-};
-
-const joinWords = (words) => {
-  return words.join(' ');
 };
 
 const addSyllable = (collection, syllable) => {

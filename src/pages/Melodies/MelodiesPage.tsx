@@ -3,11 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
 
-import {
-  ChordModel,
-  NotesLengthType,
-  PartNote,
-} from '../../dataset/all_chords_for_impro';
+import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
 import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
 import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
@@ -35,9 +31,7 @@ export const MelodiesPage = () => {
     dispatch,
   } = useContext(settingsStore);
 
-  const locationChords = (location.state as
-    | { chords: ChordModel[] }
-    | undefined)?.chords;
+  const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 
   const [part, setPart] = useState<PartNote[][]>([]);
   const [lyric, setLyric] = useState<Lyric | null>(null);
@@ -48,9 +42,7 @@ export const MelodiesPage = () => {
   });
 
   const generateChords = () => {
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(
-      4
-    );
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(4);
 
     if (chords) {
       setChords([...chords, ...chords]);
@@ -87,8 +79,7 @@ export const MelodiesPage = () => {
 
   const onLyricAdd = (text: string) => {
     const lyric = convertTextToSyllables(text);
-    const isLinesLong =
-      Math.round(lyric.syllablesCount / lyric.lines.length) > 4;
+    const isLinesLong = Math.round(lyric.syllablesCount / lyric.lines.length) > 4;
 
     console.log('lyric', lyric);
     setLyric(lyric);
@@ -127,19 +118,13 @@ export const MelodiesPage = () => {
           <Header>
             {chords.length > 0 && (
               <Chords>
-                <ChordsProgression
-                  chords={chords}
-                  onChordClick={Player?.playChord}
-                />
+                <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
               </Chords>
             )}
             <Actions>
               <div className='buttons'>
                 {part.length > 0 && (
-                  <PlayStopButton
-                    handlePlaying={handlePlaying}
-                    isPlaying={isPlaying}
-                  />
+                  <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
                 )}
                 <SaveMelodiesModal melody={part} chords={chords} />
                 <Checkbox

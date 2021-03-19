@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { saveSavedChords } from '../../localStorageUtils/addedChordsStorage';
 import { ChordModel } from '../../dataset/all_chords_for_impro';
@@ -17,10 +16,6 @@ export const SaveChordsModal = ({ chords }: Props) => {
   };
 
   return (
-    <SaveModal
-      title='Set name of the new hit2'
-      onSave={saveAndClose}
-      disabled={!chords.length}
-    />
+    <SaveModal title='Set name of the new hit2' onSave={saveAndClose} disabled={!chords.length} />
   );
 };

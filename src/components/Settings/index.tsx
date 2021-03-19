@@ -38,10 +38,6 @@ export const Settings = () => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
     <Container>
       <IconButton

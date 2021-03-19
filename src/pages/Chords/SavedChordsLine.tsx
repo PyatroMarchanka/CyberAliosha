@@ -1,11 +1,10 @@
-import { IconButton } from '@material-ui/core';
 import React from 'react';
+import { IconButton } from '@material-ui/core';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Button } from '../../components/global/Button';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
 import { Icon } from '../../components/global/Icon';
 import { PlayStopButton } from '../../components/global/PlayStopButton';
-import { removeSavedChordsById } from '../../localStorageUtils/addedChordsStorage';
 import { SavedChords } from '../../localStorageUtils/storagesController';
 import { MetalBlock } from '../../styled/global';
 import { theme } from '../../utils/theme';
@@ -45,27 +44,27 @@ export const SavedChordsLine = ({ onRemove, savedChords, openInEditor, idx }: Pr
             <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
             <IconButton
               onClick={onRemove}
-              className="icon"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
+              className='icon'
+              edge='start'
+              color='inherit'
+              aria-label='menu'
             >
-              <Icon type="material" Icon={DeleteIcon} />
+              <Icon type='material' Icon={DeleteIcon} />
             </IconButton>
             <Modal
-              className="sheet-modal"
+              className='sheet-modal'
               triggerComponent={
                 <IconButton
                   onClick={() => {}}
-                  className="icon"
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
+                  className='icon'
+                  edge='start'
+                  color='inherit'
+                  aria-label='menu'
                 >
-                  <Icon type="guitar" />
+                  <Icon type='guitar' />
                 </IconButton>
               }
-              title="Chords on guitar"
+              title='Chords on guitar'
               style={{ padding: '0' }}
             >
               <ChordCharts chords={savedChords.data} chordsPrefix={`saved-chords-${idx}`} />
