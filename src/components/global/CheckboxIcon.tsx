@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { IconButton } from "@material-ui/core";
-import { theme } from "../../utils/theme";
-import { Icon } from "./Icon";
+import React from 'react';
+import { IconButton } from '@material-ui/core';
+import { theme } from '../../utils/theme';
+import { Icon } from './Icon';
 
 interface Props {
   onChange: (value: boolean) => void;
@@ -13,7 +13,7 @@ export const CheckboxIcon = ({ onChange, value, className }: Props) => {
   return (
     <IconButton onClick={() => onChange(!value)}>
       <Icon
-        type="guitar"
+        type='guitar'
         fill={value ? theme.colors.black : theme.colors.grey[500]}
       />
     </IconButton>

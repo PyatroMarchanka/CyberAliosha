@@ -4,8 +4,6 @@ import { routes } from '../../pages/routes';
 import { theme } from '../../utils/theme';
 import { AlioshaLink } from '../global/AlioshaLink';
 
-interface Props {}
-
 export const Logo = () => {
   return (
     <AlioshaLink to={routes.root}>

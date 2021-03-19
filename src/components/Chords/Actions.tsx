@@ -1,14 +1,11 @@
-import React, { useContext, useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
-import { IconButton, Typography } from '@material-ui/core';
-import StopIcon from '@material-ui/icons/Stop';
+import { IconButton } from '@material-ui/core';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
-import { theme } from '../../utils/theme';
-import { useMidiPlayer } from '../../utils/useMidiPlayer';
 import { Icon } from '../global/Icon';
 import { SaveChordsModal } from './SaveChordsModal';
 import { PlayStopButton } from '../global/PlayStopButton';
@@ -54,20 +51,28 @@ export const Actions = ({ chords, onPlay, onStop }: Props) => {
       {!!chords && !!chords.length && (
         <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
       )}
-      <IconButton className="icon" disabled={buttonsDisabled} onClick={deleteLast}>
+      <IconButton
+        className='icon'
+        disabled={buttonsDisabled}
+        onClick={deleteLast}
+      >
         <Icon
-          type="material"
+          type='material'
           Icon={BackspaceIcon}
           disabled={buttonsDisabled}
-          className="play-icon"
+          className='play-icon'
         />
       </IconButton>
-      <IconButton className="icon" disabled={buttonsDisabled} onClick={deleteAll}>
+      <IconButton
+        className='icon'
+        disabled={buttonsDisabled}
+        onClick={deleteAll}
+      >
         <Icon
-          type="material"
+          type='material'
           Icon={DeleteForeverIcon}
           disabled={buttonsDisabled}
-          className="play-icon  remove-all-icon"
+          className='play-icon  remove-all-icon'
         />
       </IconButton>
       <SaveChordsModal chords={chords} />

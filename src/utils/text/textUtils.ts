@@ -62,7 +62,6 @@ const removePronounseFromLine = (line: string[][]) => {
       !vowels.test(word[0]) &&
       !result[result.length - 2]
     ) {
-      console.log('temp = word;', word);
       temp = word;
     } else {
       result.push(word);

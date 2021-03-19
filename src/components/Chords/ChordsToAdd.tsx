@@ -1,5 +1,5 @@
 import { IconButton } from '@material-ui/core';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import { settingsStore } from '../../context/SettingsProvider';
@@ -72,25 +72,34 @@ export const ChordsToAdd = () => {
     <Container>
       <Actions>
         <IconButton onClick={onRandomClick}>
-          <Icon type="radom" className="random-icon" />
+          <Icon type='radom' className='random-icon' />
         </IconButton>
         <KeyMoodSelector />
       </Actions>
       <Chords>
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(Object.values(MinorChords), state.chordsToAdd)}
-          title="Minor chords:"
+          chords={sortChordsByType(
+            Object.values(MinorChords),
+            state.chordsToAdd
+          )}
+          title='Minor chords:'
         />
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(Object.values(MajorChords), state.chordsToAdd)}
-          title="Major chords:"
+          chords={sortChordsByType(
+            Object.values(MajorChords),
+            state.chordsToAdd
+          )}
+          title='Major chords:'
         />
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(Object.values(UnstableChords), state.chordsToAdd)}
-          title="Unstable chords:"
+          chords={sortChordsByType(
+            Object.values(UnstableChords),
+            state.chordsToAdd
+          )}
+          title='Unstable chords:'
         />
       </Chords>
       {MPlayer}

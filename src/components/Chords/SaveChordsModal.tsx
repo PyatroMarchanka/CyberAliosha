@@ -17,8 +17,10 @@ export const SaveChordsModal = ({ chords }: Props) => {
   };
 
   return (
-    <SaveModal title="Set name of the new hit2" onSave={saveAndClose} disabled={!chords.length} />
+    <SaveModal
+      title='Set name of the new hit2'
+      onSave={saveAndClose}
+      disabled={!chords.length}
+    />
   );
 };
-
-const Container = styled.div``;

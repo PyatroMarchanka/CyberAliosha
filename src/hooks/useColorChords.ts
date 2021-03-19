@@ -6,12 +6,11 @@ import { ChordModel } from '../dataset/all_chords_for_impro';
 export const colorChordsOnPlay = (
   chords: ChordModel[],
   setColorChord: (idx: number | undefined) => void,
-  bpm: number,
+  bpm: number
 ) => {
   Tone.Transport.start();
 
   var N = (4 * 60) / bpm;
-  const now = Tone.now();
 
   chords.forEach((_, idx, allChords) => {
     Tone.Transport.scheduleOnce(() => {

@@ -6,7 +6,6 @@ import {
   NotesPatterns,
 } from '../dataset/all_chords_for_impro';
 import { Lyric } from '../utils/text/textUtils';
-import { capitalize } from 'lodash';
 
 export interface PartOptions {
   type: 'soprano' | 'tenor' | 'bass';

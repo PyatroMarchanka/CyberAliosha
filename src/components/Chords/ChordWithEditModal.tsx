@@ -1,8 +1,7 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import { Button } from '../global/Button';
 import { theme } from '../../utils/theme';
-import { chordsAdderStore } from '../../context/ChordsAdderContext';
 
 interface Props {
   children: any;

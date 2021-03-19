@@ -1,14 +1,9 @@
-import React, { createContext, useReducer } from 'react';
-import { ChordModel, NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
-import { getSettings, Settings } from '../localStorageUtils/settingsStorage';
+import { createContext, useReducer } from 'react';
+import { ChordModel } from '../dataset/all_chords_for_impro';
 
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
-import {
-  getAllReleases,
-  getChordsForChords,
-  searchItemsForReplace,
-} from '../musicBrain/releaserUtils';
-import { chordStringToFullChord, convertChordToString, isChordsEqual } from '../utils';
+import { getAllReleases, searchItemsForReplace } from '../musicBrain/releaserUtils';
+import { chordStringToFullChord } from '../utils';
 
 interface State {
   addedChords: ChordModel[];

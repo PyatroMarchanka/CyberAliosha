@@ -5,9 +5,7 @@ import { routes } from '../../pages/routes';
 import { AlioshaLink } from '../global/AlioshaLink';
 import styled from 'styled-components';
 
-interface Props {}
-
-export const Navigation = ({}: Props) => {
+export const Navigation = () => {
   return (
     <Container>
       <AlioshaLink to={routes.chordsEditor}>

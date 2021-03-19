@@ -1,43 +1,37 @@
-import React, { useState } from "react";
-import {
-  createStyles,
-  makeStyles,
-  TextField,
-  Theme,
-  withStyles,
-} from "@material-ui/core";
-import styled from "styled-components";
-import { Button } from "../global/Button";
-import { theme } from "../../utils/theme";
+import React, { useState } from 'react';
+import { TextField, withStyles } from '@material-ui/core';
+import styled from 'styled-components';
+import { Button } from '../global/Button';
+import { theme } from '../../utils/theme';
 
 const CssTextField = withStyles({
   root: {
-    padding: "0 10px",
-    "& label.Mui-focused": {
+    padding: '0 10px',
+    '& label.Mui-focused': {
       color: theme.colors.bluePurple[700],
     },
-    "& label": {
+    '& label': {
       color: theme.colors.grey[500],
-      padding: "0 10px",
+      padding: '0 10px',
     },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "green",
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'green',
     },
-    "& .MuiFormControl-root .MuiFormLabel-root": {
-      border: "1px solid red",
+    '& .MuiFormControl-root .MuiFormLabel-root': {
+      border: '1px solid red',
     },
-    "& .MuiOutlinedInput-root": {
+    '& .MuiOutlinedInput-root': {
       color: theme.colors.black,
-      "&::placeholder": {
+      '&::placeholder': {
         color: theme.colors.bluePurple[500],
       },
-      "& fieldset": {
+      '& fieldset': {
         borderColor: theme.colors.bluePurple[500],
       },
-      "&:hover fieldset": {
+      '&:hover fieldset': {
         borderColor: theme.colors.bluePurple[200],
       },
-      "&.Mui-focused fieldset": {
+      '&.Mui-focused fieldset': {
         borderColor: theme.colors.bluePurple[700],
       },
     },
@@ -51,7 +45,7 @@ interface Props {
 export const TextSplitter = ({ onSubmit }: Props) => {
   const [lyric, setLyric] = useState(
     // 'Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could',
-    "Падымi мяне па-над зямлею\nПадымi мяне ў сьветлы абшар\nПадымi мяне над мiтусьнею\nПадымi мяне паветраны шар."
+    'Падымi мяне па-над зямлею\nПадымi мяне ў сьветлы абшар\nПадымi мяне над мiтусьнею\nПадымi мяне паветраны шар.'
   );
 
   const submit = (lyric: string) => {
@@ -70,14 +64,14 @@ export const TextSplitter = ({ onSubmit }: Props) => {
   return (
     <Container>
       <CssTextField
-        id="outlined-multiline-flexible"
-        label="Lyric (English, Russian or Belarussian)"
+        id='outlined-multiline-flexible'
+        label='Lyric (English, Russian or Belarussian)'
         multiline
         rowsMax={4}
         value={lyric}
         onChange={onChange}
-        variant="outlined"
-        className="lyric-input"
+        variant='outlined'
+        className='lyric-input'
       />
       <Button onClick={() => submit(lyric)}>Ok</Button>
     </Container>
@@ -100,10 +94,10 @@ const Container = styled.div`
         border-color: ${theme.colors.bluePurple[500]};
       }
       &:hover fieldset {
-        border-color: "yellow";
+        border-color: 'yellow';
       }
       &.Mui-focused fieldset {
-        border-color: "green";
+        border-color: 'green';
       }
     }
 

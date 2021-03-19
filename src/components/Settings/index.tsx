@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { FormControl, IconButton, TextField } from '@material-ui/core';
+import { useState } from 'react';
+import { IconButton } from '@material-ui/core';
 import styled from 'styled-components';
 
 import { Icon } from '../global/Icon';
@@ -8,9 +8,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { SettingsModal } from './SettingsModal';
-import { settingsStore } from '../../context/SettingsProvider';
-
-interface Props {}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,30 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
     icon: {
       marginLeft: '2rem',
     },
-  }),
+  })
 );
 
 export const Settings = () => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    state: { bpm },
-    dispatch,
-  } = useContext(settingsStore);
-
-  const setBpm = (value: string) => {
-    dispatch({
-      type: 'SET_BPM',
-      payload: +value,
-    });
-  };
 
   const handleClose = () => {
     setIsOpen(false);
-  };
-
-  const saveAndClose = () => {
-    handleClose();
   };
 
   return (
@@ -65,10 +47,10 @@ export const Settings = () => {
       <IconButton
         onClick={() => setIsOpen(true)}
         className={classes.icon}
-        edge="start"
-        aria-label="menu"
+        edge='start'
+        aria-label='menu'
       >
-        <Icon type="material" Icon={SettingsIcon} className="settings-icon" />
+        <Icon type='material' Icon={SettingsIcon} className='settings-icon' />
       </IconButton>
       <SettingsModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </Container>
