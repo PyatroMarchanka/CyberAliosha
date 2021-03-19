@@ -86,16 +86,26 @@ export default class PartCreator {
 
   getChordNotesCounts = (lyric: Lyric) => {
     const chordsForLine = Math.floor(this.chords.length / lyric.lines.length);
-    console.log('chordsForLine', chordsForLine);
+    const sumArr = (a: number[]) => a.reduce((acc, cur) => acc + cur, 0);
 
-    const chordNotesCounts = lyric.lines.reduce((acc, cur) => {
-      let count = cur.syllablesCount;
-      const chordNotesCount = Math.floor(count / chordsForLine);
-      const a = new Array(Math.floor(count / chordNotesCount) - 1).fill(chordNotesCount);
-      a.push((count % chordNotesCount) + chordNotesCount);
+    const chordNotesCounts = lyric.lines
+      .map((line) => {
+        let count = line.syllablesCount;
 
-      return acc.concat(a);
-    }, [] as number[]);
+        const chordNotesCount = count / chordsForLine;
+        const ceilChordNotesCount = Math.ceil(count / chordsForLine);
+        const floorChordNotesCount = Math.floor(count / chordsForLine);
+
+        const lineCounts: number[] = [];
+        let i = 0;
+        while (sumArr(lineCounts) + chordNotesCount < count) {
+          lineCounts.push(i % 2 === 0 ? floorChordNotesCount : ceilChordNotesCount);
+          i++;
+        }
+
+        return lineCounts;
+      }, [] as number[])
+      .flat();
 
     console.log(
       'chordNotesCounts',
