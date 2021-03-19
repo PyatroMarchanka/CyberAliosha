@@ -1,4 +1,4 @@
-const vowels = /[аеёиоуыэюяі]/gi;
+const vowels = /[аеёиоуыэюяіi]/gi;
 const deaf = 'длкпстфхцчшщўДЛКПСТФХЦЧШЩЎ';
 const signs = ['ь', 'ъ', 'Ь', 'Ъ', "'"];
 const voiced = ['м', 'р', 'л', 'н', 'М', 'Р', 'Л', 'Н'];
@@ -68,7 +68,7 @@ const _syllabifyWord = (word, { separator = '·' } = {}) => {
     return word;
   }
 
-  const letters = word.match(/[a-яёіў]/gi);
+  const letters = word.match(/[a-яёіiў]/gi);
 
   let skip = 0;
   let currentSyllable = '';
@@ -123,7 +123,7 @@ const _syllabifyWord = (word, { separator = '·' } = {}) => {
     }
   });
 
-  return word.replace(/[а-яёіў]+/i, collection.join(separator));
+  return word.replace(/[а-яёіiў]+/i, collection.join(separator));
 };
 
 const syllabifyWord = (word, { separator = '·' } = {}) => {

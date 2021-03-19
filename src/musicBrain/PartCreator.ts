@@ -1,17 +1,17 @@
-import { ChordModel, PartNote } from "./../dataset/all_chords_for_impro";
-import PatternCreator, { Pattern } from "./PatternCreator";
-import BarCreator from "./BarCreator";
+import { ChordModel, PartNote } from './../dataset/all_chords_for_impro';
+import PatternCreator, { Pattern } from './PatternCreator';
+import BarCreator from './BarCreator';
 import {
   NotesLengthType,
   NotesPatterns,
-} from "../dataset/all_chords_for_impro";
-import { Lyric } from "../utils/text/textUtils";
-import { capitalize } from "lodash";
+} from '../dataset/all_chords_for_impro';
+import { Lyric } from '../utils/text/textUtils';
+import { capitalize } from 'lodash';
 
 export interface PartOptions {
-  type: "soprano" | "tenor" | "bass";
+  type: 'soprano' | 'tenor' | 'bass';
   notesLength: NotesLengthType;
-  function: "accompaniment";
+  function: 'accompaniment';
   pattern: NotesPatterns;
   restProbability: number;
   lyric?: Lyric;
@@ -31,7 +31,7 @@ export default class PartCreator {
     partOptions: PartOptions
   ) {
     this.pattern =
-      partOptions.pattern === "riff"
+      partOptions.pattern === 'riff'
         ? new PatternCreator().getPattern(
             partOptions.notesLength,
             partOptions.type
@@ -66,7 +66,7 @@ export default class PartCreator {
       });
     }
 
-    console.log("this.notes", this.notes);
+    console.log('this.notes', this.notes);
   }
 
   createPartByLyric = (lyric: Lyric, restProbability: number = 0) => {
@@ -106,6 +106,7 @@ export default class PartCreator {
 
   getChordNotesCounts = (lyric: Lyric) => {
     const chordsForLine = Math.floor(this.chords.length / lyric.lines.length);
+    console.log('chordsForLine', chordsForLine);
 
     const chordNotesCounts = lyric.lines.reduce((acc, cur) => {
       const chordNotesCount = Math.floor(cur.syllablesCount / chordsForLine);
@@ -119,7 +120,8 @@ export default class PartCreator {
     }, [] as number[]);
 
     console.log(
-      "chordNotesCounts",
+      'chordNotesCounts',
+      chordNotesCounts,
       chordNotesCounts.reduce((acc, cur) => acc + cur)
     );
     return chordNotesCounts;
@@ -129,7 +131,7 @@ export default class PartCreator {
     const textLine = lyric.lines
       .map((line) => line.words.flat(Infinity))
       .flat() as string[];
-    console.log("textLine", textLine);
+    console.log('textLine', textLine);
 
     const result = notes.map((notesBar, barIdx) => {
       return notesBar.map((note, noteIdx) => {

@@ -25,7 +25,9 @@ export const splitTextLineToSyllables = (text: string) => {
 
 export const convertTextLinesToLyricEnglish = (textLines: string) => {
   const lines = textLines.split('\n');
-  const splited = lines.map((line) => splitTextLineToSyllables(line)) as string[][][];
+  const splited = lines.map((line) =>
+    splitTextLineToSyllables(line)
+  ) as string[][][];
   const lyric: Lyric = {
     lines: splited.map((line) => {
       const lyricLine: LyricLine = {
@@ -41,38 +43,65 @@ export const convertTextLinesToLyricEnglish = (textLines: string) => {
 };
 
 const removePronounseFromLine = (line: string[][]) => {
-  const vowels = /[аеёиоуыэюяі]/gi;
+  const vowels = new RegExp(/[аеёиоуыэюяіi]/gi);
 
-  const reduceWord = (word: string[]) => {
-    const result: string[] = new Array(word.length).fill('');
+  const result: string[][] = [];
 
-    word.forEach((str, i) => {
-      if (!vowels.test(str) && result[i - 1]) {
-        result[i - 1] = `${result[i - 1]} ${str}`;
-      } else if (!vowels.test(str) && result[i + 1]) {
-        result[i + 1] = `${str} ${result[i + 1]}`;
-      } else {
-        result[i] = result[i] + str;
+  let temp: string[] | null = null;
+
+  line.forEach((word) => {
+    if (
+      word.length === 1 &&
+      !vowels.test(word[0]) &&
+      !!result[result.length - 2]
+    ) {
+      const lastWord = result.length - 1;
+      result[lastWord][result[lastWord].length - 1] += ` ${word[0]}`;
+    } else if (
+      word.length === 1 &&
+      !vowels.test(word[0]) &&
+      !result[result.length - 2]
+    ) {
+      console.log('temp = word;', word);
+      temp = word;
+    } else {
+      result.push(word);
+
+      if (temp) {
+        result[result.length - 1][0] = `${temp[0]} ${
+          result[result.length - 1][0]
+        }`;
+        temp = null;
       }
-    });
+    }
+  });
 
-    return result;
-  };
+  return result;
 };
 
 export const convertTextLinesToLyricRussian = (textLines: string) => {
   const lines: string[][][] = textLines.split('\n').map((str) => {
     const line: string[][] = syllabify(
-      str.split('–').join('').split(' ').filter(Boolean).join(' '),
+      str
+        .split('–')
+        .join('')
+        .split('-')
+        .join('')
+        .split(' ')
+        .filter(Boolean)
+        .join(' ')
     );
 
-    return line;
+    return removePronounseFromLine(line);
   });
 
   const lyric: Lyric = {
     lines: lines
       .filter((line) => !!line.length)
-      .map((line) => ({ words: line, syllablesCount: line.flat(Infinity).length })),
+      .map((line) => ({
+        words: line,
+        syllablesCount: line.flat(Infinity).length,
+      })),
     syllablesCount: lines.flat(Infinity).length,
   };
 
@@ -80,7 +109,9 @@ export const convertTextLinesToLyricRussian = (textLines: string) => {
 };
 
 export const isTextRussian = (text: string) => {
-  const reg = new RegExp(/[йцукенгшщзхъёфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]/);
+  const reg = new RegExp(
+    /[йцукенгшщзхъёфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]/
+  );
 
   if (reg.test(text)) {
     return true;
