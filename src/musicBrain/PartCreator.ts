@@ -68,39 +68,4 @@ export default class PartCreator {
       });
     }
   }
-
-  createRandomPart(restProbability: number) {
-    this.notes = [];
-    for (let index = 0; index < this.squaresCountToAdd; index++) {
-      for (let idx in this.chords) {
-        const newBar = this.barCreator.getRandomBar(
-          this.chords[idx],
-          +idx,
-          this.pattern,
-          restProbability
-        );
-
-        if (newBar) {
-          this.notes = [...this.notes, newBar];
-        }
-      }
-    }
-  }
-
-  createRandomPartBars(restProbability: number) {
-    for (let index = 0; index < this.squaresCountToAdd; index++) {
-      for (let idx in this.chords) {
-        const newBar = this.barCreator.getRandomBar(
-          this.chords[idx],
-          +idx,
-          this.pattern,
-          restProbability
-        );
-
-        if (newBar) {
-          this.notes = [...this.notes, newBar];
-        }
-      }
-    }
-  }
 }

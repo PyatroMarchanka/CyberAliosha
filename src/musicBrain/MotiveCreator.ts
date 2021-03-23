@@ -33,7 +33,12 @@ export class MotiveCreator {
       throw new Error(`Error on creating initial part for MotiveCreator: chord: ${chords[0]}`);
     }
 
-    return chords.map((chord) => this.getBarByMotive(initialPart, chord));
+    return chords.map(
+      (chord, i) => this.getBarWithMovedNotes(initialPart, chord)
+      // (i + 3) % 4 === 0 || (i + 4) % 4 === 0
+      //   ? this.getBarWithMovedNotes(initialPart, chord)
+      //   : this.getBarByMotive(initialPart, chord)
+    );
   };
 
   getBarByMotive = (initialPart: PartNote[], chord: ChordModel) => {
