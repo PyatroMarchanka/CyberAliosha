@@ -1,10 +1,12 @@
 export interface ChordModel {
   0: Notes;
   1: ChordType;
-  2: Notes[];
-  3: Notes[];
+  2: SharpNotes[];
+  3: SharpNotes[];
 }
+export type SharpNotes = 'A' | 'A#' | 'B' | 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#';
 
+export const allNotes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
 export type Notes =
   | 'A'
   | 'A#'
@@ -103,6 +105,7 @@ export enum NotesLengthType {
 export enum NotesPatterns {
   None = 'none',
   Riff = 'riff',
+  Motive = 'motive',
 }
 
 export const getNotesTypeLabel = (type: NotesLengthType) => {
@@ -127,6 +130,7 @@ export const getNotesPatternLabel = (type: NotesPatterns) => {
   const labels = {
     [NotesPatterns.None]: 'None',
     [NotesPatterns.Riff]: 'Riff',
+    [NotesPatterns.Motive]: 'Motive',
   };
 
   return labels[type];

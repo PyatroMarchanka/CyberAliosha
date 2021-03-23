@@ -37,7 +37,6 @@ const SettingsProvider = ({ children }: any) => {
         };
 
       case 'SET_BPM':
-        console.log('action.payload', action.payload);
         saveSettings({ bpm: action.payload });
         return {
           ...state,

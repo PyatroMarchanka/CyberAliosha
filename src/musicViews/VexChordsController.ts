@@ -57,12 +57,10 @@ export class VexChordsController {
     }
 
     this.chordCharts = this.getChordsData(chords);
-    console.log('chordCharts', this.chordCharts);
 
     this.chords = this.chordCharts.map(
-      (chart, idx) => new ChordBox(`#${this.selectorPrefix}${idx}`, this.chordParams),
+      (chart, idx) => new ChordBox(`#${this.selectorPrefix}${idx}`, this.chordParams)
     );
-    console.log(' this.chords', this.chords);
 
     this.chords.forEach((chord, idx) => {
       chord.draw(this.chordCharts[idx]);
@@ -77,7 +75,6 @@ export class VexChordsController {
   };
 
   findChordChartData = (chord: ChordModel): ChordChart => {
-    console.log(chord);
     const chordChart = build(chord[0], chord[1]);
     return chordChart;
   };

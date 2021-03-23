@@ -32,8 +32,6 @@ export const saveItem = (item: any, storage: StorageNames, title: string) => {
     title: `${title} - ${new Date().toLocaleDateString()}`,
   };
 
-  console.log('title', title);
-
   if (previousItems) {
     const updatedItems = JSON.parse(previousItems);
 
@@ -65,7 +63,6 @@ export const getStorage = <T>(storage: StorageNames): T[] => {
   const saved = localStorage.getItem(storage);
   if (saved) {
     const items = JSON.parse(saved);
-    console.log('items', items);
 
     return items.map((progression: SerialazedData) => ({
       id: progression.id,

@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       width: '100%',
     },
-  }),
+  })
 );
 
 export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.black }: Props) => {
@@ -50,7 +50,6 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.bl
   };
 
   const saveAndClose = () => {
-    console.log('saveAndClose', titleValue);
     onSave(titleValue);
     handleClose();
   };
@@ -60,16 +59,16 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.bl
       <IconButton
         disabled={disabled}
         onClick={() => setIsOpen(true)}
-        className="icon"
-        edge="start"
-        aria-label="menu"
+        className='icon'
+        edge='start'
+        aria-label='menu'
       >
         <Icon
-          type="material"
+          type='material'
           Icon={SaveIcon}
           disabled={disabled}
           fill={iconColor}
-          className="icon"
+          className='icon'
         />
       </IconButton>
       <Dialog open={isOpen} onClose={handleClose}>
@@ -78,9 +77,9 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.bl
           <form className={classes.container} onSubmit={() => saveAndClose()}>
             <FormControl className={classes.formControl}>
               <TextField
-                id="standard-basic"
+                id='standard-basic'
                 autoFocus
-                label="Title"
+                label='Title'
                 value={titleValue}
                 onChange={(e) => setTitleValue(e.target.value)}
               />
@@ -88,16 +87,16 @@ export const SaveModal = ({ onSave, disabled, title, iconColor = theme.colors.bl
           </form>
         </DialogContent>
         <DialogActions>
-          <MatButton onClick={handleClose} color="inherit">
+          <MatButton onClick={handleClose} color='inherit'>
             Cancel
           </MatButton>
           <MatButton
-            type="submit"
+            type='submit'
             onClick={(e) => {
               e.preventDefault();
               saveAndClose();
             }}
-            color="inherit"
+            color='inherit'
           >
             Ok
           </MatButton>

@@ -7,7 +7,6 @@ const VF = Vex.Flow;
 
 const getBarsPerLine = (): 4 | 3 | 2 | 1 => {
   const device = getDevice();
-  console.log('device', device);
 
   switch (device) {
     case 'desktop':
@@ -69,7 +68,7 @@ export class VexFlowController {
       barsVexflow
         .slice(
           staveLineNumber * this.barsPerLine,
-          staveLineNumber * this.barsPerLine + this.barsPerLine,
+          staveLineNumber * this.barsPerLine + this.barsPerLine
         )
         .forEach((bar, barNumber) => this.drawStaveLineBar(bar, barNumber, staveLineNumber));
     }
@@ -79,7 +78,7 @@ export class VexFlowController {
     const stave = new Vex.Flow.Stave(
       barNumber * this.lineWidth,
       staveLineNumber * this.lineHeight,
-      this.lineWidth,
+      this.lineWidth
     );
 
     if (barNumber === 0) {
@@ -129,7 +128,7 @@ export class VexFlowController {
           0,
           new VF.Annotation(convertChordToString(chord))
             .setVerticalJustification(1)
-            .setFont('Sans-serif', 16, '600'),
+            .setFont('Sans-serif', 16, '600')
         );
       }
 

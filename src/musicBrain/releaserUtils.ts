@@ -47,7 +47,6 @@ export const searchItemsForReplace = (previousChord: ChordModel, nextChord: Chor
   const next = getAllReleaserable(nextChord);
 
   var common = intersectionWith(previous, next, (a, b) => a[0] === b[0] && a[1] === b[1]);
-  console.log('previous', previous, 'next', next, 'common', common);
   return common;
 };
 
@@ -254,11 +253,9 @@ export const getReleaserablesByChordType = (type: ChordModel[1]): ChordRelease[]
 };
 
 export const getChordsForChords = (chords: ChordModel[], count = -2): any => {
-  console.log('chords', count);
   const arr = chords.slice(count).map((chord) => detectTonalitiesByChord(chord));
 
   const toneChords = intersectionWith(arr[0], arr[1], isChordsEqual);
-  console.log('toneChords', toneChords.map(convertChordToString));
   if (toneChords.length > 1) {
     return getChordsForChords(chords, --count);
   }
@@ -268,23 +265,8 @@ export const getChordsForChords = (chords: ChordModel[], count = -2): any => {
     return releases.map((release) => findNotes(chord[0], release[0], release[1]));
   });
 
-  console.log('resultChords', resultChords.flat());
-
   const uniqueChords = uniqWith(resultChords.flat(), isChordsEqual);
-  console.log('uniqueChords', uniqueChords);
   return uniqueChords;
-
-  // const unique: ChordModel[] = intersectionWith(toneChords, isChordsEqual);
-  // console.log('unique', unique.map(convertChordToString));
-
-  // const resultChords = toneChords.map((chord) => {
-  //   const releases = getChordsReleasesForTonality(chord);
-  //   return releases.map((release) => findNotes(chord[0], release[0], release[1]));
-  // });
-
-  // console.log('resultChords', resultChords.flat().map(convertChordToString));
-  // const uniqueChords = uniqWith(resultChords.flat(), isChordsEqual);
-  // return uniqueChords;
 };
 
 const detectTonalitiesByChord = (chord: ChordModel): ChordModel[] => {

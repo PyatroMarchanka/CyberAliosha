@@ -19,7 +19,6 @@ interface Props {
 
 export const Melody = ({ melodyData, fetchMelodies }: Props) => {
   const { chords, melody } = melodyData.data;
-  console.log('chords, melody', chords, melody);
 
   const { handlePlaying, MPlayer, isPlaying } = usePlayMelodyAndChords({
     part: melody,

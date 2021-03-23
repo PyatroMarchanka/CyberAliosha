@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  Input,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@material-ui/core';
+import { FormControl, Input, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useContext } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -52,20 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const notesLengthTypes = [
-  NotesLengthType.Often,
-  NotesLengthType.Middle,
-  NotesLengthType.Seldom,
-  NotesLengthType.VeryOften,
-  NotesLengthType.VerySeldom,
-  NotesLengthType.Sixteen,
-  NotesLengthType.Eight,
-  NotesLengthType.Quarter,
-  NotesLengthType.Half,
-  NotesLengthType.Whole,
-];
+const notesLengthTypes = Object.values(NotesLengthType);
 
-const notesPatterns = [NotesPatterns.None, NotesPatterns.Riff];
+const notesPatterns = Object.values(NotesPatterns);
 
 const bpmToTempoName = {
   60: 'Adagio',
@@ -82,13 +65,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
   const classes = useStyles();
 
   const {
-    state: {
-      bpm,
-      notesLength,
-      notesPattern,
-      chordsToGenerateCount,
-      notesCountToPlayForChord,
-    },
+    state: { bpm, notesLength, notesPattern, chordsToGenerateCount, notesCountToPlayForChord },
     dispatch,
   } = useContext(settingsStore);
 
@@ -157,16 +134,12 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor='demo-dialog-melody-type'>
-              Melody notes length
-            </InputLabel>
+            <InputLabel htmlFor='demo-dialog-melody-type'>Melody notes length</InputLabel>
             <Select
               labelId='demo-dialog-select-label'
               id='demo-dialog-select'
               value={notesLength}
-              onChange={(e) =>
-                setNotesLength(e.target.value as NotesLengthType)
-              }
+              onChange={(e) => setNotesLength(e.target.value as NotesLengthType)}
               input={<Input id='demo-dialog-melody-type' />}
             >
               {notesLengthTypes.map((type) => (
@@ -177,9 +150,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor='demo-dialog-notes-pattern'>
-              Melody rythme pattern
-            </InputLabel>
+            <InputLabel htmlFor='demo-dialog-notes-pattern'>Melody rythme pattern</InputLabel>
             <Select
               labelId='demo-dialog-select-label'
               id='demo-dialog-select'
@@ -195,16 +166,12 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor='demo-dialog-chords-count'>
-              Chords to generate count
-            </InputLabel>
+            <InputLabel htmlFor='demo-dialog-chords-count'>Chords to generate count</InputLabel>
             <Select
               labelId='demo-dialog-chords-count'
               id='chords-count'
               value={+chordsToGenerateCount}
-              onChange={(e) =>
-                setChordsToGenerateCount(e.target.value as number)
-              }
+              onChange={(e) => setChordsToGenerateCount(e.target.value as number)}
               input={<Input id='demo-dialog-chords-count' />}
             >
               {[4, 6, 8, 12, 16].map((count) => (
@@ -222,9 +189,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
               labelId='demo-dialog-chords-count'
               id='chords-notes-play-count'
               value={+notesCountToPlayForChord}
-              onChange={(e) =>
-                setNotesToPlayForChordCount(e.target.value as number)
-              }
+              onChange={(e) => setNotesToPlayForChordCount(e.target.value as number)}
               input={<Input id='demo-dialog-chords-notes-play-count' />}
             >
               {[1, 2, 4, 8].map((count) => (

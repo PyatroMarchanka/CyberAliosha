@@ -29,7 +29,6 @@ export const SavedChordsLine = ({ onRemove, savedChords, openInEditor, idx }: Pr
     onPlay,
     onStop,
   });
-  console.log('isPlaying', isPlaying);
 
   return (
     <Chords>

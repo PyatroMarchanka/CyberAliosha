@@ -11,7 +11,6 @@ interface Props {
 
 export const SaveChordsModal = ({ chords }: Props) => {
   const saveAndClose = (title: string) => {
-    console.log('saveAndClose');
     saveSavedChords(chords, title);
   };
 

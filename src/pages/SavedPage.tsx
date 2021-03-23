@@ -20,12 +20,10 @@ export const SavedPage = () => {
     const savedChords = getSavedChords();
     if (savedChords) {
       setSavedChords(savedChords);
-      console.log('savedChords', savedChords);
     }
   };
   const fetchMelodies = () => {
     const melodies = getSavedMelodies();
-    console.log('melodies', melodies);
     if (melodies) {
       setSavedMelodies(melodies);
     }

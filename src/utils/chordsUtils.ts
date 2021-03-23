@@ -29,7 +29,7 @@ function chordNamesToFullArr(chordNames: string[]) {
 
 function findNotes(tone: string, step: number, type: ChordModel[1]) {
   const keyChords: ChordModel[] = chordsForImpro.find(
-    (tonica) => tonica[0][0] === transposeNote(tone, step, NOTES_MAP_SOLO),
+    (tonica) => tonica[0][0] === transposeNote(tone, step, NOTES_MAP_SOLO)
   )!;
 
   return keyChords.find((chord: ChordModel) => chord[1] === type)!;
@@ -67,7 +67,7 @@ const getTermsFromArrToSum = (
   array: number[],
   target: number,
   partial: number[],
-  count?: number,
+  count?: number
 ): number[] | undefined => {
   array = array.sort((a, b) => a - b);
   const sum = partial.reduce((acc, cur) => acc + cur, 0);
@@ -96,7 +96,7 @@ const getTermsFromArrToSum = (
 const getTermsFromArrToSumSimple = (
   array: number[],
   target: number,
-  partial: number[],
+  partial: number[]
 ): number[] | undefined => {
   array = array.sort((a, b) => a - b);
   const sum = partial.reduce((acc, cur) => acc + cur, 0);
@@ -111,7 +111,7 @@ const getTermsFromArrToSumSimple = (
     return getTermsFromArrToSumSimple(
       getDursByNotesLengthType(NotesLengthType.Middle),
       target,
-      partial.slice(0, partial.length - 1),
+      partial.slice(0, partial.length - 1)
     );
   }
 
@@ -192,8 +192,8 @@ const getDursByNotesLengthType = (notesLengthType: NotesLengthType) => {
   }
 };
 
-function createDurMeasure(notesLengthType: NotesLengthType) {
-  let result = getTermsFromArrToSumSimple(getDursByNotesLengthType(notesLengthType), 1, []);
+function createDurMeasure(notesLengthType: NotesLengthType, sum = 1) {
+  let result = getTermsFromArrToSumSimple(getDursByNotesLengthType(notesLengthType), sum, []);
   return result;
 }
 

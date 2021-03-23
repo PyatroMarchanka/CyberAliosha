@@ -21,13 +21,14 @@ import { TextSplitter } from '../../components/Text/TextSplitter';
 import { convertTextToSyllables, Lyric } from '../../utils/text/textUtils';
 import { generateMelody } from '../../musicBrain/melodyUtils';
 import { settingsStore } from '../../context/SettingsProvider';
+import { MotiveCreator } from '../../musicBrain/MotiveCreator';
 
 export const MelodiesPage = () => {
   const location = useLocation();
   const chordsCreator = new MidiChordsCreator();
   const [chords, setChords] = useState<ChordModel[]>([]);
   const {
-    state: { notesLength, notesPattern, playAccompanimentWithMelody },
+    state: { notesLength, notesPattern, playAccompanimentWithMelody, chordsToGenerateCount },
     dispatch,
   } = useContext(settingsStore);
 
@@ -42,10 +43,17 @@ export const MelodiesPage = () => {
   });
 
   const generateChords = () => {
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(4);
+    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(
+      chordsToGenerateCount
+    );
 
     if (chords) {
-      setChords([...chords, ...chords]);
+      let eightChords: ChordModel[] = [];
+      while (eightChords.length < 8) {
+        eightChords = [...eightChords, ...chords];
+      }
+
+      setChords(eightChords);
       setPart([]);
     }
   };
@@ -58,7 +66,7 @@ export const MelodiesPage = () => {
       pattern: notesPattern,
       restProbability: 0,
     });
-    console.log('newPart', newPart);
+
     setPart(newPart);
   };
 
@@ -81,7 +89,6 @@ export const MelodiesPage = () => {
     const lyric = convertTextToSyllables(text);
     const isLinesLong = Math.round(lyric.syllablesCount / lyric.lines.length) > 4;
 
-    console.log('lyric', lyric);
     setLyric(lyric);
 
     const chordsCountForSong = lyric.lines.length * (isLinesLong ? 4 : 2);
@@ -104,7 +111,6 @@ export const MelodiesPage = () => {
         restProbability: 0,
         lyric,
       });
-      console.log('onLyricAdd newPart', newPart.flat().length);
 
       setPart(newPart);
     }

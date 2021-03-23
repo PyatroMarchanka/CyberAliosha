@@ -283,8 +283,6 @@ const SHAPES = {
   },
 };
 
-console.log(Object.keys(SHAPES).join(', '), SHAPES);
-
 const POSITIONS = {
   E: {
     A: 5,
@@ -327,9 +325,8 @@ const POSITIONS = {
 };
 
 function build(key: Notes, shape: ChordType): ChordChart {
-  console.log('shape:-', `-${shape}-`);
   const position = Math.min(
-    ...Object.values(GuitarStrings).map((string) => POSITIONS[string][key]),
+    ...Object.values(GuitarStrings).map((string) => POSITIONS[string][key])
   );
 
   const struct = SHAPES[`${shape} ${getMinPositionString(key)}`];
