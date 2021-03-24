@@ -324,6 +324,9 @@ const getChordsReleasesForTonality = (chord: ChordModel): ChordRelease[] => {
     case UnstableChords.M9:
     case MinorChords.Madd9:
       return [
+        [0, MinorChords.Minor],
+        [0, MinorChords.M7],
+        [0, MinorChords.Madd9],
         [2, UnstableChords.Min7b5],
         [2, UnstableChords.Dim7],
         ...getReleasesByType(3, MajorChords.Major),
@@ -340,6 +343,9 @@ const getChordsReleasesForTonality = (chord: ChordModel): ChordRelease[] => {
     case MajorChords.Maj7:
     case MajorChords.MajAdd9:
       return [
+        [0, MajorChords.Major],
+        [0, MajorChords.Maj7],
+        [0, MajorChords.MajAdd9],
         [2, UnstableChords.Dim7],
         ...getReleasesByType(2, MinorChords.Minor),
         ...getReleasesByType(4, MinorChords.Minor),

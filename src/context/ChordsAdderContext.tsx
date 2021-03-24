@@ -108,10 +108,7 @@ const ChordsAdderProvider = ({ children }: any) => {
 
         return {
           ...state,
-          chordsToAdd: [
-            singleToneChord,
-            ...(getAllReleaserablesForTonality(singleToneChord) || []),
-          ],
+          chordsToAdd: [...(getAllReleaserablesForTonality(singleToneChord) || [])],
         };
 
       case 'ADD_RANDOM_CHORDS_TO_ADD_SINGLE_TONE':
