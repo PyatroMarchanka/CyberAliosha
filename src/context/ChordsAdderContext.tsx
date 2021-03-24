@@ -2,7 +2,11 @@ import { createContext, useReducer } from 'react';
 import { ChordModel } from '../dataset/all_chords_for_impro';
 
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
-import { getAllReleases, searchItemsForReplace } from '../musicBrain/releaserUtils';
+import {
+  getAllReleaserablesForTonality,
+  getAllReleases,
+  searchItemsForReplace,
+} from '../musicBrain/releaserUtils';
 import { chordStringToFullChord } from '../utils';
 
 interface State {
@@ -30,7 +34,11 @@ interface Action {
     | 'SET_START_KEY'
     | 'SET_START_MOOD'
     | 'SET_CHORDS_LENGHT'
-    | 'ADD_CHORDS_FOR_REPLACE';
+    | 'ADD_CHORDS_FOR_REPLACE'
+    | 'ADD_CHORD_SINGLE_TONE'
+    | 'ADD_CHORDS_TO_ADD_SINGLE_TONE'
+    | 'ADD_INITIAL_CHORDS_TO_ADD_SINGLE_TONE'
+    | 'ADD_RANDOM_CHORDS_TO_ADD_SINGLE_TONE';
   payload?: any;
 }
 
@@ -82,11 +90,41 @@ const ChordsAdderProvider = ({ children }: any) => {
           addedChords: [...state.addedChords, action.payload],
         };
 
-      case 'ADD_CHORDS_TO_ADD':
-        // if (state.addedChords.length > 1) {
-        //   getChordsForChords(state.addedChords);
-        // }
+      case 'ADD_CHORD_SINGLE_TONE':
+        return {
+          ...state,
+          addedChords: [...state.addedChords, action.payload],
+        };
 
+      case 'ADD_CHORDS_TO_ADD_SINGLE_TONE':
+        return {
+          ...state,
+          chordsToAdd:
+            getAllReleaserablesForTonality(chordStringToFullChord(state.key + state.mood)) || [],
+        };
+
+      case 'ADD_INITIAL_CHORDS_TO_ADD_SINGLE_TONE':
+        const singleToneChord = chordStringToFullChord(state.key + state.mood);
+
+        return {
+          ...state,
+          chordsToAdd: [
+            singleToneChord,
+            ...(getAllReleaserablesForTonality(singleToneChord) || []),
+          ],
+        };
+
+      case 'ADD_RANDOM_CHORDS_TO_ADD_SINGLE_TONE':
+        return {
+          ...state,
+          addedChords:
+            chordsCreator.getRandomCyclicChords(
+              action.payload,
+              chordStringToFullChord(state.key + state.mood)
+            ) || [],
+        };
+
+      case 'ADD_CHORDS_TO_ADD':
         return {
           ...state,
           chordsToAdd: getAllReleases(action.payload) || [],
@@ -109,7 +147,7 @@ const ChordsAdderProvider = ({ children }: any) => {
         const current = chordStringToFullChord(state.key + state.mood);
         return {
           ...state,
-          addedChords: chordsCreator.getNewCyclicChords(action.payload, current) || [],
+          addedChords: chordsCreator.getRandomCyclicChords(action.payload, current) || [],
         };
 
       case 'DELETE_CHORD':

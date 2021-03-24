@@ -1,7 +1,11 @@
 import { ChordModel } from '../dataset/all_chords_for_impro';
 import ALL_CHORDS_FOR_IMPROVISE from '../dataset/all_chords';
 import { isInChordsArray, randomIntegerRange } from '../utils';
-import { getAllReleaserable, getAllReleases } from './releaserUtils';
+import {
+  getAllReleaserablesForTonality,
+  getAllReleaserable,
+  getAllReleases,
+} from './releaserUtils';
 
 export default class MidiChordsCreator {
   chords: ChordModel[];
@@ -31,25 +35,24 @@ export default class MidiChordsCreator {
     return result.slice(0, count);
   }
 
-  generateCyclicChords = (
+  generateRandomCyclicChords = (
     all_chords: ChordModel[][],
     count: number,
     startChord?: ChordModel,
-    partial: ChordModel[] = [],
+    partial: ChordModel[] = []
   ): ChordModel[] | undefined => {
-    if (!startChord) {
+    if (!startChord && !(typeof all_chords[0][0] === 'string')) {
       const randTone = all_chords[randomIntegerRange(0, all_chords.length)];
       const chordsOk = [0, 1, 2, 4, 5, 8, 9];
       let randChord = randTone[chordsOk[randomIntegerRange(0, chordsOk.length)]];
-      // let randChord = randTone[chordsOk[randomIntegerRange(0, chordsOk.length)]];
       startChord = randChord;
     }
 
-    const releasersForStartChord = getAllReleaserable(startChord);
+    const releasersForStartChord = getAllReleaserable(startChord!);
     let result = [...partial];
 
     if (!result.length) {
-      result.push(startChord);
+      result.push(startChord!);
     }
 
     if (partial.length === count) {
@@ -60,7 +63,7 @@ export default class MidiChordsCreator {
     const releaseChord = releases[randomIntegerRange(0, releases?.length)];
 
     if (releaseChord) {
-      const test = this.generateCyclicChords(all_chords, count, startChord, [
+      const test = this.generateRandomCyclicChords(all_chords, count, startChord, [
         ...result,
         releaseChord,
       ]);
@@ -72,30 +75,37 @@ export default class MidiChordsCreator {
       ) {
         return test;
       } else if (result.length > 1) {
-        return this.generateCyclicChords(
+        return this.generateRandomCyclicChords(
           all_chords,
           count,
           startChord,
-          result.slice(0, result.length - 3),
+          result.slice(0, result.length - 3)
         );
       } else {
-        return this.generateCyclicChords(all_chords, count, startChord, [startChord]);
+        return this.generateRandomCyclicChords(all_chords, count, startChord, [startChord!]);
       }
     } else {
       result.pop();
-      return this.generateCyclicChords(all_chords, count, startChord, [...result]);
+      return this.generateRandomCyclicChords(all_chords, count, startChord, [...result]);
     }
   };
 
-  getNewChords(count: number, startChord?: ChordModel) {
+  getRandomChords(count: number, startChord?: ChordModel) {
     const chords = this.generateChords(ALL_CHORDS_FOR_IMPROVISE, count, startChord);
     return chords;
   }
 
-  getNewCyclicChords(count: number, startChord?: ChordModel) {
-    const chords = this.generateCyclicChords(ALL_CHORDS_FOR_IMPROVISE, count, startChord);
+  getRandomCyclicChords(count: number, startChord?: ChordModel) {
+    const chords = this.generateRandomCyclicChords(ALL_CHORDS_FOR_IMPROVISE, count, startChord);
     return chords;
   }
+
+  // getNewCyclicChordsForTonality(count: number, startChord: ChordModel) {
+  //   const allChords = getAllReleaserablesForTonality(startChord);
+
+  //   const chords = this.generateCyclicChords(allChords, count, startChord);
+  //   return chords;
+  // }
 
   getChords() {
     return this.chords;

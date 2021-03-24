@@ -1,3 +1,4 @@
+import { ChordsMode } from './../dataset/all_chords_for_impro';
 import { NotesLengthType, NotesPatterns } from '../dataset/all_chords_for_impro';
 import { StorageNames } from './storagesController';
 
@@ -9,6 +10,7 @@ export interface Settings {
   chordsGuitarMode: boolean;
   chordsToGenerateCount: number;
   notesCountToPlayForChord: number;
+  chordsMode: ChordsMode;
 }
 
 const initialSettings: Settings = {
@@ -19,6 +21,7 @@ const initialSettings: Settings = {
   chordsGuitarMode: false,
   chordsToGenerateCount: 8,
   notesCountToPlayForChord: 2,
+  chordsMode: ChordsMode.JazzChords,
 };
 
 export const getSettings = (): Settings => {

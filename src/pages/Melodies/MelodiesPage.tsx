@@ -43,7 +43,7 @@ export const MelodiesPage = () => {
   });
 
   const generateChords = () => {
-    const chords: ChordModel[] | undefined = chordsCreator.getNewCyclicChords(
+    const chords: ChordModel[] | undefined = chordsCreator.getRandomCyclicChords(
       chordsToGenerateCount
     );
 

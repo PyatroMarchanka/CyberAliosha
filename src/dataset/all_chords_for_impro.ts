@@ -108,6 +108,20 @@ export enum NotesPatterns {
   Motive = 'motive',
 }
 
+export enum ChordsMode {
+  SingleTonality = 'single_tonality',
+  JazzChords = 'jazz',
+}
+
+export const getChordsModeLabel = (mode: ChordsMode) => {
+  const labels = {
+    [ChordsMode.SingleTonality]: 'Single tonality',
+    [ChordsMode.JazzChords]: 'Jazz',
+  };
+
+  return labels[mode];
+};
+
 export const getNotesTypeLabel = (type: NotesLengthType) => {
   const labels = {
     [NotesLengthType.Often]: 'Often',

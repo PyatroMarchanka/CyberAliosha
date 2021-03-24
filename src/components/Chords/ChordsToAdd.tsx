@@ -5,6 +5,7 @@ import { chordsAdderStore } from '../../context/ChordsAdderContext';
 import { settingsStore } from '../../context/SettingsProvider';
 import {
   ChordModel,
+  ChordsMode,
   MajorChords,
   MinorChords,
   UnstableChords,
@@ -20,7 +21,7 @@ import { KeyMoodSelector } from './KeySelector';
 export const ChordsToAdd = () => {
   const { state, dispatch } = useContext(chordsAdderStore);
   const {
-    state: { chordsToGenerateCount },
+    state: { chordsToGenerateCount, chordsMode },
   } = useContext(settingsStore);
 
   const { Player, MPlayer } = useMidiPlayer();
@@ -47,13 +48,28 @@ export const ChordsToAdd = () => {
   };
 
   const onRandomClick = () => {
-    dispatch({
-      type: 'ADD_RANDOM_CHORDS_TO_ADD',
-      payload: chordsToGenerateCount,
-    });
+    if (chordsMode === ChordsMode.SingleTonality) {
+      dispatch({
+        type: 'ADD_RANDOM_CHORDS_TO_ADD_SINGLE_TONE',
+        payload: chordsToGenerateCount,
+      });
+    } else {
+      dispatch({
+        type: 'ADD_RANDOM_CHORDS_TO_ADD',
+        payload: chordsToGenerateCount,
+      });
+    }
   };
 
   useEffect(() => {
+    if (chordsMode === ChordsMode.SingleTonality) {
+      dispatch({
+        type: 'ADD_INITIAL_CHORDS_TO_ADD_SINGLE_TONE',
+      });
+
+      return;
+    }
+
     if (!state.addedChords.length) {
       dispatch({
         type: 'ADD_INITIAL_CHORDS_TO_ADD',
@@ -79,26 +95,17 @@ export const ChordsToAdd = () => {
       <Chords>
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(
-            Object.values(MinorChords),
-            state.chordsToAdd
-          )}
+          chords={sortChordsByType(Object.values(MinorChords), state.chordsToAdd)}
           title='Minor chords:'
         />
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(
-            Object.values(MajorChords),
-            state.chordsToAdd
-          )}
+          chords={sortChordsByType(Object.values(MajorChords), state.chordsToAdd)}
           title='Major chords:'
         />
         <ChordsTitledLine
           onChordClick={onChordClick}
-          chords={sortChordsByType(
-            Object.values(UnstableChords),
-            state.chordsToAdd
-          )}
+          chords={sortChordsByType(Object.values(UnstableChords), state.chordsToAdd)}
           title='Unstable chords:'
         />
       </Chords>

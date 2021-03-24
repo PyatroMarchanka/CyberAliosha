@@ -32,6 +32,12 @@ export const getAllReleaserable = (target: ChordModel) => {
   return results;
 };
 
+export const getAllReleaserablesForTonality = (toneChord: ChordModel) => {
+  const releases = getChordsReleasesForTonality(toneChord);
+
+  return releases.map((release) => findNotes(toneChord[0], release[0], release[1]));
+};
+
 export const getAllReleases = (target: ChordModel) => {
   const results = getReleasesByChordType(target[1]).map((release) =>
     findNotes(target[0], release[0], release[1])
@@ -339,6 +345,7 @@ const getChordsReleasesForTonality = (chord: ChordModel): ChordRelease[] => {
         ...getReleasesByType(4, MinorChords.Minor),
         ...getReleasesByType(5, MajorChords.Major),
         [7, UnstableChords.D7],
+        [7, MajorChords.Major],
         [7, UnstableChords.D7b5],
         ...getReleasesByType(9, MinorChords.Minor),
         [11, UnstableChords.Min7b5],

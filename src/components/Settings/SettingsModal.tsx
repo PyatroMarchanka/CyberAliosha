@@ -9,6 +9,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
+  ChordsMode,
+  getChordsModeLabel,
   getNotesPatternLabel,
   getNotesTypeLabel,
   NotesLengthType,
@@ -50,6 +52,8 @@ const notesLengthTypes = Object.values(NotesLengthType);
 
 const notesPatterns = Object.values(NotesPatterns);
 
+const chordModes = Object.values(ChordsMode);
+
 const bpmToTempoName = {
   60: 'Adagio',
   75: 'Andante',
@@ -65,7 +69,14 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
   const classes = useStyles();
 
   const {
-    state: { bpm, notesLength, notesPattern, chordsToGenerateCount, notesCountToPlayForChord },
+    state: {
+      bpm,
+      notesLength,
+      notesPattern,
+      chordsToGenerateCount,
+      notesCountToPlayForChord,
+      chordsMode,
+    },
     dispatch,
   } = useContext(settingsStore);
 
@@ -101,6 +112,13 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
     dispatch({
       type: 'SET_SETTINGS',
       payload: { notesCountToPlayForChord: value },
+    });
+  };
+
+  const setChordsMode = (value: ChordsMode) => {
+    dispatch({
+      type: 'SET_SETTINGS',
+      payload: { chordsMode: value },
     });
   };
 
@@ -183,7 +201,7 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
           </FormControl>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor='demo-dialog-chords-notes-play-count'>
-              Chords to play for chord
+              Notes count to play for chord
             </InputLabel>
             <Select
               labelId='demo-dialog-chords-count'
@@ -195,6 +213,22 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
               {[1, 2, 4, 8].map((count) => (
                 <MenuItem key={count} value={+count}>
                   {count}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor='chords-mode'>Chords mode</InputLabel>
+            <Select
+              labelId='demo-dialog-chords-mode'
+              id='label-chords-mode'
+              value={chordsMode}
+              onChange={(e) => setChordsMode(e.target.value as ChordsMode)}
+              input={<Input id='chords-mode' />}
+            >
+              {chordModes.map((mode) => (
+                <MenuItem key={mode} value={mode}>
+                  {getChordsModeLabel(mode)}
                 </MenuItem>
               ))}
             </Select>
