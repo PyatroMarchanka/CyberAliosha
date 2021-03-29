@@ -10,6 +10,7 @@ import { SavedChords, SavedMelodies } from '../localStorageUtils/storagesControl
 import { getSavedMelodies } from '../localStorageUtils/melodiesStorage';
 import { Melody } from './Melodies/Melody';
 import { SavedChordsLine } from './Chords/SavedChordsLine';
+import { Typography } from '@material-ui/core';
 
 export const SavedPage = () => {
   const [savedChords, setSavedChords] = useState<SavedChords[]>([]);
@@ -53,11 +54,14 @@ export const SavedPage = () => {
               idx={idx}
             />
           ))}
+        {!savedChords || (!savedChords.length && <Typography variant='h6'>No chords</Typography>)}
       </Container>
       <Container>
         {savedMelodies?.map((melody) => (
           <Melody melodyData={melody} fetchMelodies={fetchMelodies} />
         ))}
+        {!savedMelodies ||
+          (!savedMelodies.length && <Typography variant='h6'>No melodies</Typography>)}
       </Container>
     </Tabs>
   );

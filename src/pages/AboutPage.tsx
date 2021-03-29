@@ -31,7 +31,7 @@ export const AboutPage = (props: Props) => {
                 buttons with chord names. They fall into three categories: Major, Minor, and
                 Unstable. To begin with, you can choose a starting key - this is C major by default.
                 When you press a chord, the program changes the set of available ones, adapting to
-                the new chord. When the chords are ready, click “Add Melody".{' '}
+                the new chord. When the chords are ready, click “Add Melody".
               </p>
               <p>
                 You also can use the “Single key” mode, where chords do not change, but all chords
@@ -63,7 +63,7 @@ export const AboutPage = (props: Props) => {
           copy={
             <p>
               <p>
-                You can save chords and melodies using the button{' '}
+                You can save chords and melodies using the button
                 <Icon type='material' className='icon' Icon={SaveIcon} />. They will be available in
                 the "Saved" section. The sequences and melodies are available as music scores, so
                 you can play them right now!
@@ -123,7 +123,7 @@ const Step = styled(
   .icon {
     width: 25px;
     height: 25px;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
 `;
 
