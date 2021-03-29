@@ -17,6 +17,7 @@ import {
   NotesPatterns,
 } from '../../dataset/all_chords_for_impro';
 import { settingsStore } from '../../context/SettingsProvider';
+import { chordsAdderStore } from '../../context/ChordsAdderContext';
 
 interface Props {
   isOpen: boolean;
@@ -80,6 +81,8 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
     dispatch,
   } = useContext(settingsStore);
 
+  const { dispatch: chordsDispatch } = useContext(chordsAdderStore);
+
   const setBpm = (value: string) => {
     dispatch({
       type: 'SET_BPM',
@@ -120,6 +123,15 @@ export const SettingsModal = ({ isOpen, setIsOpen }: Props) => {
       type: 'SET_SETTINGS',
       payload: { chordsMode: value },
     });
+    if (value === ChordsMode.SingleTonality) {
+      chordsDispatch({
+        type: 'ADD_INITIAL_CHORDS_TO_ADD_SINGLE_TONE',
+      });
+    } else if (value === ChordsMode.JazzChords) {
+      chordsDispatch({
+        type: 'ADD_INITIAL_CHORDS_TO_ADD',
+      });
+    }
   };
 
   const handleClose = () => {
