@@ -115,8 +115,8 @@ export enum ChordsMode {
 
 export const getChordsModeLabel = (mode: ChordsMode) => {
   const labels = {
-    [ChordsMode.SingleTonality]: 'Single tonality',
-    [ChordsMode.JazzChords]: 'Jazz',
+    [ChordsMode.SingleTonality]: 'Single key',
+    [ChordsMode.JazzChords]: 'Standart',
   };
 
   return labels[mode];
