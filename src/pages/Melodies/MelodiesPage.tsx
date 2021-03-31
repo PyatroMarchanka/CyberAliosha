@@ -22,53 +22,34 @@ import { convertTextToSyllables, Lyric } from '../../utils/text/textUtils';
 import { generateMelody } from '../../musicBrain/melodyUtils';
 import { settingsStore } from '../../context/SettingsProvider';
 import { MotiveCreator } from '../../musicBrain/MotiveCreator';
+import PartsFabric from '../../musicBrain/PartsFabric';
+import { useMultipleParts } from '../../hooks/useMultipleParts';
+import { PartOptions } from '../../musicBrain/PartCreator';
+import { useLyric } from '../../hooks/useLyric';
+import { usePart } from '../../hooks/usePart';
+import { useChords } from '../../hooks/useChords';
 
 export const MelodiesPage = () => {
   const location = useLocation();
-  const chordsCreator = new MidiChordsCreator();
-  const [chords, setChords] = useState<ChordModel[]>([]);
+
   const {
-    state: { notesLength, notesPattern, playAccompanimentWithMelody, chordsToGenerateCount },
+    state: { playAccompanimentWithMelody },
     dispatch,
   } = useContext(settingsStore);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 
-  const [part, setPart] = useState<PartNote[][]>([]);
-  const [lyric, setLyric] = useState<Lyric | null>(null);
+  const { chords, setChords, generateChords, part, setPart, getMelody } = useChords(
+    location,
+    locationChords
+  );
+
+  const { parts, addPart, deleteLastPart } = useMultipleParts(chords);
 
   const { handlePlaying, MPlayer, isPlaying, Player } = usePlayMelodyAndChords({
     chords,
     part,
   });
-
-  const generateChords = () => {
-    const chords: ChordModel[] | undefined = chordsCreator.getRandomCyclicChords(
-      chordsToGenerateCount
-    );
-
-    if (chords) {
-      let eightChords: ChordModel[] = [];
-      while (eightChords.length < 8) {
-        eightChords = [...eightChords, ...chords];
-      }
-
-      setChords(eightChords);
-      setPart([]);
-    }
-  };
-
-  const getMelody = () => {
-    const newPart = generateMelody(chords, {
-      type: 'soprano',
-      notesLength: notesLength,
-      function: 'accompaniment',
-      pattern: notesPattern,
-      restProbability: 0,
-    });
-
-    setPart(newPart);
-  };
 
   const onPlayAccompanimentChange = (value: boolean) => {
     dispatch({
@@ -77,44 +58,7 @@ export const MelodiesPage = () => {
     });
   };
 
-  useEffect(() => {
-    if (locationChords) {
-      setChords(locationChords);
-    } else {
-      generateChords();
-    }
-  }, [location]);
-
-  const onLyricAdd = (text: string) => {
-    const lyric = convertTextToSyllables(text);
-    const isLinesLong = Math.round(lyric.syllablesCount / lyric.lines.length) > 4;
-
-    setLyric(lyric);
-
-    const chordsCountForSong = lyric.lines.length * (isLinesLong ? 4 : 2);
-
-    let chordsForSong: ChordModel[] = [];
-    while (chordsForSong.length < chordsCountForSong) {
-      chordsForSong = [...chordsForSong, ...chords!];
-    }
-
-    chordsForSong = chordsForSong.slice(0, chordsCountForSong);
-
-    if (chordsForSong) {
-      setChords(chordsForSong);
-
-      const newPart = generateMelody(chordsForSong, {
-        type: 'soprano',
-        notesLength: NotesLengthType.Middle,
-        function: 'accompaniment',
-        pattern: notesPattern,
-        restProbability: 0,
-        lyric,
-      });
-
-      setPart(newPart);
-    }
-  };
+  const { onLyricAdd } = useLyric(chords, setPart, setChords);
 
   return (
     <>
