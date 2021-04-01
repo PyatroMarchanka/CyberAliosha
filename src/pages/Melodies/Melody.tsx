@@ -11,6 +11,7 @@ import { Icon } from '../../components/global/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { PlayStopButton } from '../../components/global/PlayStopButton';
 import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
+import { MidiFileGetter } from '../../components/global/MidiFileGetter';
 
 interface Props {
   melodyData: SavedMelodies;
@@ -60,6 +61,7 @@ export const Melody = ({ melodyData, fetchMelodies }: Props) => {
         >
           <SheetStave bars={melody} chords={chords} backgroundColor={theme.colors.white} />
         </Modal>
+        <MidiFileGetter chords={chords} part={melody} />
         {MPlayer}
       </div>
     </StyledMelody>
