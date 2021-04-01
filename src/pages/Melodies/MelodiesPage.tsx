@@ -20,6 +20,7 @@ import { TextSplitter } from '../../components/Text/TextSplitter';
 import { settingsStore } from '../../context/SettingsProvider';
 import { useLyric } from '../../hooks/useLyric';
 import { useChords } from '../../hooks/useChords';
+import { MidiFileGetter } from '../../components/global/MidiFileGetter';
 
 export const MelodiesPage = () => {
   const location = useLocation();
@@ -80,6 +81,7 @@ export const MelodiesPage = () => {
                   <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
                 )}
                 <SaveMelodiesModal melody={part} chords={chords} />
+                {!!part.length && <MidiFileGetter part={part} chords={chords} />}
                 <Checkbox
                   label='Play accompaniment'
                   value={playAccompanimentWithMelody}

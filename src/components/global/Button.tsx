@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useLongPress } from '../../hooks/useLongPress';
 import { Color, theme } from '../../utils/theme';
 
@@ -48,8 +48,7 @@ export function Button({
 interface StyledProps {
   fontColor: Color;
 }
-
-const PrimaryButton = styled.button`
+export const PrimaryButtonStyles = css`
   padding: 10px;
   margin: 10px;
   background-color: ${({ fontColor }: StyledProps) => fontColor[500]};
@@ -88,6 +87,10 @@ const PrimaryButton = styled.button`
       cursor: unset;
     }
   }
+`;
+
+const PrimaryButton = styled.button`
+  ${PrimaryButtonStyles}
 `;
 
 const BigButton = styled(PrimaryButton)`
