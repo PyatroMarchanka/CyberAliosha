@@ -68,7 +68,10 @@ export const MelodiesPage = () => {
           <Header>
             {chords.length > 0 && (
               <Chords>
-                <ChordsProgression chords={chords} onChordClick={Player?.playChord} />
+                <ChordsProgression
+                  chords={chords.length > 8 ? chords.slice(8) : chords}
+                  onChordClick={Player?.playChord}
+                />
               </Chords>
             )}
             <Actions>
