@@ -54,9 +54,7 @@ export const TextSplitter = ({ onSubmit }: Props) => {
     }
   };
 
-  const onChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
     setLyric(e.target.value);
   };
@@ -73,7 +71,7 @@ export const TextSplitter = ({ onSubmit }: Props) => {
         variant='outlined'
         className='lyric-input'
       />
-      <Button onClick={() => submit(lyric)}>Ok</Button>
+      <Button onClick={() => submit(lyric)}>Generate song</Button>
     </Container>
   );
 };

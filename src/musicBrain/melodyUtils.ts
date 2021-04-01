@@ -1,4 +1,5 @@
-import { ChordModel } from './../dataset/all_chords_for_impro';
+import { randomIntegerRange } from '../utils';
+import { ChordModel, PartNote } from './../dataset/all_chords_for_impro';
 import { PartOptions } from './PartCreator';
 import PartsFabric from './PartsFabric';
 
@@ -7,4 +8,27 @@ export const generateMelody = (chords: ChordModel[], partOptions: PartOptions, l
 
   const melody = partFabric.addPart(partOptions);
   return melody;
+};
+
+export const addOneMorePartToPart = (part: PartNote[][], chords: ChordModel[]): PartNote[][] => {
+  const newPart = part.map((bar, idx) =>
+    bar.map((note) => addNewVoiceNoteToPartNote(note, part, chords[idx]))
+  );
+
+  return newPart;
+};
+
+const addNewVoiceNoteToPartNote = (
+  note: PartNote,
+  part: PartNote[][],
+  chord: ChordModel
+): PartNote => {
+  const newVoiceNote = chord[2][randomIntegerRange(0, chord[2].length)] + '5';
+
+  const newPartNote = {
+    ...note,
+    note: [...note.note, newVoiceNote],
+  };
+
+  return newPartNote;
 };

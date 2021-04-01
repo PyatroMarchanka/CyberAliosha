@@ -1,4 +1,4 @@
-import { ChordModel } from './../dataset/all_chords_for_impro';
+import { ChordModel, PartNote } from './../dataset/all_chords_for_impro';
 import PartCreator, { PartOptions } from './PartCreator';
 
 export default class PartsFabric {
@@ -16,6 +16,8 @@ export default class PartsFabric {
     this.parts.push(part);
     return part;
   }
+
+  addOneMorePart = (part: PartNote[][]) => {};
 
   getParts() {
     return this.parts;

@@ -23,7 +23,6 @@ import { generateMelody } from '../../musicBrain/melodyUtils';
 import { settingsStore } from '../../context/SettingsProvider';
 import { MotiveCreator } from '../../musicBrain/MotiveCreator';
 import PartsFabric from '../../musicBrain/PartsFabric';
-import { useMultipleParts } from '../../hooks/useMultipleParts';
 import { PartOptions } from '../../musicBrain/PartCreator';
 import { useLyric } from '../../hooks/useLyric';
 import { usePart } from '../../hooks/usePart';
@@ -36,15 +35,14 @@ export const MelodiesPage = () => {
     state: { playAccompanimentWithMelody },
     dispatch,
   } = useContext(settingsStore);
+  const [showLyric, setShowLyric] = useState(false);
 
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 
-  const { chords, setChords, generateChords, part, setPart, getMelody } = useChords(
+  const { chords, setChords, generateChords, part, setPart, getMelody, addOneMorePart } = useChords(
     location,
     locationChords
   );
-
-  const { parts, addPart, deleteLastPart } = useMultipleParts(chords);
 
   const { handlePlaying, MPlayer, isPlaying, Player } = usePlayMelodyAndChords({
     chords,
@@ -82,19 +80,29 @@ export const MelodiesPage = () => {
                   value={playAccompanimentWithMelody}
                   onChange={onPlayAccompanimentChange}
                 />
+                <Checkbox label='Lyric' value={showLyric} onChange={setShowLyric} />
               </div>
               <div>
-                <Button disabled={isPlaying} onClick={getMelody}>
-                  Generate melody
-                </Button>
                 <Button disabled={isPlaying} onClick={generateChords}>
                   Generate chords
                 </Button>
+                {!showLyric && (
+                  <Button disabled={isPlaying} onClick={getMelody}>
+                    Generate melody
+                  </Button>
+                )}
+                {!!part.length && (
+                  <Button disabled={isPlaying} onClick={addOneMorePart}>
+                    Add voice
+                  </Button>
+                )}
               </div>
             </Actions>
-            <TextSplitterWrapper>
-              <TextSplitter onSubmit={onLyricAdd} />
-            </TextSplitterWrapper>
+            {showLyric && (
+              <TextSplitterWrapper>
+                <TextSplitter onSubmit={onLyricAdd} />
+              </TextSplitterWrapper>
+            )}
           </Header>
         </MetalBlock>
 

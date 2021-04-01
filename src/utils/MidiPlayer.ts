@@ -52,8 +52,10 @@ export class MidiPlayer {
 
   convertPartNotesPartToMidiPitches = (notes: PartNote[]): MidiNote[] => {
     return notes.map((note) => {
+      const notesIsArray = typeof note.note === 'object';
+
       const midiNote = {
-        note: this.convertNoteToMidiPitch(note.note, note.rest),
+        note: note.note.map((innerNote) => this.convertNoteToMidiPitch(innerNote, note.rest)),
         dur: note.dur,
       };
 
@@ -91,7 +93,7 @@ export class MidiPlayer {
     }
 
     return notes.map((note, index) => ({
-      note: getOctaveForGuitar(note, index),
+      note: [getOctaveForGuitar(note, index)],
       dur: (1 / notesPerBar) as PartNote['dur'],
     }));
   };
@@ -137,7 +139,7 @@ export class MidiPlayer {
     let when = this.playRef.current?.contextTime();
     for (let note of midipart) {
       const bpmDur = N * note.dur;
-      this.playRef.current?.playChordAt(when, instrument, [note.note], bpmDur);
+      this.playRef.current?.playChordAt(when, instrument, note.note, bpmDur);
       // this.playRef.current?.playChordAt(when, 4, [note.note], bpmDur);
       when += bpmDur;
       length += bpmDur;

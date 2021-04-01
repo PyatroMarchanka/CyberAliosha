@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { settingsStore } from '../context/SettingsProvider';
 import { ChordModel, PartNote } from '../dataset/all_chords_for_impro';
-import { generateMelody } from '../musicBrain/melodyUtils';
+import { addOneMorePartToPart, generateMelody } from '../musicBrain/melodyUtils';
 import MidiChordsCreator from '../musicBrain/MidiChordsCreator';
 
 export const useChords = (location: any, locationChords?: ChordModel[]) => {
@@ -41,6 +41,11 @@ export const useChords = (location: any, locationChords?: ChordModel[]) => {
     setPart(newPart);
   }, [chords, notesLength, notesPattern]);
 
+  const addOneMorePart = () => {
+    const newPart = addOneMorePartToPart(part, chords);
+    setPart(newPart);
+  };
+
   useEffect(() => {
     if (locationChords) {
       setChords(locationChords);
@@ -52,6 +57,7 @@ export const useChords = (location: any, locationChords?: ChordModel[]) => {
   return {
     chords,
     setChords,
+    addOneMorePart,
     generateChords,
     getMelody,
     part,

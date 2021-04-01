@@ -75,7 +75,7 @@ export enum DotNotes {
 }
 
 export interface PartNote {
-  note: string;
+  note: string[];
   dur: SolidNotes | DotNotes;
   dot?: boolean;
   rest?: boolean;
@@ -83,7 +83,7 @@ export interface PartNote {
 }
 
 export interface MidiNote {
-  note: number;
+  note: number[];
   dur: SolidNotes | DotNotes;
   dot?: boolean;
 }

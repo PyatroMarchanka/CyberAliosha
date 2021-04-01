@@ -45,9 +45,10 @@ export class MotiveCreator {
     const notes: PartNote[] = cloneDeep(initialPart);
 
     return notes.map((note) => {
-      note.note =
-        this.getClosestNoteInChord(note.note.slice(0, -1) as SharpNotes, chord) +
-        note.note[note.note.length - 1];
+      note.note = [
+        this.getClosestNoteInChord(note.note[0].slice(0, -1) as SharpNotes, chord) +
+          note.note[note.note.length - 1],
+      ];
       return note;
     });
   };
@@ -116,7 +117,7 @@ export class MotiveCreator {
 
     const newNotes: PartNote[] | undefined = durs?.map((dur) => ({
       dur,
-      note: chord[2][randomIntegerRange(0, chord[2].length)] + '4',
+      note: [chord[2][randomIntegerRange(0, chord[2].length)] + '4'],
     }));
 
     return newNotes;

@@ -46,5 +46,5 @@ export const useLyric = (
     }
   };
 
-  return { onLyricAdd };
+  return { onLyricAdd, lyric };
 };

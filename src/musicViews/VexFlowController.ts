@@ -30,7 +30,7 @@ export class VexFlowController {
   ref: any;
   renderer: Vex.Flow.Renderer;
   barsPerLine = 4;
-  lineHeight = 150;
+  lineHeight = 160;
   lineWidth = 300;
   context: Vex.IRenderContext;
 
@@ -95,12 +95,10 @@ export class VexFlowController {
       const noteWithDur = this.getVexflowDuration(partNote);
       const dot = noteWithDur.dot;
       const rest = partNote.rest;
-      const octave = partNote.note[partNote.note.length - 1];
-
-      const accidental = partNote.note.slice(0, -1).length > 1;
 
       const vexflowNote = new Vex.Flow.StaveNote({
-        keys: [rest ? 'B/4' : `${partNote.note[0]}/${octave}`],
+        keys: partNote.note.map((note) => (rest ? 'B/4' : `${note[0]}/${note[note.length - 1]}`)),
+
         duration: rest ? noteWithDur.dur + 'r' : noteWithDur.dur,
       });
 
@@ -108,9 +106,13 @@ export class VexFlowController {
         vexflowNote.addDotToAll();
       }
 
-      if (accidental) {
-        !rest && vexflowNote.addAccidental(0, new Vex.Flow.Accidental('#'));
-      }
+      partNote.note.forEach((note, idx) => {
+        const accidental = note.slice(0, -1).length > 1;
+
+        if (accidental) {
+          !rest && vexflowNote.addAccidental(idx, new Vex.Flow.Accidental('#'));
+        }
+      });
 
       if (partNote.lyric) {
         const lyricMod = this.getLyricModifier(partNote.lyric);
