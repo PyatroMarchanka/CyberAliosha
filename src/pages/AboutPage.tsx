@@ -77,6 +77,13 @@ export const AboutPage = (props: Props) => {
         />
         <Step
           number='05'
+          title='MIDI'
+          copy='
+          You can download melody in MIDI format and use it in any music editor that you prefere! Add any sounds, change notes and tempos and anything you want.
+'
+        />
+        <Step
+          number='06'
           title='Settings'
           copy='
           In the settings section, you can change the playback tempo, the nature of the composed melodies and their density.
