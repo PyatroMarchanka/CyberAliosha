@@ -37,6 +37,15 @@ export const MelodiesPage = () => {
   } = useContext(settingsStore);
   const [showLyric, setShowLyric] = useState(false);
 
+  const onSetShowLyric = (value: boolean) => {
+    if (!value) {
+      setPart([]);
+      setChords(chords.slice(8));
+    }
+
+    setShowLyric(value);
+  };
+
   const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
 
   const { chords, setChords, generateChords, part, setPart, getMelody, addOneMorePart } = useChords(
@@ -80,7 +89,7 @@ export const MelodiesPage = () => {
                   value={playAccompanimentWithMelody}
                   onChange={onPlayAccompanimentChange}
                 />
-                <Checkbox label='Lyric' value={showLyric} onChange={setShowLyric} />
+                <Checkbox label='Lyric' value={showLyric} onChange={onSetShowLyric} />
               </div>
               <div>
                 <Button disabled={isPlaying} onClick={generateChords}>
