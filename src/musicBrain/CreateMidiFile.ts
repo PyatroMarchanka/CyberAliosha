@@ -1,7 +1,5 @@
 import { ChordModel, PartNote } from './../dataset/all_chords_for_impro';
 import PartsFabric from './PartsFabric';
-import MidiChordsCreator from './MidiChordsCreator';
-import { randomIntegerRange } from '../utils';
 // @ts-ignore
 import Midi from 'jsmidgen';
 
