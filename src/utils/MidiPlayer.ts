@@ -134,7 +134,6 @@ export class MidiPlayer {
     var bpm = newBpm || this.bpm;
     var N = (4 * 60) / bpm;
     let length = 0;
-    console.log('part', part);
     const midipart = this.convertPartNotesPartToMidiPitches(part);
     let when = this.playRef.current?.contextTime();
     for (let note of midipart) {

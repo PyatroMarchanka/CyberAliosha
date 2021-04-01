@@ -47,6 +47,8 @@ export const MelodiesPage = () => {
     locationChords
   );
 
+  console.log('part', part);
+
   const { handlePlaying, MPlayer, isPlaying, Player } = usePlayMelodyAndChords({
     chords,
     part,

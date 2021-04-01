@@ -37,7 +37,7 @@ export default class BarCreator {
     if (pattern) {
       pattern.map((patternNote) => {
         resultBar.push({
-          note: [Math.random() > restProbability ? chord[2][patternNote.chordPitch] : ''],
+          note: [chord[2][patternNote.chordPitch]],
           dur: patternNote.dur as PartNote['dur'],
         });
       });
@@ -79,7 +79,6 @@ export default class BarCreator {
       const newNote = this.createRandomNote(
         chord[2],
         durs[index] as PartNote['dur'],
-        null,
         restProbability
       );
       resultBar.push(newNote);
@@ -137,15 +136,10 @@ export default class BarCreator {
     }
   }
 
-  createRandomNote(
-    notes: Notes[],
-    dur: PartNote['dur'],
-    note: Notes | null,
-    restProbability?: number
-  ): PartNote {
+  createRandomNote(notes: Notes[], dur: PartNote['dur'], restProbability?: number): PartNote {
     const randNoteIndex = randomIntegerRange(0, notes.length);
     const randNote = {
-      note: [Math.random() > (restProbability || 0) ? (note ? note : notes[randNoteIndex]) : ''],
+      note: [notes[randNoteIndex]],
       dur: dur || 1 / +DURATIONS[randomIntegerRange(1, DURATIONS.length)],
     };
     return randNote;
