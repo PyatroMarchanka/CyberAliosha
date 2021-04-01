@@ -1,5 +1,5 @@
 import { PartOptions } from './PartCreator';
-import { cloneDeep, map } from 'lodash';
+import { cloneDeep } from 'lodash';
 import { createDurMeasure, randomIntegerRange } from '../utils';
 import {
   PartNote,
@@ -9,8 +9,6 @@ import {
   NotesLengthType,
 } from './../dataset/all_chords_for_impro';
 import BarCreator from './BarCreator';
-
-interface MotiveCreatorProps {}
 
 export class MotiveCreator {
   barCreator: BarCreator;

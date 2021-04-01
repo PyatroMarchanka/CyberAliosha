@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
 
-import { ChordModel, NotesLengthType, PartNote } from '../../dataset/all_chords_for_impro';
-import MidiChordsCreator from '../../musicBrain/MidiChordsCreator';
+import { ChordModel } from '../../dataset/all_chords_for_impro';
 import { SheetStave } from './SheetStave';
 import { useLocation } from 'react-router-dom';
 import { ChordsProgression } from '../../components/global/ChordsProgression';
@@ -18,14 +17,8 @@ import { MetalBlock } from '../../styled/global';
 import { PlayStopButton } from '../../components/global/PlayStopButton';
 import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
 import { TextSplitter } from '../../components/Text/TextSplitter';
-import { convertTextToSyllables, Lyric } from '../../utils/text/textUtils';
-import { generateMelody } from '../../musicBrain/melodyUtils';
 import { settingsStore } from '../../context/SettingsProvider';
-import { MotiveCreator } from '../../musicBrain/MotiveCreator';
-import PartsFabric from '../../musicBrain/PartsFabric';
-import { PartOptions } from '../../musicBrain/PartCreator';
 import { useLyric } from '../../hooks/useLyric';
-import { usePart } from '../../hooks/usePart';
 import { useChords } from '../../hooks/useChords';
 
 export const MelodiesPage = () => {
@@ -39,8 +32,8 @@ export const MelodiesPage = () => {
 
   const onSetShowLyric = (value: boolean) => {
     if (!value) {
+      chords.length > 8 && setChords(chords.slice(8));
       setPart([]);
-      setChords(chords.slice(8));
     }
 
     setShowLyric(value);
