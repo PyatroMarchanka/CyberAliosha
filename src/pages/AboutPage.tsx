@@ -14,7 +14,7 @@ export const AboutPage = (props: Props) => {
     <div>
       <Header title='About' />
       <Block>
-        <Typography variant='h5'>How it works</Typography>
+        <Typography variant='h5'>How it works (in development)</Typography>
         <Step
           number='01'
           title='Introduction'
