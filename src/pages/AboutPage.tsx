@@ -78,9 +78,15 @@ export const AboutPage = (props: Props) => {
         <Step
           number='05'
           title='MIDI'
-          copy='
-          You can download melody in MIDI format and use it in any music editor that you prefere! Add any sounds, change notes and tempos and anything you want.
-'
+          copy={
+            <p>
+              <p>
+                You can download melody in MIDI format and use it in any music editor that you
+                prefere! Add any sounds, change notes and tempos and anything you want.
+              </p>
+              <p>If the file you downloaded doesn't work, try changing its extension to .midi</p>
+            </p>
+          }
         />
         <Step
           number='06'
