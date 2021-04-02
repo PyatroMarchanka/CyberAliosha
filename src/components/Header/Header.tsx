@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '2rem',
       height: '2rem',
     },
-  }),
+  })
 );
 
 export default function Header() {
@@ -45,6 +45,10 @@ export default function Header() {
     {
       title: 'Saved',
       link: routes.saved,
+    },
+    {
+      title: 'About',
+      link: routes.about,
     },
     {
       title: 'Settings',
@@ -68,10 +72,10 @@ export default function Header() {
           items={items}
           target={
             <IconButton
-              edge="start"
+              edge='start'
               className={`${classes.menuButton} settings-icon`}
-              color="default"
-              aria-label="menu"
+              color='default'
+              aria-label='menu'
             >
               <MenuIcon className={classes['MuiSvgIcon-root']} />
             </IconButton>

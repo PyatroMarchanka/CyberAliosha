@@ -3,6 +3,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import { AlioshaLink } from './AlioshaLink';
+import { theme } from '../../utils/theme';
 
 export interface MenuProps {
   target: JSX.Element;
@@ -27,15 +28,15 @@ export function SimpleMenu({ items, target }: MenuProps) {
   return (
     <Container>
       <div
-        className="button"
-        aria-controls="simple-menu"
-        aria-haspopup="true"
+        className='button'
+        aria-controls='simple-menu'
+        aria-haspopup='true'
         onClick={handleClick}
       >
         {target}
       </div>
       <Menu
-        id="simple-menu"
+        id='simple-menu'
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
@@ -43,13 +44,14 @@ export function SimpleMenu({ items, target }: MenuProps) {
       >
         {items.map((item, idx) =>
           item.link ? (
-            <AlioshaLink onClick={handleClose} key={`link-${idx}`} to={item.link}>
-              <MenuItem className="menu">{item.title}</MenuItem>
-            </AlioshaLink>
+            <Link className='link' onClick={handleClose} key={`link-${idx}`} to={item.link}>
+              <MenuItem className='menu'>{item.title}</MenuItem>
+            </Link>
           ) : (
             <MenuItem
+              style={{ color: theme.colors.white }}
               key={`link-${idx}`}
-              className="menu"
+              className='menu'
               onClick={() => {
                 if (item.onClick) {
                   item.onClick();
@@ -59,7 +61,7 @@ export function SimpleMenu({ items, target }: MenuProps) {
             >
               {item.title}
             </MenuItem>
-          ),
+          )
         )}
       </Menu>
     </Container>
@@ -77,4 +79,8 @@ const Container = styled.div`
     border: 0;
     box-shadow: unset;
   }
+`;
+
+const Link = styled(AlioshaLink)`
+  color: ${theme.colors.white};
 `;
