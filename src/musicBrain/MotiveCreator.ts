@@ -43,16 +43,21 @@ export class MotiveCreator {
     const notes: PartNote[] = cloneDeep(initialPart);
 
     return notes.map((note) => {
-      note.note = [
-        this.getClosestNoteInChord(note.note[0].slice(0, -1) as SharpNotes, chord) +
-          note.note[note.note.length - 1],
-      ];
-      return note;
+      const newNote = {
+        ...note,
+      };
+
+      const octave = note.note[0][note.note[0].length - 1];
+      const notePitch: SharpNotes = note.note[0].slice(0, -1) as SharpNotes;
+
+      newNote.note = [this.getClosestNoteInChord(notePitch, chord) + octave];
+
+      return newNote;
     });
   };
 
-  getClosestNoteInChord = (note: SharpNotes, chord: ChordModel) => {
-    const noteIdx = allNotes.indexOf(note);
+  getClosestNoteInChord = (notePitch: SharpNotes, chord: ChordModel) => {
+    const noteIdx = allNotes.indexOf(notePitch);
 
     const resultIdx = chord[2].map((chordNote) => {
       const idx = allNotes.indexOf(chordNote);
@@ -69,13 +74,11 @@ export class MotiveCreator {
 
     const min = resultIdx.reduce((acc, cur) => (acc < cur ? acc : cur));
     const resultNote = chord[2][resultIdx.indexOf(min)];
-
     return resultNote;
   };
 
   getBarWithMovedNotes = (initialPart: PartNote[], chord: ChordModel) => {
     const newBar = this.getBarByMotive(initialPart, chord);
-
     const idxWithBiggestNote = newBar.reduce(
       (acc, cur, idx) => (initialPart[acc].dur < cur.dur ? idx : acc),
       0
