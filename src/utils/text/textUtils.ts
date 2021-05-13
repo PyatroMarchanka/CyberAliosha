@@ -1,5 +1,6 @@
 import nlp from 'compromise';
 import compromiseSyllables from 'compromise-syllables';
+import * as stresses from '../../dataset/stresses.json';
 
 // @ts-ignore
 import { syllabify } from './syllabifyRuFork';
@@ -8,6 +9,7 @@ export type Word = string[];
 export interface LyricLine {
   words: Word[];
   syllablesCount: number;
+  stresses?: number[];
 }
 export interface Lyric {
   lines: LyricLine[];
@@ -16,24 +18,36 @@ export interface Lyric {
 
 nlp.extend(compromiseSyllables);
 
+interface NLPJson {
+  normal: string;
+  syllables: string[];
+  text: string;
+}
+
 export const splitTextLineToSyllables = (text: string) => {
-  let json = (nlp(text).terms() as any).syllables();
-  const syllables = json.map((word: any) => word.syllables);
+  let json: NLPJson[] = (nlp(text).terms() as any).syllables();
+  const syllables = json
+    .filter((data) => !!data.normal)
+    .map((word) => ({
+      word: word.syllables,
+      stress: getWordStressedSyllable(word.normal),
+    }));
   return syllables;
 };
 
 export const convertTextLinesToLyricEnglish = (textLines: string) => {
   const lines = textLines.split('\n');
-  const splited = lines.map((line) => splitTextLineToSyllables(line)) as string[][][];
+  const splited = lines.map((line) => splitTextLineToSyllables(line));
   const lyric: Lyric = {
     lines: splited.map((line) => {
       const lyricLine: LyricLine = {
-        words: line,
-        syllablesCount: line.flat(Infinity).length,
+        words: line.map((word) => word.word),
+        syllablesCount: line.map((word) => word.word).flat(Infinity).length,
+        stresses: line.map((word) => word.stress),
       };
       return lyricLine;
     }),
-    syllablesCount: splited.flat(Infinity).length,
+    syllablesCount: splited.map((line) => line.map((word) => word.word)).flat(Infinity).length,
   };
 
   return lyric;
@@ -80,6 +94,7 @@ export const convertTextLinesToLyricRussian = (textLines: string) => {
       .map((line) => ({
         words: line,
         syllablesCount: line.flat(Infinity).length,
+        stresses: line.map((word) => 2),
       })),
     syllablesCount: lines.flat(Infinity).length,
   };
@@ -102,5 +117,17 @@ export const convertTextToSyllables = (textLines: string) => {
     return convertTextLinesToLyricRussian(textLines);
   } else {
     return convertTextLinesToLyricEnglish(textLines);
+  }
+};
+
+export const getWordStressedSyllable = (word: any) => {
+  const dictionary = (stresses as any).default;
+
+  if (dictionary[word] !== undefined) {
+    console.log('Found in dictionary: ', word);
+    return dictionary[word];
+  } else {
+    console.log('Not found in dictionary ', word);
+    return 0;
   }
 };
