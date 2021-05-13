@@ -12,13 +12,28 @@ export const generateMelody = (chords: ChordModel[], partOptions: PartOptions, l
 
 export const addOneMorePartToPart = (part: PartNote[][], chords: ChordModel[]): PartNote[][] => {
   const newPart = part.map((bar, idx) =>
-    bar.map((note) => addNewVoiceNoteToPartNote(note, part, chords[idx]))
+    bar.map((note) => addRandomVoiceNoteToPartNote(note, part, chords[idx]))
   );
 
   return newPart;
 };
 
-const addNewVoiceNoteToPartNote = (
+const addRandomVoiceNoteToPartNote = (
+  note: PartNote,
+  part: PartNote[][],
+  chord: ChordModel
+): PartNote => {
+  const newVoiceNote = chord[2][randomIntegerRange(0, chord[2].length)] + '5';
+
+  const newPartNote = {
+    ...note,
+    note: [...note.note, newVoiceNote],
+  };
+
+  return newPartNote;
+};
+
+const addLowerVoiceNoteToPartNote = (
   note: PartNote,
   part: PartNote[][],
   chord: ChordModel

@@ -118,7 +118,7 @@ export class MotiveCreator {
 
     const newNotes: PartNote[] | undefined = durs?.map((dur) => ({
       dur,
-      note: [chord[2][randomIntegerRange(0, chord[2].length)] + '4'],
+      note: [chord[2][randomIntegerRange(0, chord[2].length)] + '5'],
     }));
 
     return newNotes;

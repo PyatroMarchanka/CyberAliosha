@@ -64,38 +64,9 @@ export class MidiPlayer {
   };
 
   playPartChords = (chords: ChordModel[], onEnd?: () => void, notesPerBar: number = 4) => {
-    const part = chords.map((chord) => this.getNotesForChord(chord, notesPerBar)).flat();
+    const part = chords.map((chord) => getNotesForChord(chord, notesPerBar)).flat();
 
     this.playPart(part, onEnd, undefined, 4);
-  };
-
-  getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
-    let notes: string[] = [];
-    if (chord[2].length === 3) {
-      notes = [...chord[2], chord[2][1], ...chord[2], chord[2][1]].slice(0, notesPerBar);
-    }
-
-    if (chord[2].length === 4) {
-      notes = [...chord[2], ...chord[2]].slice(0, notesPerBar);
-    }
-
-    if (chord[2].length === 5) {
-      notes = [
-        chord[2][0],
-        chord[2][1],
-        chord[2][3],
-        chord[2][4],
-        chord[2][0],
-        chord[2][1],
-        chord[2][3],
-        chord[2][4],
-      ].slice(0, notesPerBar);
-    }
-
-    return notes.map((note, index) => ({
-      note: [getOctaveForGuitar(note, index)],
-      dur: (1 / notesPerBar) as PartNote['dur'],
-    }));
   };
 
   getPartLength = (part?: PartNote[] | null, chords?: ChordModel[]): number => {
@@ -107,7 +78,7 @@ export class MidiPlayer {
     }
 
     if (chords) {
-      partToCalculate = chords.map((chord) => this.getNotesForChord(chord, 4)).flat();
+      partToCalculate = chords.map((chord) => getNotesForChord(chord, 4)).flat();
     }
 
     var bpm = this.bpm;
@@ -168,20 +139,34 @@ export class MidiPlayer {
 }
 
 const getOctaveForGuitar = (note: string, index: number) => {
-  switch (index) {
-    case 0:
-      return note + '2';
+  return note + '2';
+};
 
-    case 1:
-    case 2:
-      return note + '3';
-
-    case 3:
-    case 4:
-    case 5:
-      return note + '4';
-
-    default:
-      return note + '3';
+export const getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {
+  let notes: string[] = [];
+  if (chord[2].length === 3) {
+    notes = [...chord[2], chord[2][1], ...chord[2], chord[2][1]].slice(0, notesPerBar);
   }
+
+  if (chord[2].length === 4) {
+    notes = [...chord[2], ...chord[2]].slice(0, notesPerBar);
+  }
+
+  if (chord[2].length === 5) {
+    notes = [
+      chord[2][0],
+      chord[2][1],
+      chord[2][3],
+      chord[2][4],
+      chord[2][0],
+      chord[2][1],
+      chord[2][3],
+      chord[2][4],
+    ].slice(0, notesPerBar);
+  }
+
+  return notes.map((note, index) => ({
+    note: [getOctaveForGuitar(note, index)],
+    dur: (1 / notesPerBar) as PartNote['dur'],
+  }));
 };

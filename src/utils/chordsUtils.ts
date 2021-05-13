@@ -93,6 +93,7 @@ const getTermsFromArrToSum = (
     return getTermsFromArrToSum(array, target, result, count);
   }
 };
+
 const getTermsFromArrToSumSimple = (
   array: number[],
   target: number,
