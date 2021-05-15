@@ -19,7 +19,7 @@ export default function MainRouter() {
       <Header />
       <Body>
         <Switch>
-          {/* <Redirect exact from='/' to={routes.chordsEditor} /> */}
+          <Redirect exact from='/' to={routes.chordsEditor} />
           <Route path={routes.test}>
             <TestPage />
           </Route>
