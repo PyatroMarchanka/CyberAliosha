@@ -41,11 +41,27 @@ export default class PartCreator {
     this.onInit(partOptions);
   }
 
+  textNotesDurs = () => {
+    let result = true;
+
+    this.notes.forEach((notes) => {
+      const sum = notes.reduce((acc, cur) => acc + cur.dur, 0);
+      console.log('textNotesDurs sum', sum);
+      if (sum !== 1) {
+        result = false;
+      }
+    });
+
+    return result;
+  };
+
   onInit(partOptions: PartOptions) {
     if (this.lyric) {
-      this.notes = this.lyricPartCreator.createPartByLyric(this.lyric);
+      this.notes = this.lyricPartCreator.createPartByLyricNew(this.lyric, partOptions.notesLength);
+      console.log('textNotesDurs()', this.textNotesDurs());
     } else if (partOptions.pattern === NotesPatterns.Motive) {
       this.notes = this.motiveCreator.getPart(this.chords);
+      console.log('this.notes', this.notes);
     } else {
       this.createNewRandomPart(partOptions.restProbability);
     }

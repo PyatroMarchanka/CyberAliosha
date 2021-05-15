@@ -139,7 +139,22 @@ export class MidiPlayer {
 }
 
 const getOctaveForGuitar = (note: string, index: number) => {
-  return note + '2';
+  switch (index) {
+    case 0:
+      return note + '2';
+
+    case 1:
+    case 2:
+      return note + '3';
+
+    case 3:
+    case 4:
+    case 5:
+      return note + '3';
+
+    default:
+      return note + '3';
+  }
 };
 
 export const getNotesForChord = (chord: ChordModel, notesPerBar: number = 4): PartNote[] => {

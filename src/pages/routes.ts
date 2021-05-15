@@ -6,4 +6,5 @@ export const routes = {
   midiEditor: '/midi-editor',
   about: '/about',
   root: '/',
+  test: '/test',
 };

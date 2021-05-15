@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import { theme } from '../../utils/theme';
@@ -21,6 +21,10 @@ import { settingsStore } from '../../context/SettingsProvider';
 import { useLyric } from '../../hooks/useLyric';
 import { useChords } from '../../hooks/useChords';
 import { MidiFileGetter } from '../../components/global/MidiFileGetter';
+import {
+  convertTextLinesToLyricEnglish,
+  getWordStressedSyllable,
+} from '../../utils/text/textUtils';
 
 export const MelodiesPage = () => {
   const location = useLocation();

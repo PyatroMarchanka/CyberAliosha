@@ -10,6 +10,7 @@ import { theme } from '../utils/theme';
 import Footer from '../components/Footer/Footer';
 import { SavedPage } from './SavedPage';
 import { ChordEditorPage } from './Chords/ChordEditorPage';
+import { TestPage } from './TestPage';
 
 export default function MainRouter() {
   return (
@@ -18,7 +19,10 @@ export default function MainRouter() {
       <Header />
       <Body>
         <Switch>
-          <Redirect exact from='/' to={routes.chordsEditor} />
+          {/* <Redirect exact from='/' to={routes.chordsEditor} /> */}
+          <Route path={routes.test}>
+            <TestPage />
+          </Route>
           <Route path={routes.chordsEditor}>
             <ChordEditorPage />
           </Route>

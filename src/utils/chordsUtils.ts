@@ -1,3 +1,4 @@
+import { Lyric, LyricLine } from './text/textUtils';
 import { SolidNotes, DotNotes } from './../dataset/all_chords_for_impro';
 import { NOTES_MAP_SOLO } from '../dataset/dataset';
 import { ChordModel, ChordType, NotesLengthType } from '../dataset/all_chords_for_impro';
@@ -223,4 +224,5 @@ export {
   chordStringToFullChord,
   isInChordsArray,
   isChordsEqual,
+  getDursByNotesLengthType,
 };

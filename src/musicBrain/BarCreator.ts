@@ -91,6 +91,16 @@ export default class BarCreator {
     }
   };
 
+  getNotesWithOctavesForBar = (
+    durs: { dur?: number; isAdditional?: boolean; isLiga?: boolean }[],
+    chord: ChordModel
+  ): PartNote[] => {
+    return durs.map((note) => ({
+      dur: note.dur!,
+      note: [chord[2][randomIntegerRange(0, chord[2].length)] + '5'],
+    }));
+  };
+
   muteNotesBySyllablesCount = (notes: PartNote[], count: number) => {
     const shortIdxes: number[] = notes.map((note, idx) => idx);
 

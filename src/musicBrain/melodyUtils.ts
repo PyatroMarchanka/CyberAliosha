@@ -23,7 +23,7 @@ const addRandomVoiceNoteToPartNote = (
   part: PartNote[][],
   chord: ChordModel
 ): PartNote => {
-  const newVoiceNote = chord[2][randomIntegerRange(0, chord[2].length)] + '5';
+  const newVoiceNote = chord[2][randomIntegerRange(0, chord[2].length)] + '6';
 
   const newPartNote = {
     ...note,

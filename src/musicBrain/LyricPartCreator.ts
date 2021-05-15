@@ -1,8 +1,15 @@
+import { LyricLine } from './../utils/text/textUtils';
 import { PartOptions } from './PartCreator';
 import { Pattern } from './PatternCreator';
 import { Lyric } from '../utils/text/textUtils';
-import { PartNote, ChordModel, NotesPatterns } from './../dataset/all_chords_for_impro';
+import {
+  PartNote,
+  ChordModel,
+  NotesPatterns,
+  NotesLengthType,
+} from './../dataset/all_chords_for_impro';
 import BarCreator from './BarCreator';
+import { checksBarForStresses, createLyricLineNotesDurs } from '../utils';
 
 export class LyricPartCreator {
   notes: PartNote[][];
@@ -24,7 +31,7 @@ export class LyricPartCreator {
     return this.notes;
   };
 
-  getBarNotesByLyric = (chordNotesCounts: number[], restProbability: number = 0) => {
+  getBarNotesByLyric = (barNotesCounts: number[], restProbability: number = 0) => {
     let notes: PartNote[][] = [];
 
     for (let index = 0; index < this.squaresCountToAdd; index++) {
@@ -34,7 +41,7 @@ export class LyricPartCreator {
           i,
           this.pattern,
           restProbability,
-          chordNotesCounts[i]
+          barNotesCounts[i]
         );
 
         if (newBar) {
@@ -73,6 +80,51 @@ export class LyricPartCreator {
   };
 
   addLyricToNotes = (notes: PartNote[][], lyric: Lyric) => {
+    const textLine = lyric.lines.map((line) => line.words.flat(Infinity)).flat() as string[];
+
+    const result = notes.map((notesBar, barIdx) => {
+      return notesBar.map((note, noteIdx) => {
+        if (!note.rest) {
+          note.lyric = textLine.shift();
+        }
+        return note;
+      });
+    });
+
+    return result;
+  };
+
+  // NEW LYRIC MELODY CREATOR
+  createPartByLyricNew = (lyric: Lyric, notesLength: NotesLengthType) => {
+    this.notes = [];
+    let lyricNotes = lyric.lines
+      .map((line) => createLyricLineNotesDurs(line, notesLength, 2))
+      .flat();
+    lyricNotes.forEach((notes) => {
+      if (!checksBarForStresses(notes as any, 1)) {
+        throw new Error('Bar is not valid');
+      }
+    });
+
+    const patrNotes = lyricNotes.map((barDurs, i) => {
+      const durs = barDurs.map((dur) => dur.dur!);
+
+      const barNotes = this.barCreator.getNotesWithOctavesForBar(
+        barDurs,
+        this.chords[i % this.chords.length]
+      );
+
+      return barNotes!.map(
+        (note, i) =>
+          ({ ...note, rest: !!(barDurs[i].isAdditional || barDurs[i].isLiga) } as PartNote)
+      );
+    });
+
+    this.notes = this.addLyricToNotesNew(patrNotes, lyric);
+    return this.notes;
+  };
+
+  addLyricToNotesNew = (notes: PartNote[][], lyric: Lyric): PartNote[][] => {
     const textLine = lyric.lines.map((line) => line.words.flat(Infinity)).flat() as string[];
 
     const result = notes.map((notesBar, barIdx) => {

@@ -166,6 +166,8 @@ export class VexFlowController {
         return { ...partNote, dur: '2', dot: true };
       case DotNotes.Quarter:
         return { ...partNote, dur: '4', dot: true };
+      case 0.625:
+        return { ...partNote, dur: '2', dot: true };
       default:
         return partNote.dur;
     }
