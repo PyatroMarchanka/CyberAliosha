@@ -1,30 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 
-import styled from 'styled-components';
-import { theme } from '../../utils/theme';
+import styled from "styled-components";
+import { theme } from "../../utils/theme";
 
-import { ChordModel } from '../../dataset/all_chords_for_impro';
-import { SheetStave } from './SheetStave';
-import { useLocation } from 'react-router-dom';
-import { ChordsProgression } from '../../components/global/ChordsProgression';
+import { ChordModel } from "../../dataset/all_chords_for_impro";
+import { SheetStave } from "./SheetStave";
+import { useLocation } from "react-router-dom";
+import { ChordsProgression } from "../../components/global/ChordsProgression";
 
-import { Button } from '../../components/global/Button';
-import { PageTitle } from '../../components/global/PageTitle';
-import { SaveMelodiesModal } from './SaveMelodiesModal';
-import { Checkbox } from '../../components/global/Checkbox';
-import { MetalBlock } from '../../styled/global';
+import { Button } from "../../components/global/Button";
+import { PageTitle } from "../../components/global/PageTitle";
+import { SaveMelodiesModal } from "./SaveMelodiesModal";
+import { Checkbox } from "../../components/global/Checkbox";
+import { MetalBlock } from "../../styled/global";
 
-import { PlayStopButton } from '../../components/global/PlayStopButton';
-import { usePlayMelodyAndChords } from '../../hooks/usePlayMelodyAndChords';
-import { TextSplitter } from '../../components/Text/TextSplitter';
-import { settingsStore } from '../../context/SettingsProvider';
-import { useLyric } from '../../hooks/useLyric';
-import { useChords } from '../../hooks/useChords';
-import { MidiFileGetter } from '../../components/global/MidiFileGetter';
+import { PlayStopButton } from "../../components/global/PlayStopButton";
+import { usePlayMelodyAndChords } from "../../hooks/usePlayMelodyAndChords";
+import { TextSplitter } from "../../components/Text/TextSplitter";
+import { settingsStore } from "../../context/SettingsProvider";
+import { useLyric } from "../../hooks/useLyric";
+import { useChords } from "../../hooks/useChords";
+import { MidiFileGetter } from "../../components/global/MidiFileGetter";
 import {
   convertTextLinesToLyricEnglish,
   getWordStressedSyllable,
-} from '../../utils/text/textUtils';
+} from "../../utils/text/textUtils";
 
 export const MelodiesPage = () => {
   const location = useLocation();
@@ -44,14 +44,21 @@ export const MelodiesPage = () => {
     setShowLyric(value);
   };
 
-  const locationChords = (location.state as { chords: ChordModel[] } | undefined)?.chords;
+  const locationChords = (
+    location.state as { chords: ChordModel[] } | undefined
+  )?.chords;
 
-  const { chords, setChords, generateChords, part, setPart, getMelody, addOneMorePart } = useChords(
-    location,
-    locationChords
-  );
+  const {
+    chords,
+    setChords,
+    generateChords,
+    part,
+    setPart,
+    getMelody,
+    addOneMorePart,
+  } = useChords(location, locationChords);
 
-  console.log('part', part);
+  console.log("part", part);
 
   const { handlePlaying, MPlayer, isPlaying, Player } = usePlayMelodyAndChords({
     chords,
@@ -60,7 +67,7 @@ export const MelodiesPage = () => {
 
   const onPlayAccompanimentChange = (value: boolean) => {
     dispatch({
-      type: 'PLAY_ACCOMPANIMENT',
+      type: "PLAY_ACCOMPANIMENT",
       payload: value,
     });
   };
@@ -69,7 +76,7 @@ export const MelodiesPage = () => {
 
   return (
     <>
-      <PageTitle title='Melodies Editor' />
+      <PageTitle title="Melodies Editor" />
       <Container>
         <MetalBlock>
           <Header>
@@ -82,18 +89,27 @@ export const MelodiesPage = () => {
               </Chords>
             )}
             <Actions>
-              <div className='buttons'>
+              <div className="buttons">
                 {part.length > 0 && (
-                  <PlayStopButton handlePlaying={handlePlaying} isPlaying={isPlaying} />
+                  <PlayStopButton
+                    handlePlaying={handlePlaying}
+                    isPlaying={isPlaying}
+                  />
                 )}
                 <SaveMelodiesModal melody={part} chords={chords} />
-                {!!part.length && <MidiFileGetter part={part} chords={chords} />}
+                {!!part.length && (
+                  <MidiFileGetter part={part} chords={chords} />
+                )}
                 <Checkbox
-                  label='Play accompaniment'
+                  label="Acc."
                   value={playAccompanimentWithMelody}
                   onChange={onPlayAccompanimentChange}
                 />
-                <Checkbox label='Lyric' value={showLyric} onChange={onSetShowLyric} />
+                <Checkbox
+                  label="Lyric"
+                  value={showLyric}
+                  onChange={onSetShowLyric}
+                />
               </div>
               <div>
                 <Button disabled={isPlaying} onClick={generateChords}>
@@ -136,7 +152,9 @@ const Chords = styled.div`
 
 const Actions = styled.div`
   .buttons {
+    display: flex;
     padding: 0 10px;
+    flex-wrap: wrap;
   }
   display: flex;
   flex-direction: column;
